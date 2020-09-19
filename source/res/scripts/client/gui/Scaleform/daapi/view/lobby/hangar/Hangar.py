@@ -30,7 +30,7 @@ from gui.ranked_battles import ranked_helpers
 from gui.ranked_battles.constants import PrimeTimeStatus
 from gui.shared import event_dispatcher as shared_events, g_eventBus
 from gui.shared import events, EVENT_BUS_SCOPE
-from gui.shared.event_dispatcher import showRankedPrimeTimeWindow, showTenYearsCountdownOnBoarding
+from gui.shared.event_dispatcher import showRankedPrimeTimeWindow, showTenYearsCountdownOnBoarding, showLowTierRewardsOverlay
 from gui.shared.event_dispatcher import showAmmunitionSetupView
 from gui.shared.events import LobbySimpleEvent, AmmunitionSetupViewEvent
 from gui.shared.gui_items import GUI_ITEM_TYPE
@@ -44,7 +44,7 @@ from helpers.i18n import makeString as _ms
 from helpers.statistics import HANGAR_LOADING_STATE
 from skeletons.account_helpers.settings_core import ISettingsCore
 from skeletons.connection_mgr import IConnectionManager
-from skeletons.gui.game_control import IIGRController
+from skeletons.gui.game_control import IIGRController, ILowTierRewardsController, IBobController
 from skeletons.gui.game_control import IRankedBattlesController, IEpicBattleMetaGameController, IPromoController, IBattlePassController, IHangarLoadingController, ITenYearsCountdownController, IBattleRoyaleController
 from skeletons.gui.impl import IGuiLoader
 from skeletons.gui.lobby_context import ILobbyContext
@@ -58,6 +58,7 @@ from account_helpers.AccountSettings import NATION_CHANGE_VIEWED
 from gui.impl.gen import R
 from gui.impl import backport
 from gui.Scaleform.daapi.view.lobby.hangar.seniority_awards import getSeniorityAwardsBoxesCount
+from gui.Scaleform.daapi.view.lobby.bob import bob_helpers
 
 def predicateNotEmptyWindow(window):
     return window.content is not None and window.windowFlags != WindowFlags.TOOLTIP and window.windowFlags != WindowFlags.CONTEXT_MENU and window.content.viewFlags != ViewFlags.COMPONENT
@@ -88,7 +89,9 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
     _promoController = dependency.descriptor(IPromoController)
     _connectionMgr = dependency.descriptor(IConnectionManager)
     _offersBannerController = dependency.descriptor(IOffersBannerController)
+    _bobController = dependency.descriptor(IBobController)
     _countdownController = dependency.descriptor(ITenYearsCountdownController)
+    _lowTierController = dependency.descriptor(ILowTierRewardsController)
     _hangarLoadingController = dependency.descriptor(IHangarLoadingController)
     _COMMON_SOUND_SPACE = __SOUND_SETTINGS
 
@@ -155,6 +158,8 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
         self.epicController.onUpdated += self.__onEpicSkillsUpdate
         self.epicController.onPrimeTimeStatusUpdated += self.__onEpicSkillsUpdate
         self._promoController.onNewTeaserReceived += self.__onTeaserReceived
+        self._bobController.onUpdated += self.onBobUpdate
+        self._bobController.onPrimeTimeStatusUpdated += self.__updateAlertMessage
         self.hangarSpace.setVehicleSelectable(True)
         g_prbCtrlEvents.onVehicleClientStateChanged += self.__onVehicleClientStateChanged
         g_clientUpdateManager.addCallbacks({'inventory': self.__updateAlertMessage})
@@ -198,6 +203,8 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
         self.epicController.onUpdated -= self.__onEpicSkillsUpdate
         self.epicController.onPrimeTimeStatusUpdated -= self.__onEpicSkillsUpdate
         self._promoController.onNewTeaserReceived -= self.__onTeaserReceived
+        self._bobController.onUpdated -= self.onBobUpdate
+        self._bobController.onPrimeTimeStatusUpdated -= self.__updateAlertMessage
         if self.__teaser is not None:
             self.__teaser.stop()
             self.__teaser = None
@@ -248,6 +255,9 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
                 newCarouselAlias = HANGAR_ALIASES.EPICBATTLE_TANK_CAROUSEL
             elif self.battleRoyaleController.isBattleRoyaleMode():
                 newCarouselAlias = HANGAR_ALIASES.ROYALE_TANK_CAROUSEL
+            elif self.prbDispatcher.getFunctionalState().isInPreQueue(QUEUE_TYPE.BOB) or self.prbDispatcher.getFunctionalState().isInUnit(PREBATTLE_TYPE.BOB):
+                linkage = HANGAR_ALIASES.TANK_CAROUSEL_UI
+                newCarouselAlias = HANGAR_ALIASES.BOB_TANK_CAROUSEL
         if prevCarouselAlias != newCarouselAlias or force:
             self.as_setCarouselS(linkage, newCarouselAlias)
             self.__currentCarouselAlias = newCarouselAlias
@@ -302,8 +312,12 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
 
     def __updateAlertMessage(self, *_):
         if self.prbDispatcher is not None:
-            if self.prbDispatcher.getFunctionalState().isInPreQueue(QUEUE_TYPE.RANKED):
+            state = self.prbDispatcher.getFunctionalState()
+            if state.isInPreQueue(QUEUE_TYPE.RANKED):
                 self.__updateRankedAlertMsg()
+                return
+            if state.isInPreQueue(QUEUE_TYPE.BOB):
+                self.__updateBobAlertMsg()
                 return
         self.as_setAlertMessageBlockVisibleS(False)
         return
@@ -315,6 +329,12 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
         buttonCallback = showRankedPrimeTimeWindow if hasSuitVehs else g_eventDispatcher.loadRankedUnreachable
         data = ranked_helpers.getAlertStatusVO()
         self.__updateAlertBlock(buttonCallback, data, isBlockedStatus or not hasSuitVehs)
+
+    def __updateBobAlertMsg(self):
+        status, _, _ = self._bobController.getPrimeTimeStatus()
+        visible = status in (PrimeTimeStatus.NOT_AVAILABLE, PrimeTimeStatus.NOT_SET, PrimeTimeStatus.FROZEN)
+        data = bob_helpers.getPrimeTimeStatusVO(status, self._bobController.hasAnyPeripheryWithPrimeTime())
+        self.__updateAlertBlock(shared_events.showBobPrimeTimeWindow, data, visible)
 
     def __updateAlertBlock(self, callback, data, visible):
         self.as_setAlertMessageBlockVisibleS(visible)
@@ -442,6 +462,14 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
     def __updateBattleRoyaleComponents(self):
         self.__updateHeader()
         self.__updateHeaderComponent()
+
+    def onBobUpdate(self):
+        self.__updateHeader()
+        self.__updateHeaderComponent()
+        self.__updateAlertMessage()
+
+    def _onPopulateEnd(self):
+        pass
 
     def __onEpicSkillsUpdate(self, *_):
         self.__updateHeader()
@@ -604,9 +632,15 @@ class Hangar(LobbySelectableView, HangarMeta, IGlobalListener):
         isEnabled = self._countdownController.isEnabled()
         isBlocksDataValid = self._countdownController.isBlocksDataValid()
         currentBlockNumber = self._countdownController.getCurrentBlockNumber()
+        callbackLowTierRewardsOverlay = None
+        if self._lowTierController.isEnabled() and self._lowTierController.isRewardReady():
+            callbackLowTierRewardsOverlay = showLowTierRewardsOverlay
         if isEnabled and isBlocksDataValid and not isOnBoardingCurrentBlockVisited(currentBlockNumber):
             setOnBoardingLastVisitedBlock(currentBlockNumber)
-            showTenYearsCountdownOnBoarding(currentBlockNumber, self._countdownController.isCurrentBlockActive(), self._countdownController.getMonths(), self._countdownController.getBlocksCount())
+            showTenYearsCountdownOnBoarding(currentBlockNumber, self._countdownController.isCurrentBlockActive(), self._countdownController.getMonths(), self._countdownController.getBlocksCount(), callbackLowTierRewardsOverlay)
+        elif callbackLowTierRewardsOverlay:
+            callbackLowTierRewardsOverlay()
+        return
 
     def __onOptDeviceClick(self, **kwargs):
         self.as_showSwitchToAmmunitionS()

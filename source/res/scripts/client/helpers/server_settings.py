@@ -499,6 +499,20 @@ class _SeniorityAwardsConfig(namedtuple('_SeniorityAwardsConfig', ('enabled', 'a
         return self.hangarWidgetVisibility
 
 
+class _AdventCalendarConfig(namedtuple('_AdventCalendarConfig', ('calendarURL', 'popupIntervalInHours'))):
+    __slots__ = ()
+
+    def __new__(cls, **kwargs):
+        defaults = dict(calendarURL='', popupIntervalInHours=24)
+        defaults.update(kwargs)
+        return super(_AdventCalendarConfig, cls).__new__(cls, **defaults)
+
+    def replace(self, data):
+        allowedFields = self._fields
+        dataToUpdate = dict(((k, v) for k, v in data.iteritems() if k in allowedFields))
+        return self._replace(**dataToUpdate)
+
+
 _crystalRewardInfo = namedtuple('_crystalRewardInfo', 'level, arenaType, winTop3, loseTop3, winTop10, loseTop10')
 
 class _crystalRewardConfigSection(namedtuple('_crystalRewardConfigSection', ('level', 'vehicle'))):
@@ -529,6 +543,27 @@ class _crystalRewardsConfig(namedtuple('_crystalRewardsConfig', ('limits', 'rewa
         return results
 
 
+class _BobConfig(namedtuple('_BobConfig', ('isEnabled', 'peripheryIDs', 'primeTimes', 'seasons', 'cycleTimes', 'levels', 'forbiddenClassTags', 'forbiddenVehTypes'))):
+    __slots__ = ()
+
+    def __new__(cls, **kwargs):
+        defaults = dict(isEnabled=False, peripheryIDs={}, primeTimes={}, seasons={}, cycleTimes={}, levels=set(), forbiddenClassTags=set(), forbiddenVehTypes=set())
+        defaults.update(kwargs)
+        return super(_BobConfig, cls).__new__(cls, **defaults)
+
+    def asDict(self):
+        return self._asdict()
+
+    def replace(self, data):
+        allowedFields = self._fields
+        dataToUpdate = dict(((k, v) for k, v in data.iteritems() if k in allowedFields))
+        return self._replace(**dataToUpdate)
+
+    @classmethod
+    def defaults(cls):
+        return cls()
+
+
 class ServerSettings(object):
 
     def __init__(self, serverSettings):
@@ -550,6 +585,7 @@ class ServerSettings(object):
         self.__rankedBattlesSettings = _RankedBattlesConfig.defaults()
         self.__epicMetaGameSettings = _EpicMetaGameConfig()
         self.__eventProgressionSettings = _EventProgressionConfig()
+        self.__adventCalendar = _AdventCalendarConfig()
         self.__epicGameSettings = _EpicGameConfig()
         self.__telecomConfig = _TelecomConfig.defaults()
         self.__squadPremiumBonus = _SquadPremiumBonus.defaults()
@@ -596,6 +632,8 @@ class ServerSettings(object):
             self.__rankedBattlesSettings = makeTupleByDict(_RankedBattlesConfig, self.__serverSettings['ranked_config'])
         if 'event_progression_config' in self.__serverSettings:
             self.__eventProgressionSettings = makeTupleByDict(_EventProgressionConfig, self.__serverSettings['event_progression_config'])
+        if 'advent_calendar_config' in self.__serverSettings:
+            self.__adventCalendar = makeTupleByDict(_AdventCalendarConfig, self.__serverSettings['advent_calendar_config'])
         if 'epic_config' in self.__serverSettings:
             LOG_DEBUG('epic_config', self.__serverSettings['epic_config'])
             self.__epicMetaGameSettings = makeTupleByDict(_EpicMetaGameConfig, self.__serverSettings['epic_config']['epicMetaGame'])
@@ -627,6 +665,11 @@ class ServerSettings(object):
             self.__battlePassConfig = BattlePassConfig({})
         if _crystalRewardsConfig.CONFIG_NAME in self.__serverSettings:
             self.__crystalRewardsConfig = makeTupleByDict(_crystalRewardsConfig, self.__serverSettings[_crystalRewardsConfig.CONFIG_NAME])
+        if 'bob_config' in self.__serverSettings:
+            LOG_DEBUG('bob_config', self.__serverSettings['bob_config'])
+            self.__bobSettings = makeTupleByDict(_BobConfig, self.__serverSettings['bob_config'])
+        else:
+            self.__bobSettings = _BobConfig.defaults()
         self.onServerSettingsChange(serverSettings)
 
     def update(self, serverSettingsDiff):
@@ -644,11 +687,16 @@ class ServerSettings(object):
         if 'event_progression_config' in serverSettingsDiff:
             self.__updateEventProgression(serverSettingsDiff)
             self.__serverSettings['event_progression_config'] = serverSettingsDiff['event_progression_config']
+        if 'advent_calendar_config' in serverSettingsDiff:
+            self.__updateAdventCalendar(serverSettingsDiff)
+            self.__serverSettings['advent_calendar_config'] = serverSettingsDiff['advent_calendar_config']
         if 'epic_config' in serverSettingsDiff:
             self.__updateEpic(serverSettingsDiff)
             self.__serverSettings['epic_config'] = serverSettingsDiff['epic_config']
         if Configs.BATTLE_ROYALE_CONFIG.value in serverSettingsDiff:
             self.__updateBattleRoyale(serverSettingsDiff)
+        if 'bob_config' in serverSettingsDiff:
+            self.__updateBob(serverSettingsDiff)
         if 'telecom_config' in serverSettingsDiff:
             self.__telecomConfig = _TelecomConfig(self.__serverSettings['telecom_config'])
         if 'disabledPMOperations' in serverSettingsDiff:
@@ -747,6 +795,10 @@ class ServerSettings(object):
         return self.__eventProgressionSettings
 
     @property
+    def adventCalendar(self):
+        return self.__adventCalendar
+
+    @property
     def epicMetaGame(self):
         return self.__epicMetaGameSettings
 
@@ -757,6 +809,10 @@ class ServerSettings(object):
     @property
     def battleRoyale(self):
         return self.__battleRoyaleSettings
+
+    @property
+    def bobConfig(self):
+        return self.__bobSettings
 
     @property
     def telecomConfig(self):
@@ -944,6 +1000,9 @@ class ServerSettings(object):
     def isPreferredMapsEnabled(self):
         return self.__getGlobalSetting('isPreferredMapsEnabled', False)
 
+    def isGlobalMapEnabled(self):
+        return self.__getGlobalSetting('isGlobalMapEnabled', False)
+
     def isBattleBoostersEnabled(self):
         return self.__getGlobalSetting('isBattleBoostersEnabled', False)
 
@@ -997,12 +1056,18 @@ class ServerSettings(object):
     def __updateEventProgression(self, targetSettings):
         self.__eventProgressionSettings = self.__eventProgressionSettings.replace(targetSettings['event_progression_config'])
 
+    def __updateAdventCalendar(self, targetSettings):
+        self.__adventCalendar = self.__adventCalendar.replace(targetSettings['advent_calendar_config'])
+
     def __updateRanked(self, targetSettings):
         self.__rankedBattlesSettings = self.__rankedBattlesSettings.replace(targetSettings['ranked_config'])
 
     def __updateEpic(self, targetSettings):
         self.__epicMetaGameSettings = self.__epicMetaGameSettings.replace(targetSettings['epic_config'].get('epicMetaGame', {}))
         self.__epicGameSettings = self.__epicGameSettings.replace(targetSettings['epic_config'])
+
+    def __updateBob(self, targetSettings):
+        self.__bobSettings = self.__bobSettings.replace(targetSettings['bob_config'])
 
     def __updateSquadBonus(self, sourceSettings):
         self.__squadPremiumBonus = self.__squadPremiumBonus.replace(sourceSettings[PremiumConfigs.PREM_SQUAD])

@@ -28,6 +28,7 @@ from gui.Scaleform.genConsts.EVENTPROGRESSION_ALIASES import EVENTPROGRESSION_AL
 from gui.Scaleform.genConsts.PERSONAL_MISSIONS_ALIASES import PERSONAL_MISSIONS_ALIASES
 from gui.Scaleform.genConsts.RANKEDBATTLES_ALIASES import RANKEDBATTLES_ALIASES
 from gui.Scaleform.genConsts.STORAGE_CONSTANTS import STORAGE_CONSTANTS
+from gui.Scaleform.genConsts.BATTLE_OF_BLOGGERS_ALIASES import BATTLE_OF_BLOGGERS_ALIASES
 from gui.Scaleform.locale.MESSENGER import MESSENGER
 from gui.game_control.links import URLMacros
 from gui.impl import backport
@@ -49,6 +50,7 @@ from gui.shared.event_bus import EVENT_BUS_SCOPE
 from gui.shared.formatters import text_styles
 from gui.shared.gui_items.Vehicle import getUserName
 from gui.shared.gui_items.processors.goodies import BoosterActivator
+from gui.shared.main_wnd_state_watcher import LowTierWindowWatcher
 from gui.shared.money import Currency
 from gui.shared.utils import isPopupsWindowsOpenDisabled
 from gui.shared.utils.functions import getViewName, getUniqueViewName
@@ -63,7 +65,7 @@ from helpers.i18n import makeString as _ms
 from items import vehicles as vehicles_core
 from nations import NAMES
 from skeletons.gui.app_loader import IAppLoader
-from skeletons.gui.game_control import IHeroTankController, IReferralProgramController, IEpicBattleMetaGameController, IClanNotificationController, ITenYearsCountdownController
+from skeletons.gui.game_control import IHeroTankController, IReferralProgramController, IEpicBattleMetaGameController, IClanNotificationController, ITenYearsCountdownController, ILowTierRewardsController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.impl import IGuiLoader
 from skeletons.gui.lobby_context import ILobbyContext
@@ -110,6 +112,10 @@ def showEpicBattlesPrimeTimeWindow():
 
 def showEventProgressionBuyConfirmView(ctx):
     g_eventBus.handleEvent(events.LoadViewEvent(alias=EVENTPROGRESSION_ALIASES.EVENT_PROGRESION_BUY_CONFIRM_VIEW_ALIAS, ctx=ctx), EVENT_BUS_SCOPE.LOBBY)
+
+
+def showBobPrimeTimeWindow():
+    g_eventBus.handleEvent(events.LoadViewEvent(alias=BATTLE_OF_BLOGGERS_ALIASES.BOB_PRIME_TIME_ALIAS, ctx={}), EVENT_BUS_SCOPE.LOBBY)
 
 
 def showEpicBattlesWelcomeBackWindow():
@@ -713,6 +719,44 @@ def showTenYearsCountdownOverlay(url=None, path=None):
         return
 
 
+@adisp.process
+def showLowTierRewardsOverlay(url=None, path=None, callback=None):
+    import BigWorld
+    eventController = dependency.instance(ILowTierRewardsController)
+    if not eventController.isEnabled():
+        _logger.warning('Low tier rewards event is not enabled. Nothing will be shown.')
+        return
+    else:
+        if url:
+            url = yield URLMacros().parse(url)
+        else:
+            url = eventController.getEventBaseURL()
+        if path:
+            path = yield URLMacros().parse(path)
+        else:
+            path = ''
+        if url is None:
+            _logger.error('Low tier rewards events baseURL is missed')
+        url = '/'.join((node.strip('/') for node in (url, path)))
+        watcher = None
+
+        def loadOverlay():
+            g_eventBus.handleEvent(events.LoadViewEvent(VIEW_ALIAS.OVERLAY_LOW_TIER_REWARDS, ctx={'url': url,
+             'allowRightClick': False,
+             'callbackOnDispose': callback}), EVENT_BUS_SCOPE.LOBBY)
+            if watcher is not None:
+                watcher.mainWindowWatcherDestroy()
+            return
+
+        if url:
+            if BigWorld.isWindowVisible():
+                loadOverlay()
+            else:
+                watcher = LowTierWindowWatcher(loadOverlay)
+                watcher.mainWindowWatcherInit()
+        return
+
+
 def showSeniorityRewardWindow():
     from gui.impl.lobby.seniority_awards.seniority_reward_view import SeniorityRewardWindow
     uiLoader = dependency.instance(IGuiLoader)
@@ -799,6 +843,12 @@ def isViewLoaded(layoutID):
     else:
         view = uiLoader.windowsManager.getViewByLayoutID(layoutID)
         return view is not None
+
+
+def showBattlePassOnboardingWindow(parent=None):
+    from gui.impl.lobby.battle_pass.battle_pass_onboarding_view import BattlePassOnboardingWindow
+    window = BattlePassOnboardingWindow(parent)
+    window.load()
 
 
 def showStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel=''):
@@ -994,11 +1044,11 @@ def _killOldView(layoutID):
     return False
 
 
-def showOfferGiftsWindow(offerID):
+def showOfferGiftsWindow(offerID, overrideSuccessCallback=None):
     from gui.impl.lobby.offers.offer_gifts_window import OfferGiftsWindow
     layoutID = R.views.lobby.offers.OfferGiftsWindow()
     _killOldView(layoutID)
-    g_eventBus.handleEvent(events.LoadUnboundViewEvent(layoutID, OfferGiftsWindow, ScopeTemplates.LOBBY_SUB_SCOPE, offerID=offerID), scope=EVENT_BUS_SCOPE.LOBBY)
+    g_eventBus.handleEvent(events.LoadUnboundViewEvent(layoutID, OfferGiftsWindow, ScopeTemplates.LOBBY_SUB_SCOPE, offerID=offerID, overrideSuccessCallback=overrideSuccessCallback), scope=EVENT_BUS_SCOPE.LOBBY)
 
 
 @async
@@ -1044,9 +1094,9 @@ def showProgressiveItemsView(itemIntCD=None):
     return
 
 
-def showTenYearsCountdownOnBoarding(stageNumber, isStageActive, months, blocksCount):
+def showTenYearsCountdownOnBoarding(stageNumber, isStageActive, months, blocksCount, callback=None):
     from gui.impl.lobby.ten_years_countdown.ten_years_onboarding_view import TenYearsOnboardingWindow
-    window = TenYearsOnboardingWindow(stageNumber, isStageActive, months, blocksCount)
+    window = TenYearsOnboardingWindow(stageNumber, isStageActive, months, blocksCount, callback)
     window.load()
 
 

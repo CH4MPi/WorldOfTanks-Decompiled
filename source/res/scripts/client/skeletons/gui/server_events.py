@@ -179,9 +179,3 @@ class IEventsCache(object):
 
     def getProgressiveReward(self):
         raise NotImplementedError
-
-    def getIngameEventsData(self):
-        raise NotImplementedError
-
-    def getWT(self):
-        raise NotImplementedError

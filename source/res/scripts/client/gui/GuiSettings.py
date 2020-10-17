@@ -16,7 +16,6 @@ BrowserProps = namedtuple('BrowserProps', 'url params')
 PostBattleExchangeProps = namedtuple('PostBattleExchangeProps', 'enabled url')
 EasterEggProps = namedtuple('EasterEggProps', 'enabled ruLangGroup')
 _MacrosValue = namedtuple('MacrosValue', 'macros dictValue')
-_EventSettingsProps = namedtuple('EventSettingsProps', 'bossHpRatio')
 
 class EULAProps(object):
     __slots__ = ('__full', '__url')
@@ -70,8 +69,7 @@ _SETTING_CONVERTERS = {'loginRssFeed': _convertToNamedTuple,
  'markerScaleSettings': _convertVector4ToTuple,
  'browser': _convertToNamedTuple,
  'postBattleExchange': _convertToNamedTuple,
- 'easterEgg': _convertToNamedTuple,
- 'eventSettings': _convertToNamedTuple}
+ 'easterEgg': _convertToNamedTuple}
 _DEFAULT_SETTINGS = {'registrationURL': '',
  'registrationProxyURL': '',
  'recoveryPswdURL': '',
@@ -136,8 +134,7 @@ _DEFAULT_SETTINGS = {'registrationURL': '',
  'easterEgg': EasterEggProps(True, []),
  'premiumInfo': {},
  'checkPromoFrequencyInBattles': 5,
- 'vivoxLicense': '',
- 'eventSettings': _EventSettingsProps(0.1)}
+ 'vivoxLicense': ''}
 
 class GuiSettings(object):
 

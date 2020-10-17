@@ -106,9 +106,6 @@ class IItemsRequester(requesters.IRequester):
     def getVehicles(self, criteria=None):
         raise NotImplementedError
 
-    def getStyles(self, criteria=None):
-        raise NotImplementedError
-
     def getBadges(self, criteria=None):
         raise NotImplementedError
 

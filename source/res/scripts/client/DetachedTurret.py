@@ -114,7 +114,6 @@ class DetachedTurret(BigWorld.Entity, ScriptGameObject):
     def onLeaveWorld(self):
         LOG_DEBUG('onLeaveWorld')
         ScriptGameObject.deactivate(self)
-        ScriptGameObject.destroy(self)
         DetachedTurret.allTurrets.remove(self)
         self.__detachConfirmationTimer.cancel()
         self.__detachConfirmationTimer = None
@@ -153,6 +152,11 @@ class DetachedTurret(BigWorld.Entity, ScriptGameObject):
                 self.__detachmentEffects.stopEffects()
         return
 
+    def stopDetachmentEffects(self):
+        if self.__detachmentEffects is not None:
+            self.__detachmentEffects.stopEffects()
+        return
+
     def set_isCollidingWithWorld(self, prev):
         pass
 
@@ -165,8 +169,6 @@ class DetachedTurret(BigWorld.Entity, ScriptGameObject):
                 extent = Math.Matrix(self.model.getBoundsForRoot()).applyVector(Math.Vector3(0.5, 0.5, 0.5)).length
                 surfaceMaterial = calcSurfaceMaterialNearPoint(self.position, Math.Vector3(0, extent, 0), self.spaceID)
                 self.__detachmentEffects.notifyAboutBeingPulled(True, surfaceMaterial.effectIdx)
-                if surfaceMaterial.matKind == 0:
-                    LOG_ERROR('calcSurfaceMaterialNearPoint failed to find the collision point at: ', self.position)
             else:
                 self.__detachmentEffects.notifyAboutBeingPulled(False, None)
         return SERVER_TICK_LENGTH

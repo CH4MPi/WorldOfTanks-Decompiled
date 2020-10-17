@@ -198,7 +198,7 @@ class EventsCache(IEventsCache):
                 self.__personalMissions.update(self, diff)
 
             if diff is not None:
-                isQPUpdated = 'quests' in diff or 'potapovQuests' in diff
+                isQPUpdated = 'quests' in diff or 'potapovQuests' in diff or 'pm2_progress' in diff
                 if not isQPUpdated and 'tokens' in diff:
                     for tokenID in diff['tokens'].iterkeys():
                         if all((not tokenID.startswith(t) for t in NOT_FOR_PERSONAL_MISSIONS_TOKENS)):
@@ -249,19 +249,20 @@ class EventsCache(IEventsCache):
         isRankedSeasonOff = self.rankedController.getCurrentSeason() is None
 
         def userFilterFunc(q):
-            if q.getType() == EVENT_TYPE.MOTIVE_QUEST and not q.isAvailable().isValid:
+            qGroup = q.getGroupID()
+            qIsValid = q.isAvailable().isValid
+            qID = q.getID()
+            if q.getType() == EVENT_TYPE.MOTIVE_QUEST and not qIsValid:
                 return False
-            if q.getType() == EVENT_TYPE.TOKEN_QUEST and isMarathon(q.getID()):
+            if q.getType() == EVENT_TYPE.TOKEN_QUEST and isMarathon(qID):
                 return False
-            if isLinkedSet(q.getGroupID()) and not q.isAvailable().isValid:
+            if isLinkedSet(qGroup) or isPremium(qGroup) and not qIsValid:
                 return False
-            if isPremium(q.getGroupID()) and not q.isAvailable().isValid:
-                return False
-            if self.__eventProgression.isActive() and isDailyEpic(q.getGroupID()):
+            if self.__eventProgression.isActive() and isDailyEpic(qGroup):
                 activeQuests = self.__eventProgression.getActiveQuestIDs()
-                if q.getID() not in activeQuests:
+                if qID not in activeQuests:
                     return False
-            return False if isRankedSeasonOff and (isRankedDaily(q.getGroupID()) or isRankedPlatform(q.getGroupID())) else filterFunc(q)
+            return False if isRankedSeasonOff and (isRankedDaily(qGroup) or isRankedPlatform(qGroup)) else filterFunc(q)
 
         return self.getActiveQuests(userFilterFunc)
 
@@ -348,9 +349,6 @@ class EventsCache(IEventsCache):
 
     def getAnnouncedActions(self):
         return self.__getAnnouncedActions()
-
-    def getWT(self):
-        return self.__getWT()
 
     def getEventBattles(self):
         battles = self.__getEventBattles()
@@ -528,9 +526,6 @@ class EventsCache(IEventsCache):
             currentStep = self.questsProgress.getTokenCount(progressiveConfig.levelTokenID)
             probability = self.questsProgress.getTokenCount(progressiveConfig.probabilityTokenID) / 100
             return _ProgressiveReward(currentStep, probability, maxSteps)
-
-    def getIngameEventsData(self):
-        return self.__getIngameEventsData()
 
     def _getDailyQuests(self, filterFunc=None):
         result = {}
@@ -791,9 +786,6 @@ class EventsCache(IEventsCache):
 
     def __getEventBattles(self):
         return self.__getIngameEventsData().get('eventBattles', {})
-
-    def __getWT(self):
-        return self.__getIngameEventsData().get('wt', {})
 
     def __getUnitRestrictions(self):
         return self.__getUnitData().get('restrictions', {})

@@ -9,13 +9,12 @@ from debug_utils import LOG_ERROR
 from gui import makeHtmlString
 from gui.battle_control import avatar_getter, vehicle_getter
 from gui.battle_control.arena_info import settings
+from gui.battle_control.dog_tag_composer import layoutComposer
 from gui.doc_loaders.badges_loader import getSelectedByLayout
 from gui.shared.gui_items import Vehicle
 from gui.shared.gui_items.Vehicle import VEHICLE_TAGS, VEHICLE_CLASS_NAME
 from helpers import dependency, i18n
 from skeletons.gui.server_events import IEventsCache
-from gui.impl import backport
-from gui.impl.gen import R
 _INVALIDATE_OP = settings.INVALIDATE_OP
 _VEHICLE_STATUS = settings.VEHICLE_STATUS
 _PLAYER_STATUS = settings.PLAYER_STATUS
@@ -252,17 +251,12 @@ class VehicleTypeInfoVO(object):
 
 
 class VehicleArenaInfoVO(object):
-    __slots__ = ('vehicleID', 'team', 'player', 'playerStatus', 'vehicleType', 'vehicleStatus', 'prebattleID', 'events', 'squadIndex', 'invitationDeliveryStatus', 'ranked', 'gameModeSpecific', 'overriddenBadge', 'badges', '__prefixBadge', '__suffixBadge')
+    __slots__ = ('vehicleID', 'team', 'player', 'playerStatus', 'vehicleType', 'vehicleStatus', 'prebattleID', 'events', 'squadIndex', 'invitationDeliveryStatus', 'ranked', 'gameModeSpecific', 'overriddenBadge', 'badges', '__prefixBadge', '__suffixBadge', 'dogTag')
 
     def __init__(self, vehicleID, team=0, isAlive=None, isAvatarReady=None, isTeamKiller=None, prebattleID=None, events=None, forbidInBattleInvitations=False, ranked=None, badges=None, overriddenBadge=None, **kwargs):
         super(VehicleArenaInfoVO, self).__init__()
         self.vehicleID = vehicleID
         self.team = team
-        arena = avatar_getter.getArena()
-        guiType = None if not arena else arena.guiType
-        if guiType and guiType == ARENA_GUI_TYPE.EVENT_BATTLES and kwargs:
-            if kwargs['accountDBID'] == 0:
-                kwargs['name'] = backport.text(R.strings.wt_event.botName())
         self.player = PlayerInfoVO(forbidInBattleInvitations=forbidInBattleInvitations, **kwargs)
         self.vehicleType = VehicleTypeInfoVO(**kwargs)
         self.prebattleID = prebattleID
@@ -278,10 +272,11 @@ class VehicleArenaInfoVO(object):
         self.overriddenBadge = overriddenBadge
         self.badges = badges or ((), ())
         self.__prefixBadge, self.__suffixBadge = getSelectedByLayout(self.badges[0])
+        self.dogTag = None
         return
 
     def __repr__(self):
-        return 'VehicleArenaInfoVO(vehicleID = {0!r:s}, team = {1!r:s}, player = {2!r:s}, playerStatus = {3:n}, vehicleType = {4!r:s}, vehicleStatus = {5:n}, prebattleID = {6!r:s})'.format(self.vehicleID, self.team, self.player, self.playerStatus, self.vehicleType, self.vehicleStatus, self.prebattleID)
+        return 'VehicleArenaInfoVO(vehicleID = {0!r:s}, team = {1!r:s}, player = {2!r:s}, playerStatus = {3:n}, vehicleType = {4!r:s}, vehicleStatus = {5:n}, prebattleID = {6!r:s}), dogTag={7!r:s}'.format(self.vehicleID, self.team, self.player, self.playerStatus, self.vehicleType, self.vehicleStatus, self.prebattleID, self.dogTag)
 
     def __eq__(self, other):
         return self.vehicleID == other.vehicleID
@@ -364,6 +359,12 @@ class VehicleArenaInfoVO(object):
 
     def updateGameModeSpecificStats(self, *args):
         return self.gameModeSpecific.update(*args)
+
+    def updateVehicleDogTag(self, invalidate=_INVALIDATE_OP.NONE, dogTag=None, **kwargs):
+        if dogTag:
+            self.dogTag = layoutComposer.getModelFromDict(dogTag)
+            invalidate = _INVALIDATE_OP.addIfNot(invalidate, _INVALIDATE_OP.VEHICLE_STATUS)
+        return invalidate
 
     def update(self, **kwargs):
         invalidate = _INVALIDATE_OP.VEHICLE_INFO

@@ -232,7 +232,7 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
             self.siegeModeControl.onSiegeStateChanged += lambda *args: self.steadyVehicleMatrixCalculator.relinkSources()
             if not self.siegeModeSoundNotifications:
                 notifications = None
-                if typeDescr.hasHydraulicChassis:
+                if typeDescr.hasHydraulicChassis or typeDescr.isWheeledVehicle:
                     notifications = SiegeModeSoundNotifications()
                 elif typeDescr.hasTurboshaftEngine:
                     notifications = TurboshaftModeSoundNotifications()

@@ -1,20 +1,17 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/lobby_vehicle_marker_view.py
-import BigWorld
 import GUI
 import Math
-from HeroTank import HeroTank
 from gui.Scaleform.daapi.view.meta.LobbyVehicleMarkerViewMeta import LobbyVehicleMarkerViewMeta
 from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
 from gui.shared.gui_items.Vehicle import getVehicleClassTag
-from gui.shared import events, g_eventBus, EVENT_BUS_SCOPE
+from gui.shared import events, EVENT_BUS_SCOPE
 from gui.hangar_cameras.hangar_camera_common import CameraRelatedEvents, CameraMovementStates
 from helpers import dependency
 from skeletons.gui.shared.utils import IHangarSpace
 
 class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
-    __loadEvents = (VIEW_ALIAS.LOBBY_HANGAR,
-     VIEW_ALIAS.LOBBY_STORE,
+    __loadEvents = (VIEW_ALIAS.LOBBY_STORE,
      VIEW_ALIAS.LOBBY_STORAGE,
      VIEW_ALIAS.LOBBY_TECHTREE,
      VIEW_ALIAS.LOBBY_BARRACKS,
@@ -22,8 +19,7 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
      VIEW_ALIAS.VEHICLE_COMPARE,
      VIEW_ALIAS.LOBBY_PERSONAL_MISSIONS,
      VIEW_ALIAS.LOBBY_MISSIONS,
-     VIEW_ALIAS.LOBBY_STRONGHOLD,
-     events.ViewEventType.LOAD_UB_VIEW)
+     VIEW_ALIAS.LOBBY_STRONGHOLD)
     hangarSpace = dependency.descriptor(IHangarSpace)
 
     def __init__(self, ctx=None):
@@ -39,9 +35,8 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
         self.addListener(events.HangarVehicleEvent.HERO_TANK_MARKER, self.__onMarkerDisable, EVENT_BUS_SCOPE.LOBBY)
         self.addListener(CameraRelatedEvents.CAMERA_ENTITY_UPDATED, self.__onCameraEntityUpdated, EVENT_BUS_SCOPE.DEFAULT)
         self.hangarSpace.onSpaceDestroy += self.__onSpaceDestroy
-        add = g_eventBus.addListener
-        for event in self.__loadEvents:
-            add(event, self.__handleViewLoad, scope=EVENT_BUS_SCOPE.LOBBY)
+        self.addListener(events.ViewEventType.LOAD_VIEW, self.__handleViewLoad, EVENT_BUS_SCOPE.LOBBY)
+        self.addListener(events.ViewEventType.LOAD_GUI_IMPL_VIEW, self.__handleGuiImplViewLoad, EVENT_BUS_SCOPE.LOBBY)
 
     def _dispose(self):
         super(LobbyVehicleMarkerView, self)._dispose()
@@ -51,10 +46,8 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
         self.removeListener(events.HangarVehicleEvent.HERO_TANK_MARKER, self.__onMarkerDisable, EVENT_BUS_SCOPE.LOBBY)
         self.hangarSpace.onSpaceDestroy -= self.__onSpaceDestroy
         self.__vehicleMarker = None
-        remove = g_eventBus.removeListener
-        for event in self.__loadEvents:
-            remove(event, self.__handleViewLoad, scope=EVENT_BUS_SCOPE.LOBBY)
-
+        self.removeListener(events.ViewEventType.LOAD_VIEW, self.__handleViewLoad, EVENT_BUS_SCOPE.LOBBY)
+        self.removeListener(events.ViewEventType.LOAD_GUI_IMPL_VIEW, self.__handleGuiImplViewLoad, EVENT_BUS_SCOPE.LOBBY)
         return
 
     def getIsMarkerDisabled(self):
@@ -65,8 +58,7 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
 
     def __onHeroTankLoaded(self, event):
         vehicle = event.ctx['entity']
-        if not vehicle.isEvent:
-            self.__beginCreateMarker(vehicle)
+        self.__beginCreateMarker(vehicle)
 
     def __onHeroTankDestroy(self, *_):
         self.__destroyMarker()
@@ -78,11 +70,7 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
             state = event.ctx['state']
             if state == CameraMovementStates.FROM_OBJECT:
                 return
-            entity = BigWorld.entity(event.ctx.get('entityId'))
-            if isinstance(entity, HeroTank) and hasattr(entity, 'isEvent') and entity.isEvent:
-                self.__vehicleMarker.markerSetActive(True)
-            else:
-                self.__vehicleMarker.markerSetActive(self.hangarSpace.space.vehicleEntityId == event.ctx['entityId'])
+            self.__vehicleMarker.markerSetActive(self.hangarSpace.space.vehicleEntityId == event.ctx['entityId'])
             return
 
     def __onMarkerDisable(self, event):
@@ -132,8 +120,14 @@ class LobbyVehicleMarkerView(LobbyVehicleMarkerViewMeta):
         return
 
     def __handleViewLoad(self, event):
-        if event.eventType == VIEW_ALIAS.LOBBY_HANGAR:
+        if event.alias == VIEW_ALIAS.LOBBY_HANGAR:
             self.__isMarkerDisabled = False
-        else:
+        elif event.alias in self.__loadEvents:
             self.__isMarkerDisabled = True
+        else:
+            return
+        self.__updateMarkerVisibility()
+
+    def __handleGuiImplViewLoad(self, _):
+        self.__isMarkerDisabled = True
         self.__updateMarkerVisibility()

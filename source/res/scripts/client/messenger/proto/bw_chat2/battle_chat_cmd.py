@@ -116,11 +116,6 @@ _VEHICLE_COMMAND_NAMES = (BATTLE_CHAT_COMMAND_NAMES.ATTACK_ENEMY,
  BATTLE_CHAT_COMMAND_NAMES.POSITIVE,
  BATTLE_CHAT_COMMAND_NAMES.CONFIRM)
 _MUTE_MESSAGE_NAMES = (BATTLE_CHAT_COMMAND_NAMES.ATTENTION_TO_POSITION,)
-_NO_CHAT_MESSAGE_NAMES = (BATTLE_CHAT_COMMAND_NAMES.CLEAR_CHAT_COMMANDS,
- BATTLE_CHAT_COMMAND_NAMES.CANCEL_REPLY,
- BATTLE_CHAT_COMMAND_NAMES.REPLY,
- BATTLE_CHAT_COMMAND_NAMES.SUPPORTING_ALLY,
- BATTLE_CHAT_COMMAND_NAMES.CONFIRM)
 _TEMPORARY_STICKY_NAMES = (BATTLE_CHAT_COMMAND_NAMES.DEFEND_BASE,
  BATTLE_CHAT_COMMAND_NAMES.ATTACK_BASE,
  BATTLE_CHAT_COMMAND_NAMES.ATTENTION_TO_POSITION,
@@ -152,7 +147,6 @@ _LOCATION_COMMAND_IDS = []
 _VEHICLE_COMMAND_IDS = []
 _AUTOCOMMIT_COMMAND_IDS = []
 _MUTED_MESSAGE_IDS = []
-_NO_CHAT_MESSAGE_IDS = []
 _TEMPORARY_STICKY_IDS = []
 for cmd in BATTLE_CHAT_COMMANDS:
     cmdID = cmd.id
@@ -181,8 +175,6 @@ for cmd in BATTLE_CHAT_COMMANDS:
         _AUTOCOMMIT_COMMAND_IDS.append(cmdID)
     if cmdName in _MUTE_MESSAGE_NAMES:
         _MUTED_MESSAGE_IDS.append(cmdID)
-    if cmdName in _NO_CHAT_MESSAGE_NAMES:
-        _NO_CHAT_MESSAGE_IDS.append(cmdID)
     if cmdName == BATTLE_CHAT_COMMAND_NAMES.REPLY:
         _REPLY_ID = cmdID
     if cmdName == BATTLE_CHAT_COMMAND_NAMES.CANCEL_REPLY:
@@ -341,13 +333,23 @@ class _ReceivedCmdDecorator(ReceivedBattleChatCommand):
         return self._commandID in _VEHICLE_COMMAND_IDS
 
     def hasNoChatMessage(self):
-        return False if self._commandID == _SUPPORTING_ALLY_ID and (self.isSender() or self.isReceiver()) else self._commandID in _NO_CHAT_MESSAGE_IDS
+        if self._commandID == _SUPPORTING_ALLY_ID and (self.isSender() or self.isReceiver()):
+            return False
+        else:
+            command = _ACTIONS.battleChatCommandFromActionID(self._commandID)
+            if not command:
+                LOG_ERROR('Command is not found', self._commandID)
+                return False
+            return command.msgText is None or self._commandID == _SUPPORTING_ALLY_ID
 
     def isEpicGlobalMessage(self):
         return self._commandID in _GLOBAL_MESSAGE_IDS
 
     def hasTarget(self):
         return self._commandID in _TARGETED_CMD_IDS
+
+    def isAutoCommit(self):
+        return self._commandID in _AUTOCOMMIT_COMMAND_IDS
 
     def isPrivate(self):
         return self._commandID in _PRIVATE_CMD_IDS

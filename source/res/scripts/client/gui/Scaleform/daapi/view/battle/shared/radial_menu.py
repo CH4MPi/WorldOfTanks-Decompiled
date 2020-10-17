@@ -20,6 +20,9 @@ from gui.shared.utils.key_mapping import getScaleformKey, BW_TO_SCALEFORM
 from helpers import dependency
 from helpers.CallbackDelayer import CallbackDelayer
 from skeletons.gui.battle_session import IBattleSessionProvider
+from uilogging.decorators import loggerTarget, loggerEntry, simpleLog
+from uilogging.ibc.constants import IBC_LOG_KEYS
+from uilogging.ibc.loggers import IBCLogger
 _logger = logging.getLogger(__name__)
 _SHORTCUTS_IN_GROUP = 6
 Shortcut = namedtuple('Shortcut', ('title', 'action', 'icon', 'groups', 'bState', 'indexInGroup'))
@@ -85,7 +88,7 @@ _MARKERS_TYPE_TO_SUBTYPE_MAP = {MarkerType.VEHICLE_MARKER_TYPE: {DefaultMarkerSu
  MarkerType.INVALID_MARKER_TYPE: {INVALID_MARKER_SUBTYPE: RADIAL_MENU_CONSTS.TARGET_STATE_EMPTY}}
 _CAN_CANCEL_REPLY_SHORTCUT = Shortcut(title=INGAME_HELP.RADIALMENU_CANCEL_REPLY, action=BATTLE_CHAT_COMMAND_NAMES.CANCEL_REPLY, icon=RADIAL_MENU_CONSTS.NO, groups=RADIAL_MENU_CONSTS.ALL_TARGET_STATES, bState=RADIAL_MENU_CONSTS.NORMAL_BUTTON_STATE, indexInGroup=RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST)
 _CONFIRM_SHORTCUT = Shortcut(title=INGAME_HELP.RADIALMENU_POSITIVE, action=BATTLE_CHAT_COMMAND_NAMES.REPLY, icon=RADIAL_MENU_CONSTS.YES, groups=RADIAL_MENU_CONSTS.ALL_TARGET_STATES, bState=RADIAL_MENU_CONSTS.NORMAL_BUTTON_STATE, indexInGroup=RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST)
-_THANKS_SHORTCUT = Shortcut(title=INGAME_HELP.RADIALMENU_THANKS, action=BATTLE_CHAT_COMMAND_NAMES.REPLY, icon=RADIAL_MENU_CONSTS.YES, groups=RADIAL_MENU_CONSTS.ALL_TARGET_STATES, bState=RADIAL_MENU_CONSTS.NORMAL_BUTTON_STATE, indexInGroup=RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST)
+_THANKS_SHORTCUT = Shortcut(title=INGAME_HELP.RADIALMENU_THANKS, action=BATTLE_CHAT_COMMAND_NAMES.THANKS, icon=RADIAL_MENU_CONSTS.THANK_YOU, groups=RADIAL_MENU_CONSTS.ALL_TARGET_STATES, bState=RADIAL_MENU_CONSTS.NORMAL_BUTTON_STATE, indexInGroup=RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST)
 _EMPTY_BUTTON_SHORTCUT = Shortcut(title=RADIAL_MENU_CONSTS.EMPTY_BUTTON_STATE, action=RADIAL_MENU_CONSTS.EMPTY_BUTTON_STATE, icon=RADIAL_MENU_CONSTS.EMPTY_BUTTON_STATE, groups=RADIAL_MENU_CONSTS.ALL_TARGET_STATES, bState=RADIAL_MENU_CONSTS.EMPTY_BUTTON_STATE, indexInGroup=RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST)
 BOTTOM_SHORTCUT_SETS = {}
 UPPER_SHORTCUT_SETS = {}
@@ -133,6 +136,7 @@ def getKeyFromAction(action):
     return scaleFormKey
 
 
+@loggerTarget(logKey=IBC_LOG_KEYS.IBC_RADIAL_MENU, loggerCls=IBCLogger)
 class RadialMenu(RadialMenuMeta, BattleGUIKeyHandler, CallbackDelayer):
     sessionProvider = dependency.descriptor(IBattleSessionProvider)
     _aimOffset = aih_global_binding.bindRW(aih_global_binding.BINDING_ID.AIM_OFFSET)
@@ -140,6 +144,7 @@ class RadialMenu(RadialMenuMeta, BattleGUIKeyHandler, CallbackDelayer):
 
     def __init__(self):
         super(RadialMenu, self).__init__()
+        IBCLogger.__init__(self)
         self.__crosshairData = None
         self.__stateData = None
         self.__isVisible = False
@@ -177,6 +182,7 @@ class RadialMenu(RadialMenuMeta, BattleGUIKeyHandler, CallbackDelayer):
     def onHideCompleted(self):
         self.__setVisibility(False)
 
+    @loggerEntry
     def show(self, reshowPreviousState=False):
         chatCommands = self.sessionProvider.shared.chatCommands
         if chatCommands is None:
@@ -203,6 +209,7 @@ class RadialMenu(RadialMenuMeta, BattleGUIKeyHandler, CallbackDelayer):
                 self.delayCallback(self._REFRESH_TIME_IN_SECONDS, self.__checkForValidLocationMarkerLoop)
             return
 
+    @simpleLog(action='radial_menu_open')
     def hide(self, allowAction=True):
         if self.app is not None:
             self.app.unregisterGuiKeyHandler(self)
@@ -328,14 +335,14 @@ class RadialMenu(RadialMenuMeta, BattleGUIKeyHandler, CallbackDelayer):
         chatCommands = self.sessionProvider.shared.chatCommands
         if chatCommands is not None and chatCommands.isTargetAllyCommittedToMe(targetID):
             buttonDataTemplate = ALLY_UPPER_SHORTCUTS_ONE_DISABLED
-        if replyState == ReplyState.CAN_CONFIRM and replyAction != BATTLE_CHAT_COMMAND_NAMES.RELOADINGGUN:
+        if (replyState == ReplyState.CAN_CONFIRM or replyState == ReplyState.CAN_RESPOND) and replyAction != BATTLE_CHAT_COMMAND_NAMES.RELOADINGGUN:
             buttonDataTemplate = ALLY_UPPER_SHORTCUTS_THREE_DISABLED
         for shortcut in buttonDataTemplate:
             buttonData = defaultdict()
             RadialMenu.__copyShortcutData(buttonData=buttonData, shortcut=shortcut)
             if shortcut.indexInGroup == RADIAL_MENU_CONSTS.ELEMENT_INDEX_FIRST:
                 canReplyAction = BATTLE_CHAT_COMMAND_NAMES.SUPPORTING_ALLY if replyAction in (BATTLE_CHAT_COMMAND_NAMES.HELPME, BATTLE_CHAT_COMMAND_NAMES.SOS) else BATTLE_CHAT_COMMAND_NAMES.REPLY
-                if replyState == ReplyState.CAN_CONFIRM and replyAction is BATTLE_CHAT_COMMAND_NAMES.SUPPORTING_ALLY:
+                if replyState == ReplyState.CAN_RESPOND and replyAction is BATTLE_CHAT_COMMAND_NAMES.SUPPORTING_ALLY:
                     defaultShortcut = _THANKS_SHORTCUT
                 else:
                     defaultShortcut = self.__adjustPrimaryRadialButton(replyState, shortcut, canReplyAction)

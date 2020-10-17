@@ -294,7 +294,7 @@ class HangarCameraManager(object):
                     relativeDist = (dist - minDist) / (maxDist - minDist)
                     _, minFov, maxFov = self.settingsCore.getSetting('fov')
                     fov = math_utils.lerp(minFov, maxFov, relativeDist)
-                    BigWorld.callback(0, partial(FovExtended.instance().setFovByAbsoluteValue, math.radians(fov), 0.1))
+                    BigWorld.callback(0, partial(FovExtended.instance().setFovByAbsoluteValue, fov, 0.1))
             return
 
     def __setupCamera(self):
@@ -361,17 +361,16 @@ class HangarCameraManager(object):
             self.__updateCameraDistanceLimits()
             self.__cam.pivotMaxDist = self.__getCameraPivotDistance()
             self.__cam.forceUpdate()
-            g_eventBus.handleEvent(CameraRelatedEvents(CameraRelatedEvents.WT_EVENT_CAMERA_READY_TO_GO_PORTAL, ctx={}), scope=EVENT_BUS_SCOPE.DEFAULT)
 
     def __handleSettingsChange(self, diff):
         if 'fov' in diff:
             _, _, dynamicFOVTop = diff['fov']
-            defaultHorizontalFov = math.radians(dynamicFOVTop)
+            horizontalFov = dynamicFOVTop
 
             def resetFov(value):
-                FovExtended.instance().defaultHorizontalFov = value
+                FovExtended.instance().horizontalFov = value
 
-            BigWorld.callback(0.0, partial(resetFov, defaultHorizontalFov))
+            BigWorld.callback(0.0, partial(resetFov, horizontalFov))
             self.__updateCameraByMouseMove(0.0, 0.0, 0.0)
 
     def __handleEntityUpdated(self, event):

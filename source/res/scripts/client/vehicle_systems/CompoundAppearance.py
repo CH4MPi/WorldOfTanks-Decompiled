@@ -47,7 +47,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
     wheelsState = property(lambda self: self._vehicle.wheelsState if self._vehicle is not None else 0)
     wheelsSteering = property(lambda self: self._vehicle.wheelsSteeringSmoothed if self._vehicle is not None else None)
     wheelsScroll = property(lambda self: self._vehicle.wheelsScrollSmoothed if self._vehicle is not None else None)
-    health = property(lambda self: self._vehicle.health if self._vehicle is not None else 0)
     burnoutLevel = property(lambda self: self._vehicle.burnoutLevel / 255.0 if self._vehicle is not None else 0.0)
     isConstructed = property(lambda self: self.__isConstructed)
     highlighter = ComponentDescriptor()
@@ -145,7 +144,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
             return
         else:
             self.__activated = False
-            self.highlighter.removeHighlight()
             super(CompoundAppearance, self).deactivate()
             if self.__inSpeedTreeCollision:
                 BigWorld.setSpeedTreeCollisionBody(None)
@@ -174,8 +172,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
             self.highlighter.highlight(True)
         if self.peripheralsController is not None:
             self.peripheralsController.attachToVehicle(self._vehicle)
-        if self.detailedEngineState is not None:
-            self.detailedEngineState.onGearUpCbk = self.__onEngineStateGearUp
         self.delayCallback(_PERIODIC_TIME_DIRT[0][0], self.__onPeriodicTimerDirt)
         return
 
@@ -268,7 +264,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         if self.tessellationCollisionSensor is not None and not self.tessellationCollisionSensor.activePostmortem:
             self.tessellationCollisionSensor = None
         self.siegeEffects = None
-        self.wtEnergyShield = None
         self._destroySystems()
         return
 
@@ -316,16 +311,17 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         _logger.warning('Component "%s" has not been found', name)
 
     def showStickers(self, show):
-        self.vehicleStickers.show = show
+        if self.vehicleStickers is not None:
+            self.vehicleStickers.show = show
+        return
 
-    def showTerrainCircle(self, radius=None, terrainCircleSettings=None, radiusProvider=None):
+    def showTerrainCircle(self, radius=None, terrainCircleSettings=None):
         if (radius is None) != (terrainCircleSettings is None):
             LOG_ERROR('showTerrainCircle: radius or terrainCircleSetting is not set. You need to set both or none of them.')
             return
         else:
             if radius is not None:
                 self.__terrainCircle.configure(radius, terrainCircleSettings)
-                self.__terrainCircle.setRadiusProvider(radiusProvider)
             if not self.__terrainCircle.isAttached():
                 self.__attachTerrainCircle()
             self.__terrainCircle.setVisible()
@@ -365,8 +361,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
             if currentState.effect is not None and showEffects:
                 self.playEffect(currentState.effect)
             if vehicle.health <= 0:
-                if self.findComponent('wt_escape') is not None:
-                    return
                 BigWorld.player().inputHandler.onVehicleDeath(vehicle, currentState.state == 'ammoBayExplosion')
                 self.__requestModelsRefresh()
             elif not vehicle.isCrewActive:
@@ -374,25 +368,20 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         return
 
     def showAmmoBayEffect(self, mode, fireballVolume):
-        if self.findComponent('wt_escape') is not None:
-            self.playEffect('destruction')
-            return
-        elif mode == constants.AMMOBAY_DESTRUCTION_MODE.POWDER_BURN_OFF:
+        if mode == constants.AMMOBAY_DESTRUCTION_MODE.POWDER_BURN_OFF:
             self.playEffect('ammoBayBurnOff')
             return
-        else:
-            volumes = items.vehicles.g_cache.commonConfig['miscParams']['explosionCandleVolumes']
-            candleIdx = 0
-            for idx, volume in enumerate(volumes):
-                if volume >= fireballVolume:
-                    break
-                candleIdx = idx + 1
+        volumes = items.vehicles.g_cache.commonConfig['miscParams']['explosionCandleVolumes']
+        candleIdx = 0
+        for idx, volume in enumerate(volumes):
+            if volume >= fireballVolume:
+                break
+            candleIdx = idx + 1
 
-            if candleIdx > 0:
-                self.playEffect('explosionCandle%d' % candleIdx)
-            else:
-                self.playEffect('explosion')
-            return
+        if candleIdx > 0:
+            self.playEffect('explosionCandle%d' % candleIdx)
+        else:
+            self.playEffect('explosion')
 
     def stopSwinging(self):
         if self.swingingAnimator is not None:
@@ -400,10 +389,14 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         return
 
     def removeDamageSticker(self, code):
-        self.vehicleStickers.delDamageSticker(code)
+        if self.vehicleStickers is not None:
+            self.vehicleStickers.delDamageSticker(code)
+        return
 
     def addDamageSticker(self, code, componentIdx, stickerID, segStart, segEnd):
-        self.vehicleStickers.addDamageSticker(code, componentIdx, stickerID, segStart, segEnd, self.collisions)
+        if self.vehicleStickers is not None:
+            self.vehicleStickers.addDamageSticker(code, componentIdx, stickerID, segStart, segEnd, self.collisions)
+        return
 
     def receiveShotImpulse(self, direction, impulse):
         if BattleReplay.isPlaying() and BattleReplay.g_replayCtrl.isTimeWarpInProgress:
@@ -713,13 +706,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
                 self.tracks.sniperMode(True)
             else:
                 self.tracks.sniperMode(False)
-        return
-
-    def __onEngineStateGearUp(self):
-        if self.customEffectManager is not None:
-            self.customEffectManager.onGearUp()
-        if self.engineAudition is not None:
-            self.engineAudition.onEngineGearUp()
         return
 
     def __updateTransmissionScroll(self):

@@ -65,7 +65,7 @@ class ClientSelectableCameraObject(ClientSelectableObject, CallbackDelayer, Time
     settingsCore = dependency.descriptor(ISettingsCore)
     hangarSpace = dependency.descriptor(IHangarSpace)
     allCameraObjects = set()
-    P1_DELTA_X_Z = 1.0
+    P1_DELTA_X_Z = 10.0
 
     def __init__(self):
         ClientSelectableObject.__init__(self)
@@ -221,8 +221,8 @@ class ClientSelectableCameraObject(ClientSelectableObject, CallbackDelayer, Time
             relativeDist = (self.__goalDistance - distConstr[0]) / (distConstr[1] - distConstr[0])
         else:
             relativeDist = 1.0
-        self.__startFov = BigWorld.projection().fov
-        self.__goalFov = math_utils.lerp(math.radians(minFov), math.radians(maxFov), relativeDist)
+        self.__startFov = math.degrees(BigWorld.projection().fov)
+        self.__goalFov = math_utils.lerp(minFov, maxFov, relativeDist)
 
     def __teleportHangarSpaceCamera(self):
         yaw = self.cameraYaw

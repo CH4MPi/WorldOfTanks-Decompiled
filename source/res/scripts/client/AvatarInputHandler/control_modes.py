@@ -500,9 +500,12 @@ class ArcadeControlMode(_GunControlMode):
         player = BigWorld.player()
         if player.isObserver():
             player.updateObservedVehicleData()
-        GUI.mcursor().position = self._aimOffset
+        vehicle = player.getVehicleAttached()
+        if vehicle is not None and not vehicle.isUpgrading:
+            GUI.mcursor().position = self._aimOffset
         cursorX, cursorY = self._aimOffset
         GUI.syncMousePosition(cursorX, cursorY)
+        return
 
     def handleKeyEvent(self, isDown, key, mods, event=None):
         cmdMap = CommandMapping.g_instance

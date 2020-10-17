@@ -1,6 +1,7 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/messenger/gui/Scaleform/channels/bw_chat2/battle_controllers.py
 import functools
+import BigWorld
 from arena_component_system.sector_base_arena_component import ID_TO_BASENAME
 from debug_utils import LOG_ERROR
 from gui.Scaleform.locale.EPIC_BATTLE import EPIC_BATTLE
@@ -85,6 +86,14 @@ class TeamChannelController(_ChannelController):
     @_check_arena_in_waiting()
     def sendCommand(self, command):
         self.proto.battleCmd.send(command)
+
+    def filterMessage(self, cmd):
+        arenaDP = self.sessionProvider.getArenaDP()
+        if arenaDP is None:
+            return True
+        else:
+            senderVehicleID = arenaDP.getVehIDBySessionID(cmd.getSenderID())
+            return not arenaDP.isPlayerObserver() or senderVehicleID == BigWorld.player().playerVehicleID or arenaDP.isAlly(senderVehicleID)
 
     @_check_arena_in_waiting()
     def _broadcast(self, message):

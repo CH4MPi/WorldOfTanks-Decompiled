@@ -1,7 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/server_events/awards_formatters.py
 from gui.Scaleform.daapi.view.lobby.missions.awards_formatters import NewStyleBonusComposer
-from gui.Scaleform.genConsts.TOOLTIPS_CONSTANTS import TOOLTIPS_CONSTANTS
 from gui.impl import backport
 from gui.impl.gen import R
 from gui.impl.auxiliary.rewards_helper import NEW_STYLE_FORMATTED_BONUSES
@@ -9,6 +8,7 @@ from gui.server_events import formatters
 from gui.server_events.awards_formatters import AWARDS_SIZES, AwardsPacker, QuestsBonusComposer, getPostBattleAwardsPacker
 from gui.server_events.bonuses import BlueprintsBonusSubtypes
 from gui.battle_pass.battle_pass_bonuses_helper import BonusesHelper
+from gui.shared.gui_items.crew_skin import localizedFullName as localizeSkinName
 SIMPLE_BONUSES_MAX_ITEMS = 5
 _DISPLAYED_AWARDS_COUNT = 2
 _END_LINE_SEPARATOR = ','
@@ -97,6 +97,28 @@ class CrewBookFormatter(OldStyleBonusFormatter):
         return backport.text(R.strings.quests.bonuses.items.name(), name=book.userName, count=count)
 
 
+class CrewSkinFormatter(OldStyleBonusFormatter):
+
+    @classmethod
+    def getOrder(cls):
+        pass
+
+    def accumulateBonuses(self, bonus):
+        result = []
+        for skin, count, _, _ in sorted(bonus.getItems()):
+            if skin is None or not count:
+                continue
+            result.append(self._formatCrewSkin(skin, count))
+
+        if result:
+            self._result.append(formatters.packSimpleBonusesBlock(result))
+        return
+
+    @classmethod
+    def _formatCrewSkin(cls, skin, count):
+        return backport.text(R.strings.quests.bonuses.items.name(), name=localizeSkinName(skin), count=count)
+
+
 class BlueprintsFormatter(OldStyleBonusFormatter):
 
     @classmethod
@@ -122,18 +144,6 @@ class BlueprintsFormatter(OldStyleBonusFormatter):
         elif blueprintType == BlueprintsBonusSubtypes.RANDOM_FRAGMENT:
             blueprintString = backport.text(R.strings.quests.bonusName.blueprints.any())
         return ' '.join([blueprintString, str(count)])
-
-
-class WtEventTicketFormatter(OldStyleBonusFormatter):
-
-    @classmethod
-    def getOrder(cls):
-        pass
-
-    def accumulateBonuses(self, bonus):
-        formattedList = bonus.formattedList()
-        for label in formattedList:
-            self._result.append(formatters.packWulfTooltipBonusBlock(label, TOOLTIPS_CONSTANTS.WT_EVENT_BOSS_TICKET))
 
 
 class SimpleBonusFormatter(OldStyleBonusFormatter):
@@ -191,7 +201,7 @@ def getFormattersMap(event):
      'vehicles': VehiclesFormatter(event),
      'crewBooks': CrewBookFormatter(),
      'blueprints': BlueprintsFormatter(),
-     'wtTicket': WtEventTicketFormatter()}
+     'crewSkins': CrewSkinFormatter()}
 
 
 class OldStyleAwardsPacker(AwardsPacker):

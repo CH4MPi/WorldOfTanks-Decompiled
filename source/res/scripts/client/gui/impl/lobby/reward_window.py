@@ -8,6 +8,7 @@ from gui.Scaleform.daapi.view.lobby.missions.awards_formatters import PackRentVe
 from gui.Scaleform.daapi.view.lobby.missions.missions_helper import getMissionInfoData
 from gui.Scaleform.daapi.view.lobby.store.browser.shop_helpers import getBuyPremiumUrl
 from gui.Scaleform.framework.entities.View import ViewKey
+from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
 from gui.Scaleform.genConsts.BARRACKS_CONSTANTS import BARRACKS_CONSTANTS
 from gui.impl.backport import TooltipData, BackportTooltipWindow
 from gui.impl.pub import ViewImpl, WindowImpl, WindowView
@@ -25,7 +26,7 @@ from helpers import dependency
 from skeletons.gui.app_loader import IAppLoader
 from constants import OFFER_TOKEN_PREFIX
 from skeletons.gui.offers import IOffersDataProvider
-from gui.shared.event_dispatcher import showOfferGiftsWindow
+from gui.shared.event_dispatcher import showOfferGiftsWindow, showClanQuestWindow
 _logger = logging.getLogger(__name__)
 BASE_EVENT_NAME = 'base'
 _ADDITIONAL_AWARDS_COUNT = 5
@@ -60,6 +61,9 @@ class BaseRewardWindowContent(ViewImpl):
         return
 
     def handleNextButton(self):
+        pass
+
+    def handleGoToButton(self):
         pass
 
     def createToolTip(self, event):
@@ -205,7 +209,7 @@ class TwitchRewardWindowContent(QuestRewardWindowContent):
                             offerID = offer.id
 
         if hasCommander:
-            g_eventBus.handleEvent(events.LoadViewEvent(VIEW_ALIAS.LOBBY_BARRACKS, ctx={'location': BARRACKS_CONSTANTS.LOCATION_FILTER_NOT_RECRUITED}), scope=EVENT_BUS_SCOPE.LOBBY)
+            g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.LOBBY_BARRACKS), ctx={'location': BARRACKS_CONSTANTS.LOCATION_FILTER_NOT_RECRUITED}), scope=EVENT_BUS_SCOPE.LOBBY)
         elif offerID is not None:
             showOfferGiftsWindow(offerID)
         return
@@ -227,17 +231,29 @@ class RewardWindowBase(WindowImpl):
     def _initialize(self):
         super(RewardWindowBase, self)._initialize()
         self.content.getViewModel().onConfirmBtnClicked += self._onConfirmBtnClicked
+        self.content.getViewModel().onSecondBtnClicked += self._onSecondBtnClicked
         with self.windowModel.transaction() as tx:
             tx.setTitle(R.strings.ingame_gui.rewardWindow.winHeaderText())
-        self.center()
 
     def _finalize(self):
         super(RewardWindowBase, self)._finalize()
         self.content.getViewModel().onConfirmBtnClicked -= self._onConfirmBtnClicked
+        self.content.getViewModel().onSecondBtnClicked -= self._onSecondBtnClicked
 
     def _onConfirmBtnClicked(self, _=None):
         self.content.handleNextButton()
         self._onClosed()
+
+    def _onDecoratorReady(self):
+        super(RewardWindowBase, self)._onDecoratorReady()
+        if self.area is not None and self.area.getPreviousNeighbor(self) is not None:
+            self.cascade()
+        else:
+            self.center()
+        return
+
+    def _onSecondBtnClicked(self, _=None):
+        self.content.handleGoToButton()
 
 
 class RewardWindow(RewardWindowBase):
@@ -260,13 +276,19 @@ class TwitchRewardWindow(RewardWindowBase):
 
 class DynamicRewardWindowContent(BaseRewardWindowContent):
     __slots__ = ('__bonuses', '_eventName')
-    _BONUSES_ORDER = ('customizations',
-     Currency.GOLD,
+    _BONUSES_ORDER = (Currency.GOLD,
      'vehicles',
      'premium_plus',
      'dossier',
-     'crewBooks',
+     'customizations',
+     'slots',
+     'goodies',
+     'blueprints',
+     'blueprintsAny',
      'items',
+     Currency.CRYSTAL,
+     Currency.CREDITS,
+     'freeXP',
      'tokens')
 
     def __init__(self, settings, ctx=None):
@@ -277,6 +299,10 @@ class DynamicRewardWindowContent(BaseRewardWindowContent):
         return
 
     def handleNextButton(self):
+        self.destroyWindow()
+
+    def handleGoToButton(self):
+        showClanQuestWindow()
         self.destroyWindow()
 
     def _getBonuses(self):

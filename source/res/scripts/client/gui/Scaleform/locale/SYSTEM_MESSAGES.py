@@ -84,7 +84,6 @@ class SYSTEM_MESSAGES(object):
     PREBATTLE_VEHICLEINVALID_NO_READYVEHICLE = '#system_messages:prebattle/vehicleInvalid/no_readyVehicle'
     PREBATTLE_VEHICLEINVALID_VEHICLENOTSUPPORTED = '#system_messages:prebattle/vehicleInvalid/vehicleNotSupported'
     PREBATTLE_VEHICLEINVALID_EPICONLY = '#system_messages:prebattle/vehicleInvalid/epicOnly'
-    PREBATTLE_VEHICLEINVALID_BOBONLY = '#system_messages:prebattle/vehicleInvalid/bobOnly'
     PREBATTLE_VEHICLEINVALID_NOTSETREADYSTATUS = '#system_messages:prebattle/vehicleInvalid/notSetReadyStatus'
     PREBATTLE_VEHICLEINVALID_FALLOUTONLY = '#system_messages:prebattle/vehicleInvalid/falloutOnly'
     PREBATTLE_VEHICLEINVALID_LIMITS_NATIONS = '#system_messages:prebattle/vehicleInvalid/limits/nations'
@@ -652,9 +651,11 @@ class SYSTEM_MESSAGES(object):
     LAYOUT_APPLY_INVALID_VEHICLE = '#system_messages:layout_apply/invalid_vehicle'
     LAYOUT_APPLY_VEHICLE_LOCKED = '#system_messages:layout_apply/vehicle_locked'
     OPTIONALDEVICES_APPLY_ERROR = '#system_messages:optionalDevices_apply/error'
+    OPTIONALDEVICES_APPLY_ERROR_TOO_HEAVY = '#system_messages:optionalDevices_apply/error_too_heavy'
     OPTIONALDEVICES_APPLY_NOT_ENOUGH_MONEY = '#system_messages:optionalDevices_apply/not_enough_money'
     OPTIONALDEVICES_APPLY_WALLET_NOT_AVAILABLE = '#system_messages:optionalDevices_apply/wallet_not_available'
     OPTIONALDEVICES_REMOVE_ERROR = '#system_messages:optionalDevices_remove/error'
+    OPTIONALDEVICES_REMOVE_ERROR_TOO_HEAVY = '#system_messages:optionalDevices_remove/error_too_heavy'
     SHELLS_APPLY_SUCCESS_MONEY_SPENT = '#system_messages:shells_apply/success_money_spent'
     SHELLS_APPLY_ERROR = '#system_messages:shells_apply/error'
     SHELLS_APPLY_NOT_ENOUGH_MONEY = '#system_messages:shells_apply/not_enough_money'
@@ -758,6 +759,7 @@ class SYSTEM_MESSAGES(object):
     CLANS_NOTIFICATIONS_REQUESTS_WATCHREQUESTS = '#system_messages:clans/notifications/requests/watchRequests'
     CLANS_NOTIFICATIONS_REQUESTSENT = '#system_messages:clans/notifications/requestSent'
     CLANS_NOTIFICATIONS_INVITESENT = '#system_messages:clans/notifications/inviteSent'
+    CLANS_NOTIFICATIONS_ALREADYINVITESENT = '#system_messages:clans/notifications/alreadyInviteSent'
     CLANS_NOTIFICATIONS_INVITESSENT = '#system_messages:clans/notifications/invitesSent'
     CLANS_NOTIFICATIONS_INVITESENDERROR = '#system_messages:clans/notifications/inviteSendError'
     CLANS_NOTIFICATIONS_INVITESSENDERROR = '#system_messages:clans/notifications/invitesSendError'
@@ -1107,9 +1109,7 @@ class SYSTEM_MESSAGES(object):
     PROGRESSIVEREWARD_SWITCH_ON = '#system_messages:progressiveReward/switch_on'
     PROGRESSIVEREWARD_ERROR = '#system_messages:progressiveReward/error'
     EVENT_PROGRESSION_BUY_VEHICLE_SERVER_ERROR = '#system_messages:event_progression_buy_vehicle/server_error'
-    EVENT_PROGRESSION_BUY_VEHICLE_SUCCESS = '#system_messages:event_progression_buy_vehicle/success'
-    EVENT_PROGRESSION_BUY_STYLE_SERVER_ERROR = '#system_messages:event_progression_buy_style/server_error'
-    EVENT_PROGRESSION_BUY_STYLE_SUCCESS = '#system_messages:event_progression_buy_style/success'
+    EVENT_PROGRESSION_BUY_VEHICLE_BUY = '#system_messages:event_progression_buy_vehicle/buy'
     MAPS_BLACK_LIST_SELECT_SUCCESS = '#system_messages:maps_black_list/select/success'
     MAPS_BLACK_LIST_SELECT_SERVER_ERROR_COOLDOWN = '#system_messages:maps_black_list/select/server_error/COOLDOWN'
     MAPS_BLACK_LIST_SELECT_SERVER_ERROR = '#system_messages:maps_black_list/select/server_error'
@@ -1180,18 +1180,13 @@ class SYSTEM_MESSAGES(object):
     OFFERS_SWITCH_OFF_BODY = '#system_messages:offers/switch_off/body'
     OFFERS_UNAVAILABLE_ONE = '#system_messages:offers/unavailable_one'
     OFFERS_UNAVAILABLE_MANY = '#system_messages:offers/unavailable_many'
-    WT_EVENT_LOOTBOXES_HEADER = '#system_messages:wt_event/lootboxes/header'
-    WT_EVENT_LOOTBOXES_ENABLED = '#system_messages:wt_event/lootboxes/enabled'
-    WT_EVENT_LOOTBOXES_DISABLED = '#system_messages:wt_event/lootboxes/disabled'
-    WT_EVENT_LOOTBOXES_BUTTON = '#system_messages:wt_event/lootboxes/button'
-    WT_EVENT_EVENT_ENABLED = '#system_messages:wt_event/event/enabled'
-    WT_EVENT_EVENT_DISABLED = '#system_messages:wt_event/event/disabled'
-    WT_EVENT_DETAILS_BUTTON = '#system_messages:wt_event/details/button'
-    WT_EVENT_TICKET_OWNED = '#system_messages:wt_event/ticket/owned'
-    WT_EVENT_TICKET_FREE = '#system_messages:wt_event/ticket/free'
-    WT_EVENT_TICKET_TASKS = '#system_messages:wt_event/ticket/tasks'
-    WT_EVENT_TICKET_BUY = '#system_messages:wt_event/ticket/buy'
-    WT_EVENT_OPENED_BOX = '#system_messages:wt_event/opened_box'
+    MISSINGEVENTS_BUTTON = '#system_messages:missingEvents/button'
+    MISSINGEVENTS_HEADER = '#system_messages:missingEvents/header'
+    MISSINGEVENTS_TEXT = '#system_messages:missingEvents/text'
+    DOG_TAGS_SWITCH_OFF_TITLE = '#system_messages:dog_tags/switch_off/title'
+    DOG_TAGS_SWITCH_OFF_BODY = '#system_messages:dog_tags/switch_off/body'
+    DOG_TAGS_SWITCH_ON_TITLE = '#system_messages:dog_tags/switch_on/title'
+    DOG_TAGS_SWITCH_ON_BODY = '#system_messages:dog_tags/switch_on/body'
     UNIT_NOTIFICATION_DIVISIONTYPE_ENUM = (UNIT_NOTIFICATION_DIVISIONTYPE_MIDDLE, UNIT_NOTIFICATION_DIVISIONTYPE_CHAMPION, UNIT_NOTIFICATION_DIVISIONTYPE_ABSOLUTE)
     UNIT_ERRORS_ENUM = (UNIT_ERRORS_ALREADY_JOINED_UNIT,
      UNIT_ERRORS_CANT_CHANGE_DIVISION,
@@ -1385,7 +1380,6 @@ class SYSTEM_MESSAGES(object):
      PREBATTLE_VEHICLEINVALID_NO_READYVEHICLE,
      PREBATTLE_VEHICLEINVALID_VEHICLENOTSUPPORTED,
      PREBATTLE_VEHICLEINVALID_EPICONLY,
-     PREBATTLE_VEHICLEINVALID_BOBONLY,
      PREBATTLE_VEHICLEINVALID_NOTSETREADYSTATUS,
      PREBATTLE_VEHICLEINVALID_FALLOUTONLY,
      PREBATTLE_VEHICLEINVALID_LIMITS_NATIONS,
@@ -1953,9 +1947,11 @@ class SYSTEM_MESSAGES(object):
      LAYOUT_APPLY_INVALID_VEHICLE,
      LAYOUT_APPLY_VEHICLE_LOCKED,
      OPTIONALDEVICES_APPLY_ERROR,
+     OPTIONALDEVICES_APPLY_ERROR_TOO_HEAVY,
      OPTIONALDEVICES_APPLY_NOT_ENOUGH_MONEY,
      OPTIONALDEVICES_APPLY_WALLET_NOT_AVAILABLE,
      OPTIONALDEVICES_REMOVE_ERROR,
+     OPTIONALDEVICES_REMOVE_ERROR_TOO_HEAVY,
      SHELLS_APPLY_SUCCESS_MONEY_SPENT,
      SHELLS_APPLY_ERROR,
      SHELLS_APPLY_NOT_ENOUGH_MONEY,
@@ -2059,6 +2055,7 @@ class SYSTEM_MESSAGES(object):
      CLANS_NOTIFICATIONS_REQUESTS_WATCHREQUESTS,
      CLANS_NOTIFICATIONS_REQUESTSENT,
      CLANS_NOTIFICATIONS_INVITESENT,
+     CLANS_NOTIFICATIONS_ALREADYINVITESENT,
      CLANS_NOTIFICATIONS_INVITESSENT,
      CLANS_NOTIFICATIONS_INVITESENDERROR,
      CLANS_NOTIFICATIONS_INVITESSENDERROR,
@@ -2408,9 +2405,7 @@ class SYSTEM_MESSAGES(object):
      PROGRESSIVEREWARD_SWITCH_ON,
      PROGRESSIVEREWARD_ERROR,
      EVENT_PROGRESSION_BUY_VEHICLE_SERVER_ERROR,
-     EVENT_PROGRESSION_BUY_VEHICLE_SUCCESS,
-     EVENT_PROGRESSION_BUY_STYLE_SERVER_ERROR,
-     EVENT_PROGRESSION_BUY_STYLE_SUCCESS,
+     EVENT_PROGRESSION_BUY_VEHICLE_BUY,
      MAPS_BLACK_LIST_SELECT_SUCCESS,
      MAPS_BLACK_LIST_SELECT_SERVER_ERROR_COOLDOWN,
      MAPS_BLACK_LIST_SELECT_SERVER_ERROR,
@@ -2481,18 +2476,13 @@ class SYSTEM_MESSAGES(object):
      OFFERS_SWITCH_OFF_BODY,
      OFFERS_UNAVAILABLE_ONE,
      OFFERS_UNAVAILABLE_MANY,
-     WT_EVENT_LOOTBOXES_HEADER,
-     WT_EVENT_LOOTBOXES_ENABLED,
-     WT_EVENT_LOOTBOXES_DISABLED,
-     WT_EVENT_LOOTBOXES_BUTTON,
-     WT_EVENT_EVENT_ENABLED,
-     WT_EVENT_EVENT_DISABLED,
-     WT_EVENT_DETAILS_BUTTON,
-     WT_EVENT_TICKET_OWNED,
-     WT_EVENT_TICKET_FREE,
-     WT_EVENT_TICKET_TASKS,
-     WT_EVENT_TICKET_BUY,
-     WT_EVENT_OPENED_BOX)
+     MISSINGEVENTS_BUTTON,
+     MISSINGEVENTS_HEADER,
+     MISSINGEVENTS_TEXT,
+     DOG_TAGS_SWITCH_OFF_TITLE,
+     DOG_TAGS_SWITCH_OFF_BODY,
+     DOG_TAGS_SWITCH_ON_TITLE,
+     DOG_TAGS_SWITCH_ON_BODY)
 
     @classmethod
     def unit_notification_divisiontype(cls, key0):

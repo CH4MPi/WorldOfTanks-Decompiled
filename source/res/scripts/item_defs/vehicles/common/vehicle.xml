@@ -43,6 +43,7 @@
     <collisionVehicleHeavy3>	collisionHeavy3	</collisionVehicleHeavy3>
     <groundCollisionLight>	groundCollisionLight	</groundCollisionLight>
     <groundCollisionHeavy>	groundCollisionHeavy	</groundCollisionHeavy>
+    <collisionDamage>	collisionDamage	</collisionDamage>
     <sandCollisionLight>	sandCollisionLight	</sandCollisionLight>
     <sandCollisionHeavy>	sandCollisionHeavy	</sandCollisionHeavy>
     <snowCollisionLight>	snowCollisionLight	</snowCollisionLight>
@@ -164,11 +165,6 @@
     <drowning>	NoneExtra : Drowning	</drowning>
     <burnout>	NoneExtra : Burnout	</burnout>
     <afterburning>	NoneExtra : Afterburning	</afterburning>
-    <afterburning_wt>	AfterburningWT : AfterburningWT	</afterburning_wt>
-    <instant_stun_shoot_wt>	InstantStunShootWT : InstantStunShootWT	</instant_stun_shoot_wt>
-    <impulse_wt>	ImpulseWT : ImpulseWT	</impulse_wt>
-    <power_wt>	NoneExtra : PowerWT	</power_wt>
-    <largeMedkit_wt>	NoneExtra : Repairkit	</largeMedkit_wt>
     <engineHealth>	DamageMarker : EngineHealth	  <sounds>
         <critical>	engine_damaged	</critical>
         <destroyed>	engine_destroyed	</destroyed>

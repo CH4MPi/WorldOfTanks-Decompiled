@@ -13,9 +13,7 @@ _TOKEN_QUEST_SUB_FORMATTERS = (token_quest_subformatters.LootBoxTokenQuestFormat
  token_quest_subformatters.RankedYearLeaderFormatter(),
  token_quest_subformatters.SeniorityAwardsFormatter(),
  token_quest_subformatters.PersonalMissionsTokenQuestsFormatter(),
- token_quest_subformatters.BattlePassDefaultAwardsFormatter(),
- token_quest_subformatters.LowTierRewardsFormatter(),
- token_quest_subformatters.WtEventProgressionQuestFormatter())
+ token_quest_subformatters.BattlePassDefaultAwardsFormatter())
 _PERSONAL_MISSIONS_SUB_FORMATTERS = (token_quest_subformatters.PersonalMissionsFormatter(),)
 SERVER_FORMATTERS = {_SM_TYPE.serverReboot.index(): _sc.ServerRebootFormatter(),
  _SM_TYPE.serverRebootCancelled.index(): _sc.ServerRebootCancelledFormatter(),
@@ -28,6 +26,7 @@ SERVER_FORMATTERS = {_SM_TYPE.serverReboot.index(): _sc.ServerRebootFormatter(),
  _SM_TYPE.premiumBought.index(): _sc.PremiumBoughtFormatter(),
  _SM_TYPE.premiumExtended.index(): _sc.PremiumExtendedFormatter(),
  _SM_TYPE.premiumExpired.index(): _sc.PremiumExpiredFormatter(),
+ _SM_TYPE.premiumChanged.index(): _sc.PremiumChangedFormatter(),
  _SM_TYPE.prbArenaFinish.index(): _sc.PrebattleArenaFinishFormatter(),
  _SM_TYPE.prbKick.index(): _sc.PrebattleKickFormatter(),
  _SM_TYPE.prbDestruction.index(): _sc.PrebattleDestructionFormatter(),
@@ -74,6 +73,8 @@ SERVER_FORMATTERS = {_SM_TYPE.serverReboot.index(): _sc.ServerRebootFormatter(),
  _SM_TYPE.badges.index(): _sc.BadgesFormatter(),
  _SM_TYPE.collectibleVehiclesUnlocked.index(): _sc.CollectibleVehiclesUnlockedFormatter(),
  _SM_TYPE.customizationProgress.index(): _sc.CustomizationProgressFormatter(),
+ _SM_TYPE.dogTagsUnlockComponent.index(): _sc.DogTagComponentUnlockFormatter(),
+ _SM_TYPE.dogTagsGradingChange.index(): _sc.DogTagComponentGradingFormatter(),
  _SM_TYPE.enhancementsWipedOnVehicles.index(): _sc.EnhancementsWipedOnVehiclesFormatter(),
  _SM_TYPE.dedicationReward.index(): _sc.DedicationRewardFormatter()}
 CLIENT_FORMATTERS = {SCH_CLIENT_MSG_TYPE.SYS_MSG_TYPE: _sc.ClientSysMessageFormatter(),
@@ -82,5 +83,4 @@ CLIENT_FORMATTERS = {SCH_CLIENT_MSG_TYPE.SYS_MSG_TYPE: _sc.ClientSysMessageForma
  SCH_CLIENT_MSG_TYPE.ACTION_NOTIFY_TYPE: _sc.ActionNotificationFormatter(),
  SCH_CLIENT_MSG_TYPE.BATTLE_TUTORIAL_RESULTS_TYPE: _sc.BattleTutorialResultsFormatter(),
  SCH_CLIENT_MSG_TYPE.KOREA_PARENTAL_CONTROL_TYPE: _sc.KoreaParentalControlFormatter(),
- SCH_CLIENT_MSG_TYPE.TECH_TREE_ACTION_DISCOUNT: _sc.TechTreeActionDiscountFormatter(),
- SCH_CLIENT_MSG_TYPE.REROLL_LOOTBOX: _sc.WTEventReRollLootBoxFormatter()}
+ SCH_CLIENT_MSG_TYPE.TECH_TREE_ACTION_DISCOUNT: _sc.TechTreeActionDiscountFormatter()}

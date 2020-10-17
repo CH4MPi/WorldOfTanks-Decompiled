@@ -1,0 +1,13 @@
+#-------------------- WOT-UnDec parameters --------------------
+
+exe  = "C:\Program Files (x86)\Borland\Delphi6\Projects\PjOrion\PjOrion.exe"
+path = "source\"
+unpack_xml = true
+decompile_pyc = true
+threads_min_count = 10
+files_in_group_min_count = 10
+
+decompiler_default = "uncompyle6"
+decompiler_extra = ["client\gui\Scaleform\locale\RES_ICONS.pyc":"fupy"]
+
+unpacker_separately = ["scripts\item_defs\customization\camouflages\list.xml","scripts\item_defs\customization\camouflages\unified.xml"]

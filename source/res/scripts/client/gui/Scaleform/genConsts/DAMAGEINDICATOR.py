@@ -4,7 +4,6 @@
 
 class DAMAGEINDICATOR(object):
     ALLY_AT_SPG = 'ally_AT-SPG'
-    ALLY_EVENT_BOSS = 'ally_event_boss'
     ALLY_HEAVY_TANK = 'ally_heavyTank'
     ALLY_LIGHT_TANK = 'ally_lightTank'
     ALLY_MEDIUM_TANK = 'ally_mediumTank'
@@ -35,7 +34,6 @@ class DAMAGEINDICATOR(object):
     DAMAGE_STANDARD_BLIND = 'damageStandardBlind'
     DRIVER_CIRCLE = 'driverCircle'
     ENGINE_CIRCLE = 'engineCircle'
-    EVENT_BOSS = 'event_boss'
     GUN_CIRCLE = 'gunCircle'
     GUNNER_CIRCLE = 'gunnerCircle'
     HEAVY_TANK = 'heavyTank'

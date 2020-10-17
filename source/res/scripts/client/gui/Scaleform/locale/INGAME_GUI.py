@@ -153,7 +153,6 @@ class INGAME_GUI(object):
     CHAT_EXAMPLE_ATTACK_ENEMY_WITH_SPG = '#ingame_gui:chat_example/attack_enemy_with_SPG'
     CHAT_EXAMPLE_SPG_AIM_AREA = '#ingame_gui:chat_example/spg_aim_area'
     CHAT_EXAMPLE_ATTENTION_TO_POSITION = '#ingame_gui:chat_example/attention_to_position'
-    CHAT_EXAMPLE_REPLY_TO_PLAYER = '#ingame_gui:chat_example/reply_to_player'
     CHAT_EXAMPLE_SUPPORTING_ALLY = '#ingame_gui:chat_example/supporting_ally'
     STATISTICS_TAB_LINE_UP_HEADER = '#ingame_gui:statistics/tab/line_up/header'
     STATISTICS_TAB_LINE_UP_TITLE = '#ingame_gui:statistics/tab/line_up/title'
@@ -659,10 +658,13 @@ class INGAME_GUI(object):
     REWARDWINDOW_WGCQ_CLAN_REWARD_SUBHEADERTEXT = '#ingame_gui:rewardWindow/wgcq_clan_reward/subHeaderText'
     REWARDWINDOW_WGCQ_CLAN_REWARD_DESCTEXT = '#ingame_gui:rewardWindow/wgcq_clan_reward/descText'
     REWARDWINDOW_WGCQ_CLAN_REWARD_BTNLABEL = '#ingame_gui:rewardWindow/wgcq_clan_reward/btnLabel'
+    REWARDWINDOW_WGCQ_CLAN_REWARD_SECONDBTNLABEL = '#ingame_gui:rewardWindow/wgcq_clan_reward/secondBtnLabel'
     REWARDWINDOW_WGCQ_PLAYER_REWARD_WINHEADERTEXT = '#ingame_gui:rewardWindow/wgcq_player_reward/winHeaderText'
     REWARDWINDOW_WGCQ_PLAYER_REWARD_HEADERTEXT = '#ingame_gui:rewardWindow/wgcq_player_reward/headerText'
     REWARDWINDOW_WGCQ_PLAYER_REWARD_SUBHEADERTEXT = '#ingame_gui:rewardWindow/wgcq_player_reward/subHeaderText'
+    REWARDWINDOW_WGCQ_PLAYER_REWARD_DESCTEXT = '#ingame_gui:rewardWindow/wgcq_player_reward/descText'
     REWARDWINDOW_WGCQ_PLAYER_REWARD_BTNLABEL = '#ingame_gui:rewardWindow/wgcq_player_reward/btnLabel'
+    REWARDWINDOW_WGCQ_PLAYER_REWARD_SECONDBTNLABEL = '#ingame_gui:rewardWindow/wgcq_player_reward/secondBtnLabel'
     REWARDWINDOW_TWITCH0_HEADERTEXT = '#ingame_gui:rewardWindow/twitch0/headerText'
     REWARDWINDOW_TWITCH0_SUBHEADERTEXT = '#ingame_gui:rewardWindow/twitch0/subHeaderText'
     REWARDWINDOW_TWITCH0_DESCTEXT = '#ingame_gui:rewardWindow/twitch0/descText'
@@ -817,10 +819,10 @@ class INGAME_GUI(object):
     PREBATTLEMARKER_PREBATTLEMARKER_49 = '#ingame_gui:prebattlemarker/prebattlemarker_49'
     PREBATTLEMARKER_PREBATTLEMARKER_50 = '#ingame_gui:prebattlemarker/prebattlemarker_50'
     PREBATTLEMARKER_PREBATTLEMARKER_51 = '#ingame_gui:prebattlemarker/prebattlemarker_51'
-    LEVELPROGRESS_MAXLEVEL = '#ingame_gui:levelProgress/maxLevel'
     OPTDEVICERESURRECTION_ENGINE = '#ingame_gui:optDeviceResurrection/engine'
     OPTDEVICERESURRECTION_FUELTANK = '#ingame_gui:optDeviceResurrection/fuelTank'
     OPTDEVICERESURRECTION_AMMOBAY = '#ingame_gui:optDeviceResurrection/ammoBay'
+    LEVELPROGRESS_MAXLEVEL = '#ingame_gui:levelProgress/maxLevel'
     CHAT_SHORTCUTS_ENUM = (CHAT_SHORTCUTS_ATTENTION_TO_POSITION_GRIDINFO,
      CHAT_SHORTCUTS_ATTENTION_TO_POSITION,
      CHAT_SHORTCUTS_GOING_THERE_GRIDINFO,
@@ -897,7 +899,6 @@ class INGAME_GUI(object):
      CHAT_EXAMPLE_ATTACK_ENEMY_WITH_SPG,
      CHAT_EXAMPLE_SPG_AIM_AREA,
      CHAT_EXAMPLE_ATTENTION_TO_POSITION,
-     CHAT_EXAMPLE_REPLY_TO_PLAYER,
      CHAT_EXAMPLE_SUPPORTING_ALLY)
     EFFICIENCYRIBBONS_ENUM = (EFFICIENCYRIBBONS_ARMOR,
      EFFICIENCYRIBBONS_CAPTURE,
@@ -1013,6 +1014,7 @@ class INGAME_GUI(object):
      REWARDWINDOW_COMMANDER_PATRICK_BTNLABEL)
     REWARDWINDOW_ALL_DESCTEXT_ENUM = (REWARDWINDOW_BASE_DESCTEXT,
      REWARDWINDOW_WGCQ_CLAN_REWARD_DESCTEXT,
+     REWARDWINDOW_WGCQ_PLAYER_REWARD_DESCTEXT,
      REWARDWINDOW_TWITCH0_DESCTEXT,
      REWARDWINDOW_TWITCH1_DESCTEXT,
      REWARDWINDOW_TWITCH2_DESCTEXT,

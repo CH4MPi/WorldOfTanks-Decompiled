@@ -20,7 +20,7 @@ class IStatsComposer(object):
         raise NotImplementedError
 
     @staticmethod
-    def onShowResults(arenaUniqueID, isPostbattle20Enabled):
+    def onShowResults(arenaUniqueID):
         raise NotImplementedError
 
     @staticmethod
@@ -38,6 +38,7 @@ class StatsComposer(IStatsComposer):
         self._block.addNextComponent(text)
         self._block.addNextComponent(templates.VEHICLE_PROGRESS_STATS_BLOCK.clone())
         self._block.addNextComponent(templates.QUESTS_PROGRESS_STATS_BLOCK.clone())
+        self._block.addNextComponent(templates.DOG_TAGS_PROGRESS_STATS_BLOCK.clone())
         self._block.addNextComponent(common)
         self._block.addNextComponent(personal)
         self._block.addNextComponent(teams)
@@ -68,8 +69,8 @@ class StatsComposer(IStatsComposer):
         return animation
 
     @staticmethod
-    def onShowResults(arenaUniqueID, isPostbattle20Enabled):
-        event_dispatcher.showBattleResultsWindow(arenaUniqueID, isPostbattle20Enabled)
+    def onShowResults(arenaUniqueID):
+        return event_dispatcher.showBattleResultsWindow(arenaUniqueID)
 
     @staticmethod
     def onResultsPosted(arenaUniqueID):
@@ -172,8 +173,8 @@ class BattleRoyaleStatsComposer(IStatsComposer):
         pass
 
     @staticmethod
-    def onShowResults(arenaUniqueID, isPostbattle20Enabled):
-        pass
+    def onShowResults(arenaUniqueID):
+        return None
 
     @staticmethod
     def onResultsPosted(arenaUniqueID):
@@ -201,7 +202,7 @@ class BootcampStatsComposer(IStatsComposer):
 
     @staticmethod
     def onShowResults(arenaUniqueID):
-        event_dispatcher.showBattleResultsWindow(arenaUniqueID)
+        return event_dispatcher.showBattleResultsWindow(arenaUniqueID)
 
     @staticmethod
     def onResultsPosted(arenaUniqueID):

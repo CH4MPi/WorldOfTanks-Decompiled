@@ -130,7 +130,6 @@ class VEHICLE_TAGS(CONST_CONTAINER):
     CANNOT_BE_SOLD = 'cannot_be_sold'
     SECRET = 'secret'
     SPECIAL = 'special'
-    BOB = 'bob'
     OBSERVER = 'observer'
     DISABLED_IN_ROAMING = 'disabledInRoaming'
     EVENT = 'event_battles'
@@ -145,8 +144,6 @@ class VEHICLE_TAGS(CONST_CONTAINER):
     BATTLE_ROYALE = 'battle_royale'
     RENT_PROMOTION = 'rent_promotion'
     EARN_CRYSTALS = 'earn_crystals'
-    LOW_TIER_EVENT = 'lowTierEvent'
-    BOB = 'bob'
 
 
 EPIC_ACTION_VEHICLE_CDS = (44033, 63265)
@@ -154,12 +151,6 @@ _NOT_FULL_AMMO_MULTIPLIER = 0.2
 _MAX_RENT_MULTIPLIER = 2
 RentPackagesInfo = namedtuple('RentPackagesInfo', ('hasAvailableRentPackages', 'mainRentType', 'seasonType'))
 CrystalsEarnedInfo = namedtuple('CrystalsEarnedInfo', ('current', 'max'))
-
-class VEHICLE_EVENT_TYPE(CONST_CONTAINER):
-    EVENT_BOSS = 'event_boss'
-    EVENT_SPECIAL_BOSS = 'special_event_boss'
-    EVENT_HUNTER = 'event_hunter'
-
 
 class Vehicle(FittingItem):
     __slots__ = ('__customState', '_inventoryID', '_xp', '_dailyXPFactor', '_isElite', '_isFullyElite', '_clanLock', '_isUnique', '_rentPackages', '_rentPackagesInfo', '_isDisabledForBuy', '_isSelected', '_restorePrice', '_tradeInAvailable', '_tradeOffAvailable', '_tradeOffPriceFactor', '_tradeOffPrice', '_searchableUserName', '_personalDiscountPrice', '_rotationGroupNum', '_rotationBattlesLeft', '_isRotationGroupLocked', '_isInfiniteRotationGroup', '_settings', '_lock', '_repairCost', '_health', '_gun', '_turret', '_engine', '_chassis', '_radio', '_fuelTank', '_equipment', '_bonuses', '_crewIndices', '_slotsIds', '_crew', '_lastCrew', '_hasModulesToSelect', '_outfits', '_isStyleInstalled', '_slotsAnchors', '_unlockedBy', '_maxRentDuration', '_minRentDuration', '_slotsAnchorsById', '_hasNationGroup', '_extraSettings', '_perksController')
@@ -184,14 +175,14 @@ class Vehicle(FittingItem):
         UNAVAILABLE = 'unavailable'
         UNSUITABLE_TO_QUEUE = 'unsuitableToQueue'
         UNSUITABLE_TO_UNIT = 'unsuitableToUnit'
-        EVENT_TICKETS_SHORTAGE = 'ticketsShortage'
-        CUSTOM = (UNSUITABLE_TO_QUEUE, UNSUITABLE_TO_UNIT, EVENT_TICKETS_SHORTAGE)
+        CUSTOM = (UNSUITABLE_TO_QUEUE, UNSUITABLE_TO_UNIT)
         DEAL_IS_OVER = 'dealIsOver'
         ROTATION_GROUP_UNLOCKED = 'rotationGroupUnlocked'
         ROTATION_GROUP_LOCKED = 'rotationGroupLocked'
         RENTABLE = 'rentable'
         RENTABLE_AGAIN = 'rentableAgain'
         DISABLED = 'disabled'
+        TOO_HEAVY = 'tooHeavy'
 
     CAN_SELL_STATES = (VEHICLE_STATE.UNDAMAGED,
      VEHICLE_STATE.CREW_NOT_FULL,
@@ -200,7 +191,8 @@ class Vehicle(FittingItem):
      VEHICLE_STATE.UNSUITABLE_TO_QUEUE,
      VEHICLE_STATE.UNSUITABLE_TO_UNIT,
      VEHICLE_STATE.ROTATION_GROUP_UNLOCKED,
-     VEHICLE_STATE.ROTATION_GROUP_LOCKED)
+     VEHICLE_STATE.ROTATION_GROUP_LOCKED,
+     VEHICLE_STATE.TOO_HEAVY)
     TRADE_OFF_NOT_READY_STATES = (VEHICLE_STATE.DAMAGED,
      VEHICLE_STATE.EXPLODED,
      VEHICLE_STATE.DESTROYED,
@@ -903,6 +895,10 @@ class Vehicle(FittingItem):
         return sum((s.count for s in self.shells.installed.getItems())) >= self.ammoMaxSize * _NOT_FULL_AMMO_MULTIPLIER
 
     @property
+    def isTooHeavy(self):
+        return not self.descriptor.isWeightConsistent()
+
+    @property
     def hasShells(self):
         return sum((s.count for s in self.shells.installed.getItems())) > 0
 
@@ -1009,6 +1005,8 @@ class Vehicle(FittingItem):
         if state == Vehicle.VEHICLE_STATE.UNDAMAGED and isCurrnentPlayer:
             if self.isBroken:
                 return Vehicle.VEHICLE_STATE.DAMAGED
+            if self.isTooHeavy:
+                return Vehicle.VEHICLE_STATE.TOO_HEAVY
             if not self.isCrewFull:
                 return Vehicle.VEHICLE_STATE.CREW_NOT_FULL
             if not self.isAmmoFull:
@@ -1042,13 +1040,13 @@ class Vehicle(FittingItem):
          Vehicle.VEHICLE_STATE.SERVER_RESTRICTION,
          Vehicle.VEHICLE_STATE.RENTAL_IS_OVER,
          Vehicle.VEHICLE_STATE.IGR_RENTAL_IS_OVER,
+         Vehicle.VEHICLE_STATE.TOO_HEAVY,
          Vehicle.VEHICLE_STATE.AMMO_NOT_FULL,
          Vehicle.VEHICLE_STATE.AMMO_NOT_FULL_EVENTS,
          Vehicle.VEHICLE_STATE.UNSUITABLE_TO_QUEUE,
          Vehicle.VEHICLE_STATE.DEAL_IS_OVER,
          Vehicle.VEHICLE_STATE.UNSUITABLE_TO_UNIT,
-         Vehicle.VEHICLE_STATE.ROTATION_GROUP_LOCKED,
-         Vehicle.VEHICLE_STATE.EVENT_TICKETS_SHORTAGE):
+         Vehicle.VEHICLE_STATE.ROTATION_GROUP_LOCKED):
             return Vehicle.VEHICLE_STATE_LEVEL.CRITICAL
         if state in (Vehicle.VEHICLE_STATE.UNDAMAGED, Vehicle.VEHICLE_STATE.ROTATION_GROUP_UNLOCKED):
             return Vehicle.VEHICLE_STATE_LEVEL.INFO
@@ -1085,16 +1083,6 @@ class Vehicle(FittingItem):
     @property
     def isEvent(self):
         return self.isOnlyForEventBattles and self in Vehicle.__getEventVehicles()
-
-    @property
-    def eventType(self):
-        if checkForTags(self.tags, VEHICLE_EVENT_TYPE.EVENT_SPECIAL_BOSS):
-            return VEHICLE_EVENT_TYPE.EVENT_SPECIAL_BOSS
-        return VEHICLE_EVENT_TYPE.EVENT_BOSS if checkForTags(self.tags, VEHICLE_EVENT_TYPE.EVENT_BOSS) else VEHICLE_EVENT_TYPE.EVENT_HUNTER
-
-    @property
-    def isEventBoss(self):
-        return checkForTags(self.tags, VEHICLE_EVENT_TYPE.EVENT_BOSS) or checkForTags(self.tags, VEHICLE_EVENT_TYPE.EVENT_SPECIAL_BOSS)
 
     @property
     def isDisabledInRoaming(self):
@@ -1227,10 +1215,6 @@ class Vehicle(FittingItem):
         return checkForTags(self.tags, VEHICLE_TAGS.EVENT)
 
     @property
-    def isLowTierEvent(self):
-        return checkForTags(self.tags, VEHICLE_TAGS.LOW_TIER_EVENT)
-
-    @property
     def isOnlyForEpicBattles(self):
         return checkForTags(self.tags, VEHICLE_TAGS.EPIC_BATTLES)
 
@@ -1241,10 +1225,6 @@ class Vehicle(FittingItem):
     @property
     def isOnlyForBattleRoyaleBattles(self):
         return checkForTags(self.tags, VEHICLE_TAGS.BATTLE_ROYALE)
-
-    @property
-    def isOnlyForBob(self):
-        return checkForTags(self.tags, VEHICLE_TAGS.BOB)
 
     @property
     def isTelecom(self):
@@ -1297,7 +1277,7 @@ class Vehicle(FittingItem):
             return False
         result = not self.hasLockMode()
         if result:
-            result = not self.isBroken and self.isCrewFull and not self.isDisabledInPremIGR and not self.isInBattle and not self.isRotationGroupLocked and not self.isDisabled
+            result = not self.isBroken and self.isCrewFull and not self.isTooHeavy and not self.isDisabledInPremIGR and not self.isInBattle and not self.isRotationGroupLocked and not self.isDisabled
         return result
 
     @property
@@ -1308,7 +1288,7 @@ class Vehicle(FittingItem):
             return False
         result = not self.hasLockMode()
         if result:
-            result = self.isAlive and self.isCrewFull and not self.isDisabledInRoaming and not self.isDisabledInPremIGR and not self.isRotationGroupLocked
+            result = self.isAlive and self.isCrewFull and not self.isTooHeavy and not self.isDisabledInRoaming and not self.isDisabledInPremIGR and not self.isRotationGroupLocked
         return result
 
     @property
@@ -1717,6 +1697,10 @@ def getTypeBigIconPath(vehicleType, isElite=False):
     return RES_ICONS.getVehicleTypeBigIcon(vehicleType, '_elite' if isElite else '')
 
 
+def getTypeVPanelIconPath(vehicleType):
+    return RES_ICONS.getVehicleTypeVPanelIconPath(vehicleType)
+
+
 def getTypeBigIconResource(vehicleType, isElite=False):
     return R.images.gui.maps.icons.vehicleTypes.big.dyn((vehicleType + '_elite' if isElite else vehicleType).replace('-', '_'))
 
@@ -1727,10 +1711,6 @@ def getUserName(vehicleType, textPrefix=False):
 
 def getShortUserName(vehicleType, textPrefix=False):
     return _getActualName(vehicleType.shortUserString, vehicleType.tags, textPrefix)
-
-
-def getSimpleShortUserName(vehicleType):
-    return vehicleType.descriptor.type.shortUserString
 
 
 def _getActualName(name, tags, textPrefix=False):
@@ -1801,7 +1781,8 @@ _VEHICLE_STATE_TO_ICON = {Vehicle.VEHICLE_STATE.BATTLE: RES_ICONS.MAPS_ICONS_VEH
  Vehicle.VEHICLE_STATE.RENTAL_IS_OVER: RES_ICONS.MAPS_ICONS_VEHICLESTATES_RENTALISOVER,
  Vehicle.VEHICLE_STATE.UNSUITABLE_TO_UNIT: RES_ICONS.MAPS_ICONS_VEHICLESTATES_UNSUITABLETOUNIT,
  Vehicle.VEHICLE_STATE.UNSUITABLE_TO_QUEUE: RES_ICONS.MAPS_ICONS_VEHICLESTATES_UNSUITABLETOUNIT,
- Vehicle.VEHICLE_STATE.GROUP_IS_NOT_READY: RES_ICONS.MAPS_ICONS_VEHICLESTATES_GROUP_IS_NOT_READY}
+ Vehicle.VEHICLE_STATE.GROUP_IS_NOT_READY: RES_ICONS.MAPS_ICONS_VEHICLESTATES_GROUP_IS_NOT_READY,
+ Vehicle.VEHICLE_STATE.TOO_HEAVY: backport.image(R.images.gui.maps.icons.vehicleStates.weight())}
 _VEHICLE_STATE_TO_ADD_ICON = {Vehicle.VEHICLE_STATE.RENTABLE: RES_ICONS.MAPS_ICONS_VEHICLESTATES_RENT_ICO_BIG,
  Vehicle.VEHICLE_STATE.RENTABLE_AGAIN: RES_ICONS.MAPS_ICONS_VEHICLESTATES_RENTAGAIN_ICO_BIG}
 

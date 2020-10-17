@@ -288,29 +288,6 @@ class EpicBattlesDescription(ArenaWithLabelDescription):
         return EPIC_BATTLE.TEAM1NAME if team == EPIC_BATTLE_TEAM_ID.TEAM_ATTACKER else EPIC_BATTLE.TEAM2NAME
 
 
-class BobBattlesDescription(ArenaWithLabelDescription):
-
-    def isInvitationEnabled(self):
-        replayCtrl = BattleReplay.g_replayCtrl
-        return not replayCtrl.isPlaying or replayCtrl.isBattleSimulation
-
-
-class EventBattlesDescription(ArenaWithLabelDescription):
-
-    def isInvitationEnabled(self):
-        replayCtrl = BattleReplay.g_replayCtrl
-        return not replayCtrl.isPlaying or replayCtrl.isBattleSimulation
-
-    def getTeamName(self, team):
-        from gui.Scaleform.genConsts.EVENT_CONSTS import EVENT_CONSTS
-        from gui.Scaleform.locale.WT_EVENT import WT_EVENT
-        return i18n.makeString(WT_EVENT.STATS_TEAM_BOSS) if team == EVENT_CONSTS.TEAM_BOSS else i18n.makeString(WT_EVENT.STATS_TEAM_HUNTERS)
-
-    def getWinString(self, isInBattle=True):
-        from gui.Scaleform.genConsts.EVENT_CONSTS import EVENT_CONSTS
-        return backport.text(R.strings.wt_event.team.boss.win()) if self._team == EVENT_CONSTS.TEAM_BOSS else backport.text(R.strings.wt_event.team.hunters.win())
-
-
 def createDescription(arenaVisitor):
     guiVisitor = arenaVisitor.gui
     if guiVisitor.isRandomBattle() or guiVisitor.isTrainingBattle():
@@ -323,10 +300,6 @@ def createDescription(arenaVisitor):
         description = EpicBattlesDescription(arenaVisitor)
     elif guiVisitor.isBattleRoyale():
         description = BattleRoyaleDescription(arenaVisitor)
-    elif guiVisitor.isBobBattle():
-        description = BobBattlesDescription(arenaVisitor)
-    elif guiVisitor.isEventBattle():
-        description = EventBattlesDescription(arenaVisitor)
     elif guiVisitor.hasLabel():
         description = ArenaWithLabelDescription(arenaVisitor)
     else:

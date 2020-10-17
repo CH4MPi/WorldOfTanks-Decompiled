@@ -470,6 +470,9 @@ class BattlePassController(IBattlePassController):
             self.__extractTrophySelectTokensInfo()
         return self.__deviceGiftTokensContainers[bonusName]
 
+    def getMaxLevelForNewbie(self):
+        return self.__getConfig().maxLevelForNewbie
+
     def __stop(self):
         self.__seasonChangeNotifier.stopNotification()
         self.__purchaseUnlockNotifier.stopNotification()

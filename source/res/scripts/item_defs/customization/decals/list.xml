@@ -4320,6 +4320,17 @@
       <mirror>	false	</mirror>
     </decal>
     <decal>
+      <id>	9350	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_517.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_517	</userString>
+      <vehicleFilter>
+        <include>
+          <vehicles>	france:F17_AMX_13_90_Halloween_event uk:GB24_Centurion_Mk3_Halloween_event usa:A100_T49_Halloween_event usa:A66_M103_Halloween_event ussr:R40_T-54_Halloween_event	</vehicles>
+        </include>
+      </vehicleFilter>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
       <id>	60	</id>
       <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_518.dds	</texture>
       <userString>	#vehicle_customization:emblem/special/sticker_518	</userString>
@@ -5470,30 +5481,6 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Seniority Emblems	</name>
-    <type>	EMBLEM	</type>
-  </itemGroup>
-  <xmlns:czech0>	ussr	</xmlns:czech0>
-  <xmlns:germany>	germany	</xmlns:germany>
-  <xmlns:usa>	usa	</xmlns:usa>
-  <xmlns:china>	china	</xmlns:china>
-  <xmlns:france>	france	</xmlns:france>
-  <xmlns:uk>	uk	</xmlns:uk>
-  <xmlns:japan>	japan	</xmlns:japan>
-  <xmlns:czech>	czech	</xmlns:czech>
-  <xmlns:sweden>	sweden	</xmlns:sweden>
-  <xmlns:poland>	poland	</xmlns:poland>
-  <itemGroup>
-    <userString>	#vehicle_customization:emblem/clan_content	</userString>
-    <season>	ALL	</season>
-    <historical>	false	</historical>
-    <priceGroup>	emblems 50g notInShop	</priceGroup>
-    <decal>
-      <id>	15858	</id>
-      <texture>	gui/maps/vehicles/decals/player_stickers/clan_content/sticker_08.dds	</texture>
-      <userString>	#vehicle_customization:emblem/group7/clan_content_08	</userString>
-      <mirror>	false	</mirror>
-    </decal>
-    <name>	Clan Content nonCN nonNA	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -7046,6 +7033,12 @@
       <userString>	#vehicle_customization:inscription/clan_content/inscription_14	</userString>
       <mirror>	false	</mirror>
     </decal>
+    <decal>
+      <id>	15122	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/clan_content/inscription_24.dds	</texture>
+      <userString>	#vehicle_customization:inscription/clan_content/inscription_24	</userString>
+      <mirror>	false	</mirror>
+    </decal>
     <name>	Clan Content Japan	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
@@ -7125,25 +7118,6 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Japan nonCN	</name>
-    <type>	INSCRIPTION	</type>
-  </itemGroup>
-  <itemGroup>
-    <userString>	#vehicle_customization:inscription/clan_content	</userString>
-    <season>	ALL	</season>
-    <historical>	false	</historical>
-    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
-    <vehicleFilter>
-      <include>
-        <nations>	japan	</nations>
-      </include>
-    </vehicleFilter>
-    <decal>
-      <id>	15122	</id>
-      <texture>	gui/maps/vehicles/decals/inscriptions/clan_content/inscription_24.dds	</texture>
-      <userString>	#vehicle_customization:inscription/clan_content/inscription_24	</userString>
-      <mirror>	false	</mirror>
-    </decal>
-    <name>	Clan Content Japan	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -9770,7 +9744,58 @@
       <userString>	#vehicle_customization:inscription/special/special_403	</userString>
       <mirror>	false	</mirror>
     </decal>
-    <name>	Twitch September 2020	</name>
+    <decal>
+      <id>	353	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_404.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_404	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Twitch	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <xmlns:czech0>	ussr	</xmlns:czech0>
+  <xmlns:germany>	germany	</xmlns:germany>
+  <xmlns:usa>	usa	</xmlns:usa>
+  <xmlns:china>	china	</xmlns:china>
+  <xmlns:france>	france	</xmlns:france>
+  <xmlns:uk>	uk	</xmlns:uk>
+  <xmlns:japan>	japan	</xmlns:japan>
+  <xmlns:czech>	czech	</xmlns:czech>
+  <xmlns:sweden>	sweden	</xmlns:sweden>
+  <xmlns:poland>	poland	</xmlns:poland>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	278	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_371.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
+      <tags>	styleOnly	</tags>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	10 Years Tanker Day nonRU Style	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	281	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_368.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	282	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_371.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	10 Years Tanker Day nonRU Standalone	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -9870,51 +9895,6 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Mexican Day of the Dead	</name>
-    <type>	INSCRIPTION	</type>
-  </itemGroup>
-  <xmlns:czech0>	ussr	</xmlns:czech0>
-  <xmlns:germany>	germany	</xmlns:germany>
-  <xmlns:usa>	usa	</xmlns:usa>
-  <xmlns:china>	china	</xmlns:china>
-  <xmlns:france>	france	</xmlns:france>
-  <xmlns:uk>	uk	</xmlns:uk>
-  <xmlns:japan>	japan	</xmlns:japan>
-  <xmlns:czech>	czech	</xmlns:czech>
-  <xmlns:sweden>	sweden	</xmlns:sweden>
-  <xmlns:poland>	poland	</xmlns:poland>
-  <itemGroup>
-    <userString>	#vehicle_customization:inscription/special	</userString>
-    <season>	ALL	</season>
-    <historical>	false	</historical>
-    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
-    <decal>
-      <id>	278	</id>
-      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_371.dds	</texture>
-      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
-      <tags>	styleOnly	</tags>
-      <mirror>	false	</mirror>
-    </decal>
-    <name>	10 Years Tanker Day nonRU Style	</name>
-    <type>	INSCRIPTION	</type>
-  </itemGroup>
-  <itemGroup>
-    <userString>	#vehicle_customization:inscription/special	</userString>
-    <season>	ALL	</season>
-    <historical>	false	</historical>
-    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
-    <decal>
-      <id>	281	</id>
-      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_368.dds	</texture>
-      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
-      <mirror>	false	</mirror>
-    </decal>
-    <decal>
-      <id>	282	</id>
-      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_371.dds	</texture>
-      <userString>	#vehicle_customization:inscription/special/special_368	</userString>
-      <mirror>	false	</mirror>
-    </decal>
-    <name>	10 Years Tanker Day nonRU Standalone	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>

@@ -2515,7 +2515,13 @@
       <userString>	#vehicle_customization:inscription/special/special_403	</userString>
       <mirror>	false	</mirror>
     </decal>
-    <name>	Twitch September 2020	</name>
+    <decal>
+      <id>	353	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_404.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_404	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Twitch	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
 </inscriptions_special.xml>

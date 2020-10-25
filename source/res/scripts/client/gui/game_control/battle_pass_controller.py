@@ -433,12 +433,15 @@ class BattlePassController(IBattlePassController):
         return cap > 0
 
     def isPlayerNewcomer(self):
+        if not self.__isOnboardingEnabled():
+            return False
         if self.isBought():
             return False
         config = self.__getConfig()
         if self.getCurrentPoints() >= config.maxPointsForNewbie:
             return False
-        allVehicles = self.__itemsCache.items.getVehicles(REQ_CRITERIA.INVENTORY)
+        criteria = REQ_CRITERIA.INVENTORY | ~REQ_CRITERIA.VEHICLE.EVENT_BATTLE | ~REQ_CRITERIA.VEHICLE.BATTLE_ROYALE
+        allVehicles = self.__itemsCache.items.getVehicles(criteria)
         totalCap = 0
         newbiePoints = config.maxPointsForNewbie
         for vehicle in allVehicles.itervalues():

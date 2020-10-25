@@ -38,6 +38,8 @@ def isUILoggingEnabled(feature):
         return False
     if BattleReplay.isPlaying():
         return False
+    if not loggingSettings.hostsDefined:
+        return False
     if feature == FEATURES.BOOTCAMP:
         return True
     tokenAvailable = isTokenAvailable(feature)

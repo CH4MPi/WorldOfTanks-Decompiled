@@ -101,6 +101,7 @@ class BaseHangarAmmunitionSetupView(BaseAmmunitionSetupView):
     def _onLoading(self, **kwargs):
         super(BaseHangarAmmunitionSetupView, self)._onLoading(**kwargs)
         fillVehicleInfo(self.viewModel.vehicleInfo, self._vehItem.getItem())
+        self.viewModel.setIsEvent(self._vehItem.getItem().isOnlyForEventBattles)
 
     def _initialize(self, *args, **kwargs):
         super(BaseHangarAmmunitionSetupView, self)._initialize()

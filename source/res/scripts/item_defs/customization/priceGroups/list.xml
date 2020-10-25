@@ -206,7 +206,7 @@
     <tags>	emblems NA	</tags>
     <price>	50	  <gold></gold>
     </price>
-    <notInShop>	True	</notInShop>
+    <notInShop>	False	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	25	</id>
@@ -334,7 +334,7 @@
     <tags>	inscriptions NA	</tags>
     <price>	50	  <gold></gold>
     </price>
-    <notInShop>	True	</notInShop>
+    <notInShop>	False	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	76	</id>
@@ -776,12 +776,28 @@
     <notInShop>	True	</notInShop>
   </priceGroup>
   <priceGroup>
+    <id>	102	</id>
+    <name>	styles 13g notInShop	</name>
+    <tags>	styles	</tags>
+    <price>	13	  <gold></gold>
+    </price>
+    <notInShop>	True	</notInShop>
+  </priceGroup>
+  <priceGroup>
     <id>	104	</id>
     <name>	styles 1250g notInShop	</name>
     <tags>	styles	</tags>
     <price>	1250	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
+  </priceGroup>
+  <priceGroup>
+    <id>	73	</id>
+    <name>	styles 1750g NA	</name>
+    <tags>	styles NA	</tags>
+    <price>	1750	  <gold></gold>
+    </price>
+    <notInShop>	False	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	72	</id>
@@ -795,14 +811,6 @@
     <id>	98	</id>
     <name>	styles 1750g EU notInShop	</name>
     <tags>	styles EU	</tags>
-    <price>	1750	  <gold></gold>
-    </price>
-    <notInShop>	True	</notInShop>
-  </priceGroup>
-  <priceGroup>
-    <id>	73	</id>
-    <name>	styles 1750g NA	</name>
-    <tags>	styles NA	</tags>
     <price>	1750	  <gold></gold>
     </price>
     <notInShop>	True	</notInShop>

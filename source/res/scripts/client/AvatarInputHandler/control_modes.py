@@ -1147,6 +1147,8 @@ class PostMortemControlMode(IControlMode):
             self.__selfVehicleID = player.playerVehicleID
             self.__isObserverMode = 'observer' in player.vehicleTypeDescriptor.type.tags
             self.__curVehicleID = self.__selfVehicleID
+            if self.guiSessionProvider.arenaVisitor.gui.isEventBattle():
+                self.selectPlayer(None)
         camTransitionParams = {'cameraTransitionDuration': args.get('transitionDuration', -1),
          'camMatrix': args.get('camMatrix', None)}
         self.__cam.enable(None, False, args.get('postmortemParams'), None, None, camTransitionParams)
@@ -1156,6 +1158,7 @@ class PostMortemControlMode(IControlMode):
         _setCameraFluency(self.__cam.camera, self.__CAM_FLUENCY)
         self.__isEnabled = True
         BigWorld.player().consistentMatrices.onVehicleMatrixBindingChanged += self._onMatrixBound
+        isEventBattle = self.guiSessionProvider.arenaVisitor.gui.isEventBattle()
         if not BattleReplay.g_replayCtrl.isPlaying:
             if self.__isObserverMode:
                 vehicleID = args.get('vehicleID')
@@ -1164,7 +1167,7 @@ class PostMortemControlMode(IControlMode):
                 else:
                     self.__fakeSwitchToVehicle(vehicleID)
                 return
-            if (PostMortemControlMode.getIsPostmortemDelayEnabled() or bool(args.get('respawn', False))) and bool(args.get('bPostmortemDelay')):
+            if (PostMortemControlMode.getIsPostmortemDelayEnabled() or bool(args.get('respawn', False)) and not isEventBattle) and bool(args.get('bPostmortemDelay')):
                 self.__startPostmortemDelay(self.__selfVehicleID)
             else:
                 self.__switchToVehicle(None)
@@ -1181,7 +1184,7 @@ class PostMortemControlMode(IControlMode):
 
     def __startPostmortemDelay(self, vehicleID):
         initialDelay = self.__calculatePostMortemInitialDelayForVehicle(vehicleID)
-        self.__postmortemDelay = PostmortemDelay(self.__cam, self._onPostmortemDelayStart, self._onPostmortemDelayStop, initialDelay, PostMortemControlMode.getIsPostmortemDelayEnabled())
+        self.__postmortemDelay = PostmortemDelay(self.__cam, self._onPostmortemDelayStart, self.onPostmortemDelayStop, initialDelay, PostMortemControlMode.getIsPostmortemDelayEnabled())
         self.__postmortemDelay.start()
 
     def __calculatePostMortemInitialDelayForVehicle(self, vehicleID):
@@ -1289,7 +1292,7 @@ class PostMortemControlMode(IControlMode):
     def _onPostmortemDelayStart(self, killerVehicleID):
         self.__aih.onPostmortemKillerVisionEnter(killerVehicleID)
 
-    def _onPostmortemDelayStop(self):
+    def onPostmortemDelayStop(self):
         self.__cam.vehicleMProv = BigWorld.player().consistentMatrices.attachedVehicleMatrix
         self.__aih.onPostmortemKillerVisionExit()
         if not self.__isEnabled:

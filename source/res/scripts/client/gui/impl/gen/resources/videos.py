@@ -4,38 +4,38 @@ from gui.impl.gen_utils import DynAccessor
 
 class Videos(DynAccessor):
     __slots__ = ()
-    _bootcampLesson2 = DynAccessor(43593)
-    _bootcampOutro = DynAccessor(43594)
-    _login = DynAccessor(43595)
-    _tutorialInitial = DynAccessor(43596)
-    _tutorialInitialLoop = DynAccessor(43597)
+    _bootcampLesson2 = DynAccessor(44988)
+    _bootcampOutro = DynAccessor(44989)
+    _login = DynAccessor(44990)
+    _tutorialInitial = DynAccessor(44991)
+    _tutorialInitialLoop = DynAccessor(44992)
 
     class _battle_pass(DynAccessor):
         __slots__ = ()
-        c_10785_0 = DynAccessor(43598)
-        c_10785_1 = DynAccessor(43599)
-        c_6145_0 = DynAccessor(43600)
-        c_6145_1 = DynAccessor(43601)
-        before_voting_0 = DynAccessor(43602)
-        before_voting_1 = DynAccessor(43603)
+        c_10785_0 = DynAccessor(44993)
+        c_10785_1 = DynAccessor(44994)
+        c_6145_0 = DynAccessor(44995)
+        c_6145_1 = DynAccessor(44996)
+        before_voting_0 = DynAccessor(44997)
+        before_voting_1 = DynAccessor(44998)
 
     battle_pass = _battle_pass()
 
     class _development(DynAccessor):
         __slots__ = ()
-        example = DynAccessor(43604)
-        example_2 = DynAccessor(43605)
+        example = DynAccessor(44999)
+        example_2 = DynAccessor(45000)
 
     development = _development()
 
     class _startup(DynAccessor):
         __slots__ = ()
-        Logo_All = DynAccessor(43606)
+        Logo_All = DynAccessor(45001)
 
     startup = _startup()
 
     class _vehicle(DynAccessor):
         __slots__ = ()
-        A122_TS_5 = DynAccessor(43607)
+        A122_TS_5 = DynAccessor(45002)
 
     vehicle = _vehicle()

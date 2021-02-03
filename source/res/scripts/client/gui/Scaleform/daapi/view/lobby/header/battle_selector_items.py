@@ -1,6 +1,10 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/header/battle_selector_items.py
 import logging
+from uilogging.decorators import loggerTarget, loggerEntry
+from uilogging.mode_selector.constants import MS_LOG_KEYS
+from uilogging.mode_selector.decorators import logChangeMode
+from uilogging.mode_selector.loggers import ModeSelectorUILogger
 from adisp import process
 from gui.prb_control.entities.base.ctx import PrbAction
 from account_helpers import isDemonstrator
@@ -13,12 +17,12 @@ from gui.Scaleform.locale.RES_ICONS import RES_ICONS
 from gui.prb_control.prb_getters import areSpecBattlesHidden
 from gui.prb_control.settings import PREBATTLE_ACTION_NAME
 from gui.prb_control.settings import SELECTOR_BATTLE_TYPES
-from gui.ranked_battles.constants import PrimeTimeStatus
+from gui.shared.prime_time_constants import PrimeTimeStatus
 from gui.shared.formatters import text_styles, icons
 from gui.shared.utils import SelectorBattleTypesUtils as selectorUtils
 from helpers import i18n, time_utils, dependency
 from gui.shared.utils.functions import makeTooltip
-from skeletons.gui.game_control import IRankedBattlesController, IEventProgressionController
+from skeletons.gui.game_control import IRankedBattlesController, IEventProgressionController, IBobController
 from skeletons.gui.lobby_context import ILobbyContext
 from gui.clans.clan_helpers import isStrongholdsEnabled
 from gui.Scaleform.genConsts.RANKEDBATTLES_CONSTS import RANKEDBATTLES_CONSTS
@@ -100,7 +104,7 @@ class _SelectorItem(object):
         return False
 
     def isInSquad(self, state):
-        return state.isInUnit(PREBATTLE_TYPE.SQUAD) or state.isInUnit(PREBATTLE_TYPE.EVENT) or state.isInUnit(PREBATTLE_TYPE.EPIC)
+        return state.isInUnit(PREBATTLE_TYPE.SQUAD) or state.isInUnit(PREBATTLE_TYPE.EVENT) or state.isInUnit(PREBATTLE_TYPE.EPIC) or state.isInUnit(PREBATTLE_TYPE.BOB)
 
     def setLocked(self, value):
         self._isLocked = value
@@ -172,18 +176,6 @@ class _SelectorExtraItem(_SelectorItem):
 
     def _update(self, state):
         raise NotImplementedError
-
-
-class _EventBattleItem(_SelectorItem):
-    eventsCache = dependency.descriptor(IEventsCache)
-
-    def getSpecialBGIcon(self):
-        return backport.image(_R_ICONS.buttons.selectorRendererBGEvent())
-
-    def _update(self, state):
-        self._isDisabled = state.hasLockedState
-        self._isSelected = state.isQueueSelected(QUEUE_TYPE.EVENT_BATTLES)
-        self._isVisible = self.eventsCache.isEventEnabled()
 
 
 class _DisabledSelectorItem(_SelectorItem):
@@ -312,10 +304,53 @@ class _SandboxItem(_SelectorItem):
         self._isVisible = self.lobbyContext.getServerSettings().isSandboxEnabled()
 
 
-class _BattleSelectorItems(object):
+class _BobItem(_SelectorItem):
+    bobController = dependency.descriptor(IBobController)
+
+    def isRandomBattle(self):
+        return True
+
+    def getSpecialBGIcon(self):
+        return backport.image(_R_ICONS.buttons.selectorRendererBGEvent()) if self.bobController.isModeActive() else ''
+
+    def getFormattedLabel(self):
+        battleTypeName = super(_BobItem, self).getFormattedLabel()
+        availabilityStr = self.__getAvailabilityStr()
+        return battleTypeName if availabilityStr is None else '{}\n{}'.format(battleTypeName, text_styles.leadingText(text_styles.main(availabilityStr), -2))
+
+    def select(self):
+        super(_BobItem, self).select()
+        selectorUtils.setBattleTypeAsKnown(self._selectorType)
+
+    def _update(self, state):
+        self._isSelected = state.isQueueSelected(QUEUE_TYPE.BOB)
+        isDisabled = not self.bobController.isRegistered() or not self.bobController.isModeActive()
+        self._isDisabled = state.hasLockedState or isDisabled and not self.bobController.isValidBattleType()
+        self._isVisible = self.bobController.isRegistrationPeriodEnabled() or bool(self.bobController.getCurrentSeason())
+
+    def __getAvailabilityStr(self):
+        if self._isVisible and self.bobController.hasAnySeason():
+            resShortCut = R.strings.menu.headerButtons.battle.types.bob
+            currentSeason = self.bobController.getCurrentSeason()
+            if currentSeason is not None:
+                if not self.bobController.isEnabled():
+                    return backport.text(resShortCut.availability.frozen())
+                if self.bobController.isPostEventTime():
+                    return backport.text(resShortCut.availability.postEvent())
+                timeLeft = time_utils.getTimeDeltaFromNow(time_utils.makeLocalServerTime(currentSeason.getEndDate()))
+                return backport.getTillTimeStringByRClass(timeLeft, resShortCut.availability.timeLeft)
+            nextSeason = self.bobController.getNextSeason()
+            if nextSeason is not None:
+                timeStamp = time_utils.makeLocalServerTime(nextSeason.getStartDate())
+                date = backport.getShortDateFormat(timeStamp)
+                return backport.text(resShortCut.availability.until(), date=date)
+        return
+
+
+class _BaseSelectorItems(object):
 
     def __init__(self, items, extraItems=None):
-        super(_BattleSelectorItems, self).__init__()
+        super(_BaseSelectorItems, self).__init__()
         self.__items = {item.getData():item for item in items}
         self.__extraItems = {item.getData():item for item in extraItems} if extraItems else dict()
         self.__isDemonstrator = False
@@ -329,6 +364,10 @@ class _BattleSelectorItems(object):
         self.__extraItems.clear()
         self.__isDemonstrator = False
         self.__isDemoButtonEnabled = False
+
+    @property
+    def allItems(self):
+        return self.__items.values() + self.__extraItems.values()
 
     def update(self, state):
         selected = self.__items[self._getDefaultPAN()]
@@ -395,7 +434,19 @@ class _BattleSelectorItems(object):
         return False
 
 
-class _SquadSelectorItems(_BattleSelectorItems):
+@loggerTarget(logKey=MS_LOG_KEYS.BATTLE_TYPES, loggerCls=ModeSelectorUILogger)
+class _BattleSelectorItems(_BaseSelectorItems):
+
+    @loggerEntry
+    def init(self):
+        return super(_BattleSelectorItems, self).init()
+
+    @logChangeMode
+    def update(self, state):
+        return super(_BattleSelectorItems, self).update(state)
+
+
+class _SquadSelectorItems(_BaseSelectorItems):
 
     def _getDefaultPAN(self):
         return _DEFAULT_SQUAD_PAN
@@ -425,7 +476,7 @@ class _SquadItem(SelectorItem):
         return vo
 
     def _createTooltip(self):
-        return makeTooltip(backport.text(R.strings.tooltips.header.dyn(self._data).header()), backport.text(R.strings.tooltips.header.dyn(self._data).body()))
+        return makeTooltip(backport.text(R.strings.platoon.headerButton.tooltips.dyn(self._data).header()), backport.text(R.strings.platoon.headerButton.tooltips.dyn(self._data).body()))
 
     def getPrebattleType(self):
         return self._prebattleType
@@ -468,10 +519,6 @@ class _EventSquadItem(_SpecialSquadItem):
         self._isVisible = self.__eventsCache.isEventEnabled()
         self._isSpecialBgIcon = True
         self._isDescription = False
-
-    def _update(self, state):
-        super(_EventSquadItem, self)._update(state)
-        self._isVisible = self.__eventsCache.isEventEnabled()
 
 
 class _BattleRoyaleSquadItem(_SpecialSquadItem):
@@ -626,6 +673,7 @@ def _createItems(lobbyContext=None):
     isInRoaming = settings.roaming.isInRoaming()
     items = []
     _addRandomBattleType(items)
+    _addBobBattleType(items)
     _addRankedBattleType(items, settings)
     _addCommandBattleType(items, settings)
     _addStrongholdsBattleType(items, isInRoaming)
@@ -633,7 +681,6 @@ def _createItems(lobbyContext=None):
     _addEpicTrainingBattleType(items, settings)
     if GUI_SETTINGS.specPrebatlesVisible:
         _addSpecialBattleType(items)
-    _addEventBattleType(items)
     if settings is not None and settings.isSandboxEnabled() and not isInRoaming:
         _addSandboxType(items)
     extraItems = []
@@ -702,8 +749,8 @@ def _addSandboxType(items):
     items.append(_SandboxItem(backport.text(_R_BATTLE_TYPES.battleTeaching()), PREBATTLE_ACTION_NAME.SANDBOX, 9))
 
 
-def _addEventBattleType(items):
-    items.append(_EventBattleItem(text_styles.middleTitle(backport.text(_R_BATTLE_TYPES.eventBattle())), PREBATTLE_ACTION_NAME.EVENT_BATTLE, 10))
+def _addBobBattleType(items):
+    items.append(_BobItem(backport.text(_R_BATTLE_TYPES.bob()), PREBATTLE_ACTION_NAME.BOB, 1, SELECTOR_BATTLE_TYPES.BOB))
 
 
 def _addSimpleSquadType(items):
@@ -724,10 +771,12 @@ def create():
     global _g_items
     if _g_items is None:
         _g_items = _createItems()
+        _g_items.init()
     else:
         _logger.warning('Item already is created')
     if _g_squadItems is None:
         _g_squadItems = _createSquadSelectorItems()
+        _g_squadItems.init()
     else:
         _logger.warning('Item already is created')
     return

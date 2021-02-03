@@ -152,10 +152,15 @@ class CustomizationMode(object):
             return True
 
     def removeItem(self, slotId, season=None, refresh=True):
-        self._removeItem(slotId, season)
-        if refresh:
-            self._ctx.refreshOutfit(season)
-            self._events.onItemsRemoved(slotId)
+        item = self.getItemFromSlot(slotId, season)
+        if item is None:
+            return
+        else:
+            self._removeItem(slotId, season)
+            if refresh:
+                self._ctx.refreshOutfit(season)
+                self._events.onItemsRemoved(slotId)
+            return
 
     def removeFromSlots(self, slotIds, season=None):
         season = season or self.season
@@ -188,7 +193,8 @@ class CustomizationMode(object):
     def applyItems(self, purchaseItems, isModeChanged, callback):
         purchaseItems = copy(purchaseItems)
         yield self._applyItems(purchaseItems, isModeChanged)
-        callback(self)
+        callback(None)
+        return
 
     def sellItem(self, intCD, count, _):
         if not count:

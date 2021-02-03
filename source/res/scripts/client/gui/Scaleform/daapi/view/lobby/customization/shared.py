@@ -124,23 +124,26 @@ def getCustomPurchaseItems(season, modifiedOutfits, c11nService=None):
         for intCD, component, idx, container, _ in modifiedOutfits[s].itemsFull():
             item = c11nService.getItemByCD(intCD)
             isFromInventory = inventoryCounts[intCD] > 0
-            slotType = ITEM_TYPE_TO_SLOT_TYPE[item.itemTypeID]
-            purchaseItems.append(PurchaseItem(item, price=item.getBuyPrice(), areaID=container.getAreaID(), slotType=slotType, regionIdx=idx, selected=True, group=s, isFromInventory=isFromInventory, isDismantling=False, component=component))
+            slotType = ITEM_TYPE_TO_SLOT_TYPE.get(item.itemTypeID)
+            if slotType is None:
+                _logger.error('Failed to get slotType for purchaseItem: [%s]', item)
+                continue
+            purchaseItems.append(PurchaseItem(item, price=item.getBuyPrice(), areaID=container.getAreaID(), slotType=slotType, regionIdx=idx, selected=True, group=s, isFromInventory=isFromInventory, component=component))
             inventoryCounts[intCD] -= 1
 
     return purchaseItems
 
 
 @dependency.replace_none_kwargs(c11nService=ICustomizationService)
-def getStylePurchaseItems(style, modifiedOutfits, c11nService=None):
+def getStylePurchaseItems(style, modifiedOutfits, c11nService=None, prolongRent=False):
     purchaseItems = []
     vehicle = g_currentVehicle.item
     vehicleCD = vehicle.descriptor.makeCompactDescr()
     isStyleInstalled = c11nService.getCurrentOutfit(SeasonType.SUMMER).id == style.id
     inventoryCounts = __getInventoryCounts(modifiedOutfits, vehicleCD)
     styleCount = style.fullInventoryCount(vehicle.intCD)
-    isFromInventory = styleCount > 0 or isStyleInstalled
-    purchaseItem = PurchaseItem(style, style.getBuyPrice(), areaID=None, slotType=None, regionIdx=None, selected=True, group=AdditionalPurchaseGroups.STYLES_GROUP_ID, isFromInventory=isFromInventory, isDismantling=False, locked=True)
+    isFromInventory = not prolongRent and (styleCount > 0 or isStyleInstalled)
+    purchaseItem = PurchaseItem(style, style.getBuyPrice(), areaID=None, slotType=None, regionIdx=None, selected=True, group=AdditionalPurchaseGroups.STYLES_GROUP_ID, isFromInventory=isFromInventory, locked=True)
     purchaseItems.append(purchaseItem)
     for season in SeasonType.COMMON_SEASONS:
         modifiedOutfit = modifiedOutfits[season]
@@ -220,6 +223,20 @@ def getOutfitWithoutItems(outfitsInfo, intCD, count):
                         count -= 1
 
         yield (season, outfitCompare.original)
+
+
+def getOutfitWithoutItemsNoDiff(outfits, intCD, count):
+    for season, outfit in outfits.iteritems():
+        for container in outfit.containers():
+            for slot in container.slots():
+                for idx in range(slot.capacity()):
+                    regionIntCD = slot.getItemCD(idx)
+                    if regionIntCD == intCD and count:
+                        container = outfit.getContainer(container.getAreaID())
+                        slot.remove(idx)
+                        count -= 1
+
+        yield (season, outfit)
 
 
 def fromWorldCoordsToHangarVehicle(worldCoords):
@@ -375,7 +392,7 @@ def isItemLimitReached(item, outfits=None, customizationMode=None):
 
 def getPurchaseLimit(item, outfits=None):
     appliedCount = getItemAppliedCount(item, outfits)
-    inventoryCount = item.fullInventoryCount(g_currentVehicle.item.intCD)
+    inventoryCount = item.fullInventoryCount(g_currentVehicle.intCD)
     purchaseLimit = item.buyCount - max(appliedCount - inventoryCount, 0)
     return max(purchaseLimit, 0)
 
@@ -488,7 +505,7 @@ def getItemInstalledCount(item):
     if item.itemTypeID == GUI_ITEM_TYPE.STYLE:
         installedCount = int(__isStyleInstalled(item))
     else:
-        installedCount = item.installedCount(g_currentVehicle.item.intCD)
+        installedCount = item.installedCount(g_currentVehicle.intCD)
     return installedCount
 
 
@@ -539,10 +556,15 @@ def getEditableStylesExtraNotificationCounter(styles=None, settingsCore=None):
         return 1 if isVehicleCanBeCustomized(vehicle, GUI_ITEM_TYPE.STYLE, itemsFilter=itemsFilter) else 0
 
 
-def getEditableStyleOutfitDiff(outfit, baseOutfit):
+def getEditableStyleOutfitDiffComponent(outfit, baseOutfit):
     component = outfit.pack()
     baseComponent = baseOutfit.pack()
     diffComponent = component.getDiff(baseComponent)
+    return diffComponent
+
+
+def getEditableStyleOutfitDiff(outfit, baseOutfit):
+    diffComponent = getEditableStyleOutfitDiffComponent(outfit, baseOutfit)
     diff = diffComponent.makeCompDescr()
     return diff
 
@@ -610,7 +632,7 @@ def __removeItemFromEditableStyleOutfit(outfit, baseOutfit, slotId):
 
 
 def __getItemInventoryCount(item, outfits=None):
-    inventoryCount = item.fullInventoryCount(g_currentVehicle.item.intCD)
+    inventoryCount = item.fullInventoryCount(g_currentVehicle.intCD)
     if outfits is not None:
         appliedCount = getItemAppliedCount(item, outfits)
         inventoryCount -= appliedCount
@@ -618,18 +640,15 @@ def __getItemInventoryCount(item, outfits=None):
 
 
 def __getStyleInventoryCount(item, outfits=None):
-    if g_currentVehicle is None or g_currentVehicle.item is None:
-        return 0
-    else:
-        inventoryCount = item.fullInventoryCount(g_currentVehicle.item.intCD)
-        appliedCount = 0
-        if outfits is not None:
-            appliedCount = getItemAppliedCount(item, outfits)
-            inventoryCount -= appliedCount
-        if item.isRentable:
-            if getItemInstalledCount(item) + appliedCount:
-                inventoryCount += 1
-        return inventoryCount
+    inventoryCount = item.fullInventoryCount(g_currentVehicle.intCD)
+    appliedCount = 0
+    if outfits is not None:
+        appliedCount = getItemAppliedCount(item, outfits)
+        inventoryCount -= appliedCount
+    if item.isRentable:
+        if getItemInstalledCount(item) + appliedCount:
+            inventoryCount += 1
+    return inventoryCount
 
 
 def __getItemAppliedCount(item, outfits):
@@ -658,7 +677,7 @@ def __getInventoryCounts(modifiedOutfits, vehicleCD, itemsCache=None, c11nServic
             if intCD in inventoryCounts:
                 continue
             item = itemsCache.items.getItemByCD(intCD)
-            inventoryCounts[intCD] = item.fullInventoryCount(g_currentVehicle.item.intCD)
+            inventoryCounts[intCD] = item.fullInventoryCount(g_currentVehicle.intCD)
 
     outfit = c11nService.getCurrentOutfit(SeasonType.SUMMER)
     style = c11nService.getItemByID(GUI_ITEM_TYPE.STYLE, outfit.id) if outfit.id else None

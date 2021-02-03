@@ -2,7 +2,6 @@
   <MegalodChunkModel></MegalodChunkModel>
   <PatrolNode></PatrolNode>
   <SpawnPoint></SpawnPoint>
-  <BootcampBotSpawnPoint></BootcampBotSpawnPoint>
   <PillboxBotSpawnPoint></PillboxBotSpawnPoint>
   <Artillery></Artillery>
   <ArtilleryAimingPoint></ArtilleryAimingPoint>
@@ -20,11 +19,11 @@
   <Viewpoint></Viewpoint>
   <SoundZoneTrigger></SoundZoneTrigger>
   <SpawnKeyPoint></SpawnKeyPoint>
-  <VehicleTriggerArea></VehicleTriggerArea>
   <MarkerPoint></MarkerPoint>
   <SectorWayPoint></SectorWayPoint>
   <AiScenarioSpawnPoint></AiScenarioSpawnPoint>
   <AiZoneNode></AiZoneNode>
+  <AiNotAiZone></AiNotAiZone>
   <AiZoneCenter></AiZoneCenter>
   <AiZoneEntryPoint></AiZoneEntryPoint>
   <BadNavmeshZone></BadNavmeshZone>
@@ -33,10 +32,7 @@
   <SpawnKeyPoint></SpawnKeyPoint>
   <LootBasic></LootBasic>
   <LootAdvanced></LootAdvanced>
-  <WaveBotSpawnPoint></WaveBotSpawnPoint>
-  <ItemSpawnPoint></ItemSpawnPoint>
-  <CircularEventAreaTrigger></CircularEventAreaTrigger>
-  <CircularEventAreaCounter></CircularEventAreaCounter>
-  <RectangularEventAreaTrigger></RectangularEventAreaTrigger>
-  <RectangularEventAreaCounter></RectangularEventAreaCounter>
+  <TriggerVehicleArea></TriggerVehicleArea>
+  <TriggerVehicleAreaEx></TriggerVehicleAreaEx>
+  <DeathZoneAreaTrigger></DeathZoneAreaTrigger>
 </user_data_objects.xml>

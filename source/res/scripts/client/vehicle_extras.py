@@ -75,6 +75,7 @@ class ShowShooting(EntityExtra):
                 data['_timerID'] = BigWorld.callback(burstInterval, partial(self.__doShot, data))
                 effPlayer.play(gunModel)
                 withShot = 2
+            self.__doRecoil(vehicle, gunModel)
             if not IS_EDITOR:
                 avatar = BigWorld.player()
                 if data['entity'].isPlayerVehicle or vehicle is avatar.getVehicleAttached():
@@ -82,7 +83,6 @@ class ShowShooting(EntityExtra):
                 groundWaveEff = effPlayer.effectsList.relatedEffects.get('groundWave')
                 if groundWaveEff is not None:
                     self._doGroundWaveEffect(data['entity'], groundWaveEff, gunModel)
-                self.__doRecoil(vehicle, gunModel)
                 if vehicle.isPlayerVehicle:
                     appearance = vehicle.appearance
                     appearance.executeShootingVibrations(vehicle.typeDescriptor.shot.shell.caliber)
@@ -162,11 +162,11 @@ class ShowShootingMultiGun(ShowShooting):
                 self.stop(data)
                 return
             self.__doGunEffect(data)
+            self.__doRecoil(data)
             if not IS_EDITOR:
                 avatar = BigWorld.player()
                 if data['entity'].isPlayerVehicle or vehicle is avatar.getVehicleAttached():
                     avatar.getOwnVehicleShotDispersionAngle(avatar.gunRotator.turretRotationSpeed, withShot=1)
-                self.__doRecoil(data)
                 if vehicle.isPlayerVehicle:
                     appearance = vehicle.appearance
                     appearance.executeShootingVibrations(vehicle.typeDescriptor.shot.shell.caliber)
@@ -259,13 +259,12 @@ class Fire(EntityExtra):
     def _start(self, data, args):
         data['_isStarted'] = False
         vehicle = data['entity']
-        apperance = vehicle.appearance
-        if apperance is not None and not apperance.isUnderwater:
+        isUnderwater = vehicle.appearance.isUnderwater
+        if not isUnderwater:
             self.__playEffect(data)
         data['_isStarted'] = True
         data['_invokeTime'] = BigWorld.time()
-        apperance.switchFireVibrations(True)
-        return
+        vehicle.appearance.switchFireVibrations(True)
 
     def _update(self, data, args):
         if not data['_isStarted']:
@@ -314,21 +313,13 @@ class Fire(EntityExtra):
         data['_effectsPlayer'] = weakref.ref(effectListPlayer)
         return
 
-    def __stopEffect(self, data):
-        effectsListPlayer = self.__getEffectsListPlayer(data)
-        if effectsListPlayer is not None:
-            effectsListPlayer.stop(forceCallback=True)
-            del data['_effectsPlayer']
-        return
-
     def checkUnderwater(self, vehicle, isVehicleUnderwater):
         data = vehicle.extras[self.index]
         if isVehicleUnderwater:
-            self.__stopEffect(data)
+            effectsListPlayer = self.__getEffectsListPlayer(data)
+            if effectsListPlayer is not None:
+                effectsListPlayer.stop(forceCallback=True)
+                del data['_effectsPlayer']
         if not isVehicleUnderwater:
             self.__playEffect(data)
-
-    def canBeDamagedChanged(self, vehicle, canBeDamaged):
-        if not canBeDamaged:
-            data = vehicle.extras[self.index]
-            self.__stopEffect(data)
+        return

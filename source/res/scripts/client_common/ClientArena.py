@@ -2,6 +2,7 @@
 # Embedded file name: scripts/client_common/ClientArena.py
 import cPickle
 import zlib
+from collections import namedtuple, defaultdict
 import ArenaType
 import BigWorld
 import Event
@@ -13,7 +14,8 @@ from debug_utils import LOG_DEBUG, LOG_DEBUG_DEV
 from helpers.bots import preprocessBotName
 from items import vehicles
 from visual_script.misc import ASPECT
-from visual_script.multi_plan_provider import MultiPlanProvider
+from visual_script.multi_plan_provider import makeMultiPlanProvider, CallableProviderType
+TeamBaseProvider = namedtuple('TeamBaseProvider', ('points', 'invadersCnt', 'capturingStopped'))
 
 class ClientArena(object):
     __onUpdate = {ARENA_UPDATE.VEHICLE_LIST: '_ClientArena__onVehicleListUpdate',
@@ -41,10 +43,10 @@ class ClientArena(object):
 
     def __init__(self, arenaUniqueID, arenaTypeID, arenaBonusType, arenaGuiType, arenaExtraData):
         self.__vehicles = {}
-        self.__precachedVehicles = {}
         self.__vehicleIndexToId = {}
         self.__positions = {}
         self.__statistics = {}
+        self.__teamBasesData = defaultdict(dict)
         self.__periodInfo = (ARENA_PERIOD.WAITING,
          0,
          0,
@@ -63,9 +65,11 @@ class ClientArena(object):
         self.onNewStatisticsReceived = Event.Event(em)
         self.onVehicleStatisticsUpdate = Event.Event(em)
         self.onVehicleKilled = Event.Event(em)
+        self.onVehicleHealthChanged = Event.Event(em)
         self.onVehicleRecovered = Event.Event(em)
         self.onAvatarReady = Event.Event(em)
         self.onTeamBasePointsUpdate = Event.Event(em)
+        self.onTeamBasePointsUpdateAlt = Event.Event(em)
         self.onTeamBaseCaptured = Event.Event(em)
         self.onTeamKiller = Event.Event(em)
         self.onCombatEquipmentUsed = Event.Event(em)
@@ -76,11 +80,10 @@ class ClientArena(object):
         self.onFogOfWarHiddenVehiclesSet = Event.Event(em)
         self.onTeamHealthPercentUpdate = Event.Event(em)
         self.onChatCommandTargetUpdate = Event.Event(em)
-        self.onRadarInfoReceived = Event.Event(em)
         self.onChatCommandTriggered = Event.Event(em)
         self.onRadarInfoReceived = Event.Event(em)
         self.arenaUniqueID = arenaUniqueID
-        self._vsePlans = MultiPlanProvider(ASPECT.CLIENT)
+        self._vsePlans = makeMultiPlanProvider(ASPECT.CLIENT, CallableProviderType.ARENA)
         self.arenaType = ArenaType.g_cache.get(arenaTypeID, None)
         self.bonusType = arenaBonusType
         self.guiType = arenaGuiType
@@ -91,7 +94,6 @@ class ClientArena(object):
         return
 
     vehicles = property(lambda self: self.__vehicles)
-    precachedVehicles = property(lambda self: self.__precachedVehicles)
     positions = property(lambda self: self.__positions)
     statistics = property(lambda self: self.__statistics)
     period = property(lambda self: self.__periodInfo[0])
@@ -102,11 +104,13 @@ class ClientArena(object):
     isFogOfWarEnabled = property(lambda self: self.__isFogOfWarEnabled)
     hasFogOfWarHiddenVehicles = property(lambda self: self.__hasFogOfWarHiddenVehicles)
     hasObservers = property(lambda self: any(('observer' in v['vehicleType'].type.tags for v in self.__vehicles.itervalues() if v['vehicleType'] is not None)))
+    teamBasesData = property(lambda self: self.__teamBasesData)
     arenaInfo = property(lambda self: self.__arenaInfo)
 
     def destroy(self):
         self.__eventManager.clear()
         assembler.destroyComponentSystem(self.componentSystem)
+        self._vsePlans.destroy()
         self._vsePlans = None
         return
 
@@ -172,12 +176,9 @@ class ClientArena(object):
         LOG_DEBUG_DEV('__onVehicleListUpdate', vehiclesList)
         vehs = self.__vehicles
         vehs.clear()
-        self.__precachedVehicles.clear()
         for infoAsTuple in vehiclesList:
             vehID, info = self.__vehicleInfoAsDict(infoAsTuple)
-            if vehID >= 0:
-                vehs[vehID] = self.__preprocessVehicleInfo(info)
-            self.__precachedVehicles[vehID] = info
+            vehs[vehID] = self.__preprocessVehicleInfo(info)
 
         self.__rebuildIndexToId()
         self.onNewVehicleListReceived()
@@ -252,6 +253,10 @@ class ClientArena(object):
     def __onBasePointsUpdate(self, argStr):
         team, baseID, points, timeLeft, invadersCnt, capturingStopped = cPickle.loads(argStr)
         self.onTeamBasePointsUpdate(team, baseID, points, timeLeft, invadersCnt, capturingStopped)
+        teamBases = self.__teamBasesData[team]
+        lastData = teamBases.get(baseID, TeamBaseProvider(0, 0, False))
+        teamBases[baseID] = currData = TeamBaseProvider(points, invadersCnt, capturingStopped)
+        self.onTeamBasePointsUpdateAlt(team, baseID, lastData, currData)
 
     def __onBaseCaptured(self, argStr):
         team, baseID = cPickle.loads(argStr)
@@ -325,7 +330,8 @@ class ClientArena(object):
          'fakeName': info[21],
          'badges': info[22],
          'overriddenBadge': info[23],
-         'maxHealth': info[24]}
+         'maxHealth': info[24],
+         'bobInfo': info[25]}
         return (info[0], infoAsDict)
 
     def __getVehicleType(self, intCD):

@@ -46,6 +46,7 @@ class StyleUnlockedView(ViewImpl):
         self._addListeners()
 
     def _finalize(self):
+        WWISE.WW_setState(ProgressiveRewardSoundEvents.PROGRESSIVE_REWARD_VIEW_GROUP, ProgressiveRewardSoundEvents.PROGRESSIVE_REWARD_VIEW_EXIT)
         self._removeListeners()
         super(StyleUnlockedView, self)._finalize()
 

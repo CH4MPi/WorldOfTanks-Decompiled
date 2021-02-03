@@ -1,6 +1,5 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/vehicle_compare/cmp_cart_popover.py
-from constants import QUEUE_TYPE
 from debug_utils import LOG_ERROR
 from gui.Scaleform import getNationsFilterAssetPath
 from gui.Scaleform.daapi.view.lobby.vehicle_compare.formatters import packHeaderColumnData
@@ -16,10 +15,12 @@ from helpers import dependency
 from helpers.i18n import makeString as _ms
 from nations import AVAILABLE_NAMES
 from skeletons.gui.game_control import IVehicleComparisonBasket
+from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.shared import IItemsCache
 
 class VehicleCompareCartPopover(VehicleCompareCartPopoverMeta):
     comparisonBasket = dependency.descriptor(IVehicleComparisonBasket)
+    lobbyContext = dependency.descriptor(ILobbyContext)
 
     def remove(self, vehId):
         self.comparisonBasket.removeVehicleByIdx(int(vehId))
@@ -41,12 +42,14 @@ class VehicleCompareCartPopover(VehicleCompareCartPopoverMeta):
         self._cartDP.rebuildList(self.comparisonBasket.getVehiclesCDs())
         self.comparisonBasket.onChange += self.__onBasketChange
         self.comparisonBasket.onSwitchChange += self.__onVehCmpBasketStateChanged
+        self.lobbyContext.getServerSettings().onServerSettingsChange += self.__onServerSettingChanged
         self.__initControls()
 
     def _dispose(self):
         super(VehicleCompareCartPopover, self)._dispose()
         self.comparisonBasket.onChange -= self.__onBasketChange
         self.comparisonBasket.onSwitchChange -= self.__onVehCmpBasketStateChanged
+        self.lobbyContext.getServerSettings().onServerSettingsChange -= self.__onServerSettingChanged
         self._cartDP.fini()
         self._cartDP = None
         return
@@ -80,16 +83,21 @@ class VehicleCompareCartPopover(VehicleCompareCartPopoverMeta):
             addBtnTT = VEH_COMPARE.CARTPOPOVER_OPENCMPBTN_TOOLTIP
             addBtnIcon = None
         isNavigationEnabled = not g_prbLoader.getDispatcher().getFunctionalState().isNavigationDisabled()
-        entity = g_prbLoader.getDispatcher().getEntity()
-        isInEvent = entity is not None and entity.getQueueType() == QUEUE_TYPE.EVENT_BATTLES
         self.as_updateToCmpBtnPropsS({'btnLabel': _ms(VEH_COMPARE.CARTPOPOVER_GOTOCOMPAREBTN_LABEL, value=count),
          'btnTooltip': addBtnTT,
-         'btnEnabled': buttonsEnabled and isNavigationEnabled and not isInEvent,
+         'btnEnabled': buttonsEnabled and isNavigationEnabled,
          'btnIcon': addBtnIcon})
         isBasketLocked = self.comparisonBasket.isLocked
         self.as_updateClearBtnPropsS({'btnLabel': VEH_COMPARE.CARTPOPOVER_REMOVEALLBTN_LABEL,
          'btnTooltip': VEH_COMPARE.CARTPOPOVER_REMOVEBTNLOCKED_TOOLTIP if isBasketLocked else VEH_COMPARE.CARTPOPOVER_REMOVEALLBTN_TOOLTIP,
          'btnEnabled': buttonsEnabled and not isBasketLocked})
+        return
+
+    def __onServerSettingChanged(self, diff):
+        if 'sessionStats' in diff or ('sessionStats', '_r') in diff:
+            isSessionStatsEnabled = diff['sessionStats'].get('isSessionStatsEnabled')
+            if isSessionStatsEnabled is not None:
+                self.destroy()
         return
 
 

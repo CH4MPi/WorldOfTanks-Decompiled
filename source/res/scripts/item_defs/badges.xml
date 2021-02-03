@@ -1601,6 +1601,42 @@
       </value>
     </badge>
     <badge>
+      <name>	hw_2020_1	</name>
+      <type>	dict	</type>
+      <value>
+        <item>	98	  <name>	id	</name>
+          <type>	int	</type>
+        </item>
+        <item>	5.05	  <name>	weight	</name>
+          <type>	float	</type>
+        </item>
+        <item>	gold	  <name>	highlight	</name>
+          <type>	string	</type>
+        </item>
+        <item>	False	  <name>	achievable	</name>
+          <type>	bool	</type>
+        </item>
+      </value>
+    </badge>
+    <badge>
+      <name>	hw_2020_2	</name>
+      <type>	dict	</type>
+      <value>
+        <item>	99	  <name>	id	</name>
+          <type>	int	</type>
+        </item>
+        <item>	5.06	  <name>	weight	</name>
+          <type>	float	</type>
+        </item>
+        <item>	gold	  <name>	highlight	</name>
+          <type>	string	</type>
+        </item>
+        <item>	False	  <name>	achievable	</name>
+          <type>	bool	</type>
+        </item>
+      </value>
+    </badge>
+    <badge>
       <name>	alpha_tester_suffix	</name>
       <type>	dict	</type>
       <value>
@@ -1733,19 +1769,6 @@
         <item>	True	  <name>	achievable	</name>
           <type>	bool	</type>
         </item>
-        <item>
-          <name>	realm	</name>
-          <type>	dict	</type>
-          <value>
-            <item>
-              <name>	exclude	</name>
-              <type>	list	</type>
-              <value>
-                <item>	CN	</item>
-              </value>
-            </item>
-          </value>
-        </item>
       </value>
     </badge>
     <badge>
@@ -1773,19 +1796,6 @@
         <item>	True	  <name>	achievable	</name>
           <type>	bool	</type>
         </item>
-        <item>
-          <name>	realm	</name>
-          <type>	dict	</type>
-          <value>
-            <item>
-              <name>	exclude	</name>
-              <type>	list	</type>
-              <value>
-                <item>	CN	</item>
-              </value>
-            </item>
-          </value>
-        </item>
       </value>
     </badge>
     <badge>
@@ -1812,19 +1822,6 @@
         </item>
         <item>	True	  <name>	achievable	</name>
           <type>	bool	</type>
-        </item>
-        <item>
-          <name>	realm	</name>
-          <type>	dict	</type>
-          <value>
-            <item>
-              <name>	exclude	</name>
-              <type>	list	</type>
-              <value>
-                <item>	CN	</item>
-              </value>
-            </item>
-          </value>
         </item>
       </value>
     </badge>
@@ -1952,7 +1949,6 @@
               <type>	list	</type>
               <value>
                 <item>	RU	</item>
-                <item>	CN	</item>
               </value>
             </item>
           </value>
@@ -2590,14 +2586,17 @@
       </value>
     </badge>
     <badge>
-      <name>	hw_2020_1	</name>
+      <name>	ny_2021	</name>
       <type>	dict	</type>
       <value>
-        <item>	98	  <name>	id	</name>
+        <item>	100	  <name>	id	</name>
           <type>	int	</type>
         </item>
-        <item>	5.05	  <name>	weight	</name>
+        <item>	4.100	  <name>	weight	</name>
           <type>	float	</type>
+        </item>
+        <item>	23	  <name>	group	</name>
+          <type>	int	</type>
         </item>
         <item>	gold	  <name>	highlight	</name>
           <type>	string	</type>
@@ -2608,20 +2607,36 @@
       </value>
     </badge>
     <badge>
-      <name>	hw_2020_2	</name>
+      <name>	global_map_renaissance	</name>
       <type>	dict	</type>
       <value>
-        <item>	99	  <name>	id	</name>
+        <item>	101	  <name>	id	</name>
           <type>	int	</type>
         </item>
-        <item>	5.06	  <name>	weight	</name>
+        <item>	4.108	  <name>	weight	</name>
           <type>	float	</type>
+        </item>
+        <item>	13	  <name>	group	</name>
+          <type>	int	</type>
         </item>
         <item>	gold	  <name>	highlight	</name>
           <type>	string	</type>
         </item>
         <item>	False	  <name>	achievable	</name>
           <type>	bool	</type>
+        </item>
+        <item>
+          <name>	realm	</name>
+          <type>	dict	</type>
+          <value>
+            <item>
+              <name>	exclude	</name>
+              <type>	list	</type>
+              <value>
+                <item>	CN	</item>
+              </value>
+            </item>
+          </value>
         </item>
       </value>
     </badge>

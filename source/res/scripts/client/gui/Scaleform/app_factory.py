@@ -26,6 +26,10 @@ _SPACE = app_settings.APP_NAME_SPACE
 
 class EmptyAppFactory(AlwaysValidObject, IAppFactory):
 
+    def __init__(self):
+        super(EmptyAppFactory, self).__init__()
+        self.__waiting = WaitingWorker()
+
     def createLobby(self):
         _logger.debug('EmptyAppFactory.createLobby')
 
@@ -40,6 +44,10 @@ class EmptyAppFactory(AlwaysValidObject, IAppFactory):
 
     def destroyBattle(self):
         _logger.debug('EmptyAppFactory.destroyBattle')
+
+    def getWaitingWorker(self):
+        _logger.debug('EmptyAppFactory.getWaitingWorker')
+        return self.__waiting
 
 
 class AS3_AppFactory(IAppFactory):
@@ -290,6 +298,8 @@ class AS3_AppFactory(IAppFactory):
             event = events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.EPIC_BATTLE_PAGE))
         elif arenaGuiType == ARENA_GUI_TYPE.EVENT_BATTLES:
             event = events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.EVENT_BATTLE_PAGE))
+        elif arenaGuiType == ARENA_GUI_TYPE.BOB:
+            event = events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.BOB_BATTLE_PAGE))
         else:
             event = events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.CLASSIC_BATTLE_PAGE))
         g_eventBus.handleEvent(event, EVENT_BUS_SCOPE.BATTLE)

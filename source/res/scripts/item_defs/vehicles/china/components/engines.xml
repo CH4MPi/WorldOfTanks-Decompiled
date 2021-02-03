@@ -54,11 +54,13 @@
     <V_2_54SC_QL>	252	</V_2_54SC_QL>
     <V_2_54SC_113>	253	</V_2_54SC_113>
     <_Type_102S_T>	254	</_Type_102S_T>
+    <_12150L7BW>	255	</_12150L7BW>
     <_8V135_IGR>	60001	</_8V135_IGR>
     <_12150LS_IGR>	60002	</_12150LS_IGR>
     <_12150L7_IGR>	60003	</_12150L7_IGR>
     <_Type97_bootcamp>	64001	</_Type97_bootcamp>
     <Development_Engine>	65000	</Development_Engine>
+    <_12150L_bootcamp>	3	</_12150L_bootcamp>
   </ids>
   <shared>
     <NORINCO_12150L7>
@@ -964,6 +966,23 @@
       <rpm_min>	312	</rpm_min>
       <rpm_max>	2264	</rpm_max>
     </Detroit_Diesel_8V71T>
+    <_12150L7BW>
+      <userString>	#china_vehicles:_12150L7BW	</userString>
+      <tags>	diesel	</tags>
+      <level>	8	</level>
+      <notInShop>	true	</notInShop>
+      <price>	50000	</price>
+      <wwsoundPC>	eng_v55_pc	</wwsoundPC>
+      <wwsoundNPC>	eng_v55_npc	</wwsoundNPC>
+      <power>	580	</power>
+      <weight>	935	</weight>
+      <maxHealth>	360	</maxHealth>
+      <maxRegenHealth>	130	</maxRegenHealth>
+      <repairCost>	8	</repairCost>
+      <fireStartingChance>	0.12	</fireStartingChance>
+      <rpm_min>	365	</rpm_min>
+      <rpm_max>	2104	</rpm_max>
+    </_12150L7BW>
     <_8V135_IGR>
       <userString>	#igr_vehicles:_8V135_IGR	</userString>
       <tags>	diesel	</tags>
@@ -1032,5 +1051,22 @@
       <rpm_min>	376	</rpm_min>
       <rpm_max>	2072	</rpm_max>
     </Development_Engine>
+    <_12150L_bootcamp>
+      <userString>	#china_vehicles:_12150L	</userString>
+      <tags>	diesel	</tags>
+      <level>	8	</level>
+      <price>	48000	</price>
+      <wwsoundPC>	eng_v55_pc	</wwsoundPC>
+      <wwsoundNPC>	eng_v55_npc	</wwsoundNPC>
+      <power>	520	</power>
+      <weight>	750	</weight>
+      <maxHealth>	190	</maxHealth>
+      <maxRegenHealth>	95	</maxRegenHealth>
+      <repairCost>	7	</repairCost>
+      <fireStartingChance>	0.12	</fireStartingChance>
+      <rpm_min>	381	</rpm_min>
+      <rpm_max>	2056	</rpm_max>
+      <notInShop>	True	</notInShop>
+    </_12150L_bootcamp>
   </shared>
 </engines.xml>

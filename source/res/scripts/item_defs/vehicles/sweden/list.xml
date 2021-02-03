@@ -1,5 +1,4 @@
 <list.xml>
-  <xmlns:xmlref>	http://bwt/xmlref	</xmlns:xmlref>
   <S05_Strv_M21_29>
     <id>	0	</id>
     <userString>	#sweden_vehicles:S05_Strv_M21_29	</userString>
@@ -285,17 +284,17 @@
     <tags>	mediumTank HD improvedVentilation_class2_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user	</tags>
     <level>	8	</level>
   </S26_Lansen_C>
-  <S28_UDES_15_16_bob>
+  <S16_Kranvagn_bob>
     <id>	210	</id>
-    <userString>	#sweden_vehicles:S28_UDES_15_16_bob	</userString>
-    <shortUserString>	#sweden_vehicles:S28_UDES_15_16_bob_short	</shortUserString>
-    <description>	#sweden_vehicles:S28_UDES_15_16_descr	</description>
+    <userString>	#sweden_vehicles:S16_Kranvagn_bob	</userString>
+    <shortUserString>	#sweden_vehicles:S16_Kranvagn_bob_short	</shortUserString>
+    <description>	#sweden_vehicles:S16_Kranvagn_descr	</description>
     <price>	6100000	</price>
     <notInShop>	true	</notInShop>
     <cannotBeBought>	true	</cannotBeBought>
-    <tags>	mediumTank HD secret cannot_be_sold siegeMode autoSiege mediumTank3 improvedVentilation_class2_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals	</tags>
+    <tags>	heavyTank HD secret bob cannot_be_sold heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
     <level>	10	</level>
-  </S28_UDES_15_16_bob>
+  </S16_Kranvagn_bob>
   <S30_UDES_03_Alt_3>
     <id>	208	</id>
     <userString>	#sweden_vehicles:S30_UDES_03_Alt_3	</userString>
@@ -336,37 +335,4 @@
     <tags>	heavyTank HD secret special heavyTank1 improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
     <level>	9	</level>
   </S31_Strv_K>
-  <S27_UDES_16_HELL>
-    <id>	25	</id>
-    <userString>	#sweden_vehicles:S27_UDES_16_HELL	</userString>
-    <shortUserString>	#sweden_vehicles:S27_UDES_16_short_HELL	</shortUserString>
-    <description>	#sweden_vehicles:S27_UDES_16_descr	</description>
-    <price>	3480000	</price>
-    <tags>	mediumTank mediumTank1 improvedVentilation_class2_user siegeMode autoSiege HD  event_battles secret cannot_be_sold lockCrew lockOutfit	</tags>
-    <level>	9	</level>
-    <clone_tags>	cloned	</clone_tags>
-    <notInShop>	True	</notInShop>
-  </S27_UDES_16_HELL>
-  <S29_UDES_14_5_HELL>
-    <id>	26	</id>
-    <userString>	#sweden_vehicles:S29_UDES_14_5_HELL	</userString>
-    <shortUserString>	#sweden_vehicles:S29_UDES_14_5_short_HELL	</shortUserString>
-    <description>	#sweden_vehicles:S29_UDES_14_5_descr	</description>
-    <price>	2510000	</price>
-    <tags>	mediumTank mediumTank1 improvedVentilation_class2_user siegeMode autoSiege HD  event_battles secret cannot_be_sold lockCrew lockOutfit	</tags>
-    <level>	8	</level>
-    <clone_tags>	cloned	</clone_tags>
-    <notInShop>	True	</notInShop>
-  </S29_UDES_14_5_HELL>
-  <S13_Leo_HELL>
-    <id>	27	</id>
-    <userString>	#sweden_vehicles:S13_Leo_HELL	</userString>
-    <shortUserString>	#sweden_vehicles:S13_Leo_short_HELL	</shortUserString>
-    <description>	#sweden_vehicles:S13_Leo_descr	</description>
-    <price>	1410000	</price>
-    <tags>	mediumTank mediumTank1 improvedVentilation_class2_user HD  event_battles secret cannot_be_sold lockCrew lockOutfit	</tags>
-    <level>	7	</level>
-    <clone_tags>	cloned	</clone_tags>
-    <notInShop>	True	</notInShop>
-  </S13_Leo_HELL>
 </list.xml>

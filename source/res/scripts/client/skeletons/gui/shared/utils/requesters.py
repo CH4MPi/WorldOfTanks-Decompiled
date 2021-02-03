@@ -843,6 +843,9 @@ class IBlueprintsRequester(IRequester):
     def isBlueprintsAvailable(self):
         raise NotImplementedError
 
+    def hasBlueprintsOrFragments(self):
+        raise NotImplementedError
+
 
 class ITokensRequester(IRequester):
 
@@ -859,6 +862,9 @@ class ITokensRequester(IRequester):
         raise NotImplementedError
 
     def isTokenAvailable(self, tokenID):
+        raise NotImplementedError
+
+    def getAttemptsAfterGuaranteedRewards(self, box):
         raise NotImplementedError
 
     def getLootBoxes(self):

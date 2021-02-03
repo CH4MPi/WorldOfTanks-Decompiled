@@ -19,6 +19,7 @@ from gui.Scaleform.daapi.view.meta.MissionsMarathonViewMeta import MissionsMarat
 from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
 from gui.Scaleform.genConsts.EVENTBOARDS_ALIASES import EVENTBOARDS_ALIASES
 from gui.Scaleform.genConsts.LINKEDSET_ALIASES import LINKEDSET_ALIASES
+from gui.Scaleform.genConsts.QUESTS_ALIASES import QUESTS_ALIASES
 from gui.Scaleform.genConsts.STORE_CONSTANTS import STORE_CONSTANTS
 from gui.Scaleform.locale.EVENT_BOARDS import EVENT_BOARDS
 from gui.Scaleform.locale.LINKEDSET import LINKEDSET
@@ -43,7 +44,6 @@ from skeletons.gui.server_events import IEventsCache
 from gui import makeHtmlString
 from gui.impl import backport
 from gui.impl.gen import R
-from skeletons.gui.afk_controller import IAFKController
 
 class _GroupedMissionsView(MissionsGroupedViewMeta):
 
@@ -101,6 +101,7 @@ class MissionsMarathonView(MissionsMarathonViewMeta):
         self._builder = None
         self.__loadBrowserCallbackID = None
         self.__browserView = None
+        self.__viewActive = False
         return
 
     def closeView(self):
@@ -135,6 +136,9 @@ class MissionsMarathonView(MissionsMarathonViewMeta):
         self._width = width
         self._height = height
 
+    def markVisited(self):
+        pass
+
     @process
     def _onRegisterFlashComponent(self, viewPy, alias):
         if alias == VIEW_ALIAS.BROWSER and self._marathonEvent:
@@ -145,6 +149,8 @@ class MissionsMarathonView(MissionsMarathonViewMeta):
                 viewPy.init(browserID, self._marathonEvent.createMarathonWebHandlers(), alias=alias)
                 self.__browserView = viewPy
                 self.__browserView.showContentUnderLoading = False
+                if self._marathonEvent.isNeedHandlingEscape:
+                    self.__setSkipEscapeInBrowser(False)
             else:
                 LOG_ERROR('Attampt to initialize browser 2nd time!')
         return
@@ -160,10 +166,15 @@ class MissionsMarathonView(MissionsMarathonViewMeta):
         self._marathonEvent.showRewardVideo()
         Waiting.hide('loadPage')
         self.__loadBrowserCallbackID = BigWorld.callback(0.01, self.__loadBrowser)
+        g_eventBus.addListener(events.MissionsEvent.ON_TAB_CHANGED, self.__onMissionsTabChanged, EVENT_BUS_SCOPE.LOBBY)
+        g_eventBus.addListener(events.FocusEvent.COMPONENT_FOCUSED, self.__onFocus)
 
     def _dispose(self):
+        g_eventBus.removeListener(events.MissionsEvent.ON_TAB_CHANGED, self.__onMissionsTabChanged, EVENT_BUS_SCOPE.LOBBY)
+        g_eventBus.removeListener(events.FocusEvent.COMPONENT_FOCUSED, self.__onFocus)
         self.__cancelLoadBrowserCallback()
         self.__browserView = None
+        self.__viewActive = False
         super(MissionsMarathonView, self)._dispose()
         return
 
@@ -180,6 +191,26 @@ class MissionsMarathonView(MissionsMarathonViewMeta):
 
     def __updateEvents(self):
         self._builder.invalidateBlocks()
+
+    def __onMissionsTabChanged(self, event):
+        self.__viewActive = event.ctx.get('alias') == QUESTS_ALIASES.MISSIONS_MARATHON_VIEW_PY_ALIAS
+        if self._marathonEvent.isNeedHandlingEscape and self.__viewActive:
+            self.__setSkipEscapeInBrowser(False)
+        else:
+            self.__setSkipEscapeInBrowser(True)
+
+    def __setSkipEscapeInBrowser(self, value):
+        browser = self._browserCtrl.getBrowser(self.__browserID)
+        if browser:
+            browser.skipEscape = value
+
+    def __onFocus(self, event):
+        context = event.ctx
+        if context.get('alias') == VIEW_ALIAS.LOBBY_MISSIONS:
+            if self._marathonEvent.isNeedHandlingEscape and self.__viewActive:
+                self.__setSkipEscapeInBrowser(False)
+        elif context.get('alias') != VIEW_ALIAS.LOBBY:
+            self.__setSkipEscapeInBrowser(True)
 
 
 class MissionsEventBoardsView(MissionsEventBoardsViewMeta):
@@ -333,8 +364,7 @@ class MissionsCategoriesView(_GroupedMissionsView):
 
     @staticmethod
     def getViewQuestFilter():
-        afkController = dependency.instance(IAFKController)
-        return lambda q: not (isMarathon(q.getGroupID()) or isPremium(q.getGroupID()) or isDailyQuest(q.getID())) and afkController.questFilter(q)
+        return lambda q: not (isMarathon(q.getGroupID()) or isPremium(q.getGroupID()) or isDailyQuest(q.getID()))
 
     @staticmethod
     def getViewQuestFilterIncludingDailyQuests():

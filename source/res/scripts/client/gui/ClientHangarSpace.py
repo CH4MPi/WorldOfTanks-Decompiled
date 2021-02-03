@@ -2,7 +2,6 @@
 # Embedded file name: scripts/client/gui/ClientHangarSpace.py
 import copy
 import json
-import math
 from logging import getLogger
 import BigWorld
 import Math
@@ -11,13 +10,16 @@ import ResMgr
 import constants
 from PlayerEvents import g_playerEvents
 from debug_utils import LOG_DEBUG, LOG_ERROR, LOG_CURRENT_EXCEPTION
+from gui.hangar_config import HangarConfig
 from helpers import dependency
 from skeletons.account_helpers.settings_core import ISettingsCore
-from skeletons.gui.game_control import IIGRController
+from skeletons.gui.game_control import IIGRController, IEpicBattleMetaGameController
 from gui.hangar_cameras.hangar_camera_manager import HangarCameraManager
 from skeletons.gui.shared.gui_items import IGuiItemsFactory
 from skeletons.gui.turret_gun_angles import ITurretAndGunAngles
 from skeletons.map_activities import IMapActivities
+from visual_script.multi_plan_provider import MultiPlanProvider
+from visual_script.misc import ASPECT, VisualScriptTag
 from skeletons.gui.shared.utils import IHangarSpace
 _DEFAULT_SPACES_PATH = 'spaces'
 SERVER_CMD_CHANGE_HANGAR = 'cmd_change_hangar'
@@ -53,8 +55,8 @@ def _getHangarVisibilityMask(isPremium):
     return _EVENT_HANGAR_PATHS[isPremium][1] if isPremium in _EVENT_HANGAR_PATHS else SPACE_FULL_VISIBILITY_MASK
 
 
-_CFG = {}
-_HANGAR_CFGS = {}
+_CFG = HangarConfig()
+_HANGAR_CFGS = HangarConfig()
 _EVENT_HANGAR_PATHS = {}
 _IGR_HANGAR_PATH_KEY = 'igrPremHangarPath' + ('CN' if constants.IS_CHINA else '')
 _DEFAULT_HANGAR_PATH_KEY = 'DEFAULT'
@@ -93,82 +95,24 @@ def _readHangarSettings():
         settingsXml = ResMgr.openSection(settingsXmlPath)
         if settingsXml is None:
             continue
-        cfg = {}
-        loadConfigValue('shadow_model_name', hangarsXml, hangarsXml.readString, cfg)
-        loadConfigValue('shadow_default_texture_name', hangarsXml, hangarsXml.readString, cfg)
-        loadConfigValue('shadow_empty_texture_name', hangarsXml, hangarsXml.readString, cfg)
-        loadConfigValue(_IGR_HANGAR_PATH_KEY, hangarsXml, hangarsXml.readString, cfg)
-        loadConfig(cfg, settingsXml)
+        cfg = HangarConfig()
+        cfg.loadDefaultHangarConfig(hangarsXml, _IGR_HANGAR_PATH_KEY)
+        cfg.loadConfig(settingsXml)
+        _loadVisualScript(cfg, settingsXml)
         if settingsXml.has_key(_CUSTOMIZATION_HANGAR_SETTINGS_SEC):
             customizationXmlSection = settingsXml[_CUSTOMIZATION_HANGAR_SETTINGS_SEC]
-            customizationCfg = {}
-            _loadCustomizationConfig(customizationCfg, customizationXmlSection)
+            customizationCfg = HangarConfig()
+            customizationCfg.loadCustomizationConfig(customizationXmlSection)
             cfg[_CUSTOMIZATION_HANGAR_SETTINGS_SEC] = customizationCfg
         if settingsXml.has_key(_SECONDARY_HANGAR_SETTINGS_SEC):
             secondarySettingsXmlSection = settingsXml[_SECONDARY_HANGAR_SETTINGS_SEC]
-            secondaryCfg = {}
-            _loadSecondaryConfig(secondaryCfg, secondarySettingsXmlSection)
+            secondaryCfg = HangarConfig()
+            secondaryCfg.loadSecondaryConfig(secondarySettingsXmlSection)
             cfg[_SECONDARY_HANGAR_SETTINGS_SEC] = secondaryCfg
         configset[spaceKey] = cfg
         _validateConfigValues(cfg)
 
     return configset
-
-
-def loadConfig(cfg, xml, defaultCfg=None):
-    if defaultCfg is None:
-        defaultCfg = cfg
-    defaultFakeShadowOffsetsCfg = {'shadow_forward_y_offset': 0.0,
-     'shadow_deferred_y_offset': 0.0}
-    loadConfigValue('v_start_angles', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('v_start_pos', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('cam_start_target_pos', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('cam_start_dist', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('cam_start_angles', xml, xml.readVector2, cfg, defaultCfg)
-    loadConfigValue('cam_dist_constr', xml, xml.readVector2, cfg, defaultCfg)
-    loadConfigValue('cam_min_dist_vehicle_hull_length_k', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('cam_pitch_constr', xml, xml.readVector2, cfg, defaultCfg)
-    loadConfigValue('cam_yaw_constr', xml, xml.readVector2, cfg, defaultCfg)
-    loadConfigValue('cam_sens', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('cam_dist_sens', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('cam_pivot_pos', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('cam_fluency', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('emblems_alpha_damaged', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('emblems_alpha_undamaged', xml, xml.readFloat, cfg, defaultCfg)
-    loadConfigValue('shadow_light_dir', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('shadow_model_name', xml, xml.readString, cfg, defaultCfg)
-    loadConfigValue('shadow_forward_y_offset', xml, xml.readFloat, cfg, defaultFakeShadowOffsetsCfg)
-    loadConfigValue('shadow_deferred_y_offset', xml, xml.readFloat, cfg, defaultFakeShadowOffsetsCfg)
-    loadConfigValue('shadow_default_texture_name', xml, xml.readString, cfg, defaultCfg)
-    loadConfigValue('shadow_empty_texture_name', xml, xml.readString, cfg, defaultCfg)
-    loadConfigValue('cam_capsule_scale', xml, xml.readVector3, cfg, defaultCfg)
-    loadConfigValue('cam_capsule_gun_scale', xml, xml.readVector3, cfg, defaultCfg)
-    defaultIdleCfg = {'cam_idle_pitch_constr': Math.Vector2(0.0, 0.0),
-     'cam_idle_dist_constr': Math.Vector2(10.0, 10.0),
-     'cam_idle_yaw_period': 0.0,
-     'cam_idle_pitch_period': 0.0,
-     'cam_idle_dist_period': 0.0,
-     'cam_idle_easing_in_time': 0.0}
-    loadConfigValue('cam_idle_pitch_constr', xml, xml.readVector2, cfg, defaultIdleCfg)
-    loadConfigValue('cam_idle_dist_constr', xml, xml.readVector2, cfg, defaultIdleCfg)
-    loadConfigValue('cam_idle_yaw_period', xml, xml.readFloat, cfg, defaultIdleCfg)
-    loadConfigValue('cam_idle_pitch_period', xml, xml.readFloat, cfg, defaultIdleCfg)
-    loadConfigValue('cam_idle_dist_period', xml, xml.readFloat, cfg, defaultIdleCfg)
-    loadConfigValue('cam_idle_easing_in_time', xml, xml.readFloat, cfg, defaultIdleCfg)
-    defaultParallaxCfg = {'cam_parallax_distance': Math.Vector2(0.0, 0.0),
-     'cam_parallax_angles': Math.Vector2(0.0, 0.0),
-     'cam_parallax_smoothing': 0.0}
-    loadConfigValue('cam_parallax_distance', xml, xml.readVector2, cfg, defaultParallaxCfg)
-    loadConfigValue('cam_parallax_angles', xml, xml.readVector2, cfg, defaultParallaxCfg)
-    loadConfigValue('cam_parallax_smoothing', xml, xml.readFloat, cfg, defaultParallaxCfg)
-    defaultVehicleAnglesCfg = {'vehicle_gun_pitch': 0.0,
-     'vehicle_turret_yaw': 0.0}
-    loadConfigValue('vehicle_gun_pitch', xml, xml.readFloat, cfg, defaultVehicleAnglesCfg)
-    loadConfigValue('vehicle_turret_yaw', xml, xml.readFloat, cfg, defaultVehicleAnglesCfg)
-    for i in range(0, 3):
-        cfg['v_start_angles'][i] = math.radians(cfg['v_start_angles'][i])
-
-    return
 
 
 def _validateConfigValues(cfg):
@@ -177,44 +121,10 @@ def _validateConfigValues(cfg):
         cfg['cam_pitch_constr'][0] = -89.9
 
 
-def _loadCustomizationConfig(cfg, xml):
-    defaultFakeShadowOffsetsCfg = {'shadow_forward_y_offset': 0.0,
-     'shadow_deferred_y_offset': 0.0}
-    loadConfigValue('v_start_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('v_start_angles', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('cam_start_dist', xml, xml.readFloat, cfg, cfg)
-    loadConfigValue('cam_dist_constr', xml, xml.readVector2, cfg, cfg)
-    loadConfigValue('cam_start_angles', xml, xml.readVector2, cfg, cfg)
-    loadConfigValue('cam_pivot_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('cam_start_target_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('shadow_forward_y_offset', xml, xml.readFloat, cfg, defaultFakeShadowOffsetsCfg)
-    loadConfigValue('shadow_deferred_y_offset', xml, xml.readFloat, cfg, defaultFakeShadowOffsetsCfg)
-    loadConfigValue('cam_fluency', xml, xml.readFloat, cfg, cfg)
-
-
-def _loadSecondaryConfig(cfg, xml):
-    defaultShadowOffsetsCfg = {'shadow_forward_y_offset': 0.0,
-     'shadow_deferred_y_offset': 0.0}
-    loadConfigValue('v_start_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('v_start_angles', xml, xml.readVector3, cfg, cfg)
-    for i in range(0, 3):
-        cfg['v_start_angles'][i] = math.radians(cfg['v_start_angles'][i])
-
-    loadConfigValue('cam_start_dist', xml, xml.readFloat, cfg, cfg)
-    loadConfigValue('cam_dist_constr', xml, xml.readVector2, cfg, cfg)
-    loadConfigValue('cam_start_angles', xml, xml.readVector2, cfg, cfg)
-    loadConfigValue('cam_pivot_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('cam_start_target_pos', xml, xml.readVector3, cfg, cfg)
-    loadConfigValue('shadow_forward_y_offset', xml, xml.readFloat, cfg, defaultShadowOffsetsCfg)
-    loadConfigValue('shadow_deferred_y_offset', xml, xml.readFloat, cfg, defaultShadowOffsetsCfg)
-
-
-def loadConfigValue(name, xml, fn, cfg, defaultCfg=None):
-    if xml.has_key(name):
-        cfg[name] = fn(name)
-    else:
-        cfg[name] = defaultCfg.get(name) if defaultCfg is not None else None
-    return
+def _loadVisualScript(cfg, section):
+    if section.has_key(VisualScriptTag):
+        vseSection = section[VisualScriptTag]
+        cfg['vse_plans'] = [ value.asString for name, value in vseSection.items() if name == 'plan' ]
 
 
 class ClientHangarSpace(object):
@@ -223,6 +133,7 @@ class ClientHangarSpace(object):
     itemsFactory = dependency.descriptor(IGuiItemsFactory)
     mapActivities = dependency.descriptor(IMapActivities)
     turretAndGunAngles = dependency.descriptor(ITurretAndGunAngles)
+    epicController = dependency.descriptor(IEpicBattleMetaGameController)
 
     def __init__(self, onVehicleLoadedCallback):
         global _HANGAR_CFGS
@@ -239,6 +150,7 @@ class ClientHangarSpace(object):
         self.__onVehicleLoadedCallback = onVehicleLoadedCallback
         self.__spacePath = None
         self.__spaceVisibilityMask = None
+        self._vsePlans = MultiPlanProvider(ASPECT.CLIENT)
         _HANGAR_CFGS = _readHangarSettings()
         return
 
@@ -284,6 +196,10 @@ class ClientHangarSpace(object):
         BigWorld.wg_setGUIBackground(_LOGIN_BLACK_BG_IMG)
         self.mapActivities.generateOfflineActivities(spacePath)
         BigWorld.pauseDRRAutoscaling(True)
+        vsePlans = _CFG.get('vse_plans', None)
+        if vsePlans is not None:
+            self._vsePlans.load(vsePlans)
+            self._vsePlans.start()
         return
 
     def recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback=None):
@@ -362,6 +278,7 @@ class ClientHangarSpace(object):
 
     def __destroy(self):
         LOG_DEBUG('Hangar successfully destroyed.')
+        self._vsePlans.reset()
         MusicControllerWWISE.unloadCustomSounds()
         if self.__cameraManager:
             self.__cameraManager.destroy()
@@ -403,6 +320,9 @@ class ClientHangarSpace(object):
 
     def __closeOptimizedRegion(self):
         BigWorld.wg_enableGUIBackground(False, True)
+
+    def getSpaceID(self):
+        return self.__spaceId
 
     def setCameraLocation(self, *args):
         self.__cameraManager.setCameraLocation(*args)

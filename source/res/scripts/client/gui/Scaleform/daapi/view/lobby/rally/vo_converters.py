@@ -4,17 +4,17 @@ import BigWorld
 from constants import MAX_VEHICLE_LEVEL, MIN_VEHICLE_LEVEL, PREBATTLE_TYPE
 from constants import VEHICLE_CLASS_INDICES, VEHICLE_CLASSES
 from gui import makeHtmlString
-from gui.Scaleform.daapi.view.lobby.event_boards.formaters import formatTimeAndDate
 from gui.Scaleform.settings import ICONS_SIZES
 from helpers import dependency
 from gui.impl import backport
 from gui.impl.gen.resources import R
-from gui.shared.utils.functions import getArenaShortName, getAbsoluteUrl
+from gui.shared.utils.functions import getArenaShortName
 from gui.Scaleform.daapi.view.lobby.cyberSport import PLAYER_GUI_STATUS, SLOT_LABEL
 from gui.Scaleform.genConsts.FORTIFICATION_ALIASES import FORTIFICATION_ALIASES as FORT_ALIAS
 from gui.Scaleform.locale.FORTIFICATIONS import FORTIFICATIONS
 from gui.Scaleform.locale.MESSENGER import MESSENGER
 from gui.Scaleform.locale.RES_ICONS import RES_ICONS
+from gui.Scaleform.locale.PLATOON import PLATOON
 from gui.Scaleform.locale.TOOLTIPS import TOOLTIPS
 from gui.Scaleform.genConsts.TOOLTIPS_CONSTANTS import TOOLTIPS_CONSTANTS
 from gui.prb_control import settings
@@ -59,7 +59,7 @@ def getSquadPlayerStatus(slotState, pInfo):
         return PLAYER_GUI_STATUS.NORMAL
 
 
-def makeSlotLabel(unitFlags, slotState, isCreator=False, vehCount=0, checkForVehicles=True, isRequired=False):
+def makeSlotLabel(unitFlags, slotState, isCreator=False, vehCount=0, checkForVehicles=True, isRequired=False, ignoreIfEmpty=False):
     slotLabel = SLOT_LABEL.DEFAULT
     if slotState.isFree:
         if unitFlags.isLocked():
@@ -69,6 +69,8 @@ def makeSlotLabel(unitFlags, slotState, isCreator=False, vehCount=0, checkForVeh
         elif isCreator and isRequired:
             template = SLOT_LABEL.REQUIRED
         else:
+            if ignoreIfEmpty:
+                return ''
             template = SLOT_LABEL.EMPTY
         slotLabel = makeHtmlString('html_templates:lobby/cyberSport/unit', template)
     elif slotState.isClosed:
@@ -175,7 +177,7 @@ def makeUserVO(user, colorGetter, isPlayerSpeaking=False, lobbyContext=None):
      'isRatingAvailable': True}
 
 
-def makePlayerVO(pInfo, user, colorGetter, isPlayerSpeaking=False):
+def makePlayerVO(pInfo, user, colorGetter, isPlayerSpeaking=False, isIncludeAccountWTR=False):
     if user is not None:
         colors = colorGetter(user.getGuiType())
         tags = list(user.getTags())
@@ -185,7 +187,7 @@ def makePlayerVO(pInfo, user, colorGetter, isPlayerSpeaking=False):
     rating = backport.getIntegralFormat(pInfo.rating)
     badge = pInfo.getBadge()
     badgeVO = badge.getBadgeVO(ICONS_SIZES.X24, {'isAtlasSource': False}) if badge else {}
-    return {'isInvite': pInfo.isInvite(),
+    playerVO = {'isInvite': pInfo.isInvite(),
      'dbID': pInfo.dbID,
      'accID': pInfo.accID,
      'isCommander': pInfo.isCommander(),
@@ -202,6 +204,9 @@ def makePlayerVO(pInfo, user, colorGetter, isPlayerSpeaking=False):
      'igrType': pInfo.igrType,
      'isRatingAvailable': True,
      'badgeVisualVO': badgeVO}
+    if isIncludeAccountWTR:
+        playerVO['accountWTR'] = backport.getIntegralFormat(pInfo.accountWTR) if pInfo.accountWTR else '-'
+    return playerVO
 
 
 def makeSortiePlayerVO(pInfo, user, colorGetter, isPlayerSpeaking=False):
@@ -253,7 +258,7 @@ def makeUnitStateLabel(unitState):
     return makeHtmlString('html_templates:lobby/cyberSport', 'teamUnlocked' if unitState.isOpened() else 'teamLocked', {})
 
 
-def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, maxPlayerCount=MAX_PLAYER_COUNT_ALL, withPrem=False, squadDifficultyLevel=None):
+def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, maxPlayerCount=MAX_PLAYER_COUNT_ALL, withPrem=False):
     pInfo = fullData.playerInfo
     isPlayerCreator = pInfo.isCommander()
     isPlayerInSlot = pInfo.isInSlot
@@ -270,12 +275,15 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
     unit = fullData.unit
     rosterSlots = {}
     isDefaultSlot = False
+    isIncludeAccountWTR = False
     if unit is not None:
         roster = unit.getRoster()
         rosterSlots = roster.slots
         isDefaultSlot = roster.isDefaultSlot
         if unit.getPrebattleType() in PREBATTLE_TYPE.EXTERNAL_PREBATTLES:
             canTakeSlot = canTakeSlot and not isPlayerInSlot
+        if unit.getPrebattleType() in PREBATTLE_TYPE.SQUAD_PREBATTLES:
+            isIncludeAccountWTR = True
     unitState = fullData.flags
     playerCount = 0
     for slotInfo in fullData.slotsIterator:
@@ -290,11 +298,8 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
         slotPlayerUI = None
         if player is not None:
             dbID = player.dbID
-            slotPlayerUI = makePlayerVO(player, userGetter(dbID), colorGetter, isPlayerSpeaking(dbID))
+            slotPlayerUI = makePlayerVO(player, userGetter(dbID), colorGetter, isPlayerSpeaking(dbID), isIncludeAccountWTR=isIncludeAccountWTR)
             isCurrentPlayer = player.isCurrentPlayer()
-            if unit.isEvent():
-                msgText = R.strings.event.event.difficulty.squad_player_max_difficulty_level()
-                slotPlayerUI['eventTooltip'] = makeTooltip(slotPlayerUI['fullName'], backport.text(msgText, difficultyStars=getDifficultyStars(player.maxDifficultyLevel)))
             if vehicle:
                 slotLevel = vehicle.vehLevel
                 if vehicle.vehTypeCompDescr:
@@ -303,7 +308,8 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
         if unit is not None and unit.getPrebattleType() == PREBATTLE_TYPE.BATTLE_ROYALE:
             slotLabel = makeBattleRoyaleSlotLabel(slotState)
         else:
-            slotLabel = makeSlotLabel(unitState, slotState, isPlayerCreator, vehCount, checkForVehicles, isRequired=isRequired)
+            ignoreEmptySlot = unit is not None and unit.getPrebattleType() in PREBATTLE_TYPE.SQUAD_PREBATTLES
+            slotLabel = makeSlotLabel(unitState, slotState, isPlayerCreator, vehCount, checkForVehicles, isRequired=isRequired, ignoreIfEmpty=ignoreEmptySlot)
         if unit.isPrebattlesSquad():
             playerStatus = getSquadPlayerStatus(slotState, player)
         else:
@@ -349,7 +355,7 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
                 isVisibleAdtMsg = player and player.isCurrentPlayer() and not isPlayerCreator and not vehicle and unit and bool(unit.getVehicles())
                 if isVisibleAdtMsg:
                     rangeString = toRomanRangeString(levelsRange, 1)
-                    additionMsg = text_styles.main(i18n.makeString(MESSENGER.DIALOGS_SIMPLESQUAD_VEHICLELEVEL, level=rangeString))
+                    additionMsg = i18n.makeString(PLATOON.MEMBERS_CARD_SELECTVEHICLE, level=rangeString)
                 else:
                     additionMsg = ''
                 slot.update({'isVisibleAdtMsg': isVisibleAdtMsg,
@@ -357,27 +363,12 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
             elif eventsCache.isSquadXpFactorsEnabled():
                 slot.update(_getXPFactorSlotInfo(unit, eventsCache, slotInfo))
         if unit.isEvent():
-            isBanned = False
-            if player:
-                isBanned = player.afkIsBanned
-            isVisibleAdtMsg = player and player.isCurrentPlayer() and not vehicle or player and isBanned or player and player.maxDifficultyLevel < squadDifficultyLevel
+            isVisibleAdtMsg = player and player.isCurrentPlayer() and not vehicle
             additionMsg = ''
             if isVisibleAdtMsg:
                 eventsCache = dependency.instance(IEventsCache)
-                difficultyLevelDisabled = player.maxDifficultyLevel < squadDifficultyLevel
-                if isBanned:
-                    date = player.afkExpireTime
-                    dateFormatted = formatTimeAndDate(date)
-                    additionMsg = text_styles.critical(backport.text(R.strings.event.squad.afk.warning(), pardonDate=dateFormatted))
-                elif difficultyLevelDisabled:
-                    if isPlayerCreator and not player.isCurrentPlayer():
-                        msgText = R.strings.event.event.difficulty.max_difficulty_level()
-                        additionMsg = backport.text(msgText, difficultyStars=getDifficultyStars(player.maxDifficultyLevel))
-                    else:
-                        additionMsg = backport.text(R.strings.event.event.difficulty.disabled_difficulty_level())
-                else:
-                    vehiclesNames = [ veh.userName for veh in eventsCache.getEventVehicles() ]
-                    additionMsg = text_styles.main(i18n.makeString(MESSENGER.DIALOGS_EVENTSQUAD_VEHICLE, vehName=', '.join(vehiclesNames)))
+                vehiclesNames = [ veh.userName for veh in eventsCache.getEventVehicles() ]
+                additionMsg = i18n.makeString(MESSENGER.DIALOGS_EVENTSQUAD_VEHICLE, vehName=', '.join(vehiclesNames))
             slot.update({'isVisibleAdtMsg': isVisibleAdtMsg,
              'additionalMsg': additionMsg})
         elif unit.getPrebattleType() == PREBATTLE_TYPE.EPIC and squadPremBonusEnabled:
@@ -388,24 +379,6 @@ def _getSlotsData(unitMgrID, fullData, levelsRange=None, checkForVehicles=True, 
         playerCount += 1
 
     return slots
-
-
-def getDifficultyStars(difficultyLevel, isGold=False, isMedium=False):
-    icon = RES_ICONS.MAPS_ICONS_EVENT_DIFFICULTYSTARGREY
-    if isMedium:
-        icon = RES_ICONS.MAPS_ICONS_EVENT_DIFFICULTYSTARMEDIUM
-    elif isGold:
-        icon = RES_ICONS.MAPS_ICONS_EVENT_DIFFICULTYSTAR
-    stars = "<img src='%s' hspace='1'/>" % getAbsoluteUrl(icon)
-    return stars * difficultyLevel
-
-
-def _getCommanderInfo(fullData):
-    for slotInfo in fullData.slotsIterator:
-        if slotInfo.player is not None and slotInfo.player.isCommander():
-            return slotInfo
-
-    return
 
 
 def _updateEpicBattleSlotInfo(player, vehicle):
@@ -420,7 +393,7 @@ def _updateSpecialBattleSlotInfo(player, vehicle, message):
     result = {}
     if vehicle is None:
         isVisibleAdtMsg = player and player.isCurrentPlayer()
-        additionalMsg = text_styles.main(message)
+        additionalMsg = message
         result = {'isVisibleAdtMsg': isVisibleAdtMsg,
          'additionalMsg': additionalMsg}
     return result
@@ -443,44 +416,33 @@ def _getXPFactorSlotInfo(unit, eventsCache, slotInfo):
             minLevel = max(MIN_VEHICLE_LEVEL, levels[0] - maxDistance)
             maxLevel = min(MAX_VEHICLE_LEVEL, levels[0] + maxDistance)
             rangeString = toRomanRangeString(range(minLevel, maxLevel + 1), 1)
-            additionalMsg = text_styles.main(i18n.makeString(MESSENGER.DIALOGS_SIMPLESQUAD_VEHICLELEVEL, level=rangeString))
+            additionalMsg = i18n.makeString(PLATOON.MEMBERS_CARD_SELECTVEHICLE, level=rangeString)
     slotNotificationIcon = ''
-    slotNotificationIconTooltip = ''
     if slotInfo.vehicle:
         if unitHasXpPenalty:
             slotNotificationIcon = RES_ICONS.MAPS_ICONS_LIBRARY_CYBERSPORT_ALERTICON
-            slotNotificationIconTooltip = makeTooltip(TOOLTIPS.SQUADWINDOW_SIMPLESLOTNOTIFICATION_ALERT_HEADER, TOOLTIPS.SQUADWINDOW_SIMPLESLOTNOTIFICATION_ALERT_BODY, None, TOOLTIPS.SQUADWINDOW_SIMPLESLOTNOTIFICATION_ALERT_ALERT)
         elif not unitHasXpBonus:
             slotNotificationIcon = RES_ICONS.MAPS_ICONS_LIBRARY_ATTENTIONICON
-            slotNotificationIconTooltip = makeTooltip(TOOLTIPS.SQUADWINDOW_SIMPLESLOTNOTIFICATION_INFO_HEADER, TOOLTIPS.SQUADWINDOW_SIMPLESLOTNOTIFICATION_INFO_BODY)
     return {'isVisibleAdtMsg': isVisibleAdtMsg,
      'additionalMsg': additionalMsg,
-     'slotNotificationIconTooltip': slotNotificationIconTooltip,
      'slotNotificationIcon': slotNotificationIcon}
 
 
 def makeSlotsVOs(unitEntity, unitMgrID=None, maxPlayerCount=MAX_PLAYER_COUNT_ALL, withPrem=False):
     fullData = unitEntity.getUnitFullData(unitMgrID=unitMgrID)
-    squadDifficultyLevel = None
-    if fullData.unit.isEvent():
-        commanderInfo = _getCommanderInfo(unitEntity.getUnitFullData(unitMgrID=unitMgrID))
-        if commanderInfo:
-            squadDifficultyLevel = commanderInfo.player.difficultyLevel
-    slots = _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount, withPrem=withPrem, squadDifficultyLevel=squadDifficultyLevel)
-    isRosterSet = fullData.unit.isRosterSet(ignored=settings.CREATOR_ROSTER_SLOT_INDEXES)
-    return (isRosterSet, slots)
+    if fullData is None or fullData.unit is None:
+        return (False, {})
+    else:
+        slots = _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount, withPrem=withPrem)
+        isRosterSet = fullData.unit.isRosterSet(ignored=settings.CREATOR_ROSTER_SLOT_INDEXES)
+        return (isRosterSet, slots)
 
 
 def makeUnitShortVO(unitEntity, unitMgrID=None, maxPlayerCount=MAX_PLAYER_COUNT_ALL):
     fullData = unitEntity.getUnitFullData(unitMgrID=unitMgrID)
-    squadDifficultyLevel = None
-    if fullData.unit.isEvent():
-        commanderInfo = _getCommanderInfo(unitEntity.getUnitFullData(unitMgrID=unitMgrID))
-        if commanderInfo:
-            squadDifficultyLevel = commanderInfo.player.difficultyLevel
     return {'isFreezed': fullData.flags.isLocked(),
      'hasRestrictions': fullData.unit.isRosterSet(ignored=settings.CREATOR_ROSTER_SLOT_INDEXES),
-     'slots': _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount, squadDifficultyLevel=squadDifficultyLevel),
+     'slots': _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount),
      'description': unitEntity.getCensoredComment(unitMgrID=unitMgrID)}
 
 
@@ -511,11 +473,6 @@ def makeUnitVO(unitEntity, unitMgrID=None, maxPlayerCount=MAX_PLAYER_COUNT_ALL, 
     levelsValidation = unitEntity.validateLevels()
     canDoAction, restriction = levelsValidation.isValid, levelsValidation.restriction
     sumLevelsStr = makeTotalLevelLabel(fullData.stats, restriction)
-    squadDifficultyLevel = None
-    if fullData.unit.isEvent():
-        commanderInfo = _getCommanderInfo(unitEntity.getUnitFullData(unitMgrID=unitMgrID))
-        if commanderInfo:
-            squadDifficultyLevel = commanderInfo.player.difficultyLevel
     return {'isCommander': isPlayerCreator,
      'isFreezed': fullData.flags.isLocked(),
      'hasRestrictions': fullData.unit.isRosterSet(ignored=settings.CREATOR_ROSTER_SLOT_INDEXES),
@@ -524,7 +481,7 @@ def makeUnitVO(unitEntity, unitMgrID=None, maxPlayerCount=MAX_PLAYER_COUNT_ALL, 
      'sumLevelsInt': fullData.stats.curTotalLevel,
      'sumLevels': sumLevelsStr,
      'sumLevelsError': canDoAction,
-     'slots': _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount, withPrem=withPrem, squadDifficultyLevel=squadDifficultyLevel),
+     'slots': _getSlotsData(unitMgrID, fullData, unitEntity.getRosterSettings().getLevelsRange(), maxPlayerCount=maxPlayerCount, withPrem=withPrem),
      'description': unitEntity.getCensoredComment(unitMgrID=unitMgrID)}
 
 

@@ -18,7 +18,6 @@ from VehicleStickers import VehicleStickers
 from vehicle_systems.components.terrain_circle_component import TerrainCircleComponent
 from vehicle_systems.components import engine_state
 from vehicle_systems.stricted_loading import makeCallbackWeak, loadingPriority
-from vehicle_systems.vehicle_damage_state import VehicleDamageState
 from vehicle_systems.tankStructure import VehiclePartsTuple, TankNodeNames, TankPartNames, TankPartIndexes, TankSoundObjectsIndexes
 from vehicle_systems.components.peripherals_controller import PeripheralsController
 from vehicle_systems.components.highlighter import Highlighter
@@ -28,7 +27,6 @@ from helpers.EffectsList import SpecialKeyPointNames
 from vehicle_systems import camouflages
 from svarog_script.script_game_object import ComponentDescriptor
 from vehicle_systems import model_assembler
-from constants import VEHICLE_SIEGE_STATE
 from VehicleEffects import DamageFromShotDecoder
 from common_tank_appearance import CommonTankAppearance
 _ROOT_NODE_NAME = 'V'
@@ -36,9 +34,6 @@ _GUN_RECOIL_NODE_NAME = 'G'
 _PERIODIC_TIME_ENGINE = 0.1
 _PERIODIC_TIME_DIRT = ((0.05, 0.25), (10.0, 400.0))
 _DIRT_ALPHA = tan((_PERIODIC_TIME_DIRT[0][1] - _PERIODIC_TIME_DIRT[0][0]) / (_PERIODIC_TIME_DIRT[1][1] - _PERIODIC_TIME_DIRT[1][0]))
-_DISSOLVE_TIME_TICK = 0.05
-_DISSOLVE_FACTOR_STEP = 0.01
-_DISSOLVE_FULL_FACTOR = 1.0
 _MOVE_THROUGH_WATER_SOUND = '/vehicles/tanks/water'
 _CAMOUFLAGE_MIN_INTENSITY = 1.0
 _PITCH_SWINGING_MODIFIERS = (0.9, 1.88, 0.3, 4.0, 1.0, 1.0)
@@ -69,8 +64,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         self.__inSpeedTreeCollision = False
         self.__isConstructed = False
         self.__tmpGameObjectNames = []
-        self.__dissolveHandler = None
-        self.__effects = set()
         return
 
     def setVehicle(self, vehicle):
@@ -119,8 +112,8 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         if self.__activated or self._vehicle is None:
             return
         else:
-            isPlayerVehicle = self._vehicle.isPlayerVehicle
             player = BigWorld.player()
+            isPlayerVehicle = self._vehicle.isPlayerVehicle or self._vehicle.id == player.observedVehicleID
             self.__originalFilter = self._vehicle.filter
             self._vehicle.filter = self.filter
             self._vehicle.filter.enableStabilisedMatrix(isPlayerVehicle)
@@ -249,13 +242,8 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
                 self.removeComponent(tmpCmp)
             _logger.warning('Component "%s" has not been found', tmpName)
 
-        fashions = VehiclePartsTuple(BigWorld.WGVehicleFashion(), BigWorld.WGVehicleFashion(), BigWorld.WGVehicleFashion(), BigWorld.WGVehicleFashion())
+        fashions = VehiclePartsTuple(BigWorld.WGVehicleFashion(), None, None, None)
         self._setFashions(fashions, isTurretDetached)
-        self.__dissolveHandler = BigWorld.PyDissolveHandler()
-        for fashionIdx, _ in enumerate(TankPartNames.ALL):
-            self.fashions[fashionIdx].addMaterialHandler(self.__dissolveHandler)
-            self.fashions[fashionIdx].addTrackMaterialHandler(self.__dissolveHandler)
-
         model_assembler.setupTracksFashion(self.typeDescriptor, self.fashion)
         self.showStickers(False)
         self.customEffectManager = None
@@ -276,19 +264,6 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         self.siegeEffects = None
         self._destroySystems()
         return
-
-    def __dissolve(self, factor):
-        factor += _DISSOLVE_FACTOR_STEP
-        self.__dissolveHandler.dissolveFactor(factor)
-        if factor < _DISSOLVE_FULL_FACTOR:
-            self.delayCallback(_DISSOLVE_TIME_TICK, self.__dissolve, factor)
-
-    def startDissolve(self):
-        if not self.__dissolveHandler:
-            self.delayCallback(0.1, self.startDissolve)
-        else:
-            self.__dissolveHandler.enabled(True)
-            self.delayCallback(5.0, self.__dissolve, 0.0)
 
     def destroy(self):
         if self._vehicle is not None:
@@ -424,28 +399,7 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
     def receiveShotImpulse(self, direction, impulse):
         if BattleReplay.isPlaying() and BattleReplay.g_replayCtrl.isTimeWarpInProgress:
             return
-        else:
-            if not VehicleDamageState.isDamagedModel(self.damageState.modelState):
-                self.swingingAnimator.receiveShotImpulse(direction, impulse)
-                if self.crashedTracksController is not None:
-                    self.crashedTracksController.receiveShotImpulse(direction, impulse)
-            return
-
-    def recoil(self):
-        self.__initiateRecoil(TankNodeNames.GUN_INCLINATION, 'HP_gunFire', self.gunRecoil)
-
-    def multiGunRecoil(self, indexes):
-        if self.gunAnimators is None:
-            return
-        else:
-            for index in indexes:
-                typeDescr = self.typeDescriptor
-                gunNodeName = typeDescr.turret.multiGun[index].node
-                gunFireNodeName = typeDescr.turret.multiGun[index].gunFire
-                gunAnimator = self.gunAnimators[index]
-                self.__initiateRecoil(gunNodeName, gunFireNodeName, gunAnimator)
-
-            return
+        super(CompoundAppearance, self).receiveShotImpulse(direction, impulse)
 
     def addCrashedTrack(self, isLeft):
         if not self._vehicle.isAlive():
@@ -506,15 +460,12 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
         outfit = camouflages.prepareBattleOutfit(outfitCD, self.typeDescriptor, self.id)
         return outfit
 
-    def __initiateRecoil(self, gunNodeName, gunFireNodeName, gunAnimator):
-        gunNode = self.compoundModel.node(gunNodeName)
-        impulseDir = Math.Matrix(gunNode).applyVector(Math.Vector3(0, 0, -1))
-        impulseValue = self.typeDescriptor.gun.impulse
-        self.receiveShotImpulse(impulseDir, impulseValue)
-        gunAnimator.recoil()
+    def _initiateRecoil(self, gunNodeName, gunFireNodeName, gunAnimator):
+        impulseDir = super(CompoundAppearance, self)._initiateRecoil(gunNodeName, gunFireNodeName, gunAnimator)
         node = self.compoundModel.node(gunFireNodeName)
         gunPos = Math.Matrix(node).translation
         BigWorld.player().inputHandler.onVehicleShaken(self._vehicle, gunPos, impulseDir, self.typeDescriptor.shot.shell.caliber, ShakeReason.OWN_SHOT_DELAYED)
+        return impulseDir
 
     def __applyVehicleOutfit(self):
         camouflages.updateFashions(self)
@@ -525,11 +476,9 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
     def __requestModelsRefresh(self):
         self._onRequestModelsRefresh()
         modelsSetParams = self.modelsSetParams
-        self._vehicle.compoundInvalidated = True
-        self._vehicle.clearBuffs()
-        self._vehicle.compoundInvalidated = False
         assembler = model_assembler.prepareCompoundAssembler(self.typeDescriptor, modelsSetParams, self._vehicle.spaceID, self._vehicle.isTurretDetached)
-        BigWorld.loadResourceListBG((assembler,), makeCallbackWeak(self.__onModelsRefresh, modelsSetParams.state), loadingPriority(self._vehicle.id))
+        collisionAssembler = model_assembler.prepareCollisionAssembler(self.typeDescriptor, self.isTurretDetached, self.worldID)
+        BigWorld.loadResourceListBG((assembler, collisionAssembler), makeCallbackWeak(self.__onModelsRefresh, modelsSetParams.state), loadingPriority(self._vehicle.id))
 
     def __onModelsRefresh(self, modelState, resourceList):
         if BattleReplay.isFinished():
@@ -541,11 +490,14 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
             prevGunPitch = Math.Matrix(self.gunMatrix).pitch
             vehicle = self._vehicle
             newCompoundModel = resourceList[self.typeDescriptor.name]
+            newCollisions = resourceList['collisionAssembler']
             isRightSideFlying = self.isRightSideFlying
             isLeftSideFlying = self.isLeftSideFlying
             self.deactivate(False)
             self.shadowManager.reattachCompoundModel(vehicle, self.compoundModel, newCompoundModel)
             self._compoundModel = newCompoundModel
+            self.collisions = newCollisions
+            model_assembler.setupCollisions(self.typeDescriptor, self.collisions)
             self._isTurretDetached = vehicle.isTurretDetached
             self.__prepareSystemsForDamagedVehicle(vehicle, self.isTurretDetached)
             self.__processPostmortemComponents()
@@ -706,29 +658,14 @@ class CompoundAppearance(CommonTankAppearance, CallbackDelayer):
             self.frictionAudition.processFriction(otherID, frictionPoint, state)
         return
 
-    def onSiegeStateChanged(self, newState, timeToNextMode):
-        if self.engineAudition is not None:
-            self.engineAudition.onSiegeStateChanged(newState)
-        if self.hullAimingController is not None:
-            self.hullAimingController.onSiegeStateChanged(newState)
-        if self.suspensionSound is not None:
-            self.suspensionSound.vehicleState = newState
-        if self.siegeEffects is not None:
-            self.siegeEffects.onSiegeStateChanged(newState, timeToNextMode)
-        enabled = newState == VEHICLE_SIEGE_STATE.ENABLED or newState == VEHICLE_SIEGE_STATE.SWITCHING_ON
-        if self.suspension is not None:
-            self.suspension.setLiftMode(enabled)
-        if self.leveredSuspension is not None:
-            self.leveredSuspension.setLiftMode(enabled)
-        if self.vehicleTraces is not None:
-            self.vehicleTraces.setLiftMode(enabled)
-        return
-
     def _onCameraChanged(self, cameraName, currentVehicleId=None):
         if self.engineAudition is not None:
             self.engineAudition.onCameraChanged(cameraName, currentVehicleId if currentVehicleId is not None else 0)
         if self.tracks is not None:
-            self.tracks.sniperMode(cameraName == 'sniper')
+            if cameraName == 'sniper':
+                self.tracks.sniperMode(True)
+            else:
+                self.tracks.sniperMode(False)
         super(CompoundAppearance, self)._onCameraChanged(cameraName, currentVehicleId=currentVehicleId)
         return
 

@@ -11,6 +11,7 @@ from gui.Scaleform.locale.CREW_OPERATIONS import CREW_OPERATIONS
 from gui.impl.gen import R
 from gui.impl.lobby.crew_books.crew_books_view import CrewBooksView, CrewBooksLackView
 from gui.impl.auxiliary.crew_books_helper import crewBooksViewedCache
+from gui.prb_control import prb_getters
 from gui.shared import EVENT_BUS_SCOPE, g_eventBus, events
 from gui.shared.events import LoadViewEvent
 from gui.shared.gui_items import GUI_ITEM_TYPE
@@ -38,7 +39,37 @@ class CrewOperationsPopOver(CrewOperationsPopOverMeta):
     def _populate(self):
         super(CrewOperationsPopOver, self)._populate()
         g_clientUpdateManager.addCallbacks({'inventory': self.onInventoryUpdate})
+        unitMgr = prb_getters.getClientUnitMgr()
+        if unitMgr:
+            unitMgr.onUnitLeft += self.__unitMgrOnUnitLeft
         self.__update()
+
+    def onWindowClose(self):
+        self.destroy()
+
+    def _destroy(self):
+        unitMgr = prb_getters.getClientUnitMgr()
+        if unitMgr:
+            unitMgr.onUnitLeft -= self.__unitMgrOnUnitLeft
+        super(CrewOperationsPopOver, self)._destroy()
+
+    def _dispose(self):
+        g_clientUpdateManager.removeObjectCallbacks(self)
+        super(CrewOperationsPopOver, self)._dispose()
+
+    def invokeOperation(self, operationName):
+        if operationName == OPERATION_RETRAIN:
+            self.fireEvent(LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.RETRAIN_CREW)), EVENT_BUS_SCOPE.LOBBY)
+        elif operationName == OPERATION_RETURN:
+            self.__processReturnCrew()
+        elif operationName == OPERATION_CREW_BOOKS:
+            availableBooksCount = self.__getAvailableBooksCount()
+            if availableBooksCount > 0:
+                self.__openCrewBooksView()
+            else:
+                self.__openCrewBooksLackView()
+        else:
+            Crew.unloadCrew()
 
     def onInventoryUpdate(self, invDiff):
         if GUI_ITEM_TYPE.TANKMAN in invDiff:
@@ -53,7 +84,10 @@ class CrewOperationsPopOver(CrewOperationsPopOverMeta):
         self.as_updateS(dataForUpdate)
 
     def __getCrewBooksOperationData(self, vehicle):
-        return self.__getInitCrewOperationObject(OPERATION_CREW_BOOKS, None, CREW_OPERATIONS.CREWBOOKS_WARNING_MEMBERSINBATTLE_TOOLTIP) if vehicle.isInBattle else self.__getInitCrewOperationObject(OPERATION_CREW_BOOKS)
+        if vehicle.isDisabled:
+            return self.__getInitCrewOperationObject(OPERATION_CREW_BOOKS, 'locked')
+        else:
+            return self.__getInitCrewOperationObject(OPERATION_CREW_BOOKS, None, CREW_OPERATIONS.CREWBOOKS_WARNING_MEMBERSINBATTLE_TOOLTIP) if vehicle.isInBattle else self.__getInitCrewOperationObject(OPERATION_CREW_BOOKS)
 
     def __getRetrainOperationData(self, vehicle):
         crew = vehicle.crew
@@ -122,7 +156,7 @@ class CrewOperationsPopOver(CrewOperationsPopOverMeta):
     def __isTopCrewForCurrentVehicle(self, crew, vehicle):
         for _, tman in crew:
             if tman is not None:
-                if tman.efficiencyRoleLevel < tankmen.MAX_SKILL_LEVEL or tman.vehicleNativeDescr.type.compactDescr != vehicle.intCD and not vehicle.isPremium:
+                if tman.efficiencyRoleLevel < tankmen.MAX_SKILL_LEVEL or tman.vehicleNativeDescr.type.compactDescr != vehicle.intCD:
                     return False
 
         return True
@@ -139,20 +173,6 @@ class CrewOperationsPopOver(CrewOperationsPopOverMeta):
         barracksTmen = self.itemsCache.items.getTankmen(~REQ_CRITERIA.TANKMAN.IN_TANK | REQ_CRITERIA.TANKMAN.ACTIVE)
         tmenBerthsCount = self.itemsCache.items.stats.tankmenBerthsCount
         return berthsNeeded > 0 and berthsNeeded > tmenBerthsCount - len(barracksTmen)
-
-    def invokeOperation(self, operationName):
-        if operationName == OPERATION_RETRAIN:
-            self.fireEvent(LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.RETRAIN_CREW)), EVENT_BUS_SCOPE.LOBBY)
-        elif operationName == OPERATION_RETURN:
-            self.__processReturnCrew()
-        elif operationName == OPERATION_CREW_BOOKS:
-            availableBooksCount = self.__getAvailableBooksCount()
-            if availableBooksCount > 0:
-                self.__openCrewBooksView()
-            else:
-                self.__openCrewBooksLackView()
-        else:
-            Crew.unloadCrew()
 
     @decorators.process('crewReturning')
     def __processReturnCrew(self):
@@ -212,9 +232,5 @@ class CrewOperationsPopOver(CrewOperationsPopOverMeta):
 
         return count
 
-    def onWindowClose(self):
-        self.destroy()
-
-    def _dispose(self):
-        g_clientUpdateManager.removeObjectCallbacks(self)
-        super(CrewOperationsPopOver, self)._dispose()
+    def __unitMgrOnUnitLeft(self, _):
+        self._destroy()

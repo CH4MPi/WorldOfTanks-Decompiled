@@ -123,6 +123,7 @@
         <A67_T57_58>	3.1 3.1 0.000000 0.3	</A67_T57_58>
         <A68_T28_Prototype>	5 5 0.36 0.000000	</A68_T28_Prototype>
         <A69_T110E5>	5.8 5.8 0.3 0.2	</A69_T110E5>
+        <A69_T110E5_bob>	5.8 5.8 0.3 0.2	</A69_T110E5_bob>
         <A71_T21>	2 2 0.2 3.4	</A71_T21>
         <A72_T25_2>	2.2 2.2 0.2 0.000000	</A72_T25_2>
         <A74_T1_E6>	1.2 1.2 0.000000 0.000000	</A74_T1_E6>
@@ -158,6 +159,11 @@
         <usa:A115_Chrysler_K1>	3 3 0.000000 0.000000	</usa:A115_Chrysler_K1>
         <usa:A115_Chrysler_K2>	4.3 4.3 0.36 0.18	</usa:A115_Chrysler_K2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.576697  2.578706	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -273,6 +279,7 @@
         <A67_T57_58>	4.2 4.2 0.000000 0.000000	</A67_T57_58>
         <A68_T28_Prototype>	7.2 7.2 0.38 0.000000	</A68_T28_Prototype>
         <A69_T110E5>	6 6 0.28 0.31	</A69_T110E5>
+        <A69_T110E5_bob>	6 6 0.28 0.31	</A69_T110E5_bob>
         <A71_T21>	2 2 8.4 7.3	</A71_T21>
         <A72_T25_2>	2.1 2.1 0.000000 0.000000	</A72_T25_2>
         <A74_T1_E6>	1.5 1.5 1.5 6.2	</A74_T1_E6>
@@ -308,6 +315,11 @@
         <usa:A115_Chrysler_K1>	3.87 3.87 0.000000 0.000000	</usa:A115_Chrysler_K1>
         <usa:A115_Chrysler_K2>	6 6 0.000000 0.000000	</usa:A115_Chrysler_K2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	3.100010  3.115494	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -422,6 +434,7 @@
         <A67_T57_58>	3.9 3.9 0.000000 0.000000	</A67_T57_58>
         <A68_T28_Prototype>	6 6 0.000000 0.000000	</A68_T28_Prototype>
         <A69_T110E5>	6.4 6.4 0.000000 0.000000	</A69_T110E5>
+        <A69_T110E5_bob>	6.4 6.4 0.000000 0.000000	</A69_T110E5_bob>
         <A71_T21>	1.5 1.5 0.000000 0.000000	</A71_T21>
         <A72_T25_2>	2.2 2.2 0.000000 0.000000	</A72_T25_2>
         <A74_T1_E6>	1.2 1.2 2.8 2	</A74_T1_E6>
@@ -457,6 +470,11 @@
         <usa:A115_Chrysler_K1>	2.7 2.7 0.000000 0.000000	</usa:A115_Chrysler_K1>
         <usa:A115_Chrysler_K2>	3.9 3.9 0.54 0.2	</usa:A115_Chrysler_K2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.478031  2.482934	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -571,6 +589,7 @@
         <A67_T57_58>	2.3 2.3 0.18 0.000000	</A67_T57_58>
         <A68_T28_Prototype>	5.3 5.3 0.000000 0.000000	</A68_T28_Prototype>
         <A69_T110E5>	4.8 4.8 0.000000 0.000000	</A69_T110E5>
+        <A69_T110E5_bob>	4.8 4.8 0.000000 0.000000	</A69_T110E5_bob>
         <A71_T21>	1.8 1.8 0.000000 0.000000	</A71_T21>
         <A72_T25_2>	1.7 1.7 0.000000 0.000000	</A72_T25_2>
         <A74_T1_E6>	1.3 1.3 0.000000 0.000000	</A74_T1_E6>
@@ -606,6 +625,11 @@
         <usa:A115_Chrysler_K1>	2.5 2.5 0.000000 0.000000	</usa:A115_Chrysler_K1>
         <usa:A115_Chrysler_K2>	3.4 3.4 0.000000 0.000000	</usa:A115_Chrysler_K2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.165515  2.152663	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -720,6 +744,7 @@
         <A67_T57_58>	3.9 3.9 0.000000 0.000000	</A67_T57_58>
         <A68_T28_Prototype>	5.2 5.2 0.000000 0.000000	</A68_T28_Prototype>
         <A69_T110E5>	4 4 0.000000 0.000000	</A69_T110E5>
+        <A69_T110E5_bob>	4 4 0.000000 0.000000	</A69_T110E5_bob>
         <A71_T21>	2 2 0.000000 6.2	</A71_T21>
         <A72_T25_2>	2.4 2.4 0.000000 0.000000	</A72_T25_2>
         <A74_T1_E6>	1 1 0.000000 2.9	</A74_T1_E6>
@@ -755,6 +780,11 @@
         <usa:A115_Chrysler_K1>	3.88 3.88 0.000000 0.000000	</usa:A115_Chrysler_K1>
         <usa:A115_Chrysler_K2>	6.8 6.8 0.000000 0.000000	</usa:A115_Chrysler_K2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.819031  2.813816	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
 </usa_nonCN.xml>

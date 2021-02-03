@@ -40,7 +40,7 @@ def _getToolTipText(arenaVisitor):
     if arenaVisitor is not None:
         if arenaVisitor.gui.isTrainingBattle():
             result = settings.toolTipText
-        elif g_settings.userPrefs.disableBattleChat and (arenaVisitor.gui.isRandomBattle() or arenaVisitor.gui.isEventBattle()):
+        elif arenaVisitor.gui.isRandomBattle() and g_settings.userPrefs.disableBattleChat:
             result = settings.chatIsLockedToolTipText
         else:
             result = settings.toolTipTextWithMuteInfo
@@ -57,7 +57,6 @@ def _makeSettingsVO(arenaVisitor):
      'maxLinesCount': -1,
      'inactiveStateAlpha': settings.inactiveStateAlpha / 100.0,
      'maxMessageLength': CHAT_MESSAGE_MAX_LENGTH_IN_BATTLE,
-     'hintStr': settings.hintText,
      'toolTipStr': _getToolTipText(arenaVisitor),
      'numberOfMessagesInHistory': settings.numberOfMessagesInHistory,
      'lastMessageAlpha': settings.alphaForLastMessages / 100.0,

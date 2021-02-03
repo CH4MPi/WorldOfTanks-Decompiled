@@ -101,7 +101,6 @@ class BaseHangarAmmunitionSetupView(BaseAmmunitionSetupView):
     def _onLoading(self, **kwargs):
         super(BaseHangarAmmunitionSetupView, self)._onLoading(**kwargs)
         fillVehicleInfo(self.viewModel.vehicleInfo, self._vehItem.getItem())
-        self.viewModel.setIsEvent(self._vehItem.getItem().isOnlyForEventBattles)
 
     def _initialize(self, *args, **kwargs):
         super(BaseHangarAmmunitionSetupView, self)._initialize()
@@ -169,12 +168,14 @@ class BaseHangarAmmunitionSetupView(BaseAmmunitionSetupView):
             self.viewModel.setShow(True)
 
     def __onAnimationEnd(self):
-        self.__blur.enable()
+        if self.__blur is not None:
+            self.__blur.enable()
         g_eventBus.handleEvent(HangarVehicleEvent(HangarVehicleEvent.HERO_TANK_MARKER, ctx={'isDisable': True}), EVENT_BUS_SCOPE.LOBBY)
         g_eventBus.handleEvent(CameraRelatedEvents(CameraRelatedEvents.FORCE_DISABLE_IDLE_PARALAX_MOVEMENT, ctx={'isDisable': True}), EVENT_BUS_SCOPE.LOBBY)
         if not self.viewModel.getIsReady():
             self.viewModel.setIsReady(True)
         self.onAnimationEnd()
+        return
 
     def __onAcceptComplete(self):
         self.__closeWindow()
@@ -204,10 +205,14 @@ class BaseHangarAmmunitionSetupView(BaseAmmunitionSetupView):
 
     def __closeWindow(self):
         if not self.__isClosed:
+            if self.__blur is not None:
+                self.__blur.fini()
+                self.__blur = None
             self.__isClosed = True
             self.onClose()
             self.viewModel.setShow(False)
             playExitTankSetupView()
+        return
 
     @async
     def __closeConfirmator(self):

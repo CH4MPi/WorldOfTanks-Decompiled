@@ -266,7 +266,6 @@ class RecruitParamsComponent(RecruitParametersMeta):
         criteria = self.__getClassesCriteria(nationID) | REQ_CRITERIA.VEHICLE.CLASSES([vclass])
         criteria |= ~REQ_CRITERIA.VEHICLE.IS_CREW_LOCKED
         criteria |= ~(REQ_CRITERIA.SECRET | ~REQ_CRITERIA.INVENTORY_OR_UNLOCKED)
-        criteria |= ~REQ_CRITERIA.VEHICLE.EVENT_BATTLE
         if not constants.IS_IGR_ENABLED:
             criteria |= ~REQ_CRITERIA.VEHICLE.IS_PREMIUM_IGR
         if constants.IS_DEVELOPMENT:
@@ -276,7 +275,7 @@ class RecruitParamsComponent(RecruitParametersMeta):
     def __getClassesCriteria(self, nationID):
         maxResearchedLevel = self.itemsCache.items.stats.getMaxResearchedLevel(nationID)
         criteria = self.__getNationsCriteria() | REQ_CRITERIA.NATIONS([nationID])
-        criteria |= ~(REQ_CRITERIA.COLLECTIBLE | ~REQ_CRITERIA.VEHICLE.LEVELS(range(1, maxResearchedLevel + 1)))
+        criteria |= ~(REQ_CRITERIA.COLLECTIBLE | ~REQ_CRITERIA.VEHICLE.LEVELS(range(1, maxResearchedLevel + 1)) | ~REQ_CRITERIA.INVENTORY)
         return criteria
 
     def __getRoleCriteria(self, nationID, vclass, typeID):
@@ -308,7 +307,6 @@ class RecruitParamsComponent(RecruitParametersMeta):
         if constants.IS_DEVELOPMENT:
             criteria |= ~REQ_CRITERIA.VEHICLE.IS_BOT
         criteria |= ~(REQ_CRITERIA.SECRET | ~REQ_CRITERIA.INVENTORY_OR_UNLOCKED)
-        criteria |= ~REQ_CRITERIA.VEHICLE.EVENT_BATTLE
         modulesAll = self.itemsCache.items.getVehicles(criteria=criteria).values()
         modulesAll.sort()
         self.__filteredNations = dict()

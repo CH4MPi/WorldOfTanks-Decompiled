@@ -1,5 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/prb_control/entities/base/unit/entity.py
+from typing import TYPE_CHECKING
 import cgi
 import time
 import BigWorld
@@ -37,6 +38,8 @@ from messenger.ext import passCensor
 from shared_utils import findFirst
 from skeletons.gui.shared import IItemsCache
 from soft_exception import SoftException
+if TYPE_CHECKING:
+    from typing import Iterator as TIterator
 
 class BaseUnitEntity(BasePrbEntity):
 
@@ -263,6 +266,7 @@ class _UnitEntity(BaseUnitEntity, ListenersCollection):
         players = unit.getPlayers()
         members = unit.getMembers()
         vehicles = unit.getVehicles()
+        profiles = unit.getProfiles()
         isSlotClosed = unit.isSlotClosed
         isSlotFree = unit.isSlotFree
         isSlotDisabled = unit.isSlotDisabled
@@ -272,13 +276,16 @@ class _UnitEntity(BaseUnitEntity, ListenersCollection):
             state = unit_items.SlotState(isSlotClosed(slotIdx), isSlotFree(slotIdx))
             player = None
             vehicle = None
+            profile = None
             if not state.isFree and slotIdx in members:
                 dbID = members[slotIdx].get('accountDBID', -1L)
                 if dbID in players:
                     player = self._buildPlayerInfo(unitMgrID, unit, dbID, slotIdx=slotIdx, data=players[dbID])
                 if dbID in vehicles and vehicles[dbID]:
                     vehicle = vehicles[dbID][0]
-            yield unit_items.SlotInfo(slotIdx, state, player, vehicle)
+                if dbID in profiles:
+                    profile = profiles[dbID]
+            yield unit_items.SlotInfo(slotIdx, state, player, vehicle, profile)
 
         return
 
@@ -473,8 +480,6 @@ class UnitEntity(_UnitEntity):
             if idle:
                 listener.onUnitFlagsChanged(flags, timeLeftInIdle)
 
-        if not ctx.hasFlags(FUNCTIONAL_FLAG.LOAD_PAGE):
-            g_eventDispatcher.loadHangar()
         return initResult | FUNCTIONAL_FLAG.LOAD_WINDOW
 
     def fini(self, ctx=None, woEvents=False):
@@ -552,7 +557,7 @@ class UnitEntity(_UnitEntity):
     def hasLockedState(self):
         pInfo = self.getPlayerInfo()
         flags = self.getFlags()
-        return pInfo.isInSlot and (flags.isInSearch() or flags.isInQueue() or flags.isInArena() and pInfo.isInArena())
+        return pInfo.isInSlot and (flags.isInQueue() or flags.isInArena() and pInfo.isInArena())
 
     def validateLevels(self):
         result = self._actionsValidator.getLevelsValidator().canPlayerDoAction(ignoreEnable=True)
@@ -932,30 +937,24 @@ class UnitEntity(_UnitEntity):
             return
         self._requestsProcessor.doRequest(ctx, 'setAllRosterSlots', ctx.getRosterSlots(), callback=callback)
 
-    def doAutoSearch(self, ctx, callback=None):
+    def doAutoSearch(self, ctx, callback=None, userFilterFlags=0):
         pPermissions = self.getPermissions()
-        if not pPermissions.canInvokeAutoSearch():
+        if not pPermissions.canStartAutoSearch():
             LOG_ERROR('Player can not start/stop auto search', pPermissions)
             if callback:
                 callback(False)
             return
         flags = self.getFlags()
         if ctx.isRequestToStart():
+            if self._isInCoolDown(settings.REQUEST_TYPE.AUTO_SEARCH, coolDown=ctx.getCooldown()):
+                return
             if self.isParentControlActivated(callback=callback):
                 return
             if flags.isInSearch():
                 LOG_DEBUG('Unit already started auto search')
                 if callback:
-                    callback(True)
-                return
-            if not self.isVehiclesReadyToBattle():
-                LOG_ERROR('Vehicles are not ready to battle', ctx)
-                if callback:
                     callback(False)
                 return
-            vehInfos = self.getVehiclesInfo()
-            if vehInfos:
-                g_currentVehicle.selectVehicle(vehInfos[0].vehInvID)
             roster = self.getRosterSettings()
             stats = self.getStats()
             if stats.curTotalLevel > roster.getMaxTotalLevel():
@@ -963,13 +962,14 @@ class UnitEntity(_UnitEntity):
                 if callback:
                     callback(False)
                 return
-            self._requestsProcessor.doRequest(ctx, 'startAutoSearch', callback=callback)
+            self._requestsProcessor.doRequest(ctx, 'startAutoSearch', userFilterFlags, callback=callback)
         elif not flags.isInSearch():
             LOG_DEBUG('Unit did not start auto search')
             if callback:
-                callback(True)
+                callback(False)
         else:
             self._requestsProcessor.doRequest(ctx, 'stopAutoSearch', callback=callback)
+            self._cooldown.process(settings.REQUEST_TYPE.AUTO_SEARCH, coolDown=ctx.getCooldown())
 
     def doBattleQueue(self, ctx, callback=None):
         pPermissions = self.getPermissions()
@@ -1008,7 +1008,7 @@ class UnitEntity(_UnitEntity):
                 if callback:
                     callback(False)
                 return
-            self._requestsProcessor.doRequest(ctx, 'startBattle', vehInvID=ctx.selectVehInvID, gameplaysMask=ctx.getGamePlayMask(), arenaTypeID=ctx.getDemoArenaTypeID(), callback=callback)
+            self._requestsProcessor.doRequest(ctx, 'startBattle', vehInvID=ctx.selectVehInvID, gameplaysMask=ctx.getGamePlayMask(), arenaTypeID=ctx.getDemoArenaTypeID(), callback=callback, stopAutoSearch=flags.isInSearch())
         else:
             if not pPermissions.canStopBattleQueue():
                 LOG_ERROR('Player can not stop battle queue', pPermissions)
@@ -1221,6 +1221,10 @@ class UnitEntity(_UnitEntity):
         self._invokeListeners('onUnitPlayerInfoChanged', pInfo)
         self._actionsHandler.setPlayerInfoChanged()
 
+    def unit_onUnitPlayerProfileVehicleChanged(self, accountDBID):
+        self._invokeListeners('onUnitPlayerProfileVehicleChanged', accountDBID)
+        g_eventDispatcher.updateUI()
+
     def unit_onUnitPlayerRemoved(self, playerID, playerData):
         self.unit_onUnitVehicleChanged(playerID, 0, 0)
         unitMgrID, unit = self.getUnit(safe=False)
@@ -1314,6 +1318,7 @@ class UnitEntity(_UnitEntity):
         unit.onUnitPlayerAdded += self.unit_onUnitPlayerAdded
         unit.onUnitPlayerRemoved += self.unit_onUnitPlayerRemoved
         unit.onUnitPlayerInfoChanged += self.unit_onUnitPlayerInfoChanged
+        unit.onUnitPlayerProfileVehicleChanged += self.unit_onUnitPlayerProfileVehicleChanged
         unit.onUnitExtraChanged += self.unit_onUnitExtraChanged
 
     def _removeClientUnitListeners(self):
@@ -1332,6 +1337,7 @@ class UnitEntity(_UnitEntity):
             unit.onUnitPlayerAdded -= self.unit_onUnitPlayerAdded
             unit.onUnitPlayerRemoved -= self.unit_onUnitPlayerRemoved
             unit.onUnitPlayerInfoChanged -= self.unit_onUnitPlayerInfoChanged
+            unit.onUnitPlayerProfileVehicleChanged -= self.unit_onUnitPlayerProfileVehicleChanged
             unit.onUnitExtraChanged -= self.unit_onUnitExtraChanged
         return
 

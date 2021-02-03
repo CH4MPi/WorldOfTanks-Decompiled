@@ -6,7 +6,6 @@ from gui.Scaleform.framework import ScopeTemplates
 from gui.Scaleform.locale.DIALOGS import DIALOGS
 from gui.impl import backport
 from gui.shared import events
-from gui.shared.money import Currency
 from helpers import i18n, time_utils
 I18N_PRICE_KEY = '{0:>s}/messagePrice'
 I18N_TITLE_KEY = '{0:>s}/title'
@@ -178,6 +177,9 @@ class I18nDialogMeta(SimpleDialogMeta):
         if self._meta is not None:
             result = self._meta.getTimer()
         return result
+
+    def getKey(self):
+        return self._meta.getKey() if self._meta else self._key
 
     def _makeString(self, key, ctx):
         return i18n.makeString(_getDialogStr(key), **ctx)

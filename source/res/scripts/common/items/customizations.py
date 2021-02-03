@@ -14,8 +14,10 @@ from constants import IS_CELLAPP, IS_BASEAPP, IS_EDITOR
 from items import decodeEnum, makeIntCompactDescrByID
 from debug_utils import LOG_CURRENT_EXCEPTION, LOG_ERROR
 import enum
-from typing import List, Dict, Type, Tuple, Any, TypeVar, Optional, MutableMapping
+from typing import List, Dict, Type, Tuple, Any, TypeVar, Optional, MutableMapping, TYPE_CHECKING
 from wrapped_reflection_framework import ReflectionMetaclass
+if TYPE_CHECKING:
+    from items.vehicles import VehicleDescrType
 
 class FieldTypes(object):
     VARINT = 2
@@ -697,7 +699,7 @@ class CustomizationOutfit(SerializableComponent):
 
     def getDiff(self, outfit):
         resultOutfit = self.copy()
-        for itemType in CustomizationType.RANGE:
+        for itemType in CustomizationType.FULL_RANGE:
             typeName = lower(CustomizationTypeNames[itemType])
             componentsAttrName = '{}s'.format(typeName)
             if componentsAttrName not in self.__slots__:

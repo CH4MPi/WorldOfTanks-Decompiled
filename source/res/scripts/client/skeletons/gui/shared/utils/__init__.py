@@ -64,6 +64,10 @@ class IItemsRequester(requesters.IRequester):
     def battlePass(self):
         raise NotImplementedError
 
+    @property
+    def bob(self):
+        raise NotImplementedError
+
     def requestUserDossier(self, databaseID, callback):
         raise NotImplementedError
 
@@ -79,10 +83,13 @@ class IItemsRequester(requesters.IRequester):
     def getVehicle(self, vehInvID):
         raise NotImplementedError
 
-    def getStockVehicle(self, typeCompDescr, useInventory=False):
+    def getStockVehicle(self, typeCompDescr):
         raise NotImplementedError
 
     def getVehicleCopy(self, vehicle):
+        raise NotImplementedError
+
+    def getVehicleCopyByCD(self, typeCompDescr):
         raise NotImplementedError
 
     def getLayoutsVehicleCopy(self, vehicle):
@@ -104,6 +111,9 @@ class IItemsRequester(requesters.IRequester):
         raise NotImplementedError
 
     def getVehicles(self, criteria=None):
+        raise NotImplementedError
+
+    def getStyles(self, criteria=None):
         raise NotImplementedError
 
     def getBadges(self, criteria=None):
@@ -133,6 +143,9 @@ class IItemsRequester(requesters.IRequester):
     def getClanInfo(self, databaseID=None):
         raise NotImplementedError
 
+    def getDogTag(self, databaseID=None):
+        raise NotImplementedError
+
     def getPreviousItem(self, itemTypeID, invDataIdx):
         raise NotImplementedError
 
@@ -160,7 +173,6 @@ class IHangarSpace(object):
     onSpaceChanged = None
     onNotifyCursorOver3dScene = None
     onSpaceChangedByAction = None
-    onObjectsSelectionEnabled = None
 
     @property
     def space(self):

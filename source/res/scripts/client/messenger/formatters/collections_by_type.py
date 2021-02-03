@@ -13,7 +13,8 @@ _TOKEN_QUEST_SUB_FORMATTERS = (token_quest_subformatters.LootBoxTokenQuestFormat
  token_quest_subformatters.RankedYearLeaderFormatter(),
  token_quest_subformatters.SeniorityAwardsFormatter(),
  token_quest_subformatters.PersonalMissionsTokenQuestsFormatter(),
- token_quest_subformatters.BattlePassDefaultAwardsFormatter())
+ token_quest_subformatters.BattlePassDefaultAwardsFormatter(),
+ token_quest_subformatters.BobTokenQuestFormatter())
 _PERSONAL_MISSIONS_SUB_FORMATTERS = (token_quest_subformatters.PersonalMissionsFormatter(),)
 SERVER_FORMATTERS = {_SM_TYPE.serverReboot.index(): _sc.ServerRebootFormatter(),
  _SM_TYPE.serverRebootCancelled.index(): _sc.ServerRebootCancelledFormatter(),
@@ -76,15 +77,8 @@ SERVER_FORMATTERS = {_SM_TYPE.serverReboot.index(): _sc.ServerRebootFormatter(),
  _SM_TYPE.dogTagsUnlockComponent.index(): _sc.DogTagComponentUnlockFormatter(),
  _SM_TYPE.dogTagsGradingChange.index(): _sc.DogTagComponentGradingFormatter(),
  _SM_TYPE.enhancementsWipedOnVehicles.index(): _sc.EnhancementsWipedOnVehiclesFormatter(),
- _SM_TYPE.dedicationReward.index(): _sc.DedicationRewardFormatter(),
- _SM_TYPE.halloweenVehicleRent.index(): _sc.VehicleRentFormatter(),
- _SM_TYPE.halloweenStyleBought.index(): _sc.StyleBoughtFormatter(),
- _SM_TYPE.halloweenStyleBoughtByGold.index(): _sc.StyleBoughtByGoldFormatter(),
- _SM_TYPE.halloweenStyleBundleBought.index(): _sc.StyleBandleFormatter(),
- _SM_TYPE.halloweenBuyShopItem.index(): _sc.HEBuyShopItemFormatter(),
- _SM_TYPE.halloweenCommanderLevelReached.index(): _sc.CommanderLevelReachedFormatter(),
- _SM_TYPE.halloweenDifficultyLevelReached.index(): _sc.DifficultyLevelReachedFormatter(),
- _SM_TYPE.bestDealBandleBought.index(): _sc.BestDealBandleFormatter()}
+ _SM_TYPE.prbWrongEnqueueDataKick.index(): _sc.PrbEventEnqueueDataFormatter(),
+ _SM_TYPE.dedicationReward.index(): _sc.DedicationRewardFormatter()}
 CLIENT_FORMATTERS = {SCH_CLIENT_MSG_TYPE.SYS_MSG_TYPE: _sc.ClientSysMessageFormatter(),
  SCH_CLIENT_MSG_TYPE.PREMIUM_ACCOUNT_EXPIRY_MSG: _sc.PremiumAccountExpiryFormatter(),
  SCH_CLIENT_MSG_TYPE.AOGAS_NOTIFY_TYPE: _sc.AOGASNotifyFormatter(),

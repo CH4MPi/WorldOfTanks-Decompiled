@@ -1,5 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/account_helpers/settings_core/options.py
+from typing import TYPE_CHECKING
 import base64
 import cPickle
 import random
@@ -63,6 +64,8 @@ from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.sounds import ISoundsController
 from gui import makeHtmlString
 from skeletons.gui.game_control import ISpecialSoundCtrl, IAnonymizerController
+if TYPE_CHECKING:
+    from typing import Tuple as TTuple
 _logger = logging.getLogger(__name__)
 
 class APPLY_METHOD(object):
@@ -526,7 +529,7 @@ class UserPrefsBoolSetting(UserPrefsSetting):
         if section is not None:
             return section.writeBool(self.sectionName, value)
         else:
-            LOG_WARNING('Section is not defined', section)
+            _logger.warning('Section is not defined %s', section)
             return False
 
     def getDefaultValue(self):
@@ -543,7 +546,7 @@ class UserPrefsStringSetting(UserPrefsSetting):
         if section is not None:
             return section.writeString(self.sectionName, str(value))
         else:
-            LOG_WARNING('Section is not defined', section)
+            _logger.warning('Section is not defined %s', section)
             return False
 
     def getDefaultValue(self):
@@ -560,7 +563,24 @@ class UserPrefsFloatSetting(UserPrefsSetting):
         if section is not None:
             return section.writeFloat(self.sectionName, float(value))
         else:
-            LOG_WARNING('Section is not defined', section)
+            _logger.warning('Section is not defined %s', section)
+            return False
+
+    def getDefaultValue(self):
+        pass
+
+
+class UserPrefsInt64Setting(UserPrefsSetting):
+
+    def _readValue(self, section):
+        default = self.getDefaultValue()
+        return section.readInt64(self.sectionName, long(default)) if section is not None else default
+
+    def _writeValue(self, section, value):
+        if section is not None:
+            return section.writeInt64(self.sectionName, long(value))
+        else:
+            _logger.warning('Section is not defined %s', section)
             return False
 
     def getDefaultValue(self):
@@ -622,6 +642,35 @@ class VOIPSetting(AccountSetting):
                 VOIP.getVOIPManager().enable(isEnable)
                 LOG_NOTE('Change state of voip:', isEnable)
             return
+
+
+class VOIPChannelSetting(UserPrefsInt64Setting):
+
+    def __init__(self, isPreview=False):
+        super(VOIPChannelSetting, self).__init__(SOUND.VOIP_ENABLE_CHANNEL, isPreview)
+
+    def initFromPref(self):
+        isEnabled, channelHash = self._get()
+        VOIP.getVOIPManager().applyChannelSetting(isEnabled, channelHash)
+
+    def _get(self):
+        flags = super(VOIPChannelSetting, self)._get()
+        isEnabled = flags & 1 != 0
+        channelHash = flags >> 1
+        return (isEnabled, channelHash)
+
+    def _set(self, value):
+        isEnabled, channelHash = value
+        VOIP.getVOIPManager().applyChannelSetting(isEnabled, channelHash)
+        LOG_NOTE('Change state of channel voip:', isEnabled, channelHash)
+
+    def _save(self, value):
+        isEnabled, channelHash = value
+        flags = int(bool(isEnabled)) + (int(channelHash) << 1)
+        super(VOIPChannelSetting, self)._save(flags)
+
+    def getDefaultValue(self):
+        pass
 
 
 class VOIPCaptureDevicesSetting(UserPrefsStringSetting):
@@ -1242,6 +1291,14 @@ class VehicleMarkerSetting(StorageAccountSetting):
     def pack(self):
         return self.__getMarkerSettings(forcePackingHP=True)
 
+    def _set(self, value):
+        totalValue = None
+        if value and BattleReplay.isPlaying():
+            totalValue = self._get()
+            totalValue.update(value)
+        super(VehicleMarkerSetting, self)._set(totalValue or value)
+        return
+
     def _get(self):
         return self.__getMarkerSettings(forcePackingHP=False)
 
@@ -1298,6 +1355,14 @@ class AimSetting(StorageAccountSetting):
             result[option] = value
 
         return result
+
+    def _set(self, value):
+        totalValue = None
+        if value and BattleReplay.isPlaying():
+            totalValue = self._get()
+            totalValue.update(value)
+        super(AimSetting, self)._set(totalValue or value)
+        return
 
     def pack(self):
         result = self._get()
@@ -2171,8 +2236,9 @@ class AltVoicesSetting(StorageDumpSetting):
 
     def revert(self):
         super(AltVoicesSetting, self).revert()
-        self.__lastPreviewedValue = self._get()
+        self.__lastPreviewedValue = None
         self.clearPreviewSound()
+        return
 
     def _getOptions(self):
         options = []
@@ -2338,13 +2404,7 @@ class InterfaceScaleSetting(UserPrefsFloatSetting):
 
     def __init__(self, sectionName=None, isPreview=False):
         super(InterfaceScaleSetting, self).__init__(sectionName, isPreview)
-        self.__interfaceScale = 0
-        self.connectionMgr.onDisconnected += self.onDisconnected
-        self.connectionMgr.onConnected += self.onConnected
-
-    def fini(self):
-        self.connectionMgr.onDisconnected -= self.onDisconnected
-        self.connectionMgr.onConnected -= self.onConnected
+        self.__interfaceScale = self._get()
 
     def get(self):
         if BattleReplay.isPlaying():
@@ -2361,12 +2421,6 @@ class InterfaceScaleSetting(UserPrefsFloatSetting):
         width, height = GUI.screenResolution()[:2]
         event_dispatcher.changeAppResolution(width, height, scale)
         g_monitorSettings.setGlyphCache(scale)
-
-    def onConnected(self):
-        self.setSystemValue(self._get())
-
-    def onDisconnected(self):
-        self.setSystemValue(0)
 
     def _getOptions(self):
         return [self.__getScales(graphics.getSuitableWindowSizes(), BigWorld.wg_getCurrentResolution(BigWorld.WindowModeWindowed)), self.__getScales(graphics.getSuitableVideoModes()), self.__getScales(graphics.getSuitableVideoModes())]

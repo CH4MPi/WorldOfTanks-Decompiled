@@ -130,11 +130,10 @@ class VEHICLE_TAGS(CONST_CONTAINER):
     CANNOT_BE_SOLD = 'cannot_be_sold'
     SECRET = 'secret'
     SPECIAL = 'special'
+    BOB = 'bob'
     OBSERVER = 'observer'
     DISABLED_IN_ROAMING = 'disabledInRoaming'
     EVENT = 'event_battles'
-    EVENT_PREMIUM_VEHICLE = 'event_premium_vehicle'
-    EVENT_NOT_ELITE_VEHICLE = 'event_not_elite_vehicle'
     EXCLUDED_FROM_SANDBOX = 'excluded_from_sandbox'
     TELECOM = 'telecom'
     UNRECOVERABLE = 'unrecoverable'
@@ -146,6 +145,8 @@ class VEHICLE_TAGS(CONST_CONTAINER):
     BATTLE_ROYALE = 'battle_royale'
     RENT_PROMOTION = 'rent_promotion'
     EARN_CRYSTALS = 'earn_crystals'
+    LOW_TIER_EVENT = 'lowTierEvent'
+    BOB = 'bob'
 
 
 EPIC_ACTION_VEHICLE_CDS = (44033, 63265)
@@ -270,7 +271,6 @@ class Vehicle(FittingItem):
             if proxy.shop.winXPFactorMode == WIN_XP_FACTOR_MODE.ALWAYS or self.intCD not in proxy.stats.multipliedVehicles and not self.isOnlyForEventBattles:
                 self._dailyXPFactor = proxy.shop.dailyXPFactor
             self._isElite = not vehDescr.type.unlocksDescrs or self.intCD in proxy.stats.eliteVehicles
-            self._isElite = self._isElite and VEHICLE_TAGS.EVENT_NOT_ELITE_VEHICLE not in vehDescr.type.tags
             self._isFullyElite = self.isElite and not any((data[1] not in proxy.stats.unlocks for data in vehDescr.type.unlocksDescrs))
             clanDamageLock = proxy.stats.vehicleTypeLocks.get(self.intCD, {}).get(CLAN_LOCK, 0)
             clanNewbieLock = proxy.stats.globalVehicleLocks.get(CLAN_LOCK, 0)
@@ -435,6 +435,10 @@ class Vehicle(FittingItem):
     @property
     def searchableShortUserName(self):
         return makeSearchableString(self.shortUserName)
+
+    @property
+    def outfits(self):
+        return self._outfits
 
     def getUnlockDescrByIntCD(self, intCD):
         for unlockIdx, data in enumerate(self.descriptor.type.unlocksDescrs):
@@ -1023,7 +1027,7 @@ class Vehicle(FittingItem):
             ms = Vehicle.VEHICLE_STATE.SERVER_RESTRICTION
         elif self.isRotationGroupLocked:
             ms = Vehicle.VEHICLE_STATE.ROTATION_GROUP_LOCKED
-        ms = self.__checkUndamagedState(ms, isCurrentPlayer)
+        ms = self.checkUndamagedState(ms, isCurrentPlayer)
         ms = self.__getRentableState(ms, isCurrentPlayer)
         if ms in Vehicle.CAN_SELL_STATES and self.__customState:
             ms = self.__customState
@@ -1041,7 +1045,7 @@ class Vehicle(FittingItem):
     def isCustomStateSet(self):
         return self.__customState != ''
 
-    def __checkUndamagedState(self, state, isCurrnentPlayer=True):
+    def checkUndamagedState(self, state, isCurrnentPlayer=True):
         if state == Vehicle.VEHICLE_STATE.UNDAMAGED and isCurrnentPlayer:
             if self.isBroken:
                 return Vehicle.VEHICLE_STATE.DAMAGED
@@ -1202,7 +1206,7 @@ class Vehicle(FittingItem):
             if not self.rentalIsOver:
                 return False
             if st in (self.VEHICLE_STATE.RENTAL_IS_OVER, self.VEHICLE_STATE.IGR_RENTAL_IS_OVER, self.VEHICLE_STATE.RENTABLE_AGAIN):
-                st = self.__checkUndamagedState(self.modelState)
+                st = self.checkUndamagedState(self.modelState)
         return st in self.CAN_SELL_STATES and not checkForTags(self.tags, VEHICLE_TAGS.CANNOT_BE_SOLD)
 
     @property
@@ -1255,6 +1259,10 @@ class Vehicle(FittingItem):
         return checkForTags(self.tags, VEHICLE_TAGS.EVENT)
 
     @property
+    def isLowTierEvent(self):
+        return checkForTags(self.tags, VEHICLE_TAGS.LOW_TIER_EVENT)
+
+    @property
     def isOnlyForEpicBattles(self):
         return checkForTags(self.tags, VEHICLE_TAGS.EPIC_BATTLES)
 
@@ -1265,6 +1273,10 @@ class Vehicle(FittingItem):
     @property
     def isOnlyForBattleRoyaleBattles(self):
         return checkForTags(self.tags, VEHICLE_TAGS.BATTLE_ROYALE)
+
+    @property
+    def isOnlyForBob(self):
+        return checkForTags(self.tags, VEHICLE_TAGS.BOB)
 
     @property
     def isTelecom(self):
@@ -1389,7 +1401,7 @@ class Vehicle(FittingItem):
             return [ constants.ACTION_TYPE_TO_LABEL.get(action) for action in actions ]
 
     @property
-    def comactDescr(self):
+    def compactDescr(self):
         return self._descriptor.type.compactDescr
 
     @prbDispatcherProperty
@@ -1531,7 +1543,7 @@ class Vehicle(FittingItem):
             if s == season:
                 self._outfits[s] = outfit
             if s in self._outfits and self._outfits[s].id:
-                self._outfits[s] = self.__getEmptyOutfitComponent()
+                self._outfits[s] = self.itemsFactory.createOutfit(component=self.__getEmptyOutfitComponent())
 
     def setOutfits(self, fromVehicle):
         for season in SeasonType.RANGE:

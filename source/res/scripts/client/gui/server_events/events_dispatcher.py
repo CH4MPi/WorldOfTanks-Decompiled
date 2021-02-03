@@ -1,13 +1,14 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/server_events/events_dispatcher.py
 import constants
+from gui import SystemMessages
 from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
 from gui.Scaleform.daapi.view.lobby.customization.progression_helpers import parseEventID
 from gui.Scaleform.daapi.view.lobby.missions.missions_helper import getMissionInfoData
 from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
 from gui.Scaleform.genConsts.PERSONAL_MISSIONS_ALIASES import PERSONAL_MISSIONS_ALIASES
 from gui.Scaleform.genConsts.QUESTS_ALIASES import QUESTS_ALIASES
-from gui.marathon.marathon_event_controller import DEFAULT_MARATHON_PREFIX
+from gui.prb_control.dispatcher import g_prbLoader
 from gui.server_events import awards, events_helpers, recruit_helper, anniversary_helper
 from gui.server_events.events_helpers import getLootboxesFromBonuses
 from gui.shared import g_eventBus, events, event_dispatcher as shared_events, EVENT_BUS_SCOPE
@@ -15,9 +16,10 @@ from gui.shared.event_dispatcher import showProgressiveItemsView
 from gui.shared.events import PersonalMissionsEvent
 from helpers import dependency
 from skeletons.gui.customization import ICustomizationService
+from skeletons.gui.game_control import IMarathonEventsController
 from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.server_events import IEventsCache
-from gui.impl.lobby.reward_window import TwitchRewardWindow, GiveAwayRewardWindow, PiggyBankRewardWindow, HE19TankmanRewardWindow
+from gui.impl.lobby.reward_window import TwitchRewardWindow, GiveAwayRewardWindow, PiggyBankRewardWindow
 from shared_utils import first
 from battle_pass_common import BattlePassConsts
 OPERATIONS = {PERSONAL_MISSIONS_ALIASES.PERONAL_MISSIONS_OPERATIONS_SEASON_1_ID: PERSONAL_MISSIONS_ALIASES.PERSONAL_MISSIONS_OPERATIONS_PAGE_ALIAS,
@@ -40,9 +42,9 @@ _EVENTS_REWARD_WINDOW = {recruit_helper.RecruitSourceID.TWITCH_0: TwitchRewardWi
  recruit_helper.RecruitSourceID.TWITCH_15: TwitchRewardWindow,
  recruit_helper.RecruitSourceID.TWITCH_16: TwitchRewardWindow,
  recruit_helper.RecruitSourceID.TWITCH_17: TwitchRewardWindow,
+ recruit_helper.RecruitSourceID.TWITCH_18: TwitchRewardWindow,
  recruit_helper.RecruitSourceID.COMMANDER_MARINA: TwitchRewardWindow,
  recruit_helper.RecruitSourceID.COMMANDER_PATRICK: TwitchRewardWindow,
- recruit_helper.RecruitSourceID.HW19_COMMANDERS: HE19TankmanRewardWindow,
  anniversary_helper.ANNIVERSARY_EVENT_PREFIX: GiveAwayRewardWindow}
 _PIGGY_BANK_EVENT_NAME = 'piggyBank'
 
@@ -116,16 +118,18 @@ def showMissionsGrouped(missionID=None, groupID=None, anchor=None):
     showMissions(tab=QUESTS_ALIASES.MISSIONS_GROUPED_VIEW_PY_ALIAS, missionID=missionID, groupID=groupID, anchor=anchor)
 
 
-def showMissionsMarathon(marathonPrefix=DEFAULT_MARATHON_PREFIX):
+@dependency.replace_none_kwargs(marathonsCtrl=IMarathonEventsController)
+def showMissionsMarathon(marathonPrefix=None, marathonsCtrl=None):
+    if not marathonPrefix and marathonsCtrl is not None:
+        marathonEvent = marathonsCtrl.getPrimaryMarathon()
+        if marathonEvent is not None:
+            marathonPrefix = marathonEvent.prefix
     showMissions(tab=QUESTS_ALIASES.MISSIONS_MARATHON_VIEW_PY_ALIAS, marathonPrefix=marathonPrefix)
+    return
 
 
 def showMissionsCategories(missionID=None, groupID=None, anchor=None):
     showMissions(tab=QUESTS_ALIASES.MISSIONS_CATEGORIES_VIEW_PY_ALIAS, missionID=missionID, groupID=groupID, anchor=anchor)
-
-
-def showMissionsHalloween(groupID=None):
-    showMissions(tab=QUESTS_ALIASES.MISSIONS_CATEGORIES_VIEW_PY_ALIAS, groupID=groupID)
 
 
 def showMissionsForCurrentVehicle(missionID=None, groupID=None, anchor=None):
@@ -255,6 +259,16 @@ def showRecruitWindow(recruitID, eventsCache=None):
 
 
 def showMissionAward(quest, ctx):
+
+    def handleEvent():
+        prbDispatcher = g_prbLoader.getDispatcher()
+        if prbDispatcher is not None and prbDispatcher.getFunctionalState().isNavigationDisabled():
+            SystemMessages.pushI18nMessage('#system_messages:queue/isInQueue', type=SystemMessages.SM_TYPE.Error)
+            return False
+        else:
+            showMissionsCategories()
+            return True
+
     eventName = recruit_helper.getSourceIdFromQuest(quest.getID()) or anniversary_helper.getEventNameByQuest(quest)
     if eventName in _EVENTS_REWARD_WINDOW:
         ctx['quest'] = quest
@@ -270,7 +284,7 @@ def showMissionAward(quest, ctx):
                     showLootboxesAward(lootboxId=lootboxId, lootboxCount=lootboxInfo['count'], isFree=lootboxInfo['isFree'])
 
             else:
-                missionAward = awards.MissionAward(quest, ctx, showMissionsCategories)
+                missionAward = awards.MissionAward(quest, ctx, handleEvent)
                 if missionAward.getAwards():
                     shared_events.showMissionAwardWindow(missionAward)
 
@@ -312,29 +326,3 @@ def showPersonalMissionFirstEntryAwardView(ctx):
 def showActions(tab=None, anchor=None):
     g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.LOBBY_STORE), ctx={'tab': tab,
      'anchor': anchor}), scope=EVENT_BUS_SCOPE.LOBBY)
-
-
-def showEventHangar():
-    showEventTab(VIEW_ALIAS.LOBBY_HANGAR)
-
-
-def showEventMissions(**kwargs):
-    showEventTab(VIEW_ALIAS.EVENT_QUESTS, **kwargs)
-
-
-def showEventShop(**kwargs):
-    showEventTab(VIEW_ALIAS.EVENT_SHOP, **kwargs)
-
-
-def showEventTab(alias, **kwargs):
-    ctx = {'alias': alias}
-    if kwargs:
-        ctx.update(kwargs)
-    g_eventBus.handleEvent(events.EventHeaderEvent(events.EventHeaderEvent.TAB_CHANGED, ctx=ctx), scope=EVENT_BUS_SCOPE.LOBBY)
-
-
-def showEventTankmanRewardWindow(quest):
-    ctx = {'quest': quest,
-     'eventName': recruit_helper.RecruitSourceID.HW19_COMMANDERS}
-    rewardWindow = HE19TankmanRewardWindow(ctx)
-    rewardWindow.load()

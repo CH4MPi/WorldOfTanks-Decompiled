@@ -2,21 +2,21 @@
 # Embedded file name: scripts/client/gui/prb_control/entities/base/squad/actions_handler.py
 from CurrentVehicle import g_currentVehicle
 from PlayerEvents import g_playerEvents
-from gui import DialogsInterface, SystemMessages
-from gui.Scaleform.daapi.view.dialogs import I18nConfirmDialogMeta
-from gui.prb_control.events_dispatcher import g_eventDispatcher
+from gui import DialogsInterface
+from gui import SystemMessages
+from gui.impl.gen import R
 from gui.prb_control.entities.base import vehicleAmmoCheck
 from gui.prb_control.entities.base.ctx import SendInvitesCtx
 from gui.prb_control.entities.base.unit.actions_handler import AbstractActionsHandler
+from gui.prb_control.events_dispatcher import g_eventDispatcher
 from gui.prb_control.settings import REQUEST_TYPE, FUNCTIONAL_FLAG
+from gui.shared.event_dispatcher import showPlatoonResourceDialog
 from messenger.storage import storage_getter
-from constants import SQUAD_SETTINGS
 
 class SquadActionsHandler(AbstractActionsHandler):
 
     def __init__(self, entity):
         super(SquadActionsHandler, self).__init__(entity)
-        self._minOccupiedSlotsCount = SQUAD_SETTINGS.BASE_MIN_OCCUPIED_SLOTS_COUNT
         g_playerEvents.onKickedFromRandomQueue += self.__onKickedFromQueue
 
     @storage_getter('users')
@@ -31,9 +31,8 @@ class SquadActionsHandler(AbstractActionsHandler):
             vInfos = unit.getMemberVehicles(pInfo.dbID)
             if vInfos is not None:
                 g_currentVehicle.selectVehicle(vInfos[0].vehInvID)
-            self._showBattleQueueGUI()
+            g_eventDispatcher.loadBattleQueue()
         elif loadHangar:
-            self._loadPage()
             g_eventDispatcher.loadHangar()
         return
 
@@ -46,7 +45,7 @@ class SquadActionsHandler(AbstractActionsHandler):
     def executeInit(self, ctx):
         initResult = FUNCTIONAL_FLAG.UNDEFINED
         if self._entity.getPlayerInfo().isReady and self._entity.getFlags().isInQueue():
-            self._showBattleQueueGUI()
+            g_eventDispatcher.loadBattleQueue()
             initResult = FUNCTIONAL_FLAG.LOAD_PAGE
         squadCtx = None
         if ctx is not None:
@@ -64,7 +63,6 @@ class SquadActionsHandler(AbstractActionsHandler):
     def executeFini(self):
         prbType = self._entity.getEntityType()
         g_eventDispatcher.removeUnitFromCarousel(prbType)
-        self._loadPage()
 
     @vehicleAmmoCheck
     def execute(self):
@@ -77,26 +75,21 @@ class SquadActionsHandler(AbstractActionsHandler):
                 if slotPlayer:
                     if slotPlayer.isInArena() or fullData.playerInfo.isInSearch() or fullData.playerInfo.isInQueue():
                         DialogsInterface.showI18nInfoDialog('squadHavePlayersInBattle', lambda result: None)
-                        return True
+                        return
                     if not slotPlayer.isReady:
                         notReadyCount += 1
 
             if not fullData.playerInfo.isReady:
                 notReadyCount -= 1
-            occupiedSlotsCount = fullData.stats.occupiedSlotsCount
-            if occupiedSlotsCount == 1 or occupiedSlotsCount < self._minOccupiedSlotsCount:
-                DialogsInterface.showDialog(I18nConfirmDialogMeta('squadHaveNoPlayers'), self._confirmCallback)
-                return True
+            if fullData.stats.occupiedSlotsCount == 1:
+                showPlatoonResourceDialog(R.strings.dialogs.squadHaveNoPlayers, self._confirmCallback)
+                return
             if notReadyCount > 0:
-                if notReadyCount == 1:
-                    DialogsInterface.showDialog(I18nConfirmDialogMeta('squadHaveNotReadyPlayer'), self._confirmCallback)
-                    return True
-                DialogsInterface.showDialog(I18nConfirmDialogMeta('squadHaveNotReadyPlayers'), self._confirmCallback)
-                return True
+                showPlatoonResourceDialog(R.strings.dialogs.squadHaveNotReadyPlayer, self._confirmCallback)
+                return
             self._setCreatorReady()
         else:
             self._entity.togglePlayerReadyAction(True)
-        return True
 
     def exitFromQueue(self):
         self._sendBattleQueueRequest(action=0)
@@ -110,15 +103,9 @@ class SquadActionsHandler(AbstractActionsHandler):
             self._entity.request(SendInvitesCtx(accountsToInvite, ''))
             self._showInviteSentMessage(accountsToInvite)
 
-    def _loadPage(self):
-        g_eventDispatcher.loadHangar()
-
     def _loadWindow(self, ctx):
         prbType = self._entity.getEntityType()
         g_eventDispatcher.loadSquad(prbType, ctx, self._getTeamReady())
-
-    def _showBattleQueueGUI(self):
-        g_eventDispatcher.loadBattleQueue()
 
     def _confirmCallback(self, result):
         if result:

@@ -22,6 +22,7 @@ from gui.impl.gen import R
 from gui.impl.lobby.premacc.premacc_helpers import PiggyBankConstants, getDeltaTimeHelper
 from gui.prb_control import prbInvitesProperty
 from gui.prb_control.entities.listener import IGlobalListener
+from gui.server_events.recruit_helper import getAllRecruitsInfo
 from gui.shared import g_eventBus, events
 from gui.shared.formatters import time_formatters, text_styles
 from gui.shared.notifications import NotificationPriorityLevel
@@ -37,11 +38,14 @@ from messenger.proto.events import g_messengerEvents
 from messenger.proto.xmpp.xmpp_constants import XMPP_ITEM_TYPE
 from messenger.formatters import TimeFormatter
 from notification import tutorial_helper
-from notification.decorators import MessageDecorator, PrbInviteDecorator, C11nMessageDecorator, FriendshipRequestDecorator, WGNCPopUpDecorator, ClanAppsDecorator, ClanInvitesDecorator, ClanAppActionDecorator, ClanInvitesActionDecorator, ClanSingleAppDecorator, ClanSingleInviteDecorator, ProgressiveRewardDecorator, MissingEventsDecorator
+from notification.decorators import MessageDecorator, PrbInviteDecorator, C11nMessageDecorator, FriendshipRequestDecorator, WGNCPopUpDecorator, ClanAppsDecorator, ClanInvitesDecorator, ClanAppActionDecorator, ClanInvitesActionDecorator, ClanSingleAppDecorator, ClanSingleInviteDecorator, ProgressiveRewardDecorator, MissingEventsDecorator, RecruitReminderMessageDecorator
 from notification.settings import NOTIFICATION_TYPE, NOTIFICATION_BUTTON_STATE
+from shared_utils import first
 from skeletons.gui.game_control import IBootcampController, IGameSessionController, IBattlePassController
 from skeletons.gui.impl import INotificationWindowController
 from skeletons.gui.lobby_context import ILobbyContext
+from skeletons.gui.login_manager import ILoginManager
+from skeletons.gui.server_events import IEventsCache
 from skeletons.gui.shared import IItemsCache
 from gui.Scaleform.daapi.view.lobby.hangar.seniority_awards import getSeniorityAwardsBoxesCount
 
@@ -954,17 +958,16 @@ class BattlePassListener(_NotificationListener):
     def __checkAndNotify(self, oldMode=None, newMode=None):
         isStarted = self.__battlePassController.isSeasonStarted()
         isFinished = self.__battlePassController.isSeasonFinished()
+        isModeChanged = oldMode is not None and newMode is not None and oldMode != newMode
         if self.__isStarted != isStarted and isStarted:
             self.__pushStarted()
-        elif self.__isFinished != isFinished and isFinished:
+        elif self.__isFinished != isFinished and isFinished or isModeChanged and newMode == 'disabled':
             self.__pushFinished()
-        if oldMode is not None and newMode is not None and oldMode != newMode:
+        if isModeChanged:
             if newMode == 'paused':
                 self.__pushPause()
             elif newMode == 'enabled' and oldMode == 'paused':
                 self.__pushEnabled()
-            elif newMode == 'disabled':
-                self.__pushFinished()
         self.__isStarted = isStarted
         self.__isFinished = isFinished
         return
@@ -1049,6 +1052,71 @@ class ChoosingDeviceslListener(_NotificationListener):
             model.removeNotification(NOTIFICATION_TYPE.CHOOSING_DEVICES, entityID)
 
 
+class RecruitReminderlListener(_NotificationListener):
+    __loginManager = dependency.descriptor(ILoginManager)
+    __bootCampController = dependency.descriptor(IBootcampController)
+    __eventsCache = dependency.descriptor(IEventsCache)
+    MSG_ID = 0
+    _INCREASE_LIMIT_LOGIN = 5
+
+    def __init__(self):
+        super(RecruitReminderlListener, self).__init__()
+        self._isFirstShow = True
+
+    def start(self, model):
+        result = super(RecruitReminderlListener, self).start(model)
+        if result:
+            g_clientUpdateManager.addCallbacks({'tokens': self.__tryNotify})
+            self.__eventsCache.onProgressUpdated += self.__tryNotify
+            self.__tryNotify(None)
+        return result
+
+    def stop(self):
+        super(RecruitReminderlListener, self).stop()
+        g_clientUpdateManager.removeObjectCallbacks(self)
+        self.__eventsCache.onProgressUpdated -= self.__tryNotify
+
+    def __tryNotify(self, _):
+        if self.__bootCampController.isInBootcamp():
+            return
+        recruits = getAllRecruitsInfo(sortByExpireTime=True)
+        recruitsCount = len(recruits)
+        if recruitsCount <= 0:
+            self.__onRecruitRemoved()
+        else:
+            time = first(recruits).getExpiryTime()
+            rMessage = R.strings.messenger.serviceChannelMessages
+            if time:
+                message = rMessage.recruitReminder.text()
+            else:
+                message = rMessage.recruitReminderTermless.text()
+            savedData = {'count': recruitsCount}
+            msgPrLevel = NotificationPriorityLevel.LOW
+            lc = self.__loginManager.getPreference('loginCount')
+            if lc == self._INCREASE_LIMIT_LOGIN:
+                msgPrLevel = NotificationPriorityLevel.MEDIUM
+            notification = RecruitReminderMessageDecorator(self.MSG_ID, backport.text(message, count=recruitsCount, date=time), savedData, msgPrLevel)
+            self.__onRecruitAdded(notification)
+
+    def __onRecruitAdded(self, newNotification):
+        model = self._model()
+        if model:
+            prevNotifacation = model.getNotification(NOTIFICATION_TYPE.RECRUIT_REMINDER, newNotification.getID())
+            if prevNotifacation is None:
+                model.addNotification(newNotification)
+            else:
+                savedData = newNotification.getSavedData()
+                prevSavedData = prevNotifacation.getSavedData()
+                if prevSavedData.get('count') != savedData.get('count'):
+                    model.updateNotification(NOTIFICATION_TYPE.RECRUIT_REMINDER, newNotification.getID(), newNotification.getEntity(), False)
+        return
+
+    def __onRecruitRemoved(self):
+        model = self._model()
+        if model:
+            model.removeNotification(NOTIFICATION_TYPE.RECRUIT_REMINDER, self.MSG_ID)
+
+
 class NotificationsListeners(_NotificationListener):
 
     def __init__(self):
@@ -1064,7 +1132,8 @@ class NotificationsListeners(_NotificationListener):
          TankPremiumListener(),
          BattlePassListener(),
          UpgradeTrophyDeviceListener(),
-         ChoosingDeviceslListener())
+         ChoosingDeviceslListener(),
+         RecruitReminderlListener())
 
     def start(self, model):
         for listener in self.__listeners:

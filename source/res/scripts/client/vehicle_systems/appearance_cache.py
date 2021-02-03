@@ -5,14 +5,12 @@ from collections import namedtuple
 import BigWorld
 from constants import ARENA_GUI_TYPE
 from debug_utils import LOG_DEBUG, LOG_WARNING
-from helpers import uniprof
+from items import vehicles
+from gui.shared.utils.MethodsRules import MethodsRules
 from vehicle_systems.CompoundAppearance import CompoundAppearance
 from vehicle_systems.stricted_loading import loadingPriority, makeCallbackWeak
-from items import vehicles
 _ENABLE_CACHE_TRACKER = False
 _ENABLE_PRECACHE = True
-_g_cache = None
-d_cacheInfo = None
 _VehicleInfo = namedtuple('_VehicleInfo', ['typeDescr',
  'health',
  'isCrewActive',
@@ -20,53 +18,68 @@ _VehicleInfo = namedtuple('_VehicleInfo', ['typeDescr',
  'outfitCD'])
 _AssemblerData = namedtuple('_AssemblerData', ['appearance', 'info', 'prereqsNames'])
 
-class _AppearanceCache(object):
-    __slots__ = ('__arena', '__appearanceCache', '__assemblersCache', '__spaceLoaded', '__wholeVehResources', '__effectsCache', '__weakref__')
+class _AppearanceCache(MethodsRules):
+    __slots__ = ('__arena', '__appearanceCache', '__assemblersCache', '__spaceLoaded', '__wholeVehResources', '__dCacheInfo')
 
     @property
     def cache(self):
         return self.__appearanceCache
 
-    def __init__(self, arena):
-        global d_cacheInfo
-        self.__arena = weakref.proxy(arena)
-        self.__appearanceCache = dict()
-        self.__assemblersCache = dict()
+    @property
+    def dCacheInfo(self):
+        return self.__dCacheInfo
+
+    def __init__(self):
+        super(_AppearanceCache, self).__init__()
+        self.__arena = None
+        self.__appearanceCache = {}
+        self.__assemblersCache = {}
+        self.__dCacheInfo = {}
         self.__spaceLoaded = False
-        self.__effectsCache = None
+        self.__wholeVehResources = None
+        return
+
+    def isArenaSet(self):
+        return self.__arena is not None
+
+    @MethodsRules.delayable()
+    def setArena(self, arena):
+        self.__arena = weakref.proxy(arena)
         self.__arena.onNewVehicleListReceived += self.onVehicleListReceived
         self.__arena.onVehicleAdded += self.onVehicleAddedUpdate
         self.__arena.onVehicleUpdated += self.onVehicleAddedUpdate
         if getattr(self.__arena.componentSystem, 'playerDataComponent', None):
             self.__arena.componentSystem.playerDataComponent.onPlayerGroupsUpdated += self.__onPlayerGroupsUpdated
-        if _ENABLE_CACHE_TRACKER:
-            d_cacheInfo = dict()
-        self.__wholeVehResources = None
         return
 
-    def destroy(self):
-        global d_cacheInfo
-        self.__arena.onVehicleAdded -= self.onVehicleAddedUpdate
-        self.__arena.onVehicleUpdated -= self.onVehicleAddedUpdate
-        self.__arena.onNewVehicleListReceived -= self.onVehicleListReceived
-        if getattr(self.__arena.componentSystem, 'playerDataComponent', None):
-            self.__arena.componentSystem.playerDataComponent.onPlayerGroupsUpdated -= self.__onPlayerGroupsUpdated
+    def delArena(self):
+        if not self.isArenaSet():
+            return
+        else:
+            if getattr(self.__arena.componentSystem, 'playerDataComponent', None):
+                self.__arena.componentSystem.playerDataComponent.onPlayerGroupsUpdated -= self.__onPlayerGroupsUpdated
+            self.__arena.onVehicleAdded -= self.onVehicleAddedUpdate
+            self.__arena.onVehicleUpdated -= self.onVehicleAddedUpdate
+            self.__arena.onNewVehicleListReceived -= self.onVehicleListReceived
+            self.__arena = None
+            return
+
+    def clear(self):
+        super(_AppearanceCache, self).clear()
+        self.delArena()
         for _, appearance in self.__appearanceCache.iteritems():
             appearance[0].destroy()
 
-        self.__arena = None
-        self.__appearanceCache = None
-        self.__assemblersCache = None
+        self.__dCacheInfo.clear()
+        self.__appearanceCache.clear()
+        self.__assemblersCache.clear()
         self.__wholeVehResources = None
-        self.__effectsCache = None
-        if _ENABLE_CACHE_TRACKER:
-            d_cacheInfo = None
+        self.__spaceLoaded = False
         return
 
     def onVehicleListReceived(self):
         if not self.__spaceLoaded or not _ENABLE_PRECACHE:
             return
-        self.__precacheBots(self.__arena.precachedVehicles)
         self.__precacheVehicle(self.__arena.vehicles)
 
     def onVehicleAddedUpdate(self, vId):
@@ -74,11 +87,11 @@ class _AppearanceCache(object):
             vInfo = self.__arena.vehicles[vId]
             self.__precacheVehicle({vId: vInfo})
 
+    @MethodsRules.delayable('setArena')
     def onSpaceLoaded(self):
         self.__spaceLoaded = True
         if _ENABLE_PRECACHE:
             self.__precacheVehicle(self.__arena.vehicles)
-            self.__precacheBots(self.__arena.precachedVehicles)
         if self.__arena.guiType == ARENA_GUI_TYPE.BATTLE_ROYALE:
             brprereqs = set()
             cachedDescs = set()
@@ -90,10 +103,6 @@ class _AppearanceCache(object):
                 brprereqs.update(self.__getWholeVehModels(vDesc))
 
             BigWorld.loadResourceListBG(list(brprereqs), makeCallbackWeak(_wholeVehicleResourcesLoaded, brprereqs))
-        elif self.__arena.guiType == ARENA_GUI_TYPE.EVENT_BATTLES:
-            for vId, assemblerData in self.__assemblersCache.iteritems():
-                prereqs = assemblerData.prereqsNames
-                BigWorld.loadResourceListBG(prereqs, makeCallbackWeak(_resourceLoaded, prereqs, vId), loadingPriority(vId))
 
     def __getWholeVehModels(self, vDesc):
         nationID, vehicleTypeID = vehicles.g_list.getIDsByName(vDesc.name)
@@ -142,11 +151,7 @@ class _AppearanceCache(object):
                 return
             isAlive = info['isAlive']
             outfitCD = info['outfitCD']
-            appearanceID = self.__getAppearanceCacheID(vId, info)
-            if appearanceID is None:
-                self.__cacheApperance(vId, _VehicleInfo(typeDescriptor, 1 if isAlive else 0, True if isAlive else False, False, outfitCD))
-            else:
-                self.__reuseAppearance(vId, appearanceID)
+            self.__cacheApperance(vId, _VehicleInfo(typeDescriptor, 1 if isAlive else 0, True if isAlive else False, False, outfitCD))
             return
 
     def removeAppearance(self, vId):
@@ -204,7 +209,7 @@ class _AppearanceCache(object):
                 apperanceOwner.startVisual()
             del self.__assemblersCache[vId]
             if _ENABLE_CACHE_TRACKER:
-                d_cacheInfo[vId] = BigWorld.time()
+                self.__dCacheInfo[vId] = BigWorld.time()
             return appearance
 
     def __cacheApperance(self, vId, info):
@@ -241,7 +246,7 @@ class _AppearanceCache(object):
             if playerVehicleId in vIds:
                 vehicleInfos = self.__arena.vehicles
             else:
-                vehicleInfos = dict(((vId, self.__arena.vehicles[vId]) for vId in vIds))
+                vehicleInfos = {vId:self.__arena.vehicles[vId] for vId in vIds}
                 groupIDs = vIds
             self.__precacheVehicle(vehicleInfos, groupIDs)
             return
@@ -259,106 +264,32 @@ class _AppearanceCache(object):
 
         return
 
-    @uniprof.regionDecorator(label='arena.precache_bots', scope='wrap')
-    def __precacheBots(self, vehicleIDs):
-        for vId, vInfo in vehicleIDs.iteritems():
-            cacheApperance(vId, vInfo)
 
-        if self.__effectsCache is not None:
-            return
-        else:
-            prerequisites = []
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_small.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_medium.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_big.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/lore.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/buff.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_catch_big.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_catch_medium.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/demolitiy_catch_small.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_deff_bubble.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_deff_bubble_start.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_deff_bubble_end.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/enemies/creeps_incame.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_disappear.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_start.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_idle.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_aura_start.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_aura_idle.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_start_full.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_idle_full.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_energy_ring_start.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_energy_ring_idle.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/collecting/collecting_start.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/collecting/collecting_idle.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/collecting/collecting_end.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/enemies/creeps_incame.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/volot/volot_disappear.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/enemies/boss_aura.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_bubble_healing_all.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_bubble_defense.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/enemies/boss_aura.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_incame_collector.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_incame_collector_Non_Player.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_idle_collector.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_dem_transfer_volot.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/tank_bubble_healing_all.seq')
-            prerequisites.append('particles/eff_sequence/hw_regeneration_buff.seq')
-            prerequisites.append('particles/Environment/event_halloween_2019/our_tank_demolitiy/buff_catch.seq')
-            BigWorld.loadResourceListBG(prerequisites, makeCallbackWeak(self.__onSequencesLoaded))
-            return
-
-    def __onSequencesLoaded(self, resourceRefs):
-        self.__effectsCache = resourceRefs
-
-    def __getAppearanceCacheID(self, vehId, vehInfo):
-        for vId, vInfo in self.__appearanceCache.iteritems():
-            if vehId > 0 > vId and vInfo[1].typeDescr.name == vehInfo['vehicleType'].name:
-                return vId
-
-        return None
-
-    def __reuseAppearance(self, vId, cachedVehID):
-        self.__appearanceCache[cachedVehID][0].setID(vId)
-        self.__appearanceCache[vId] = self.__appearanceCache[cachedVehID]
-        del self.__appearanceCache[cachedVehID]
-        LOG_DEBUG('Reuse appearance', vId, cachedVehID)
-        if _ENABLE_CACHE_TRACKER:
-            d_cacheInfo[vId] = BigWorld.time()
-
+_g_cache = _AppearanceCache()
 
 def _resourceLoaded(resNames, vId, resourceRefs):
-    global _g_cache
-    if _g_cache is None:
+    if not _g_cache.isArenaSet():
         return
-    else:
-        failedRefs = resourceRefs.failedIDs
-        for resName in resNames:
-            if resName in failedRefs:
-                LOG_WARNING('Resource is not found', resName)
+    failedRefs = resourceRefs.failedIDs
+    for resName in resNames:
+        if resName in failedRefs:
+            LOG_WARNING('Resource is not found', resName)
 
-        _g_cache.constructAppearance(vId, resourceRefs)
-        return
+    _g_cache.constructAppearance(vId, resourceRefs)
 
 
 def _wholeVehicleResourcesLoaded(resNames, resourceRefs):
-    if _g_cache is None:
+    if not _g_cache.isArenaSet():
         return
-    else:
-        _g_cache.saveWholeVehicleResources(resourceRefs)
-        return
+    _g_cache.saveWholeVehicleResources(resourceRefs)
 
 
 def init(clientArena):
-    global _g_cache
-    _g_cache = _AppearanceCache(clientArena)
+    _g_cache.setArena(clientArena)
 
 
 def destroy():
-    global _g_cache
-    _g_cache.destroy()
-    _g_cache = None
-    return
+    _g_cache.clear()
 
 
 def onSpaceLoaded():
@@ -387,7 +318,7 @@ def dCacheStatus():
         cache = _g_cache.cache
         LOG_DEBUG('VehicleID cachedTime   Activated  VehicleType')
         for vId, appearance in cache.iteritems():
-            cachedTime = d_cacheInfo.get(vId, None)
+            cachedTime = _g_cache.dCacheInfo.get(vId, None)
             LOG_DEBUG('{0}     {1}    {2}   {3}'.format(vId, cachedTime, appearance[0].activated, appearance[0].typeDescriptor.type.name))
 
     return

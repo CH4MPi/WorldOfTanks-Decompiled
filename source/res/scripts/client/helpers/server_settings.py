@@ -15,6 +15,9 @@ from gui.Scaleform.locale.SYSTEM_MESSAGES import SYSTEM_MESSAGES
 from gui.shared.utils.decorators import ReprInjector
 from personal_missions import PM_BRANCH
 from shared_utils import makeTupleByDict, updateDict
+from UnitBase import PREBATTLE_TYPE_TO_UNIT_ASSEMBLER, UNIT_ASSEMBLER_IMPL_TO_CONFIG
+from BonusCaps import BonusCapsConst
+from arena_bonus_type_caps import ARENA_BONUS_TYPE_CAPS as BONUS_CAPS
 _logger = logging.getLogger(__name__)
 _CLAN_EMBLEMS_SIZE_MAPPING = {16: 'clan_emblems_16',
  32: 'clan_emblems_small',
@@ -290,7 +293,7 @@ _ProgressiveReward.__new__.__defaults__ = (True,
  'pr:probability',
  0)
 
-class _EventProgressionConfig(namedtuple('_EventProgressionConfig', ('isEnabled', 'isFrontLine', 'isSteelHunter', 'url', 'questPrefix', 'exchange', 'rewardVehicles', 'rewardPointsTokenID', 'seasonPointsTokenID', 'maxRewardPoints'))):
+class _EventProgressionConfig(namedtuple('_EventProgressionConfig', ('isEnabled', 'isFrontLine', 'isSteelHunter', 'url', 'questPrefix', 'exchange', 'rewardVehicles', 'rewardStyles', 'rewardPointsTokenID', 'seasonPointsTokenID', 'maxRewardPoints'))):
 
     def __new__(cls, *args, **kwargs):
         defaults = {attr:copy.deepcopy(cls.__new__.__defaults__[i]) for i, attr in enumerate(cls._fields)}
@@ -312,6 +315,7 @@ _EventProgressionConfig.__new__.__defaults__ = (False,
  '',
  '',
  {},
+ [],
  [],
  '',
  '',
@@ -357,6 +361,40 @@ class _EpicGameConfig(namedtuple('_EpicGameConfig', ('isEnabled', 'validVehicleL
     @classmethod
     def defaults(cls):
         return cls()
+
+
+class _UnitAssemblerConfig(namedtuple('_UnitAssemblerConfig', ('squad', 'epic'))):
+    __slots__ = ()
+
+    def asDict(self):
+        return self._asdict()
+
+    def replace(self, data):
+        allowedFields = self._fields
+        dataToUpdate = dict(((k, v) for k, v in data.iteritems() if k in allowedFields))
+        return self._replace(**dataToUpdate)
+
+    def isPrebattleSupported(self, prebattleType):
+        return prebattleType in PREBATTLE_TYPE_TO_UNIT_ASSEMBLER
+
+    def getConfigOfQueue(self, prebattleType):
+        return self.asDict()[UNIT_ASSEMBLER_IMPL_TO_CONFIG[PREBATTLE_TYPE_TO_UNIT_ASSEMBLER[prebattleType]]]
+
+    def isVoicePreferenceEnabled(self, prebattleType):
+        return self.getConfigOfQueue(prebattleType)['voiceChatPreferenceEnabled']
+
+    def isTankLevelPreferenceEnabled(self, prebattleType):
+        return self.getConfigOfQueue(prebattleType)['tankLevelPreferenceEnabled']
+
+    def getAllowedTankLevels(self, prebattleType):
+        return self.getConfigOfQueue(prebattleType)['allowedTankLevels']
+
+    def isAssemblingEnabled(self, prebattleType):
+        return self.getConfigOfQueue(prebattleType)['isAssemblingEnabled']
+
+    @classmethod
+    def defaults(cls):
+        return cls(squad={}, epic={})
 
 
 class _SquadPremiumBonus(namedtuple('_SquadPremiumBonus', ('isEnabled', 'ownCredits', 'mateCredits'))):
@@ -473,11 +511,11 @@ class _BlueprintsConfig(namedtuple('_BlueprintsConfig', ('allowBlueprintsConvers
         return 'isEnabled' in diff or 'useBlueprintsForUnlock' in diff
 
 
-class _SeniorityAwardsConfig(namedtuple('_SeniorityAwardsConfig', ('enabled', 'autoOpenTime', 'hangarWidgetVisibility'))):
+class _SeniorityAwardsConfig(namedtuple('_SeniorityAwardsConfig', ('enabled', 'autoOpenTime', 'hangarWidgetVisibility', 'secretBoxToken'))):
     __slots__ = ()
 
     def __new__(cls, **kwargs):
-        defaults = dict(enabled=False, autoOpenTime=0, hangarWidgetVisibility=False)
+        defaults = dict(enabled=False, autoOpenTime=0, hangarWidgetVisibility=False, secretBoxToken='')
         defaults.update(kwargs)
         return super(_SeniorityAwardsConfig, cls).__new__(cls, **defaults)
 
@@ -497,6 +535,9 @@ class _SeniorityAwardsConfig(namedtuple('_SeniorityAwardsConfig', ('enabled', 'a
 
     def hangarWidgetIsVisible(self):
         return self.hangarWidgetVisibility
+
+    def getSecretBoxToken(self):
+        return self.secretBoxToken
 
 
 class _AdventCalendarConfig(namedtuple('_AdventCalendarConfig', ('calendarURL', 'popupIntervalInHours'))):
@@ -563,6 +604,27 @@ class _ReactiveCommunicationConfig(object):
         return self.__url
 
 
+class _BobConfig(namedtuple('_BobConfig', ('isEnabled', 'registration', 'url', 'peripheryIDs', 'primeTimes', 'seasons', 'cycleTimes', 'levels', 'teams', 'forbiddenClassTags', 'forbiddenVehTypes', 'teamTokens', 'leaderTokens', 'leaderTokenFirstType', 'pointsToken', 'addPersonalRewardToken', 'claimPersonalRewardToken', 'personalRewardQuest', 'teamRewardQuestPrefix', 'teamLevelToken', 'teamRewardTokenPrefix', 'teamsChannel', 'teamSkillsChannel'))):
+    __slots__ = ()
+
+    def __new__(cls, **kwargs):
+        defaults = dict(isEnabled=False, registration={}, url='', peripheryIDs={}, primeTimes={}, seasons={}, cycleTimes={}, levels=set(), teams={}, forbiddenVehTypes=set(), forbiddenClassTags=set(), teamTokens=set(), leaderTokens=set(), leaderTokenFirstType='', pointsToken='', addPersonalRewardToken='', claimPersonalRewardToken='', personalRewardQuest='', teamRewardQuestPrefix='', teamLevelToken='', teamRewardTokenPrefix='', teamsChannel='', teamSkillsChannel='')
+        defaults.update(kwargs)
+        return super(_BobConfig, cls).__new__(cls, **defaults)
+
+    def asDict(self):
+        return self._asdict()
+
+    def replace(self, data):
+        allowedFields = self._fields
+        dataToUpdate = dict(((k, v) for k, v in data.iteritems() if k in allowedFields))
+        return self._replace(**dataToUpdate)
+
+    @classmethod
+    def defaults(cls):
+        return cls()
+
+
 class ServerSettings(object):
 
     def __init__(self, serverSettings):
@@ -586,6 +648,7 @@ class ServerSettings(object):
         self.__eventProgressionSettings = _EventProgressionConfig()
         self.__adventCalendar = _AdventCalendarConfig()
         self.__epicGameSettings = _EpicGameConfig()
+        self.__unitAssemblerConfig = _UnitAssemblerConfig.defaults()
         self.__telecomConfig = _TelecomConfig.defaults()
         self.__squadPremiumBonus = _SquadPremiumBonus.defaults()
         self.__battlePassConfig = BattlePassConfig({})
@@ -638,6 +701,8 @@ class ServerSettings(object):
             LOG_DEBUG('epic_config', self.__serverSettings['epic_config'])
             self.__epicMetaGameSettings = makeTupleByDict(_EpicMetaGameConfig, self.__serverSettings['epic_config']['epicMetaGame'])
             self.__epicGameSettings = makeTupleByDict(_EpicGameConfig, self.__serverSettings['epic_config'])
+        if 'unit_assembler_config' in self.__serverSettings:
+            self.__unitAssemblerConfig = makeTupleByDict(_UnitAssemblerConfig, self.__serverSettings['unit_assembler_config'])
         if PremiumConfigs.PREM_SQUAD in self.__serverSettings:
             self.__squadPremiumBonus = _SquadPremiumBonus.create(self.__serverSettings[PremiumConfigs.PREM_SQUAD])
         if Configs.BATTLE_ROYALE_CONFIG.value in self.__serverSettings:
@@ -666,6 +731,15 @@ class ServerSettings(object):
         if _crystalRewardsConfig.CONFIG_NAME in self.__serverSettings:
             self.__crystalRewardsConfig = makeTupleByDict(_crystalRewardsConfig, self.__serverSettings[_crystalRewardsConfig.CONFIG_NAME])
         self.__updateReactiveCommunicationConfig(self.__serverSettings)
+        if BonusCapsConst.CONFIG_NAME in self.__serverSettings:
+            BONUS_CAPS.OVERRIDE_BONUS_CAPS = self.__serverSettings[BonusCapsConst.CONFIG_NAME]
+        else:
+            BONUS_CAPS.OVERRIDE_BONUS_CAPS = dict()
+        if 'bob_config' in self.__serverSettings:
+            LOG_DEBUG('bob_config', self.__serverSettings['bob_config'])
+            self.__bobSettings = makeTupleByDict(_BobConfig, self.__serverSettings['bob_config'])
+        else:
+            self.__bobSettings = _BobConfig.defaults()
         self.onServerSettingsChange(serverSettings)
 
     def update(self, serverSettingsDiff):
@@ -691,6 +765,11 @@ class ServerSettings(object):
             self.__serverSettings['epic_config'] = serverSettingsDiff['epic_config']
         if Configs.BATTLE_ROYALE_CONFIG.value in serverSettingsDiff:
             self.__updateBattleRoyale(serverSettingsDiff)
+        if 'unit_assembler_config' in serverSettingsDiff:
+            self.__updateUnitAssemblerConfig(serverSettingsDiff)
+            self.__serverSettings['unit_assembler_config'] = serverSettingsDiff['unit_assembler_config']
+        if 'bob_config' in serverSettingsDiff:
+            self.__updateBob(serverSettingsDiff)
         if 'telecom_config' in serverSettingsDiff:
             self.__telecomConfig = _TelecomConfig(self.__serverSettings['telecom_config'])
         if 'disabledPMOperations' in serverSettingsDiff:
@@ -707,6 +786,8 @@ class ServerSettings(object):
             self.__updateProgressiveReward(serverSettingsDiff)
         if 'seniority_awards_config' in serverSettingsDiff:
             self.__updateSeniorityAwards(serverSettingsDiff)
+        if BonusCapsConst.CONFIG_NAME in serverSettingsDiff:
+            BONUS_CAPS.OVERRIDE_BONUS_CAPS = serverSettingsDiff[BonusCapsConst.CONFIG_NAME]
         if PremiumConfigs.PIGGYBANK in serverSettingsDiff:
             self.__serverSettings[PremiumConfigs.PIGGYBANK] = serverSettingsDiff[PremiumConfigs.PIGGYBANK]
         if PremiumConfigs.DAILY_BONUS in serverSettingsDiff:
@@ -806,6 +887,14 @@ class ServerSettings(object):
         return self.__battleRoyaleSettings
 
     @property
+    def unitAssemblerConfig(self):
+        return self.__unitAssemblerConfig
+
+    @property
+    def bobConfig(self):
+        return self.__bobSettings
+
+    @property
     def telecomConfig(self):
         return self.__telecomConfig
 
@@ -866,6 +955,10 @@ class ServerSettings(object):
 
     def isLinkWithHoFEnabled(self):
         return self.__getGlobalSetting('sessionStats', {}).get('isLinkWithHoFEnabled', False)
+
+    def isWTREnabled(self):
+        wtrSettings = self.__getGlobalSetting('sessionStats', {}).get('WTR', {})
+        return wtrSettings.get('enabled', False)
 
     def isNationChangeEnabled(self):
         return self.__getGlobalSetting('isNationChangeEnabled', True)
@@ -1036,9 +1129,6 @@ class ServerSettings(object):
     def isOffersEnabled(self):
         return self.__getGlobalSetting('isOffersEnabled', False)
 
-    def getFriendlyFireBonusTypes(self):
-        return self.__getGlobalSetting('isNoAllyDamage', set())
-
     def getProgressiveRewardConfig(self):
         return self.__progressiveReward
 
@@ -1080,6 +1170,12 @@ class ServerSettings(object):
     def __updateEpic(self, targetSettings):
         self.__epicMetaGameSettings = self.__epicMetaGameSettings.replace(targetSettings['epic_config'].get('epicMetaGame', {}))
         self.__epicGameSettings = self.__epicGameSettings.replace(targetSettings['epic_config'])
+
+    def __updateUnitAssemblerConfig(self, targetSettings):
+        self.__unitAssemblerConfig = self.__unitAssemblerConfig.replace(targetSettings['unit_assembler_config'])
+
+    def __updateBob(self, targetSettings):
+        self.__bobSettings = self.__bobSettings.replace(targetSettings['bob_config'])
 
     def __updateSquadBonus(self, sourceSettings):
         self.__squadPremiumBonus = self.__squadPremiumBonus.replace(sourceSettings[PremiumConfigs.PREM_SQUAD])

@@ -27,7 +27,6 @@ from gui.shared.notifications import NotificationPriorityLevel
 from gui.shared.utils import decorators
 from gui.wgcg.clan import contexts as clan_ctxs
 from gui.wgnc import g_wgncProvider
-from skeletons.gui.afk_controller import IAFKController
 from skeletons.gui.impl import INotificationWindowController
 from web.web_client_api import webApiCollection
 from web.web_client_api.sound import HangarSoundWebApi
@@ -551,7 +550,7 @@ class AcceptPrbInviteHandler(_ActionHandler):
                 success = yield DialogsInterface.showI18nConfirmDialog('changeRoamingPeriphery')
             if not success:
                 return
-            postActions.append(actions.DisconnectFromPeriphery())
+            postActions.append(actions.DisconnectFromPeriphery(loginViewPreselectedPeriphery=invite.peripheryID))
             postActions.append(actions.ConnectToPeriphery(invite.peripheryID))
             postActions.append(actions.PrbInvitesInit())
             postActions.append(actions.LeavePrbEntity())
@@ -752,7 +751,7 @@ class _OpenNotrecruitedHandler(_NavigationDisabledActionHandler):
 
     @classmethod
     def getNotType(cls):
-        return NOTIFICATION_TYPE.MESSAGE
+        return NOTIFICATION_TYPE.RECRUIT_REMINDER
 
     @classmethod
     def getActions(cls):
@@ -760,6 +759,13 @@ class _OpenNotrecruitedHandler(_NavigationDisabledActionHandler):
 
     def doAction(self, model, entityID, action):
         g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(VIEW_ALIAS.LOBBY_BARRACKS), ctx={'location': BARRACKS_CONSTANTS.LOCATION_FILTER_NOT_RECRUITED}), scope=EVENT_BUS_SCOPE.LOBBY)
+
+
+class _OpenNotrecruitedSysMessageHandler(_OpenNotrecruitedHandler):
+
+    @classmethod
+    def getNotType(cls):
+        return NOTIFICATION_TYPE.MESSAGE
 
 
 class OpenPersonalMissionHandler(_ActionHandler):
@@ -844,68 +850,22 @@ class _OpenBattlePassProgressionView(_NavigationDisabledActionHandler):
         showMissionsBattlePassCommonProgression()
 
 
-class _OpenSelectDevicesHandler(_ActionHandler):
+class _OpenSelectDevicesHandler(_NavigationDisabledActionHandler):
 
     @classmethod
     def getNotType(cls):
-        return NOTIFICATION_TYPE.CHOOSING_DEVICES
+        return NOTIFICATION_TYPE.MESSAGE
 
     @classmethod
     def getActions(cls):
         pass
 
-    def handleAction(self, model, entityID, action):
-        super(_OpenSelectDevicesHandler, self).handleAction(model, entityID, action)
+    def doAction(self, model, entityID, action):
         notification = model.getNotification(self.getNotType(), entityID)
         savedData = notification.getSavedData()
         if savedData is not None:
             showOfferByBonusName(savedData.get('bonusName'))
         return
-
-
-class _ShowEventWarningWindowHandler(_ActionHandler):
-
-    @classmethod
-    def getNotType(cls):
-        return NOTIFICATION_TYPE.MESSAGE
-
-    @classmethod
-    def getActions(cls):
-        pass
-
-    def handleAction(self, model, entityID, action):
-        super(_ShowEventWarningWindowHandler, self).handleAction(model, entityID, action)
-        dependency.instance(IAFKController).showWarningWindow()
-
-
-class _ShowEventBanWindowHandler(_ActionHandler):
-
-    @classmethod
-    def getNotType(cls):
-        return NOTIFICATION_TYPE.MESSAGE
-
-    @classmethod
-    def getActions(cls):
-        pass
-
-    def handleAction(self, model, entityID, action):
-        super(_ShowEventBanWindowHandler, self).handleAction(model, entityID, action)
-        dependency.instance(IAFKController).showBanWindow()
-
-
-class _GotoEventRedeemQuestHandler(_ActionHandler):
-
-    @classmethod
-    def getNotType(cls):
-        return NOTIFICATION_TYPE.MESSAGE
-
-    @classmethod
-    def getActions(cls):
-        pass
-
-    def handleAction(self, model, entityID, action):
-        super(_GotoEventRedeemQuestHandler, self).handleAction(model, entityID, action)
-        dependency.instance(IAFKController).showQuest()
 
 
 _AVAILABLE_HANDLERS = (ShowBattleResultsHandler,
@@ -943,10 +903,8 @@ _AVAILABLE_HANDLERS = (ShowBattleResultsHandler,
  ProlongStyleRent,
  _OpenBattlePassProgressionView,
  _OpenSelectDevicesHandler,
- _ShowEventBanWindowHandler,
- _ShowEventWarningWindowHandler,
- _GotoEventRedeemQuestHandler,
- _OpenMissingEventsHandler)
+ _OpenMissingEventsHandler,
+ _OpenNotrecruitedSysMessageHandler)
 
 class NotificationsActionsHandlers(object):
     __slots__ = ('__single', '__multi')

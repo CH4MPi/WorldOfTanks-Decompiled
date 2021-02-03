@@ -24,10 +24,10 @@ from gui.shared.items_parameters import params_helper, bonus_helper
 from gui.shared.items_parameters.formatters import NO_BONUS_SIMPLIFIED_SCHEME
 from gui.shared.tooltips import TOOLTIP_COMPONENT
 from gui.shared.utils.requesters.blueprints_requester import getFragmentNationID
-from helpers import dependency
+from helpers import dependency, time_utils
 from helpers.i18n import makeString
 from shared_utils import findFirst
-from skeletons.gui.game_control import IRankedBattlesController, IBattlePassController
+from skeletons.gui.game_control import IRankedBattlesController, IBattlePassController, IBobController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.offers import IOffersDataProvider
 from skeletons.gui.server_events import IEventsCache
@@ -437,10 +437,10 @@ class BaseHangarParamContext(ToolTipContext):
         self.showTitleValue = showTitleValue
 
     def getComparator(self):
-        return params_helper.idealCrewComparator(g_currentPreviewVehicle.item) if g_currentPreviewVehicle.isPresent() and g_currentPreviewVehicle.item.isOnlyForEventBattles else params_helper.idealCrewComparator(g_currentVehicle.item)
+        return params_helper.idealCrewComparator(g_currentVehicle.item)
 
     def buildItem(self, *args, **kwargs):
-        return g_currentPreviewVehicle.item if g_currentPreviewVehicle.isPresent() and g_currentPreviewVehicle.item.isOnlyForEventBattles else g_currentVehicle.item
+        return g_currentVehicle.item
 
     def getBonusExtractor(self, vehicle, bonuses, paramName):
         return bonus_helper.BonusExtractor(vehicle, bonuses, paramName)
@@ -503,7 +503,7 @@ class HangarContext(ToolTipContext):
         return
 
     def getVehicle(self):
-        return g_currentPreviewVehicle.item if g_currentPreviewVehicle.isPresent() and g_currentPreviewVehicle.item.isOnlyForEventBattles else g_currentVehicle.item
+        return g_currentVehicle.item
 
     def buildItem(self, intCD, slotIdx=0, historicalBattleID=-1, vehicle=None):
         self._slotIdx = int(slotIdx)
@@ -1247,3 +1247,33 @@ class DeviceGiftTokenContext(ToolTipContext):
 
     def getParams(self):
         return {'isChooseDeviceEnabled': self.__battlePassController.isChooseDeviceEnabled()}
+
+
+class BobSkillContext(ToolTipContext):
+    __bobController = dependency.descriptor(IBobController)
+
+    def __init__(self, fieldsToExclude=None):
+        super(BobSkillContext, self).__init__(TOOLTIP_COMPONENT.BOB, fieldsToExclude)
+
+    def buildItem(self, teamID, *args, **kwargs):
+        skill = self.__bobController.teamSkillsRequester.getSkill(int(teamID))
+        return skill if skill is not None and skill.isActiveAt(time_utils.getServerUTCTime()) else None
+
+    def getParams(self):
+        return {'isPlayerBlogger': self.__bobController.isPlayerBlogger()}
+
+
+class BobProgressionContext(ToolTipContext):
+    __bobController = dependency.descriptor(IBobController)
+
+    def __init__(self, fieldsToExclude=None):
+        super(BobProgressionContext, self).__init__(TOOLTIP_COMPONENT.BOB, fieldsToExclude)
+
+    def buildItem(self, teamID, *args, **kwargs):
+        return self.__bobController.teamsRequester.getTeam(teamID)
+
+    def getParams(self):
+        return {'personalLevel': self.__bobController.personalLevel,
+         'rewardsCount': self.__bobController.getAvailablePersonalRewardCount(),
+         'teams': self.__bobController.teamsRequester.getTeamsList(),
+         'currentTeamID': self.__bobController.getCurrentTeamID()}

@@ -112,6 +112,16 @@ class ChannelsManager(object):
         _logger.warning('Channel %s is not found to unsubscribe', name)
         return False
 
+    def getLastMessage(self, subscription):
+        name = subscription.channel
+        if name in self.__channels:
+            channel = self.__channels[name]
+            if channel.isSubscribed:
+                channel.getLastMessage(self.__client)
+            return True
+        _logger.warning('Channel %s is not found to get_last', name)
+        return False
+
     def getChannelHistory(self, name):
         return self.__channels[name].messages if name in self.__channels else deque()
 
@@ -188,7 +198,7 @@ class ChannelsManager(object):
     def __handleMessageReceived(self, message):
         cid = message.cid
         if cid in self.__cids:
-            self.__channels[self.__cids[cid]].addMessage(message.data)
+            self.__channels[self.__cids[cid]].addMessage(message)
         else:
             _logger.debug('Channel is not created on the client: %r', message)
 
@@ -208,9 +218,9 @@ class ChannelsManager(object):
             message = packer.unpackMessage(payload)
             if message.isStatusReceived:
                 self.__handleStatusReceived(message)
-            elif message.isMessageReceived:
+            if message.isMessageReceived:
                 self.__handleMessageReceived(message)
-            else:
+            if not message.isValid:
                 _logger.error('Unexpected format of message from subscription service: %r', message)
         else:
             _logger.error('Binary message is expected from subscription service: %r, %r', code, payload)

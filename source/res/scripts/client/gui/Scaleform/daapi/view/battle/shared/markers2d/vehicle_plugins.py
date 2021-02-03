@@ -37,6 +37,7 @@ _STATUS_EFFECTS_PRIORITY = (BATTLE_MARKER_STATES.REPAIRING_STATE,
  BATTLE_MARKER_STATES.HEALING_STATE,
  BATTLE_MARKER_STATES.BERSERKER_STATE,
  BATTLE_MARKER_STATES.INSPIRING_STATE,
+ BATTLE_MARKER_STATES.DEBUFF_STATE,
  BATTLE_MARKER_STATES.STUN_STATE,
  BATTLE_MARKER_STATES.INSPIRED_STATE)
 _VEHICLE_MARKER_MIN_SCALE = 0.0
@@ -102,6 +103,7 @@ class VehicleMarkerPlugin(MarkerPlugin, ChatCommunicationComponent, IArenaVehicl
         return
 
     def stop(self):
+        self.__removeMarkerCallbacks()
         while self._markers:
             _, marker = self._markers.popitem()
             marker.destroy()
@@ -317,6 +319,10 @@ class VehicleMarkerPlugin(MarkerPlugin, ChatCommunicationComponent, IArenaVehicl
             activeStatuses = sorted(self._markersStates[vehicleID], key=self._getMarkerStatusPriority, reverse=False)
             self._markersStates[vehicleID] = activeStatuses
         currentlyActiveStatusID = self._markersStates[vehicleID][0] if self._markersStates[vehicleID] else -1
+        if statusID in (BATTLE_MARKER_STATES.STUN_STATE, BATTLE_MARKER_STATES.HEALING_STATE, BATTLE_MARKER_STATES.INSPIRING_STATE):
+            isSourceVehicle = True
+        elif statusID == BATTLE_MARKER_STATES.DEBUFF_STATE:
+            isSourceVehicle = False
         if isShown:
             self._invokeMarker(handle, 'showStatusMarker', statusID, self._getMarkerStatusPriority(statusID), isSourceVehicle, duration, currentlyActiveStatusID, self._getMarkerStatusPriority(currentlyActiveStatusID), animated)
         else:
@@ -539,6 +545,7 @@ class VehicleMarkerPlugin(MarkerPlugin, ChatCommunicationComponent, IArenaVehicl
         return
 
     def __handleCallback(self, markerID, targetID):
+        self.__removeMarkerCallback(markerID)
         marker = self._markers[targetID]
         if marker.getReplyCount() > 0:
             self._setMarkerReplied(marker, True)
@@ -548,11 +555,10 @@ class VehicleMarkerPlugin(MarkerPlugin, ChatCommunicationComponent, IArenaVehicl
             self.__stopActionMarker(markerID, targetID)
         if marker.getIsSticky():
             self._setMarkerSticky(markerID, True)
-        self.__removeMarkerCallback(markerID)
 
     def __stopActionMarker(self, markerID, vehicleID):
-        self._invokeMarker(markerID, 'stopActionMarker')
         self.__removeMarkerCallback(markerID)
+        self._invokeMarker(markerID, 'stopActionMarker')
         marker = self._markers[vehicleID]
         marker.setIsActionMarkerActive(False)
         if marker and not avatar_getter.isVehicleAlive() and not marker.getIsPlayerTeam():
@@ -574,19 +580,21 @@ class VehicleMarkerPlugin(MarkerPlugin, ChatCommunicationComponent, IArenaVehicl
             return
 
     def __removeMarkerCallback(self, markerID):
-        if markerID not in self.__callbackIDs:
-            return
-        else:
-            BigWorld.cancelCallback(self.__callbackIDs[markerID])
-            self.__callbackIDs[markerID] = None
-            self.__callbackIDs.pop(markerID, None)
-            return
+        callbackID = self.__callbackIDs.pop(markerID, None)
+        if callbackID is not None:
+            BigWorld.cancelCallback(callbackID)
+        return
+
+    def __removeMarkerCallbacks(self):
+        while self.__callbackIDs:
+            _, callbackID = self.__callbackIDs.popitem()
+            BigWorld.cancelCallback(callbackID)
 
     def __updateStunMarker(self, vehicleID, handle, value):
         self.__updateMarkerTimer(vehicleID, handle, value.duration, BATTLE_MARKER_STATES.STUN_STATE, True)
 
     def __updateDebuffMarker(self, vehicleID, handle, value):
-        self.__updateMarkerTimer(vehicleID, handle, value.duration, BATTLE_MARKER_STATES.STUN_STATE, False)
+        self.__updateMarkerTimer(vehicleID, handle, value.duration, BATTLE_MARKER_STATES.DEBUFF_STATE, False)
 
     def __updatePassiveEngineeringMarker(self, vehicleID, handle, isAttacker, enabled, animated=True):
         self._updateStatusMarkerState(vehicleID, enabled, handle, BATTLE_MARKER_STATES.ENGINEER_STATE, enabled, animated, isAttacker)

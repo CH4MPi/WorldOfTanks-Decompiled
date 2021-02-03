@@ -6,6 +6,7 @@ import logging
 import BigWorld
 import Settings
 import constants
+from account_helpers.settings_core.settings_constants import GAME
 from connection_mgr import CONNECTION_METHOD
 from Preferences import Preferences
 from Servers import Servers, DevelopmentServers
@@ -16,6 +17,7 @@ from helpers import dependency
 from helpers.i18n import makeString as _ms
 from helpers.time_utils import ONE_MINUTE
 from predefined_hosts import g_preDefinedHosts, AUTO_LOGIN_QUERY_ENABLED, AUTO_LOGIN_QUERY_URL
+from skeletons.account_helpers.settings_core import ISettingsCore
 from skeletons.connection_mgr import IConnectionManager
 from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.login_manager import ILoginManager
@@ -24,7 +26,6 @@ from gui.Scaleform.Waiting import Waiting
 from Event import Event
 from PlayerEvents import g_playerEvents
 from connection_mgr import LOGIN_STATUS
-from gui.server_events.recruit_helper import NonRecruitNotifierSingleton
 _PERIPHERY_DEFAULT_LIFETIME = 15 * ONE_MINUTE
 _LIMIT_LOGIN_COUNT = 5
 _logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ _logger = logging.getLogger(__name__)
 class Manager(ILoginManager):
     lobbyContext = dependency.descriptor(ILobbyContext)
     connectionMgr = dependency.descriptor(IConnectionManager)
+    settingsCore = dependency.descriptor(ISettingsCore)
 
     def __init__(self):
         self._preferences = None
@@ -82,6 +84,7 @@ class Manager(ILoginManager):
         self.connectionMgr.setLastLogin(email)
 
     def initiateRelogin(self, login, token2, serverName):
+        self._preferences['server_name'] = serverName
         if self.wgcAvailable:
             self.__wgcManager.relogin(token2, serverName)
         else:
@@ -90,7 +93,6 @@ class Manager(ILoginManager):
              'session': BigWorld.wg_cpsalt(self._preferences['session']),
              'temporary': str(int(not self._preferences['remember_user'])),
              'auth_method': CONNECTION_METHOD.TOKEN2}
-            self._preferences['server_name'] = serverName
             self.connectionMgr.initiateConnection(loginParams, '', serverName)
 
     def getPreference(self, key):
@@ -113,34 +115,33 @@ class Manager(ILoginManager):
         name = responseData.get('name', 'UNKNOWN')
         token2 = responseData.get('token2', '')
         self.lobbyContext.setCredentials(name, token2)
+        serverName = self._preferences['server_name']
+        serverSelect = self.settingsCore.getSetting(GAME.LOGIN_SERVER_SELECTION)
         if self.wgcAvailable and self.__wgcManager.onLoggedOn(responseData):
             self._preferences.clear()
+            self._preferences['server_name'] = serverName
+            self._preferences['server_select_was_set'] = serverSelect
             self._preferences.writeLoginInfo()
-            NonRecruitNotifierSingleton().getInstance().resetFirstShowState()
             return
         loginCount = self._preferences.get('loginCount', 0)
         self._preferences['loginCount'] = 1 if loginCount >= _LIMIT_LOGIN_COUNT else loginCount + 1
         if self._preferences['remember_user']:
             self._preferences['name'] = name
             self._preferences['token2'] = token2
-            if 'server_name' in self._preferences and AUTO_LOGIN_QUERY_ENABLED:
-                del self._preferences['server_name']
         else:
             email = self._preferences['login']
-            serverName = self._preferences['server_name']
             session = self._preferences['session']
             loginCount = self._preferences['loginCount']
             self._preferences.clear()
             if not constants.IS_SINGAPORE and not GUI_SETTINGS.igrCredentialsReset:
                 self._preferences['login'] = email
-            if not AUTO_LOGIN_QUERY_ENABLED:
-                self._preferences['server_name'] = serverName
+            self._preferences['server_name'] = serverName
             self._preferences['session'] = session
             self._preferences['loginCount'] = loginCount
+        self._preferences['server_select_was_set'] = serverSelect
         self._preferences.writeLoginInfo()
         self.__dumpUserName(name)
         self._showSecurityMessage(responseData)
-        NonRecruitNotifierSingleton().getInstance().resetFirstShowState()
 
     def _showSecurityMessage(self, responseData):
         securityWarningType = responseData.get('security_msg')
@@ -212,6 +213,8 @@ class Manager(ILoginManager):
                     _logger.warning('No server was selected when WGC connect happened, so return')
                     return
                 serverName = selectedServer['data']
+            else:
+                self._preferences['server_name'] = serverName
             hostName = self._getHost(CONNECTION_METHOD.TOKEN, serverName)
             self.__wgcManager.login(hostName)
             return

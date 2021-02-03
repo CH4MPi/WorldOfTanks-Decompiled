@@ -3,16 +3,16 @@
 import account_helpers
 from constants import MAX_VEHICLE_LEVEL, MIN_VEHICLE_LEVEL, PREBATTLE_TYPE, QUEUE_TYPE, VEHICLE_CLASS_INDICES
 from gui.ClientUpdateManager import g_clientUpdateManager
+from gui.prb_control.entities.base.squad.entity import SquadEntryPoint, SquadEntity
 from gui.prb_control.entities.random.pre_queue.vehicles_watcher import RandomVehiclesWatcher
 from gui.prb_control.events_dispatcher import g_eventDispatcher
-from gui.prb_control.entities.base.squad.entity import SquadEntryPoint, SquadEntity
 from gui.prb_control.items import SelectResult
 from gui.prb_control.items.unit_items import DynamicRosterSettings
 from gui.prb_control.settings import PREBATTLE_ACTION_NAME, FUNCTIONAL_FLAG
-from helpers import dependency
-from skeletons.gui.server_events import IEventsCache
-from skeletons.gui.lobby_context import ILobbyContext
 from gui.shared.gui_items.Vehicle import VEHICLE_CLASS_NAME
+from helpers import dependency
+from skeletons.gui.lobby_context import ILobbyContext
+from skeletons.gui.server_events import IEventsCache
 from .actions_handler import BalancedSquadActionsHandler, RandomSquadActionsHandler
 from .actions_validator import SPGForbiddenSquadActionsValidator, SPGForbiddenBalancedSquadActionsValidator
 
@@ -63,13 +63,13 @@ class RandomSquadEntity(SquadEntity):
     eventsCache = dependency.descriptor(IEventsCache)
     lobbyContext = dependency.descriptor(ILobbyContext)
 
-    def __init__(self):
+    def __init__(self, modeFlags=FUNCTIONAL_FLAG.RANDOM, prbType=PREBATTLE_TYPE.SQUAD):
         self._isBalancedSquad = False
         self._isUseSPGValidateRule = True
         self._maxSpgCount = False
         self._mapID = 0
         self.__watcher = None
-        super(RandomSquadEntity, self).__init__(FUNCTIONAL_FLAG.RANDOM, PREBATTLE_TYPE.SQUAD)
+        super(RandomSquadEntity, self).__init__(modeFlags, prbType)
         return
 
     def init(self, ctx=None):
@@ -82,7 +82,7 @@ class RandomSquadEntity(SquadEntity):
         self.lobbyContext.getServerSettings().onServerSettingsChange += self._onServerSettingChanged
         self.eventsCache.onSyncCompleted += self._onServerSettingChanged
         g_clientUpdateManager.addCallbacks({'inventory.1': self._onInventoryVehiclesUpdated})
-        self.__watcher = RandomVehiclesWatcher()
+        self.__watcher = self._createVehiclesWatcher()
         self.__watcher.start()
         return rv
 
@@ -167,6 +167,9 @@ class RandomSquadEntity(SquadEntity):
 
     def getMaxSPGCount(self):
         return self.lobbyContext.getServerSettings().getMaxSPGinSquads()
+
+    def _createVehiclesWatcher(self):
+        return RandomVehiclesWatcher()
 
     def _createRosterSettings(self):
         if self._isBalancedSquad:

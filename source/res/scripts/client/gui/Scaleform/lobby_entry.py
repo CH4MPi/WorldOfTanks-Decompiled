@@ -40,6 +40,7 @@ LOBBY_OPTIMIZATION_CONFIG = {VIEW_ALIAS.LOBBY_HEADER: OptimizationSetting(),
  HANGAR_ALIASES.RANKED_TANK_CAROUSEL: OptimizationSetting(),
  HANGAR_ALIASES.BATTLEPASS_TANK_CAROUSEL: OptimizationSetting(),
  HANGAR_ALIASES.ROYALE_TANK_CAROUSEL: OptimizationSetting(),
+ HANGAR_ALIASES.BOB_TANK_CAROUSEL: OptimizationSetting(),
  GRAPHICS_OPTIMIZATION_ALIASES.CUSTOMISATION_BOTTOM_PANEL: OptimizationSetting()}
 
 class LobbyEntry(AppEntry):
@@ -119,9 +120,6 @@ class LobbyEntry(AppEntry):
 
     def _createGraphicsOptimizationManager(self):
         return GraphicsOptimizationManager(config=LOBBY_OPTIMIZATION_CONFIG)
-
-    def _createFadeManager(self):
-        return None
 
     def _setup(self):
         self.movie.backgroundAlpha = 0.0

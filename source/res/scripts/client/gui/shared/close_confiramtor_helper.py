@@ -3,9 +3,11 @@
 import adisp
 from async import async, await
 from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
+from gui.impl.gen import R
 from gui.shared import g_eventBus, EVENT_BUS_SCOPE, events
 from helpers import dependency
 from skeletons.gui.lobby_context import ILobbyContext
+from gui.prb_control.entities.base.ctx import LeavePrbAction
 
 class CloseConfirmatorsHelper(object):
     __slots__ = ('__closeConfirmator',)
@@ -39,7 +41,7 @@ class CloseConfirmatorsHelper(object):
          VIEW_ALIAS.OVERLAY_PREM_CONTENT_VIEW]
 
     def getRestrictedGuiImplViews(self):
-        pass
+        return [R.views.lobby.dog_tags.DogTagsView()]
 
     def start(self, closeConfirmator):
         self.__closeConfirmator = closeConfirmator
@@ -66,6 +68,11 @@ class CloseConfirmatorsHelper(object):
             if event.alias not in self.getRestrictedGuiImplViews():
                 callback(True)
                 return
+        if event.eventType == events.PrbActionEvent.LEAVE:
+            if isinstance(event.action, LeavePrbAction):
+                if event.action.ignoreConfirmation:
+                    callback(True)
+                    return
         result = yield await(self.__closeConfirmator())
         callback(result)
 

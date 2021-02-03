@@ -50,18 +50,19 @@ class MemberEvents(object):
 
 
 class _VOIPSharedEvents(object):
-    __slots__ = ('__eventManager', 'onCredentialReceived', 'onChannelEntered', 'onChannelLeft', 'onVoiceChatInitSucceeded', 'onVoiceChatInitFailed', 'onPlayerSpeaking', 'onStateToggled')
+    __slots__ = ('__eventManager', 'onCredentialReceived', 'onChannelAvailable', 'onChannelLost', 'onChannelEntered', 'onChannelLeft', 'onVoiceChatInitSucceeded', 'onVoiceChatInitFailed', 'onPlayerSpeaking')
 
     def __init__(self):
         super(_VOIPSharedEvents, self).__init__()
         self.__eventManager = Event.EventManager()
         self.onCredentialReceived = Event.Event()
+        self.onChannelAvailable = Event.Event(self.__eventManager)
+        self.onChannelLost = Event.Event(self.__eventManager)
         self.onChannelEntered = Event.Event(self.__eventManager)
         self.onChannelLeft = Event.Event(self.__eventManager)
         self.onVoiceChatInitSucceeded = Event.Event(self.__eventManager)
         self.onVoiceChatInitFailed = Event.Event(self.__eventManager)
         self.onPlayerSpeaking = Event.Event(self.__eventManager)
-        self.onStateToggled = Event.Event(self.__eventManager)
 
     def clear(self):
         self.__eventManager.clear()
@@ -121,7 +122,7 @@ class _ShadowEvents(object):
 
 
 class _MessengerEvents(object):
-    __slots__ = ('__channels', '__users', '__serviceChannel', '__voip', '__shadow', 'onErrorReceived', 'onWarningReceived', 'onAFKWarningReceived', 'onPluginConnected', 'onPluginDisconnected', 'onPluginConnectFailed', 'onLockPopUpMessages', 'onUnlockPopUpMessages')
+    __slots__ = ('__channels', '__users', '__serviceChannel', '__voip', '__shadow', 'onErrorReceived', 'onWarningReceived', 'onPluginConnected', 'onPluginDisconnected', 'onPluginConnectFailed', 'onLockPopUpMessages', 'onUnlockPopUpMessages')
 
     def __init__(self):
         super(_MessengerEvents, self).__init__()
@@ -132,7 +133,6 @@ class _MessengerEvents(object):
         self.__shadow = _ShadowEvents()
         self.onErrorReceived = Event.Event()
         self.onWarningReceived = Event.Event()
-        self.onAFKWarningReceived = Event.Event()
         self.onPluginConnected = Event.Event()
         self.onPluginDisconnected = Event.Event()
         self.onPluginConnectFailed = Event.Event()
@@ -167,7 +167,6 @@ class _MessengerEvents(object):
         self.__shadow.clear()
         self.onErrorReceived.clear()
         self.onWarningReceived.clear()
-        self.onAFKWarningReceived.clear()
 
 
 g_messengerEvents = _MessengerEvents()

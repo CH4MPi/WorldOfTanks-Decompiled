@@ -44,9 +44,6 @@
     <accountAvatar_setAvatarClient>
       <Arg>	PYTHON	</Arg>
     </accountAvatar_setAvatarClient>
-    <accountAvatar_onAFKRulesViolation>
-      <Arg>	UINT64	</Arg>
-    </accountAvatar_onAFKRulesViolation>
     <accountAvatar_logClientXMPPEvents>
       <Arg>	ARRAY	  <of>	INT64	</of>
       </Arg>
@@ -59,5 +56,10 @@
       <Arg>	UINT64	</Arg>
       <Arg>	UINT8	</Arg>
     </accountAvatar_logClientSessionStats>
+    <accountAvatar_setActiveVehSeasonInBattle>
+      <Arg>	INT64	</Arg>
+      <Arg>	INT64	</Arg>
+      <Arg>	UINT8	</Arg>
+    </accountAvatar_setActiveVehSeasonInBattle>
   </BaseMethods>
 </AccountAvatar.def>

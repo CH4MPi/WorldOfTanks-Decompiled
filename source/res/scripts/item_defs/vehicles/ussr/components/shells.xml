@@ -1700,7 +1700,7 @@
     <isTracer>	true	</isTracer>
     <effects>	mainAPCR	</effects>
     <damage>
-      <armor>	360	</armor>
+      <armor>	250	</armor>
       <devices>	135	</devices>
     </damage>
   </_100mm_UBR_LMK>
@@ -1715,7 +1715,7 @@
     <isTracer>	true	</isTracer>
     <effects>	largeHollowCharge	</effects>
     <damage>
-      <armor>	360	</armor>
+      <armor>	250	</armor>
       <devices>	135	</devices>
     </damage>
     <piercingPowerLossFactorByDistance>	0.05	</piercingPowerLossFactorByDistance>
@@ -1731,7 +1731,7 @@
     <isTracer>	true	</isTracer>
     <effects>	mainHighExplosive	</effects>
     <damage>
-      <armor>	460	</armor>
+      <armor>	330	</armor>
       <devices>	135	</devices>
     </damage>
   </_100mm_3UOF_LMK>
@@ -1779,53 +1779,6 @@
       <devices>	135	</devices>
     </damage>
   </_100mm_UOF-412-DG>
-  <_100mm_BR-412D_Halloween_event>
-    <id>	268	</id>
-    <userString>	#ussr_vehicles:_100mm_BR-412D_Halloween_event	</userString>
-    <icon>	ap	</icon>
-    <price>	0	</price>
-    <kind>	ARMOR_PIERCING	</kind>
-    <caliber>	100	</caliber>
-    <isTracer>	true	</isTracer>
-    <effects>	mainArmorPiercing	</effects>
-    <damage>
-      <armor>	320	</armor>
-      <devices>	135	</devices>
-    </damage>
-  </_100mm_BR-412D_Halloween_event>
-  <_100mm_3UBK4_Halloween_event>
-    <id>	225	</id>
-    <userString>	#ussr_vehicles:_100mm_3UBK4_Halloween_event	</userString>
-    <icon>	hc	</icon>
-    <price>	4800	</price>
-    <notInShop>	true	</notInShop>
-    <improved>	true	</improved>
-    <kind>	HOLLOW_CHARGE	</kind>
-    <caliber>	100	</caliber>
-    <isTracer>	true	</isTracer>
-    <effects>	largeHollowCharge	</effects>
-    <damage>
-      <armor>	320	</armor>
-      <devices>	135	</devices>
-    </damage>
-    <piercingPowerLossFactorByDistance>	0.05	</piercingPowerLossFactorByDistance>
-  </_100mm_3UBK4_Halloween_event>
-  <_100mm_UOF-412B_Halloween_event>
-    <id>	226	</id>
-    <userString>	#ussr_vehicles:_100mm_UOF-412B_Halloween_event	</userString>
-    <icon>	he	</icon>
-    <price>	1170	</price>
-    <notInShop>	true	</notInShop>
-    <kind>	HIGH_EXPLOSIVE	</kind>
-    <caliber>	100	</caliber>
-    <explosionRadius>	1.76	</explosionRadius>
-    <isTracer>	true	</isTracer>
-    <effects>	mainHighExplosive	</effects>
-    <damage>
-      <armor>	420	</armor>
-      <devices>	135	</devices>
-    </damage>
-  </_100mm_UOF-412B_Halloween_event>
   <_107mm_UBR-420>
     <id>	45	</id>
     <userString>	#ussr_vehicles:_107mm_UBR-420	</userString>
@@ -2512,6 +2465,50 @@
       <devices>	165	</devices>
     </damage>
   </_122mm_53_OF_472>
+  <_122mm_53_VBR_472U>
+    <id>	283	</id>
+    <userString>	#ussr_vehicles:_122mm_53_VBR_472U	</userString>
+    <icon>	ap	</icon>
+    <price>	930	</price>
+    <kind>	ARMOR_PIERCING	</kind>
+    <caliber>	122	</caliber>
+    <isTracer>	true	</isTracer>
+    <effects>	largeArmorPiercing	</effects>
+    <damage>
+      <armor>	390	</armor>
+      <devices>	165	</devices>
+    </damage>
+  </_122mm_53_VBR_472U>
+  <_122mm_3BM11P>
+    <id>	284	</id>
+    <userString>	#ussr_vehicles:_122mm_3BM11P	</userString>
+    <icon>	ap_cr_premium	</icon>
+    <price>	4800	</price>
+    <improved>	true	</improved>
+    <kind>	ARMOR_PIERCING_CR	</kind>
+    <caliber>	122	</caliber>
+    <isTracer>	true	</isTracer>
+    <effects>	largeAPCR	</effects>
+    <damage>
+      <armor>	390	</armor>
+      <devices>	165	</devices>
+    </damage>
+  </_122mm_3BM11P>
+  <_122mm_53_OF_472US>
+    <id>	285	</id>
+    <userString>	#ussr_vehicles:_122mm_53_OF_472US	</userString>
+    <icon>	he	</icon>
+    <price>	665	</price>
+    <kind>	HIGH_EXPLOSIVE	</kind>
+    <caliber>	122	</caliber>
+    <explosionRadius>	2.49	</explosionRadius>
+    <isTracer>	true	</isTracer>
+    <effects>	largeHighExplosive	</effects>
+    <damage>
+      <armor>	530	</armor>
+      <devices>	165	</devices>
+    </damage>
+  </_122mm_53_OF_472US>
   <_130mm_UBR-482>
     <id>	57	</id>
     <userString>	#ussr_vehicles:_130mm_UBR-482	</userString>
@@ -3505,7 +3502,7 @@
     <isTracer>	true	</isTracer>
     <effects>	BRmainHollowCharge	</effects>
     <damage>
-      <armor>	290	</armor>
+      <armor>	320	</armor>
       <devices>	80	</devices>
     </damage>
     <piercingPowerLossFactorByDistance>	0.05	</piercingPowerLossFactorByDistance>
@@ -3522,7 +3519,7 @@
     <isTracer>	true	</isTracer>
     <effects>	BRlargeAPCR	</effects>
     <damage>
-      <armor>	200	</armor>
+      <armor>	220	</armor>
       <devices>	80	</devices>
     </damage>
   </_100mm_3VBM2_SH>
@@ -3602,7 +3599,7 @@
     <isTracer>	true	</isTracer>
     <effects>	BRmainHollowCharge	</effects>
     <damage>
-      <armor>	440	</armor>
+      <armor>	550	</armor>
       <devices>	80	</devices>
     </damage>
     <piercingPowerLossFactorByDistance>	0.05	</piercingPowerLossFactorByDistance>
@@ -3619,7 +3616,7 @@
     <isTracer>	true	</isTracer>
     <effects>	BRlargeAPCR	</effects>
     <damage>
-      <armor>	310	</armor>
+      <armor>	390	</armor>
       <devices>	80	</devices>
     </damage>
   </_107mm_UBR-420PM_SH>
@@ -3656,19 +3653,4 @@
       <devices>	80	</devices>
     </damage>
   </_130mm_3VBM_SH>
-  <_152mm_53-G-530_R77_KV2_turret_2>
-    <id>	266	</id>
-    <userString>	#ussr_vehicles:_152mm_53-G-530	</userString>
-    <icon>	ap	</icon>
-    <price>	725	</price>
-    <notInShop>	true	</notInShop>
-    <kind>	ARMOR_PIERCING	</kind>
-    <caliber>	152	</caliber>
-    <isTracer>	true	</isTracer>
-    <effects>	largeArmorPiercing	</effects>
-    <damage>
-      <armor>	400	</armor>
-      <devices>	203	</devices>
-    </damage>
-  </_152mm_53-G-530_R77_KV2_turret_2>
 </shells.xml>

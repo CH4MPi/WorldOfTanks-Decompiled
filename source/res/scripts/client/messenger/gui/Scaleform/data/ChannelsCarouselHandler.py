@@ -11,6 +11,8 @@ from gui.shared.events import ChannelManagementEvent, ChannelCarouselEvent, PreB
 from messenger.ext import channel_num_gen
 from messenger.gui import events_dispatcher
 from messenger.gui.Scaleform.data.ChannelsDataProvider import ChannelsDataProvider
+from skeletons.gui.game_control import IPlatoonController
+from helpers import dependency
 
 class ChannelFindCriteria(ExternalCriteria):
 
@@ -19,6 +21,7 @@ class ChannelFindCriteria(ExternalCriteria):
 
 
 class ChannelsCarouselHandler(object):
+    __platoonCtrl = dependency.descriptor(IPlatoonController)
 
     def __init__(self, guiEntry):
         super(ChannelsCarouselHandler, self).__init__()
@@ -27,6 +30,7 @@ class ChannelsCarouselHandler(object):
         self.__preBattleChannelsDP = None
         self.__handlers = {}
         self.__showByReqs = {}
+        self.__notifiedMessages = {}
         return
 
     @sf_lobby
@@ -47,6 +51,7 @@ class ChannelsCarouselHandler(object):
     def clear(self):
         self.__guiEntry = None
         self.__handlers.clear()
+        self.__notifiedMessages.clear()
         if self.__channelsDP is not None:
             self.__channelsDP.clear()
             self.__channelsDP.finiGUI()
@@ -117,9 +122,13 @@ class ChannelsCarouselHandler(object):
         self.__channelsDP.removeItem(clientID)
         return
 
-    def notifyChannel(self, channel, isNotified=True):
+    def notifyChannel(self, channel, message):
         clientID = channel.getClientID()
-        self.__setItemField(clientID, 'isNotified', isNotified)
+        self.__setItemField(clientID, 'isNotified', True)
+        if clientID not in self.__notifiedMessages:
+            self.__notifiedMessages[clientID] = []
+        notifiedMessages = self.__notifiedMessages[clientID]
+        notifiedMessages.append(message)
 
     def __setItemField(self, clientID, key, value):
         result = self.__preBattleChannelsDP.setItemField(clientID, key, value)
@@ -137,6 +146,7 @@ class ChannelsCarouselHandler(object):
             self.__preBattleChannelsDP.clear()
         self.__handlers.clear()
         self.__showByReqs.clear()
+        self.__notifiedMessages.clear()
         return
 
     def __handleCarouselInited(self, event):
@@ -278,6 +288,12 @@ class ChannelsCarouselHandler(object):
              'isInProgress': False}
             if not self.__channelsDP.setItemFields(clientID, fields):
                 self.__preBattleChannelsDP.setItemFields(clientID, fields)
+            if clientID in self.__notifiedMessages:
+                notifiedMessages = self.__notifiedMessages[clientID]
+                channel = self.__guiEntry.channelsCtrl.getController(clientID).getChannel()
+                for message in notifiedMessages:
+                    channel.setMessageShown(message)
+
             openHandler()
             return
 

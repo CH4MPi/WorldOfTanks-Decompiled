@@ -1,5 +1,6 @@
 <AiZoneCenter.def>
   <Domain>	CELL	</Domain>
+  <NonChunk>	True	</NonChunk>
   <Properties>
     <preferableTankType>
       <Type>	STRING	</Type>
@@ -41,5 +42,9 @@
       <Default>	100	</Default>
       <Editable>	True	</Editable>
     </desirability>
+    <name>
+      <Type>	STRING	</Type>
+      <Editable>	True	</Editable>
+    </name>
   </Properties>
 </AiZoneCenter.def>

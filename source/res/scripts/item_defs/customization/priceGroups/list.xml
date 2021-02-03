@@ -206,7 +206,7 @@
     <tags>	emblems NA	</tags>
     <price>	50	  <gold></gold>
     </price>
-    <notInShop>	False	</notInShop>
+    <notInShop>	True	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	25	</id>
@@ -334,7 +334,7 @@
     <tags>	inscriptions NA	</tags>
     <price>	50	  <gold></gold>
     </price>
-    <notInShop>	False	</notInShop>
+    <notInShop>	True	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	76	</id>
@@ -553,12 +553,20 @@
     <notInShop>	False	</notInShop>
   </priceGroup>
   <priceGroup>
+    <id>	107	</id>
+    <name>	projection_decals 160g notInShop	</name>
+    <tags>	projection_decals	</tags>
+    <price>	160	  <gold></gold>
+    </price>
+    <notInShop>	True	</notInShop>
+  </priceGroup>
+  <priceGroup>
     <id>	57	</id>
     <name>	projection_decals 110g EU	</name>
     <tags>	projection_decals EU	</tags>
     <price>	110	  <gold></gold>
     </price>
-    <notInShop>	False	</notInShop>
+    <notInShop>	True	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	91	</id>
@@ -784,6 +792,14 @@
     <notInShop>	True	</notInShop>
   </priceGroup>
   <priceGroup>
+    <id>	105	</id>
+    <name>	styles 100g notInShop	</name>
+    <tags>	styles	</tags>
+    <price>	100	  <gold></gold>
+    </price>
+    <notInShop>	True	</notInShop>
+  </priceGroup>
+  <priceGroup>
     <id>	104	</id>
     <name>	styles 1250g notInShop	</name>
     <tags>	styles	</tags>
@@ -792,25 +808,25 @@
     <notInShop>	true	</notInShop>
   </priceGroup>
   <priceGroup>
-    <id>	73	</id>
-    <name>	styles 1750g NA	</name>
-    <tags>	styles NA	</tags>
-    <price>	1750	  <gold></gold>
-    </price>
-    <notInShop>	False	</notInShop>
-  </priceGroup>
-  <priceGroup>
     <id>	72	</id>
     <name>	styles 1200g EU	</name>
     <tags>	styles EU	</tags>
     <price>	1200	  <gold></gold>
     </price>
-    <notInShop>	True	</notInShop>
+    <notInShop>	False	</notInShop>
   </priceGroup>
   <priceGroup>
     <id>	98	</id>
     <name>	styles 1750g EU notInShop	</name>
     <tags>	styles EU	</tags>
+    <price>	1750	  <gold></gold>
+    </price>
+    <notInShop>	False	</notInShop>
+  </priceGroup>
+  <priceGroup>
+    <id>	73	</id>
+    <name>	styles 1750g NA	</name>
+    <tags>	styles NA	</tags>
     <price>	1750	  <gold></gold>
     </price>
     <notInShop>	True	</notInShop>

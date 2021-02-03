@@ -47,6 +47,7 @@ def getGameControllersConfig(manager):
     from gui.game_control.bootcamp_controller import BootcampController as _Bootcamp
     from gui.game_control.hero_tank_controller import HeroTankController as _HeroTankController
     from gui.game_control.event_progression_controller import EventProgressionController as _EventProgression
+    from gui.game_control.platoon_controller import PlatoonController as _PlatoonController
     from gui.game_control.epic_meta_game_ctrl import EpicBattleMetaGameController as _EpicMeta
     from gui.game_control.manual_controller import ManualController as _ManualController
     from gui.game_control.calendar_controller import CalendarController as _Calendar
@@ -59,6 +60,10 @@ def getGameControllersConfig(manager):
     from gui.game_control.clan_notification_controller import ClanNotificationController as _ClanNotification
     from gui.game_control.craftmachine_controller import CraftmachineController
     from gui.game_control.reactive_comm import ReactiveCommunicationService
+    from gui.ui_spam.ui_spam_controller import UISpamController
+    from gui.game_control.bob_controller import BobController as _BobCtrl
+    from gui.game_control.bob_sound_controller import BobSoundController as _BobSoundCtrl
+    from gui.game_control.bob_announcement_controller import BobAnnouncementController as _BobAnnouncementCtrl
     tracker = GameStateTracker()
     tracker.init()
     manager.addInstance(_interface.IGameStateTracker, tracker, finalizer='fini')
@@ -96,6 +101,7 @@ def getGameControllersConfig(manager):
     _config(_interface.IRankedBattlesController, _Ranked())
     _config(_interface.IEpicModeController, _Epic())
     _config(_interface.IHeroTankController, _HeroTankController())
+    _config(_interface.IPlatoonController, _PlatoonController())
     _config(_interface.IMarathonEventsController, _MarathonEventsController())
     _config(_interface.ICalendarController, _Calendar())
     _config(_interface.IEpicBattleMetaGameController, _EpicMeta())
@@ -109,6 +115,9 @@ def getGameControllersConfig(manager):
         _config(_interface.IChinaController, _China())
     else:
         _config(_interface.IChinaController, _NoChina())
+    _config(_interface.IBobController, _BobCtrl())
+    _config(_interface.IBobSoundController, _BobSoundCtrl())
+    _config(_interface.IBobAnnouncementController, _BobAnnouncementCtrl())
     _config(_interface.ISeasonsController, _Seasons())
     _config(_interface.IBadgesController, _Badges())
     _config(_interface.IAnonymizerController, _Anonymizer())
@@ -116,3 +125,4 @@ def getGameControllersConfig(manager):
     _config(_interface.IClanNotificationController, _ClanNotification())
     _config(_interface.IReactiveCommunicationService, ReactiveCommunicationService())
     _config(_interface.IEventProgressionController, _EventProgression())
+    _config(_interface.IUISpamController, UISpamController())

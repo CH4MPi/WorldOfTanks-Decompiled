@@ -8,6 +8,11 @@ class CameraMovementStates(object):
     FROM_OBJECT = 2
 
 
+class CameraDistanceStates(object):
+    DEFAULT = 0
+    CUSTOM = 1
+
+
 class CameraRelatedEvents(HasCtxEvent):
     CAMERA_ENTITY_UPDATED = 'CameraEntityUpdate'
     IDLE_CAMERA = 'IdleCamera'

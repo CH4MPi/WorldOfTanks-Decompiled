@@ -1,15 +1,15 @@
 <sweden.xml>
-  <sweden:S04_Lago_I6>	ussr	</sweden:S04_Lago_I6>
-  <sweden:S02_Strv_M429>	germany	</sweden:S02_Strv_M429>
-  <sweden:S04_Lago_I5>	usa	</sweden:S04_Lago_I5>
-  <sweden:S02_Strv_M426>	china	</sweden:S02_Strv_M426>
-  <sweden:S02_Strv_M428>	france	</sweden:S02_Strv_M428>
-  <sweden:S04_Lago_I4>	uk	</sweden:S04_Lago_I4>
-  <sweden:S04_Lago_I1>	japan	</sweden:S04_Lago_I1>
-  <sweden:S02_Strv_M427>	czech	</sweden:S02_Strv_M427>
-  <sweden:S04_Lago_I3>	sweden	</sweden:S04_Lago_I3>
-  <sweden:S04_Lago_I2>	poland	</sweden:S04_Lago_I2>
-  <sweden:S04_Lago_I0>	italy	</sweden:S04_Lago_I0>
+  <sweden:S04_Lago_I5>	ussr	</sweden:S04_Lago_I5>
+  <sweden:S02_Strv_M428>	germany	</sweden:S02_Strv_M428>
+  <sweden:S04_Lago_I4>	usa	</sweden:S04_Lago_I4>
+  <sweden:S02_Strv_M425>	china	</sweden:S02_Strv_M425>
+  <sweden:S02_Strv_M427>	france	</sweden:S02_Strv_M427>
+  <sweden:S04_Lago_I3>	uk	</sweden:S04_Lago_I3>
+  <sweden:S04_Lago_I0>	japan	</sweden:S04_Lago_I0>
+  <sweden:S02_Strv_M426>	czech	</sweden:S02_Strv_M426>
+  <sweden:S04_Lago_I2>	sweden	</sweden:S04_Lago_I2>
+  <sweden:S04_Lago_I1>	poland	</sweden:S04_Lago_I1>
+  <sweden:S02_Strv_M429>	italy	</sweden:S02_Strv_M429>
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
@@ -47,6 +47,7 @@
         <S13_Leo>	2.3 2.3 0.000000 0.000000	</S13_Leo>
         <S14_Ikv_103>	10 10 0.000000 0.000000	</S14_Ikv_103>
         <S16_Kranvagn>	6.4 6.4 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	6.4 6.4 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	2.3 2.3 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	2.1 2.1 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	2.9 2.9 0.000000 0.000000	</S20_Ikv_72>
@@ -55,11 +56,15 @@
         <S22_Strv_S1_FL>	3 3 0.000000 0.000000	</S22_Strv_S1_FL>
         <sweden:S02_Strv_M420>	5.22 5.22 0.000000 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.3 2.3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.3 2.3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	6.4 6.4 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	6.4 6.4 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	6.119420  6.091157	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -115,6 +120,7 @@
         <S14_Ikv_103>	1.6 1.6 2 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 4.7 2.6	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 1 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 4.7 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	3.7 3.7 0.000000 0.7	</S20_Ikv_72>
@@ -126,11 +132,15 @@
         <sweden:S26_Lansen_C>	3.94 3.94 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.53 3.53 0.63 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.2 2.2 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.2 2.2 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.218373  2.224889	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -176,6 +186,7 @@
         <S14_Ikv_103>	1.6 1.6 3.5 6.5	</S14_Ikv_103>
         <S15_L_60>	0.4 0.4 6 4	</S15_L_60>
         <S16_Kranvagn>	1 1 1.8 1.4	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	1 1 1.8 1.4	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.4 1.4 3.8 2.7	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.9 1.9 1.3 3.2	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1 1 3 0.000000	</S19_Sav_M43>
@@ -188,11 +199,15 @@
         <sweden:S26_Lansen_C>	2.67 2.67 1.27 1.54	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.39 3.39 1.55 2.12	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	4.8 4.8 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	4.8 4.8 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	2.34 2.34 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	2.34 2.34 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	2.34 2.34 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	1 1 1.8 1.4	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	1 1 1.8 1.4	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.836463  2.841327	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -250,6 +265,7 @@
         <S14_Ikv_103>	1.6 1.6 0.8 0.8	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 7.7 4.8	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 4.2 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 4.2 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.3 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 2.4 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.5 1.5 1.7 0.1	</S19_Sav_M43>
@@ -262,11 +278,15 @@
         <sweden:S26_Lansen_C>	2.2 2.2 1.28 2.07	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.41 2.41 1.77 0.98	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.2 3.2 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.2 3.2 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 4.2 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 4.2 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.180145  2.178055	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -312,6 +332,7 @@
         <S14_Ikv_103>	1.8 1.8 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 3.3 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.8 0.8 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.8 0.8 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.4 1.4 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.5 1.5 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.1 1.1 2.9 0.000000	</S19_Sav_M43>
@@ -324,11 +345,15 @@
         <sweden:S26_Lansen_C>	2.82 2.82 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.76 2.76 0.42 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.8 0.8 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.8 0.8 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.378371  2.369791	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -386,6 +411,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 5.1 4.7	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.4 1.4 4.1 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.7 1.7 4.1 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.1 1.1 0.000000 2.7	</S19_Sav_M43>
@@ -398,11 +424,15 @@
         <sweden:S26_Lansen_C>	3.07 3.07 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.05 3.05 0.42 0.42	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.227225  2.222054	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -450,6 +480,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 6.9 5.1	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 1.4 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 1.4 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.1 1.1 0.000000 0.000000	</S19_Sav_M43>
@@ -462,11 +493,15 @@
         <sweden:S26_Lansen_C>	3.02 3.02 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.18 3.18 1.4 2.04	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.7 3.7 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.7 3.7 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 1.4 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 1.4 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.446004  2.446981	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -514,6 +549,7 @@
         <S14_Ikv_103>	1.6 1.6 2.6 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 3.7 5.5	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.3 1.3 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1 1 3.3 0.000000	</S19_Sav_M43>
@@ -526,11 +562,15 @@
         <sweden:S26_Lansen_C>	3 3 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.04 3.04 1.97 0.35	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.350960  2.345502	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -577,6 +617,7 @@
         <S14_Ikv_103>	1.6 1.6 2.9 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 2.2 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.5 1.5 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.3 1.3 0.000000 0.000000	</S19_Sav_M43>
@@ -589,11 +630,15 @@
         <sweden:S26_Lansen_C>	2.81 2.81 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.48 2.48 1.19 0.77	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.4 3.4 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.4 3.4 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.18 1.18 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.18 1.18 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.18 1.18 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.298985  2.298500	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -642,6 +687,7 @@
         <S14_Ikv_103>	1.4 1.4 5.4 3.6	</S14_Ikv_103>
         <S15_L_60>	0.6 0.6 4.1 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 3.6 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 3.6 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.6 1.6 3.5 1.5	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.7 1.7 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	2 2 3 0.000000	</S19_Sav_M43>
@@ -654,11 +700,15 @@
         <sweden:S26_Lansen_C>	2.67 2.67 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	4.09 4.09 0.92 1.9	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	4.8 4.8 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	4.8 4.8 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 3.6 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 3.6 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.948881  2.949047	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -706,6 +756,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 3 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.3 1.3 0.7 4.8	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.2 1.2 3.9 4.9	</S19_Sav_M43>
@@ -718,11 +769,15 @@
         <sweden:S26_Lansen_C>	3.34 3.34 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.9 2.9 0.56 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.296942  2.288368	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -766,6 +821,7 @@
         <S14_Ikv_103>	1.2 1.2 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 3.2 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.8 0.8 0.000000 2.5	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.8 0.8 0.000000 2.5	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.3 1.3 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	2.7 2.7 1.5 0.7	</S20_Ikv_72>
@@ -777,11 +833,15 @@
         <sweden:S26_Lansen_C>	3.36 3.36 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.82 2.82 2.04 1.13	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3 3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3 3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.205540  2.184130	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -827,6 +887,7 @@
         <S14_Ikv_103>	1.6 1.6 5.4 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 4.5 6.7	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 8 2.2	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 8 2.2	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.6 1.6 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.8 1.8 4.5 0.2	</S19_Sav_M43>
@@ -839,11 +900,15 @@
         <sweden:S26_Lansen_C>	3.75 3.75 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.82 3.82 0.21 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 8 2.2	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 8 2.2	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.388600  2.392696	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -891,6 +956,7 @@
         <S14_Ikv_103>	1.2 1.2 1.7 4.6	</S14_Ikv_103>
         <S15_L_60>	0.6 0.6 3.1 2.5	</S15_L_60>
         <S16_Kranvagn>	0.6 0.6 3.1 2.1	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.6 0.6 3.1 2.1	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.1 1.1 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.1 1.1 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	0.9 0.9 3.3 0.5	</S19_Sav_M43>
@@ -903,11 +969,15 @@
         <sweden:S26_Lansen_C>	2.47 2.47 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.06 2.06 0.99 0.28	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.5 2.5 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.5 2.5 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.6 0.6 3.1 2.1	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.6 0.6 3.1 2.1	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	1.819320  1.811428	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -953,6 +1023,7 @@
         <S14_Ikv_103>	1.6 1.6 4.1 3.9	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 4 9.8	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 2.1 0.1	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 2.1 0.1	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.2 1.2 4.1 3.1	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1 1 2.1 5.1	</S19_Sav_M43>
@@ -965,11 +1036,15 @@
         <sweden:S26_Lansen_C>	2.36 2.36 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.69 2.69 0.7 0.07	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 2.1 0.1	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 2.1 0.1	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.227225  2.222054	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1013,6 +1088,7 @@
         <S14_Ikv_103>	1.2 1.2 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 3.2 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.8 0.8 0.000000 2.5	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.8 0.8 0.000000 2.5	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.3 1.3 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	2.7 2.7 1.5 0.7	</S20_Ikv_72>
@@ -1024,11 +1100,15 @@
         <sweden:S26_Lansen_C>	3.89 3.89 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.88 3.88 1.12 1.27	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3 3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3 3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.72 1.72 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.243787  2.233424	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1076,6 +1156,7 @@
         <S14_Ikv_103>	1.6 1.6 2.3 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.8 0.8 3.4 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 7.3 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 7.3 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.4 1.4 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.9 1.9 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	2 2 2.8 3	</S19_Sav_M43>
@@ -1086,11 +1167,15 @@
         <sweden:S26_Lansen_C>	2.08 2.08 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.25 3.25 0.7 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3.3 3.3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 7.3 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 7.3 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.358062  2.360319	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1134,6 +1219,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 0.000000 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	2.3 2.3 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S20_Ikv_72>	4.1 4.1 1.5 0.7	</S20_Ikv_72>
         <S21_UDES_03>	2.9 2.9 0.000000 0.000000	</S21_UDES_03>
@@ -1143,11 +1229,15 @@
         <sweden:S25_EMIL_51>	2.69 2.69 0.000000 0.000000	</sweden:S25_EMIL_51>
         <sweden:S02_Strv_M420>	4.1 4.1 0.000000 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.589335  2.598204	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1193,6 +1283,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 1.7 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.3 1.3 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S19_Sav_M43>	1.2 1.2 0.000000 0.000000	</S19_Sav_M43>
         <S20_Ikv_72>	4.1 4.1 1.5 0.7	</S20_Ikv_72>
@@ -1204,11 +1295,15 @@
         <sweden:S26_Lansen_C>	2.47 2.47 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.55 2.55 1.2 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.65 1.65 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.180145  2.178055	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1254,6 +1349,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 7 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S19_Sav_M43>	1.2 1.2 0.6 0.000000	</S19_Sav_M43>
         <S20_Ikv_72>	3.2 3.2 1.5 0.7	</S20_Ikv_72>
@@ -1265,11 +1361,15 @@
         <sweden:S26_Lansen_C>	2.27 2.27 0.000000 0.6	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.55 2.55 1.2 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.79 1.79 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.303829  2.317060	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1314,6 +1414,7 @@
         <S14_Ikv_103>	1.6 1.6 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 3 1.5	</S15_L_60>
         <S16_Kranvagn>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.7 0.7 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.3 1.3 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S19_Sav_M43>	1.1 1.1 0.000000 0.000000	</S19_Sav_M43>
         <S20_Ikv_72>	3.6 3.6 1.5 0.7	</S20_Ikv_72>
@@ -1325,11 +1426,15 @@
         <sweden:S26_Lansen_C>	2.35 2.35 0.000000 0.6	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	2.55 2.55 1.2 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.9 2.9 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.93 1.93 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.93 1.93 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.93 1.93 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.7 0.7 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.296942  2.288368	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1373,6 +1478,7 @@
         <S14_Ikv_103>	1.2 1.2 0.000000 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 3.2 0.000000	</S15_L_60>
         <S16_Kranvagn>	0.8 0.8 0.000000 2.5	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.8 0.8 0.000000 2.5	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 0.000000 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.3 1.3 0.000000 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	2.7 2.7 1.5 0.7	</S20_Ikv_72>
@@ -1384,11 +1490,15 @@
         <sweden:S26_Lansen_C>	3.28 3.28 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.11 3.11 0.21 0.35	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3 3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3 3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.86 1.86 0.000000 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.8 0.8 0.000000 2.5	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.205540  2.184130	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1440,6 +1550,7 @@
         <S14_Ikv_103>	1.6 1.6 3.5 6.5	</S14_Ikv_103>
         <S15_L_60>	0.4 0.4 6 4	</S15_L_60>
         <S16_Kranvagn>	1 1 1.8 1.4	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	1 1 1.8 1.4	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.4 1.4 3.8 2.7	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.9 1.9 1.3 3.2	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1 1 3 0.000000	</S19_Sav_M43>
@@ -1452,11 +1563,15 @@
         <S26_Lansen_C>	2.67 2.67 1.27 1.54	</S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.11 3.11 0.21 0.35	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	3 3 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	3 3 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.4 1.4 2.8 2.24	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.4 1.4 2.8 2.24	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.4 1.4 2.8 2.24	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	1 1 1.8 1.4	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	1 1 1.8 1.4	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.369222  2.355359	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1506,6 +1621,7 @@
         <S14_Ikv_103>	1.6 1.6 2 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.62 0.62 5 2.6	</S15_L_60>
         <S16_Kranvagn>	0.87 0.87 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.87 0.87 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.34 1.34 1 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 4.7 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	3.7 3.7 0.000000 0.7	</S20_Ikv_72>
@@ -1521,11 +1637,15 @@
         <sweden:S19_Sav_M43>	1.33 1.33 2.1 2.13	</sweden:S19_Sav_M43>
         <sweden:S02_Strv_M420>	3.11 3.11 0.21 0.35	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	1.94 1.94 0.09 1.98	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	1.94 1.94 0.09 1.98	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.21 1.21 2.8 2.24	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.21 1.21 2.8 2.24	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.21 1.21 2.8 2.24	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.87 0.87 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.87 0.87 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.205540  2.184130	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1578,6 +1698,7 @@
         <S14_Ikv_103>	0.88 0.88 0.26 0.05	</S14_Ikv_103>
         <S15_L_60>	0.34 0.34 5.13 4.78	</S15_L_60>
         <S16_Kranvagn>	0.45 0.45 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.45 0.45 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	0.73 0.73 4.33 2.2	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	0.76 0.76 4.69 0.37	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	0.67 0.67 0.000000 2.72	</S19_Sav_M43>
@@ -1590,11 +1711,15 @@
         <S26_Lansen_C>	1.99 1.99 0.06 0.68	</S26_Lansen_C>
         <sweden:S02_Strv_M420>	1.93 1.93 0.45 0.35	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	1.07 1.07 0.48 0.12	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	1.07 1.07 0.48 0.12	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	0.78 0.78 2.8 2.24	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	0.78 0.78 2.8 2.24	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	0.78 0.78 2.8 2.24	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.45 0.45 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.45 0.45 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	1.206240  1.209783	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1658,10 +1783,14 @@
         <sweden:S26_Lansen_C>	3.75 3.75 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.67 3.67 0.42 0.42	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.7 2.7 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.38 1.38 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.447768  2.436463	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1712,6 +1841,7 @@
         <S14_Ikv_103>	1.64 1.64 0.26 0.68	</S14_Ikv_103>
         <S15_L_60>	0.7 0.7 7.55 4.44	</S15_L_60>
         <S16_Kranvagn>	1 1 1.18 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	1 1 1.18 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.38 1.38 0.46 -0.14	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.43 1.43 2.64 0.83	</S18_EMIL_1951_E1>
         <S19_Sav_M43>	1.5 1.5 1.7 0.1	</S19_Sav_M43>
@@ -1726,11 +1856,15 @@
         <sweden:S26_Lansen_C>	4 4 0.8 1	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.08 3.08 1.8 0.98	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	1.6 1.6 1.4 -0.05	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	1.6 1.6 1.4 -0.05	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.36 1.36 0.56 0.51	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.36 1.36 0.56 0.51	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.36 1.36 0.56 0.51	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	1 1 1.18 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	1 1 1.18 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.260993  2.261963	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1774,6 +1908,7 @@
         <S14_Ikv_103>	1.6 1.6 2 0.000000	</S14_Ikv_103>
         <S15_L_60>	0.5 0.5 4.7 2.6	</S15_L_60>
         <S16_Kranvagn>	0.76 0.76 0.000000 0.000000	</S16_Kranvagn>
+        <S16_Kranvagn_bob>	0.76 0.76 0.000000 0.000000	</S16_Kranvagn_bob>
         <S17_EMIL_1952_E2>	1.2 1.2 1 0.000000	</S17_EMIL_1952_E2>
         <S18_EMIL_1951_E1>	1.4 1.4 4.7 0.000000	</S18_EMIL_1951_E1>
         <S20_Ikv_72>	3.87 3.87 0.26 0.77	</S20_Ikv_72>
@@ -1787,11 +1922,15 @@
         <sweden:S26_Lansen_C>	3.94 3.94 0.000000 0.000000	</sweden:S26_Lansen_C>
         <sweden:S02_Strv_M420>	3.53 3.53 0.63 0.000000	</sweden:S02_Strv_M420>
         <sweden:S02_Strv_M421>	2.08 2.08 0.000000 0.000000	</sweden:S02_Strv_M421>
-        <sweden:S02_Strv_M422>	2.08 2.08 0.000000 0.000000	</sweden:S02_Strv_M422>
+        <sweden:S02_Strv_M422>	1.14 1.14 0.21 0.000000	</sweden:S02_Strv_M422>
         <sweden:S02_Strv_M423>	1.14 1.14 0.21 0.000000	</sweden:S02_Strv_M423>
-        <sweden:S02_Strv_M424>	1.14 1.14 0.21 0.000000	</sweden:S02_Strv_M424>
-        <sweden:S02_Strv_M425>	0.76 0.76 0.000000 0.000000	</sweden:S02_Strv_M425>
+        <sweden:S02_Strv_M424>	0.76 0.76 0.000000 0.000000	</sweden:S02_Strv_M424>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.057844  2.055871	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -1823,6 +1962,11 @@
       <tiling>
         <sweden:S01_Strv_74_A2>	1 1 -0.56 -0.77	</sweden:S01_Strv_74_A2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	1.399042  1.393995	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
     <camouflage>
       <id>	172	</id>
@@ -1843,6 +1987,11 @@
       <tiling>
         <sweden:S01_Strv_74_A2>	0.98 0.98 -3.37 0.3	</sweden:S01_Strv_74_A2>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	1.371061  1.366115	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
 </sweden.xml>

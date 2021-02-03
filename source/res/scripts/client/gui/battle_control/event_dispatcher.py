@@ -96,6 +96,10 @@ def toggleFullStatsQuestProgress(isDown):
     g_eventBus.handleEvent(GameEvent(GameEvent.FULL_STATS_QUEST_PROGRESS, _makeKeyCtx(isDown=isDown)), scope=_SCOPE)
 
 
+def toggleVoipChannelEnabled():
+    g_eventBus.handleEvent(GameEvent(GameEvent.TOGGLE_VOIP_CHANNEL_ENABLED), scope=_SCOPE)
+
+
 def setNextPlayerPanelMode():
     g_eventBus.handleEvent(GameEvent(GameEvent.NEXT_PLAYERS_PANEL_MODE), scope=_SCOPE)
 
@@ -143,15 +147,3 @@ def controlModeChange(mode):
 def sniperCameraTransition(transitionTime, currentGunIndex):
     g_eventBus.handleEvent(GameEvent(GameEvent.SNIPER_CAMERA_TRANSITION, {'transitionTime': transitionTime,
      'currentGunIndex': currentGunIndex}), scope=_SCOPE)
-
-
-def toggleFadeOut(settings):
-    g_eventBus.handleEvent(GameEvent(GameEvent.FADE_OUT_AND_IN, {'settings': settings}), scope=_SCOPE)
-
-
-def onCollectorProgress(overlays):
-    g_eventBus.handleEvent(GameEvent(GameEvent.COLLECTOR_PROGRESS, {'overlays': overlays}), scope=_SCOPE)
-
-
-def onCollectorProgressStop():
-    g_eventBus.handleEvent(GameEvent(GameEvent.COLLECTOR_PROGRESS_STOP), scope=_SCOPE)

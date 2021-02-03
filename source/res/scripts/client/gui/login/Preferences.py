@@ -95,6 +95,8 @@ class Preferences(dict):
                 return 'credentials'
             if key == 'password_length':
                 return 0
+            if key == 'server_select_was_set':
+                return False
             return ''
 
     def __repr__(self):

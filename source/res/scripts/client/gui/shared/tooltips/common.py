@@ -918,6 +918,10 @@ class SettingsMinimapCircles(BlocksTooltipData):
         tooltipBlocks.append(formatters.packBuildUpBlockData([headerBlock, imgBlock], padding={'bottom': -20}))
         textBlocks = []
         templateName = 'html_templates:lobby/tooltips/settings_minimap_circles'
+        minSpottingRangeHtml = makeHtmlString(templateName, 'min_spotting_range_title') + lineBreak
+        minSpottingRangeTitle = minSpottingRangeHtml % i18n.makeString(TOOLTIPS.SETTINGS_MINIMAPCIRCLES_MINIMUMSPOTTINGRANGE_TITLE)
+        minSpottingRangeBody = text_styles.main(TOOLTIPS.SETTINGS_MINIMAPCIRCLES_MINIMUMSPOTTINGRANGE_BODY)
+        textBlocks.extend(self.getTextBlocksForCircleDescr(minSpottingRangeTitle, minSpottingRangeBody))
         viewRangeTitle = text_styles.bonusAppliedText(TOOLTIPS.SETTINGS_MINIMAPCIRCLES_VIEWRANGE_TITLE)
         viewRangeBody = text_styles.main(TOOLTIPS.SETTINGS_MINIMAPCIRCLES_VIEWRANGE_BODY)
         textBlocks.extend(self.getTextBlocksForCircleDescr(viewRangeTitle, viewRangeBody))
@@ -942,23 +946,6 @@ class SettingsShowLocationMarkers(BlocksTooltipData):
     def _packBlocks(self, *args, **kwargs):
         tooltipBlocks = super(SettingsShowLocationMarkers, self)._packBlocks()
         tooltipBlocks.append(formatters.packBuildUpBlockData([formatters.packTitleDescBlock(text_styles.highTitle(TOOLTIPS.SETTINGS_SHOWLOCATIONMARKERS_HEADER), text_styles.main(TOOLTIPS.SETTINGS_SHOWLOCATIONMARKERS_BODY)), formatters.packTextBlockData(text_styles.neutral(TOOLTIPS.SETTINGS_SHOWLOCATIONMARKERS_BODYFOOTER), padding={'bottom': -15})]))
-        return tooltipBlocks
-
-
-class SquadRestrictionsInfo(BlocksTooltipData):
-
-    def __init__(self, context):
-        super(SquadRestrictionsInfo, self).__init__(context, TOOLTIP_TYPE.CONTROL)
-        self._setContentMargin(top=15, left=19, bottom=6, right=20)
-        self._setMargins(afterBlock=14)
-        self._setWidth(364)
-
-    def _packBlocks(self, *args):
-        tooltipBlocks = super(SquadRestrictionsInfo, self)._packBlocks()
-        tooltipBlocks.append(formatters.packTitleDescBlock(text_styles.highTitle(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_HEADER)))
-        tooltipBlocks.append(formatters.packImageTextBlockData(text_styles.stats(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_TITLE0), text_styles.standard(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_BODY0), RES_ICONS.MAPS_ICONS_LIBRARY_DONE, imgPadding=formatters.packPadding(left=-21, right=10), padding=formatters.packPadding(-22, 20)))
-        tooltipBlocks.append(formatters.packImageTextBlockData(text_styles.stats(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_TITLE1), text_styles.standard(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_BODY1), RES_ICONS.MAPS_ICONS_LIBRARY_ATTENTIONICONFILLEDBIG, imgPadding=formatters.packPadding(left=-21, right=12), padding=formatters.packPadding(-22, 20, 1)))
-        tooltipBlocks.append(formatters.packImageTextBlockData(text_styles.stats(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_TITLE2), text_styles.standard(TOOLTIPS.SQUADWINDOW_INFOICON_TECHRESTRICTIONS_BODY2), RES_ICONS.MAPS_ICONS_LIBRARY_ICON_ALERT_32X32, imgPadding=formatters.packPadding(left=-21, right=10), padding=formatters.packPadding(-22, 20, 11)))
         return tooltipBlocks
 
 

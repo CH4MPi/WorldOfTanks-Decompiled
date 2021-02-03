@@ -3,7 +3,10 @@
 import logging
 import typing
 import constants
+from gui.dog_tag_composer import dogTagComposer
+from gui.impl import backport
 from gui.impl.backport import TooltipData, createTooltipData
+from gui.impl.gen import R
 from gui.impl.gen.view_models.common.missions.bonuses.blueprint_bonus_model import BlueprintBonusModel
 from gui.impl.gen.view_models.common.missions.bonuses.bonus_model import BonusModel
 from gui.impl.gen.view_models.common.missions.bonuses.icon_bonus_model import IconBonusModel
@@ -11,6 +14,7 @@ from gui.impl.gen.view_models.common.missions.bonuses.item_bonus_model import It
 from gui.impl.gen.view_models.common.missions.bonuses.token_bonus_model import TokenBonusModel
 from gui.server_events.awards_formatters import TOKEN_SIZES, BATTLE_BONUS_X5_TOKEN, ItemsBonusFormatter, TokenBonusFormatter
 from gui.server_events.formatters import COMPLEX_TOKEN, parseComplexToken, TokenComplex
+from gui.shared.gui_items.crew_skin import localizedFullName
 from gui.shared.gui_items.customization import CustomizationTooltipContext
 from gui.shared.money import Currency
 from gui.shared.utils.functions import makeTooltip
@@ -24,9 +28,9 @@ DOSSIER_ACHIEVEMENT_POSTFIX = '_achievement'
 DOSSIER_BADGE_POSTFIX = '_badge'
 VEHICLE_RENT_ICON_POSTFIX = '_rent'
 if typing.TYPE_CHECKING:
-    from frameworks.wulf.view.array import Array
+    from gui.impl.wrappers.user_list_model import UserListModel
     from gui.goodies.goodie_items import BoosterUICommon
-    from gui.server_events.bonuses import CustomizationsBonus, CrewSkinsBonus, TokensBonus, SimpleBonus, ItemsBonus, DossierBonus, VehicleBlueprintBonus, CrewBooksBonus, GoodiesBonus, TankmenBonus, VehiclesBonus
+    from gui.server_events.bonuses import CustomizationsBonus, CrewSkinsBonus, TokensBonus, SimpleBonus, ItemsBonus, DossierBonus, VehicleBlueprintBonus, CrewBooksBonus, GoodiesBonus, TankmenBonus, VehiclesBonus, DogTagComponentBonus
     from gui.shared.gui_items.fitting_item import FittingItem
     from gui.shared.gui_items.Vehicle import Vehicle
 _logger = logging.getLogger(__name__)
@@ -62,11 +66,22 @@ def getDefaultBonusPackersMap():
      'xpFactor': simpleBonusPacker,
      'groups': GroupsBonusUIPacker(),
      'progressionXPToken': tokenBonusPacker,
+     'dogTagComponents': DogTagComponentsUIPacker(),
      Currency.CREDITS: simpleBonusPacker,
      Currency.CRYSTAL: simpleBonusPacker,
      Currency.GOLD: simpleBonusPacker,
      constants.PREMIUM_ENTITLEMENTS.BASIC: simpleBonusPacker,
      constants.PREMIUM_ENTITLEMENTS.PLUS: simpleBonusPacker}
+
+
+def getLocalizedBonusName(name):
+    labelStr = None
+    localizedLabel = R.strings.quests.bonusName.dyn(name)
+    if localizedLabel.exists():
+        labelStr = backport.text(localizedLabel())
+    else:
+        _logger.warning("Localized text for the 'additional rewards tooltip' label for %s reward was not found.", name)
+    return labelStr
 
 
 class BaseBonusUIPacker(object):
@@ -93,18 +108,24 @@ class BaseBonusUIPacker(object):
     def _getToolTip(cls, bonus):
         return [createTooltipData(bonus.getTooltip())]
 
+    @classmethod
+    def _getBonusModel(cls):
+        return BonusModel()
+
 
 class SimpleBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def _pack(cls, bonus):
-        return [cls._packSingleBonus(bonus)]
+        label = getLocalizedBonusName(bonus.getName())
+        return [cls._packSingleBonus(bonus, label if label else '')]
 
     @classmethod
-    def _packSingleBonus(cls, bonus):
-        model = BonusModel()
+    def _packSingleBonus(cls, bonus, label):
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setValue(str(bonus.getValue()))
+        model.setLabel(label)
         return model
 
 
@@ -163,17 +184,19 @@ class TokenBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def __packToken(cls, bonusPacker, bonus, *args):
-        model = TokenBonusModel()
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         return bonusPacker(model, bonus, *args)
 
     @classmethod
     def __packComplexToken(cls, model, bonus, complexToken, token):
         webCache = cls._eventsCache.prefetcher
+        labelStr = i18n.makeString(webCache.getTokenInfo(complexToken.styleID))
         model.setValue(str(token.count))
-        model.setUserName(i18n.makeString(webCache.getTokenInfo(complexToken.styleID)))
+        model.setUserName(labelStr)
         model.setIconSmall(webCache.getTokenImage(complexToken.styleID, TOKEN_SIZES.SMALL))
         model.setIconBig(webCache.getTokenImage(complexToken.styleID, TOKEN_SIZES.BIG))
+        model.setLabel(labelStr)
         return model
 
     @classmethod
@@ -187,6 +210,10 @@ class TokenBonusUIPacker(BaseBonusUIPacker):
         userName = i18n.makeString(webCache.getTokenInfo(complexToken.styleID))
         tooltip = makeTooltip(i18n.makeString(TOOLTIPS.QUESTS_BONUSES_TOKEN_HEADER, userName=userName), i18n.makeString(TOOLTIPS.QUESTS_BONUSES_TOKEN_BODY))
         return tooltip
+
+    @classmethod
+    def _getBonusModel(cls):
+        return TokenBonusModel()
 
 
 class ItemBonusUIPacker(BaseBonusUIPacker):
@@ -209,6 +236,7 @@ class ItemBonusUIPacker(BaseBonusUIPacker):
         model.setValue(str(count))
         model.setItem(item.getGUIEmblemID())
         model.setOverlayType(item.getOverlayType())
+        model.setLabel(item.userName)
         return model
 
     @classmethod
@@ -243,19 +271,24 @@ class GoodiesBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def _packSingleBoosterBonus(cls, bonus, booster, count):
-        return cls._packIconBonusModel(bonus, booster.boosterGuiType, count)
+        return cls._packIconBonusModel(bonus, booster.boosterGuiType, count, booster.fullUserName)
 
     @classmethod
     def _packSingleDemountKitBonus(cls, bonus, demountkit, count):
-        return cls._packIconBonusModel(bonus, demountkit.demountKitGuiType, count)
+        return cls._packIconBonusModel(bonus, demountkit.demountKitGuiType, count, demountkit.userName)
 
     @classmethod
-    def _packIconBonusModel(cls, bonus, icon, count):
-        model = IconBonusModel()
+    def _packIconBonusModel(cls, bonus, icon, count, label):
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setValue(str(count))
         model.setIcon(icon)
+        model.setLabel(label)
         return model
+
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
 
     @classmethod
     def _getToolTip(cls, bonus):
@@ -273,7 +306,7 @@ class BlueprintBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def _pack(cls, bonus):
-        model = BlueprintBonusModel()
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setValue(str(bonus.getCount()))
         model.setType(bonus.getBlueprintName())
@@ -283,6 +316,10 @@ class BlueprintBonusUIPacker(BaseBonusUIPacker):
     @classmethod
     def _getToolTip(cls, bonus):
         return [TooltipData(tooltip=None, isSpecial=True, specialAlias=bonus.getBlueprintSpecialAlias(), specialArgs=[bonus.getBlueprintSpecialArgs()])]
+
+    @classmethod
+    def _getBonusModel(cls):
+        return BlueprintBonusModel()
 
 
 class CrewBookBonusUIPacker(BaseBonusUIPacker):
@@ -303,6 +340,7 @@ class CrewBookBonusUIPacker(BaseBonusUIPacker):
         cls._packCommon(bonus, model)
         model.setValue(str(count))
         model.setIcon(book.getBonusIconName())
+        model.setLabel(book.userName)
         return model
 
     @classmethod
@@ -326,16 +364,18 @@ class CrewSkinBonusUIPacker(BaseBonusUIPacker):
         for crewSkin, count, _, _ in sorted(bonus.getItems()):
             if crewSkin is None or not count:
                 continue
-            result.append(cls._packSingleBonus(bonus, crewSkin, count))
+            label = localizedFullName(crewSkin)
+            result.append(cls._packSingleBonus(bonus, crewSkin, count, label))
 
         return result
 
     @classmethod
-    def _packSingleBonus(cls, bonus, crewSkin, count):
-        model = IconBonusModel()
+    def _packSingleBonus(cls, bonus, crewSkin, count, label):
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setValue(str(count))
         model.setIcon(str(crewSkin.itemTypeName + str(crewSkin.getRarity())))
+        model.setLabel(label)
         return model
 
     @classmethod
@@ -346,6 +386,10 @@ class CrewSkinBonusUIPacker(BaseBonusUIPacker):
 
         return tooltipData
 
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
+
 
 class CustomizationBonusUIPacker(BaseBonusUIPacker):
 
@@ -355,16 +399,18 @@ class CustomizationBonusUIPacker(BaseBonusUIPacker):
         for item in bonus.getCustomizations():
             if item is None:
                 continue
-            result.append(cls._packSingleBonus(bonus, item))
+            label = getLocalizedBonusName(bonus.getC11nItem(item).itemTypeName)
+            result.append(cls._packSingleBonus(bonus, item, label if label else ''))
 
         return result
 
     @classmethod
-    def _packSingleBonus(cls, bonus, item):
-        model = IconBonusModel()
+    def _packSingleBonus(cls, bonus, item, label):
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setValue(str(item.get('value', 0)))
         model.setIcon(str(bonus.getC11nItem(item).itemTypeName))
+        model.setLabel(label)
         return model
 
     @classmethod
@@ -378,6 +424,10 @@ class CustomizationBonusUIPacker(BaseBonusUIPacker):
 
         return tooltipData
 
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
+
 
 class DossierBonusUIPacker(BaseBonusUIPacker):
 
@@ -387,22 +437,25 @@ class DossierBonusUIPacker(BaseBonusUIPacker):
         for achievement in bonus.getAchievements():
             dossierIconName = achievement.getName()
             dossierValue = achievement.getValue()
-            result.append(cls._packSingleBonus(bonus, dossierIconName, DOSSIER_ACHIEVEMENT_POSTFIX, dossierValue))
+            dossierLabel = achievement.getUserName()
+            result.append(cls._packSingleBonus(bonus, dossierIconName, DOSSIER_ACHIEVEMENT_POSTFIX, dossierValue, dossierLabel))
 
         for badge in bonus.getBadges():
             dossierIconName = DOSSIER_BADGE_ICON_PREFIX + str(badge.badgeID)
             dossierValue = 0
-            result.append(cls._packSingleBonus(bonus, dossierIconName, DOSSIER_BADGE_POSTFIX, dossierValue))
+            dossierLabel = badge.getUserName()
+            result.append(cls._packSingleBonus(bonus, dossierIconName, DOSSIER_BADGE_POSTFIX, dossierValue, dossierLabel))
 
         return result
 
     @classmethod
-    def _packSingleBonus(cls, bonus, dossierIconName, dossierNamePostfix, dossierValue):
-        model = IconBonusModel()
+    def _packSingleBonus(cls, bonus, dossierIconName, dossierNamePostfix, dossierValue, dossierLabel):
+        model = cls._getBonusModel()
         model.setName(bonus.getName() + dossierNamePostfix)
         model.setIsCompensation(bonus.isCompensation())
         model.setValue(str(dossierValue))
         model.setIcon(dossierIconName)
+        model.setLabel(dossierLabel)
         return model
 
     @classmethod
@@ -416,33 +469,42 @@ class DossierBonusUIPacker(BaseBonusUIPacker):
 
         return tooltipData
 
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
+
 
 class TankmenBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def _pack(cls, bonus):
         result = []
-        for _ in bonus.getTankmenGroups():
-            result.append(cls._packSingleBonus(bonus))
+        for group in bonus.getTankmenGroups().itervalues():
+            result.append(cls._packSingleBonus(bonus, cls._getLabel(group)))
 
         return result
 
     @classmethod
-    def _packSingleBonus(cls, bonus):
-        model = BonusModel()
+    def _packSingleBonus(cls, bonus, label):
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
+        model.setLabel(label)
         return model
+
+    @classmethod
+    def _getLabel(cls, group):
+        if group['skills']:
+            key = 'with_skills'
+        else:
+            key = 'no_skills'
+        label = '#quests:bonuses/item/tankmen/%s' % key
+        return i18n.makeString(label, **group)
 
     @classmethod
     def _getToolTip(cls, bonus):
         tooltipData = []
         for group in bonus.getTankmenGroups().itervalues():
-            if group['skills']:
-                key = 'with_skills'
-            else:
-                key = 'no_skills'
-            label = '#quests:bonuses/item/tankmen/%s' % key
-            tooltipData.append(createTooltipData(makeTooltip(TOOLTIPS.getAwardHeader(bonus.getName()), i18n.makeString(label, **group))))
+            tooltipData.append(createTooltipData(makeTooltip(TOOLTIPS.getAwardHeader(bonus.getName()), cls._getLabel(group))))
 
         return tooltipData
 
@@ -467,7 +529,7 @@ class VehiclesBonusUIPacker(BaseBonusUIPacker):
                 for bonusComp in compensation:
                     packedVehicles.extend(packer.pack(bonusComp))
 
-            packedVehicles.append(cls._packVehicle(bonus, vehInfo))
+            packedVehicles.append(cls._packVehicle(bonus, vehInfo, vehicle))
 
         return packedVehicles
 
@@ -486,13 +548,13 @@ class VehiclesBonusUIPacker(BaseBonusUIPacker):
         return packedTooltips
 
     @classmethod
-    def _packVehicle(cls, bonus, vehInfo):
+    def _packVehicle(cls, bonus, vehInfo, vehicle):
         rentDays = bonus.getRentDays(vehInfo)
         rentBattles = bonus.getRentBattles(vehInfo)
         rentWins = bonus.getRentWins(vehInfo)
         rentSeason = bonus.getRentSeason(vehInfo)
         isRent = rentDays or rentBattles or rentWins or rentSeason
-        return cls._packVehicleBonusModel(bonus, isRent)
+        return cls._packVehicleBonusModel(bonus, isRent, vehicle)
 
     @classmethod
     def _packTooltip(cls, bonus, vehicle, vehInfo):
@@ -515,22 +577,50 @@ class VehiclesBonusUIPacker(BaseBonusUIPacker):
             rentExpiryTime = time_utils.getCurrentTimestamp()
             rentExpiryTime += rentDays * time_utils.ONE_DAY
         else:
-            rentExpiryTime = 0
+            rentExpiryTime = 0.0
         return rentExpiryTime
 
-    @staticmethod
-    def _packVehicleBonusModel(bonus, isRent):
-        model = BonusModel()
+    @classmethod
+    def _packVehicleBonusModel(cls, bonus, isRent, vehicle):
+        model = cls._getBonusModel()
         model.setName(bonus.getName() + VEHICLE_RENT_ICON_POSTFIX if isRent else bonus.getName())
         model.setIsCompensation(bonus.isCompensation())
+        model.setLabel(vehicle.userName)
         return model
+
+
+class DogTagComponentsUIPacker(BaseBonusUIPacker):
+
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
+
+    @classmethod
+    def _pack(cls, bonus):
+        return [ cls._packDogTag(bonus, dogTagRecord) for dogTagRecord in bonus.getUnlockedComponents() ]
+
+    @classmethod
+    def _packDogTag(cls, bonus, dogTagRecord):
+        model = cls._getBonusModel()
+        cls._packCommon(bonus, model)
+        model.setIcon(dogTagComposer.getComponentImage(dogTagRecord.componentId, dogTagRecord.grade))
+        model.setLabel(dogTagComposer.getComponentTitle(dogTagRecord.componentId))
+        return model
+
+    @classmethod
+    def _getToolTip(cls, bonus):
+        return [ cls._getDogTagTooltip(dogTagRecord) for dogTagRecord in bonus.getUnlockedComponents() ]
+
+    @classmethod
+    def _getDogTagTooltip(cls, dogTagRecord):
+        return TooltipData(tooltip=None, isSpecial=True, specialAlias=TOOLTIPS_CONSTANTS.DOG_TAGS_INFO, specialArgs=[dogTagRecord.componentId])
 
 
 class GroupsBonusUIPacker(BaseBonusUIPacker):
 
     @classmethod
     def _pack(cls, bonus):
-        model = IconBonusModel()
+        model = cls._getBonusModel()
         cls._packCommon(bonus, model)
         model.setIcon('default')
         return [model]
@@ -538,6 +628,10 @@ class GroupsBonusUIPacker(BaseBonusUIPacker):
     @classmethod
     def _getToolTip(cls, bonus):
         return [createTooltipData(makeTooltip(TOOLTIPS.getAwardHeader(bonus.getName()), TOOLTIPS.getAwardBody(bonus.getName())))]
+
+    @classmethod
+    def _getBonusModel(cls):
+        return IconBonusModel()
 
 
 class BonusUIPacker(object):

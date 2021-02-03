@@ -32,7 +32,7 @@
     <priceFactor>	1.6	</priceFactor>
     <tiling>	1 1 0 0	</tiling>
     <exclusionMask></exclusionMask>
-    <density>	1 1	</density>
+    <density>	0.99 0.99	</density>
   </camouflage>
   <hull>
     <armor>
@@ -58,7 +58,7 @@
     </armor>
     <primaryArmor>	armor_1 armor_3 armor_4	</primaryArmor>
     <weight>	20528	</weight>
-    <maxHealth>	1040	</maxHealth>
+    <maxHealth>	960	</maxHealth>
     <ammoBayHealth>
       <maxHealth>	240	</maxHealth>
       <maxRegenHealth>	160	</maxRegenHealth>
@@ -80,7 +80,7 @@
       <nodes>	HP_Track_Exhaus_1 HP_Track_Exhaus_2	</nodes>
     </exhaust>
     <turretPositions>
-      <turret>	0.000000 0.844698 0.427352	</turret>
+      <turret>	0.000000 0.571960 0.427352	</turret>
     </turretPositions>
     <hitTester>
       <collisionModelServer>	vehicles/british/GB109_GSOR_1008/collision/Hull.model	</collisionModelServer>
@@ -2062,7 +2062,7 @@
       </armor>
       <primaryArmor>	armor_1 armor_3 armor_4	</primaryArmor>
       <weight>	10000	</weight>
-      <maxHealth>	260	</maxHealth>
+      <maxHealth>	240	</maxHealth>
       <rotationSpeed>	28	</rotationSpeed>
       <turretRotatorHealth>
         <maxHealth>	100	</maxHealth>
@@ -2100,7 +2100,7 @@
             <maxPitch>	0 11 0.3 11 0.344444 10 0.4 8 0.6 8 0.655556 10 0.7 11 1 11	</maxPitch>
           </pitchLimits>
           <shotDispersionRadius>	0.34	</shotDispersionRadius>
-          <reloadTime>	37.41	</reloadTime>
+          <reloadTime>	45	</reloadTime>
           <shotDispersionFactors>
             <turretRotation>	0.08	</turretRotation>
             <afterShot>	3.5	</afterShot>
@@ -2128,6 +2128,7 @@
               <camouflage>	GUN	</camouflage>
             </customizableVehicleAreas>
           </customization>
+          <shotOffset>	0.000002 0.170134 0.000000	</shotOffset>
           <customizationSlots>
             <slot>
               <slotType>	paint	</slotType>
@@ -2213,13 +2214,13 @@
               <slotType>	projectionDecal	</slotType>
               <slotId>	45003	</slotId>
               <tags>	formfactor_square	</tags>
-              <position>	0.000022 2.49897 -1.258	</position>
+              <position>	-0.00468371 2.48023 -0.784224	</position>
               <rotation>	-3.10207 -0.00993204 -0.00582266	</rotation>
               <scale>	1.05285 0.35 1.05285	</scale>
               <doubleSided>	false	</doubleSided>
               <showOn>	4096	</showOn>
               <clipAngle>	0.000000	</clipAngle>
-              <anchorPosition>	0.00209374 0.129035 -1.70425	</anchorPosition>
+              <anchorPosition>	-0.00559157 0.589355 -1.21155	</anchorPosition>
               <anchorDirection>	-0.00621481 0.999202 0.0394561	</anchorDirection>
               <verticalMirror>	true	</verticalMirror>
             </slot>
@@ -2570,7 +2571,7 @@
         <collisionModelServer>	vehicles/british/GB109_GSOR_1008/collision/Turret_01.model	</collisionModelServer>
         <collisionModelClient>	vehicles/british/GB109_GSOR_1008/collision_client/Turret_01.model	</collisionModelClient>
       </hitTester>
-      <gunPosition>	0.000895 0.000000 0.000060	</gunPosition>
+      <gunPosition>	0.000895 0.272736 0.000060	</gunPosition>
       <wwturretRotatorSoundManual>	tur_mech_trav	</wwturretRotatorSoundManual>
       <showEmblemsOnGun>	true	</showEmblemsOnGun>
       <physicsShape>	1.272 -0.393 0.878 0.004 1.594 0.187 0.095 0.131 0.154 0.329 0.000 0.500 0.000 0.500 0.000	</physicsShape>

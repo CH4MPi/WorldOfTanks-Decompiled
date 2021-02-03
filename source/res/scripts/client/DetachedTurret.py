@@ -47,7 +47,17 @@ class DetachedTurret(BigWorld.Entity, ScriptGameObject):
         turretModel, gunModel = self.__getModels()
         assembler.addRootPart(turretModel, TankPartNames.TURRET)
         assembler.emplacePart(gunModel, TankNodeNames.GUN_JOINT, TankPartNames.GUN)
-        bspModels = ((TankPartNames.getIdx(TankPartNames.TURRET), self.__vehDescr.turret.hitTester.bspModelName), (TankPartNames.getIdx(TankPartNames.GUN), self.__vehDescr.gun.hitTester.bspModelName))
+        parts = {TankPartNames.TURRET: self.__vehDescr.turret,
+         TankPartNames.GUN: self.__vehDescr.gun}
+        bspModels = ()
+        for partName, part in parts.iteritems():
+            partID = TankPartNames.getIdx(partName)
+            crashedHT = part.hitTesterManager.crashedModelHitTester
+            modelHT = part.hitTesterManager.modelHitTester
+            hitTester = crashedHT if crashedHT is not None else modelHT
+            bspModel = (partID, hitTester.bspModelName)
+            bspModels = bspModels + (bspModel,)
+
         collisionAssembler = BigWorld.CollisionAssembler(bspModels, BigWorld.player().spaceID)
         return [assembler, collisionAssembler]
 
@@ -247,7 +257,7 @@ class _TurretDetachmentEffects(Component):
             return
         else:
             stages, effectsList, _ = result
-            self.__pullEffectListPlayer = EffectsListPlayer(effectsList, stages, debugParent=self)
+            self.__pullEffectListPlayer = EffectsListPlayer(effectsList, stages)
             self.__pullEffectListPlayer.play(self.__turretModel, SpecialKeyPointNames.START)
             self.__pullEffectListPlayer.effectMaterialIdx = effectMaterialIdx
             return
@@ -256,7 +266,7 @@ class _TurretDetachmentEffects(Component):
         self.__stopStateEffects()
         effectName = _TurretDetachmentEffects.__EFFECT_NAMES[self.__state]
         stages, effectsList, _ = self.__detachmentEffectsDesc[effectName]
-        self.__stateEffectListPlayer = EffectsListPlayer(effectsList, stages, debugParent=self)
+        self.__stateEffectListPlayer = EffectsListPlayer(effectsList, stages)
         self.__stateEffectListPlayer.play(self.__turretModel, startKeyPoint)
 
     def __normalizeEnergy(self, energy):
@@ -372,6 +382,8 @@ class SynchronousDetachment(VehicleEnterTimer):
 
     def _onDirectTick(self, vehicle):
         turret = self.__turret
+        if not vehicle.appearance.damageState.isCurrentModelDamaged:
+            vehicle.appearance.onVehicleHealthChanged()
         if vehicle.isTurretDetachmentConfirmationNeeded:
             vehicle.confirmTurretDetachment()
             import traceback

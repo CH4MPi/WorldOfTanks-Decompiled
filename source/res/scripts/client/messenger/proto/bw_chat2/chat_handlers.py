@@ -1,6 +1,7 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/messenger/proto/bw_chat2/chat_handlers.py
 import logging
+import operator
 import weakref
 from collections import namedtuple
 import BigWorld
@@ -303,6 +304,8 @@ class UnitChatHandler(_EntityChatHandler):
     def _addHistory(self, iterator):
         if self.__history is None:
             self.__history = iterator
+            if self.__channel is not None:
+                g_messengerEvents.channels.onHistoryReceived(sorted(list(self.__history), key=operator.attrgetter('sentAt')), self.__channel)
         else:
             super(UnitChatHandler, self)._addHistory(iterator)
         return
@@ -376,6 +379,7 @@ class BattleChatCommandHandler(bw2_provider.ResponseDictHandler, IBattleCommandF
         super(BattleChatCommandHandler, self).clear()
         return
 
+    @loggerEntry
     def switch(self, scope):
         self.__targetIDs = []
         if scope != MESSENGER_SCOPE.BATTLE:
@@ -406,7 +410,6 @@ class BattleChatCommandHandler(bw2_provider.ResponseDictHandler, IBattleCommandF
         else:
             _logger.error('Battle command is not found %r', decorator)
 
-    @loggerEntry
     def registerHandlers(self):
         register = self.provider().registerHandler
         for command in BATTLE_CHAT_COMMANDS:

@@ -12,7 +12,7 @@ from gui.impl.gen import R
 from nations import INDICES as NATIONS_INDICES, MAP as NATIONS_MAP
 from PlayerEvents import g_playerEvents
 
-@loggerTarget(logKey=BC_LOG_KEYS.BC_HANGAR_HINTS, loggerCls=BootcampUILogger)
+@loggerTarget(logKey=BC_LOG_KEYS.BC_NATION_SELECT, loggerCls=BootcampUILogger)
 class BCNationsWindow(BCNationsWindowMeta):
 
     def onTryClosing(self):
@@ -34,7 +34,7 @@ class BCNationsWindow(BCNationsWindowMeta):
     def _populate(self):
         g_playerEvents.onDisconnected += self._onDisconnected
         if IS_CHINA:
-            nationsOrder = ['ussr', 'usa', 'germany']
+            nationsOrder = ['china', 'usa', 'germany']
         else:
             nationsOrder = ['ussr', 'germany', 'usa']
         voList = [ self._getVO(nationId) for nationId in nationsOrder ]

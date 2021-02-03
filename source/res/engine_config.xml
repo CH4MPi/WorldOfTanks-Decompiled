@@ -351,6 +351,12 @@
         <project>
           <name>	dog_tags_hangar.bnk	</name>
         </project>
+        <project>
+          <name>	battle_of_bloggers.bnk	</name>
+        </project>
+        <project>
+          <name>	battle_of_bloggers.pck	</name>
+        </project>
       </SFX_soundbanks_hangar>
       <SFX_soundbanks_login>
         <project>

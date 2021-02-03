@@ -20,6 +20,7 @@ from skeletons.gui.battle_session import IBattleSessionProvider
 from soft_exception import SoftException
 from vehicle_systems.tankStructure import TankSoundObjectsIndexes
 from constants import IS_EDITOR
+from wrapped_reflection_framework import reflectedNamedTuple
 if not IS_EDITOR:
     from gui.Scaleform.genConsts.EPIC_CONSTS import EPIC_CONSTS
 _logger = logging.getLogger(__name__)
@@ -27,7 +28,7 @@ COLOR_WHITE = 4294967295L
 _ALLOW_DYNAMIC_LIGHTS = True
 KeyPoint = namedtuple('KeyPoint', ('name', 'time'))
 EffectsTimeLine = namedtuple('EffectsTimeLine', ('keyPoints', 'effectsList'))
-EffectsTimeLinePrereqs = namedtuple('EffectsTimeLinePrereqs', ('keyPoints', 'effectsList', 'prereqs'))
+EffectsTimeLinePrereqs = reflectedNamedTuple('EffectsTimeLinePrereqs', ('keyPoints', 'effectsList', 'prereqs'))
 
 class SpecialKeyPointNames(object):
     START = 'start'
@@ -936,8 +937,7 @@ class _SoundEffectDesc(_EffectDesc):
                     isAlly = self.__sessionProvider.getArenaDP().isAlly(attackerID)
                     soundName = self._impactNames.impactNPC_PC
                     if isAlly:
-                        friendlyFireBonusTypes = self.__lobbyContext.getServerSettings().getFriendlyFireBonusTypes()
-                        isFriendlyFireMode = self.__sessionProvider.arenaVisitor.bonus.isFriendlyFireMode(friendlyFireBonusTypes)
+                        isFriendlyFireMode = self.__sessionProvider.arenaVisitor.bonus.isFriendlyFireMode()
                         isCustomAllyDamageEffect = self.__sessionProvider.arenaVisitor.bonus.hasCustomAllyDamageEffect()
                         if isFriendlyFireMode and isCustomAllyDamageEffect:
                             soundName = self._impactNames.impactFNPC_PC or self._impactNames.impactNPC_PC
@@ -1461,30 +1461,27 @@ def __keyPointsFromTimeLineSection(keyPointSection):
 
 
 def effectsFromSection(section):
-    if section is None:
-        return
-    else:
-        keyPoints = None
-        stagesSection = section['stages']
-        if stagesSection is not None:
-            keyPoints = __keyPointsFromStagesSection(stagesSection)
-        timeLineSection = section['timeline']
-        if timeLineSection is not None:
-            if keyPoints is None:
-                keyPoints = __keyPointsFromTimeLineSection(timeLineSection)
-            else:
-                raise SoftException('Both stages and timeline defined in effect %s' % section.name)
+    keyPoints = None
+    stagesSection = section['stages']
+    if stagesSection is not None:
+        keyPoints = __keyPointsFromStagesSection(stagesSection)
+    timeLineSection = section['timeline']
+    if timeLineSection is not None:
         if keyPoints is None:
-            raise SoftException('Neither stages nor timeline defined in effect %s' % section.name)
-        if isinstance(keyPoints, str):
-            raise SoftException('Duplicate keypoint %s in effect %s' % (keyPoints, section.name))
-        effectsSec = section['effects']
-        effectList = EffectsList(effectsSec)
-        if section['relatedEffects'] is not None:
-            for tagName, subSection in section['relatedEffects'].items():
-                effectList.relatedEffects[tagName] = effectsFromSection(subSection)
+            keyPoints = __keyPointsFromTimeLineSection(timeLineSection)
+        else:
+            raise SoftException('Both stages and timeline defined in effect %s' % section.name)
+    if keyPoints is None:
+        raise SoftException('Neither stages nor timeline defined in effect %s' % section.name)
+    if isinstance(keyPoints, str):
+        raise SoftException('Duplicate keypoint %s in effect %s' % (keyPoints, section.name))
+    effectsSec = section['effects']
+    effectList = EffectsList(effectsSec)
+    if section['relatedEffects'] is not None:
+        for tagName, subSection in section['relatedEffects'].items():
+            effectList.relatedEffects[tagName] = effectsFromSection(subSection)
 
-        return EffectsTimeLine(keyPoints, effectList)
+    return EffectsTimeLine(keyPoints, effectList)
 
 
 class RespawnDestroyEffect(object):

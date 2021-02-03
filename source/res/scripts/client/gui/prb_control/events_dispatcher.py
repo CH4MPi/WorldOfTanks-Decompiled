@@ -16,7 +16,8 @@ from gui.Scaleform.locale.CHAT import CHAT
 from gui.Scaleform.locale.MENU import MENU
 from gui.Scaleform.locale.RES_ICONS import RES_ICONS
 from gui.app_loader import sf_lobby
-from gui.prb_control.settings import CTRL_ENTITY_TYPE, FUNCTIONAL_FLAG
+from skeletons.gui.game_control import IPlatoonController
+from gui.prb_control.settings import FUNCTIONAL_FLAG
 from gui.shared import g_eventBus, events, EVENT_BUS_SCOPE
 from gui.shared.events import ChannelManagementEvent, PreBattleChannelEvent
 from helpers import dependency
@@ -28,10 +29,6 @@ from messenger.m_constants import LAZY_CHANNEL
 from skeletons.gui.game_control import IGameSessionController
 from skeletons.gui.app_loader import IAppLoader
 TOOLTIP_PRB_DATA = namedtuple('TOOLTIP_PRB_DATA', ('tooltipId', 'label'))
-_SQUAD_TYPE_TO_ALIAS = {PREBATTLE_TYPE.EVENT: PREBATTLE_ALIASES.EVENT_SQUAD_WINDOW_PY,
- PREBATTLE_TYPE.SQUAD: PREBATTLE_ALIASES.SQUAD_WINDOW_PY,
- PREBATTLE_TYPE.EPIC: PREBATTLE_ALIASES.EPIC_SQUAD_WINDOW_PY,
- PREBATTLE_TYPE.BATTLE_ROYALE: PREBATTLE_ALIASES.BATTLE_ROYALE_SQUAD_WINDOW_PY}
 _CarouselItemCtx = namedtuple('_CarouselItemCtx', ['label',
  'canClose',
  'isNotified',
@@ -49,6 +46,7 @@ _EPIC_SCREENS = (PREBATTLE_ALIASES.EPIC_TRAINING_ROOM_VIEW_PY, PREBATTLE_ALIASES
 class EventDispatcher(object):
     gameSession = dependency.descriptor(IGameSessionController)
     __appLoader = dependency.descriptor(IAppLoader)
+    platoonCtrl = dependency.descriptor(IPlatoonController)
 
     def __init__(self):
         super(EventDispatcher, self).__init__()
@@ -95,12 +93,6 @@ class EventDispatcher(object):
     def loadBattleQueue(self):
         self.__fireLoadEvent(VIEW_ALIAS.BATTLE_QUEUE)
 
-    def loadEventBattleQueue(self):
-        self.__fireLoadEvent(VIEW_ALIAS.EVENT_BATTLE_QUEUE)
-
-    def loadDifficultyLevelUnlocked(self):
-        self.__fireLoadEvent(VIEW_ALIAS.EVENT_DIFFICULTY_UNLOCK)
-
     def loadTrainingList(self):
         self.addTrainingToCarousel()
         self.__showTrainingList()
@@ -137,7 +129,7 @@ class EventDispatcher(object):
 
     def loadSquad(self, prbType, ctx=None, isTeamReady=False):
         self.__addSquadToCarousel(prbType, isTeamReady)
-        self.__showSquadWindow(prbType, ctx and ctx.get('showInvitesWindow', False))
+        self.__showSquadWindow(prbType, ctx and ctx.get('showInvitesWindow', False), toggleUI=False)
 
     def loadSandboxQueue(self):
         self.__fireShowEvent(VIEW_ALIAS.SANDBOX_QUEUE_DIALOG)
@@ -253,7 +245,7 @@ class EventDispatcher(object):
 
     def showUnitWindow(self, prbType):
         if prbType in PREBATTLE_TYPE.SQUAD_PREBATTLES:
-            self.__showSquadWindow(prbType)
+            self.__showSquadWindow(prbType, toggleUI=False)
         else:
             self.__fireShowEvent(CYBER_SPORT_ALIASES.CYBER_SPORT_WINDOW_PY)
 
@@ -347,12 +339,6 @@ class EventDispatcher(object):
                 res = True
         return res
 
-    def showEpicBattlesPrimeTimeWindow(self):
-        g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(EPICBATTLES_ALIASES.EPIC_BATTLES_PRIME_TIME_ALIAS), ctx={}), EVENT_BUS_SCOPE.LOBBY)
-
-    def showRankedPrimeTimeWindow(self):
-        g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(RANKEDBATTLES_ALIASES.RANKED_BATTLE_PRIME_TIME), ctx={}), EVENT_BUS_SCOPE.LOBBY)
-
     def _showUnitProgress(self, prbType, show):
         clientID = channel_num_gen.getClientID4Prebattle(prbType)
         if not clientID:
@@ -360,11 +346,8 @@ class EventDispatcher(object):
             return
         self.__fireEvent(events.ChannelManagementEvent(clientID, events.ChannelManagementEvent.REQUEST_TO_SHOW, {'show': show}))
 
-    def __showSquadWindow(self, prbType, showInvitesWindow=False):
-        self.__fireShowEvent(_SQUAD_TYPE_TO_ALIAS[prbType])
-        if showInvitesWindow:
-            self.__fireShowEvent(PREBATTLE_ALIASES.SEND_INVITES_WINDOW_PY, {'prbName': 'squad',
-             'ctrlType': CTRL_ENTITY_TYPE.UNIT})
+    def __showSquadWindow(self, prbType, showInvitesWindow=False, toggleUI=False):
+        self.platoonCtrl.evaluateVisibility(toggleUI=toggleUI)
 
     def __showTrainingRoom(self):
         self.__fireLoadEvent(PREBATTLE_ALIASES.TRAINING_ROOM_VIEW_PY)
@@ -485,7 +468,7 @@ class EventDispatcher(object):
         if not clientID:
             LOG_ERROR('Client ID not found', 'addSquadToCarousel')
             return
-        currCarouselItemCtx = _defCarouselItemCtx._replace(label=CHAT.CHANNELS_SQUAD, icon=RES_ICONS.MAPS_ICONS_MESSENGER_SQUAD_ICON, criteria={POP_UP_CRITERIA.VIEW_ALIAS: _SQUAD_TYPE_TO_ALIAS[prbType]}, openHandler=lambda : self.__showSquadWindow(prbType), readyData=self.__getReadyPrbData(isTeamReady), tooltipData=self.__getTooltipPrbData(CHAT.CHANNELS_SQUADREADY_TOOLTIP if isTeamReady else CHAT.CHANNELS_SQUADNOTREADY_TOOLTIP))
+        currCarouselItemCtx = _defCarouselItemCtx._replace(label=CHAT.CHANNELS_SQUAD, icon=RES_ICONS.MAPS_ICONS_MESSENGER_SQUAD_ICON, criteria={}, openHandler=lambda : self.__showSquadWindow(prbType, toggleUI=True), readyData=self.__getReadyPrbData(isTeamReady), tooltipData=self.__getTooltipPrbData(CHAT.CHANNELS_SQUADREADY_TOOLTIP if isTeamReady else CHAT.CHANNELS_SQUADNOTREADY_TOOLTIP))
         self.__handleAddPreBattleRequest(clientID, currCarouselItemCtx._asdict())
 
 

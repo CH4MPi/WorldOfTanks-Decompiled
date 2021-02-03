@@ -2,13 +2,14 @@
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/customization/context/editable_style_mode.py
 import logging
 import typing
+from functools import partial
 from CurrentVehicle import g_currentVehicle
 from adisp import process, async
 from gui.shared.gui_items.processors.common import OutfitApplier, CustomizationsSeller
 from gui.Scaleform.daapi.view.lobby.customization.context.custom_mode import CustomMode
 from gui.Scaleform.daapi.view.lobby.customization.context.styled_mode import StyledMode
 from gui.Scaleform.daapi.view.lobby.customization import shared
-from gui.Scaleform.daapi.view.lobby.customization.shared import CustomizationTabs, customizationSlotIdToUid, CustomizationSlotUpdateVO, getStylePurchaseItems, correctSlot, getCurrentVehicleAvailableRegionsMap, fitOutfit, removeItemFromEditableStyle, getEditableStyleOutfitDiff, getItemInventoryCount, getOutfitWithoutItems, ITEM_TYPE_TO_SLOT_TYPE, removeUnselectedItemsFromEditableStyle
+from gui.Scaleform.daapi.view.lobby.customization.shared import CustomizationTabs, customizationSlotIdToUid, CustomizationSlotUpdateVO, getStylePurchaseItems, correctSlot, getCurrentVehicleAvailableRegionsMap, fitOutfit, removeItemFromEditableStyle, getEditableStyleOutfitDiff, getItemInventoryCount, getOutfitWithoutItemsNoDiff, getOutfitWithoutItems, ITEM_TYPE_TO_SLOT_TYPE, removeUnselectedItemsFromEditableStyle
 from gui.customization.constants import CustomizationModes
 from gui.customization.shared import PurchaseItem, getAvailableRegions, EDITABLE_STYLE_IRREMOVABLE_TYPES, EDITABLE_STYLE_APPLY_TO_ALL_AREAS_TYPES, C11nId
 from gui.shared.gui_items import GUI_ITEM_TYPE
@@ -234,6 +235,7 @@ class EditableStyleMode(CustomMode):
         results = []
         vehicleCD = g_currentVehicle.item.descriptor.makeCompactDescr()
         modifiedOutfits = {season:outfit.copy() for season, outfit in self._modifiedOutfits.iteritems()}
+        originalOutfits = {season:outfit.copy() for season, outfit in self._originalOutfits.iteritems()}
         removeUnselectedItemsFromEditableStyle(modifiedOutfits, self.__baseOutfits, purchaseItems)
         self._soundEventChecker.lockPlayingSounds()
         outfit = self._modifiedOutfits[self.season]
@@ -250,7 +252,7 @@ class EditableStyleMode(CustomMode):
 
         self._soundEventChecker.unlockPlayingSounds()
         if self.isInited:
-            self._events.onItemsBought(purchaseItems, results)
+            self._events.onItemsBought(originalOutfits, purchaseItems, results)
         callback(self)
 
     def _fillOutfits(self):
@@ -290,14 +292,26 @@ class EditableStyleMode(CustomMode):
             result = super(EditableStyleMode, self)._selectItem(intCD, progressionLevel)
             return result
 
-    @wrapperdProcess('sellItem')
-    def _sellItem(self, item, count):
-        if item.fullInventoryCount(g_currentVehicle.item.intCD) < count:
-            vehicleCD = g_currentVehicle.item.descriptor.makeCompactDescr()
-            for season, outfit in getOutfitWithoutItems(self.getOutfitsInfo(), item.intCD, count):
+    def _iterOutfitsWithoutItem(self, item, count):
+        season = g_currentVehicle.item.getAnyOutfitSeason()
+        isMountedStyleSelected = g_currentVehicle.item.getOutfit(season).id == self.__style.id
+        if isMountedStyleSelected:
+            iterOutfitsWithoutItem = partial(getOutfitWithoutItems, self.getOutfitsInfo(), item.intCD, count)
+        else:
+            outfits = {season:outfit for season, outfit in g_currentVehicle.item.outfits.iteritems()}
+            iterOutfitsWithoutItem = partial(getOutfitWithoutItemsNoDiff, outfits, item.intCD, count)
+        vehicleCD = g_currentVehicle.item.descriptor.makeCompactDescr()
+        for season, outfit in iterOutfitsWithoutItem():
+            if isMountedStyleSelected:
                 baseOutfit = self.__baseOutfits[season]
                 diff = getEditableStyleOutfitDiff(outfit, baseOutfit)
                 outfit = self.__style.getOutfit(season, vehicleCD=vehicleCD, diff=diff)
+            yield (season, outfit)
+
+    @wrapperdProcess('sellItem')
+    def _sellItem(self, item, count):
+        if item.fullInventoryCount(g_currentVehicle.item.intCD) < count:
+            for season, outfit in self._iterOutfitsWithoutItem(item, count):
                 yield OutfitApplier(g_currentVehicle.item, outfit, season).request()
 
         yield CustomizationsSeller(g_currentVehicle.item, item, count).request()

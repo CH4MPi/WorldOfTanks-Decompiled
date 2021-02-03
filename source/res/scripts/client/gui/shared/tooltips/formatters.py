@@ -49,19 +49,6 @@ def packTextBlockData(text, useHtml=True, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_T
      'useHtml': useHtml}, padding, blockWidth)
 
 
-def packGlowTextBlockData(text, useHtml=True, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_GLOW_TEXT_BLOCK_LINKAGE, distance=0, angle=0, color=16711680, alpha=1, blurX=16, blurY=16, strength=2, quality=2, padding=None, blockWidth=0):
-    return packBlockDataItem(linkage, {'text': text,
-     'useHtml': useHtml,
-     'distance': distance,
-     'angle': angle,
-     'color': color,
-     'alpha': alpha,
-     'blurX': blurX,
-     'blurY': blurY,
-     'strength': strength,
-     'quality': quality}, padding, blockWidth)
-
-
 def packTextWithBgBlockData(text, useHtml=True, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_TEXT_WITH_BG_BLOCK_LINKAGE, padding=None, bgColor=-1, align=BLOCKS_TOOLTIP_TYPES.ALIGN_LEFT):
     return packBlockDataItem(linkage, {'text': text,
      'useHtml': useHtml,
@@ -126,12 +113,13 @@ def packTextParameterWithIconBlockData(name, value, icon, linkage=BLOCKS_TOOLTIP
     return packBlockDataItem(linkage, data, padding)
 
 
-def packTitleDescParameterWithIconBlockData(title, value='', icon=None, desc=None, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_TITLE_DESC_PARAMETER_WITH_ICON_BLOCK_LINKAGE, valueAtRight=False, valueWidth=-1, gap=5, titlePadding=None, valuePadding=None, iconPadding=None, padding=None, iconAlpha=1):
+def packTitleDescParameterWithIconBlockData(title, value='', icon=None, desc=None, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_TITLE_DESC_PARAMETER_WITH_ICON_BLOCK_LINKAGE, valueAtRight=False, valueWidth=-1, gap=5, titlePadding=None, valuePadding=None, iconPadding=None, padding=None, iconAlpha=1, iconZIndex=-1):
     data = {'name': title,
      'value': value,
      'valueAtRight': valueAtRight,
      'iconAlpha': iconAlpha,
-     'gap': gap}
+     'gap': gap,
+     'iconZIndex': iconZIndex}
     if icon is not None:
         data['icon'] = icon
     if valueWidth != -1:
@@ -531,10 +519,11 @@ def packMoneyAndXpBlocks(tooltipBlocks, btnType, valueBlocks, alternativeData=No
     return tooltipBlocks
 
 
-def packSeparatorBlockData(paddings=None, align=BLOCKS_TOOLTIP_TYPES.ALIGN_LEFT):
+def packSeparatorBlockData(paddings=None, align=BLOCKS_TOOLTIP_TYPES.ALIGN_LEFT, width=-1):
     if paddings is None:
         paddings = packPadding(top=-40)
-    return packImageBlockData(img=RES_ICONS.MAPS_ICONS_LIBRARY_SEPARATOR, align=align, padding=paddings)
+    height = 40 if width > 0 else -1
+    return packImageBlockData(img=RES_ICONS.MAPS_ICONS_LIBRARY_SEPARATOR, align=align, padding=paddings, width=width, height=height)
 
 
 def packItemPriceBlockData(price, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_COMPOUND_PRICE_BLOCK_LINKAGE, padding=None):
@@ -566,3 +555,12 @@ def packCustomizationCharacteristicBlockData(icon, text, linkage=BLOCKS_TOOLTIP_
 def packImageListIconData(imgSrc, imgAlpha=1):
     return {'imgSrc': imgSrc,
      'imgAlpha': imgAlpha}
+
+
+def packBobProgressionTableBlockData(team, progress, place, isHighlighted=False, isLikeHidden=False, linkage=BLOCKS_TOOLTIP_TYPES.TOOLTIP_BOB_TEAM_PROGRESS_BLOCK, padding=None, blockWidth=0):
+    data = {'team': team,
+     'progress': progress,
+     'place': place,
+     'isHighlighted': isHighlighted,
+     'isLikeHidden': isLikeHidden}
+    return packBlockDataItem(linkage, data, padding, blockWidth)

@@ -1,15 +1,15 @@
 <germany_nonCN.xml>
-  <germany:G140_HWK_306>	ussr	</germany:G140_HWK_306>
-  <xmlns:germany>	germany	</xmlns:germany>
-  <germany:G140_HWK_305>	usa	</germany:G140_HWK_305>
+  <germany:G140_HWK_307>	ussr	</germany:G140_HWK_307>
+  <germany:G140_HWK_300>	germany	</germany:G140_HWK_300>
+  <germany:G140_HWK_306>	usa	</germany:G140_HWK_306>
   <xmlns:china>	china	</xmlns:china>
   <xmlns:france>	france	</xmlns:france>
-  <germany:G140_HWK_304>	uk	</germany:G140_HWK_304>
-  <germany:G140_HWK_301>	japan	</germany:G140_HWK_301>
+  <germany:G140_HWK_305>	uk	</germany:G140_HWK_305>
+  <germany:G140_HWK_302>	japan	</germany:G140_HWK_302>
   <xmlns:czech>	czech	</xmlns:czech>
-  <germany:G140_HWK_303>	sweden	</germany:G140_HWK_303>
-  <germany:G140_HWK_302>	poland	</germany:G140_HWK_302>
-  <germany:G140_HWK_300>	italy	</germany:G140_HWK_300>
+  <germany:G140_HWK_304>	sweden	</germany:G140_HWK_304>
+  <germany:G140_HWK_303>	poland	</germany:G140_HWK_303>
+  <germany:G140_HWK_301>	italy	</germany:G140_HWK_301>
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
@@ -86,7 +86,6 @@
         <G12_Ltraktor>	2 2 0.000000 0.000000	</G12_Ltraktor>
         <G12_Ltraktor_bot>	2.1 2.1 0.000000 0.000000	</G12_Ltraktor_bot>
         <G134_PzKpfw_VII>	3.3 3.4 0.000000 0.000000	</G134_PzKpfw_VII>
-        <G134_PzKpfw_VII_bob>	3.3 3.4 0.000000 0.000000	</G134_PzKpfw_VII_bob>
         <G136_Tiger_131>	2.1 2.1 0.000000 0.000000	</G136_Tiger_131>
         <G137_PzVI_Tiger_217>	0.7 0.7 0.000000 0.000000	</G137_PzVI_Tiger_217>
         <G138_VK168_02>	1.3 1.3 0.000000 0.000000	</G138_VK168_02>
@@ -155,7 +154,7 @@
         <G73_E50_Ausf_M>	2.1 2.1 0.000000 0.000000	</G73_E50_Ausf_M>
         <G76_Pz_Sfl_IVc>	2.7 2.7 0.000000 0.000000	</G76_Pz_Sfl_IVc>
         <G77_PzIV_Schmalturm>	3.7 3.7 0.16 0.01	</G77_PzIV_Schmalturm>
-        <G78_Panther_M10>	3.5 3.6 0.52 0.24	</G78_Panther_M10>
+        <G78_Panther_M10>	2.1 2.1 0.000000 0.000000	</G78_Panther_M10>
         <G79_Pz_IV_AusfGH>	3.5 3.5 0.000000 0.000000	</G79_Pz_IV_AusfGH>
         <G80_Pz_IV_AusfD>	1.5 1.5 0.000000 0.000000	</G80_Pz_IV_AusfD>
         <G80_Pz_IV_AusfD_bootcamp>	3 3 0.000000 0.000000	</G80_Pz_IV_AusfD_bootcamp>
@@ -168,6 +167,7 @@
         <G87_VK3002DB_V1>	3.2 3.2 1.4 0.000000	</G87_VK3002DB_V1>
         <G88_Indien_Panzer>	3.3 3.3 0.37 0.000000	</G88_Indien_Panzer>
         <G89_Leopard1>	3.5 3.4 0.000000 0.000000	</G89_Leopard1>
+        <G89_Leopard1_bob>	3.5 3.4 0.000000 0.000000	</G89_Leopard1_bob>
         <G90_DW_II>	2.1 2.1 0.000000 0.000000	</G90_DW_II>
         <G91_Pro_Ag_A>	3.8 3.9 0.2 0.000000	</G91_Pro_Ag_A>
         <G92_VK7201>	3.3 3.4 0.000000 0.000000	</G92_VK7201>
@@ -183,8 +183,14 @@
         <germany:G140_HWK_30>	1.32 1.32 0.000000 0.000000	</germany:G140_HWK_30>
         <germany:G143_E75_TS>	1.5 1.5 0.44 0.28	</germany:G143_E75_TS>
         <germany:G144_Kpz_50t>	1.32 1.32 0.000000 0.000000	</germany:G144_Kpz_50t>
+        <germany:G147_Kunze_Panzer>	1.32 1.32 0.000000 0.000000	</germany:G147_Kunze_Panzer>
         <germany:G18_JagdPanther>	5.4 5.6 0.3 0.32	</germany:G18_JagdPanther>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.334568  2.335225	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -262,7 +268,6 @@
         <G12_Ltraktor>	2.6 2.6 0.000000 0.000000	</G12_Ltraktor>
         <G12_Ltraktor_bot>	2.5 2.5 0.000000 0.000000	</G12_Ltraktor_bot>
         <G134_PzKpfw_VII>	3.8 3.8 0.26 0.000000	</G134_PzKpfw_VII>
-        <G134_PzKpfw_VII_bob>	3.8 3.8 0.26 0.000000	</G134_PzKpfw_VII_bob>
         <G136_Tiger_131>	2 2 0.000000 0.000000	</G136_Tiger_131>
         <G137_PzVI_Tiger_217>	0.9 0.9 0.000000 0.000000	</G137_PzVI_Tiger_217>
         <G138_VK168_02>	1.9 1.9 0.000000 0.000000	</G138_VK168_02>
@@ -331,7 +336,7 @@
         <G73_E50_Ausf_M>	3 3 0.000000 0.000000	</G73_E50_Ausf_M>
         <G76_Pz_Sfl_IVc>	3.1 3.1 0.8 0.7	</G76_Pz_Sfl_IVc>
         <G77_PzIV_Schmalturm>	5.7 5.7 0.000000 0.000000	</G77_PzIV_Schmalturm>
-        <G78_Panther_M10>	5 5 0.000000 0.000000	</G78_Panther_M10>
+        <G78_Panther_M10>	3 3 0.000000 0.000000	</G78_Panther_M10>
         <G79_Pz_IV_AusfGH>	5 5 0.000000 0.000000	</G79_Pz_IV_AusfGH>
         <G80_Pz_IV_AusfD>	1.5 1.5 5.3 0.000000	</G80_Pz_IV_AusfD>
         <G80_Pz_IV_AusfD_bootcamp>	5 5 0.000000 0.000000	</G80_Pz_IV_AusfD_bootcamp>
@@ -344,6 +349,7 @@
         <G87_VK3002DB_V1>	3.6 3.6 0.000000 0.000000	</G87_VK3002DB_V1>
         <G88_Indien_Panzer>	3.5 3.5 0.000000 0.000000	</G88_Indien_Panzer>
         <G89_Leopard1>	5 5 0.000000 0.000000	</G89_Leopard1>
+        <G89_Leopard1_bob>	5 5 0.000000 0.000000	</G89_Leopard1_bob>
         <G90_DW_II>	2.2 2.2 0.000000 0.000000	</G90_DW_II>
         <G91_Pro_Ag_A>	5 5 0.000000 0.000000	</G91_Pro_Ag_A>
         <G92_VK7201>	3.8 3.8 0.26 0.000000	</G92_VK7201>
@@ -359,8 +365,14 @@
         <germany:G140_HWK_30>	1.13 1.13 0.000000 0.000000	</germany:G140_HWK_30>
         <germany:G143_E75_TS>	2 2 0.16 0.000000	</germany:G143_E75_TS>
         <germany:G144_Kpz_50t>	1.13 1.13 0.000000 0.000000	</germany:G144_Kpz_50t>
+        <germany:G147_Kunze_Panzer>	1.13 1.13 0.000000 0.000000	</germany:G147_Kunze_Panzer>
         <germany:G18_JagdPanther>	4.7 4.5 0.26 0.000000	</germany:G18_JagdPanther>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.956243  2.973191	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -437,7 +449,6 @@
         <G12_Ltraktor>	2.8 2.8 0.000000 0.000000	</G12_Ltraktor>
         <G12_Ltraktor_bot>	2.6 2.6 0.000000 0.000000	</G12_Ltraktor_bot>
         <G134_PzKpfw_VII>	2.7 2.8 0.000000 0.000000	</G134_PzKpfw_VII>
-        <G134_PzKpfw_VII_bob>	2.7 2.8 0.000000 0.000000	</G134_PzKpfw_VII_bob>
         <G136_Tiger_131>	1.9 1.9 1.5 0.000000	</G136_Tiger_131>
         <G137_PzVI_Tiger_217>	0.7 0.7 0.000000 0.000000	</G137_PzVI_Tiger_217>
         <G138_VK168_02>	1.6 1.6 0.000000 0.000000	</G138_VK168_02>
@@ -506,7 +517,7 @@
         <G73_E50_Ausf_M>	2.4 2.4 0.000000 0.000000	</G73_E50_Ausf_M>
         <G76_Pz_Sfl_IVc>	2.7 2.7 0.000000 0.000000	</G76_Pz_Sfl_IVc>
         <G77_PzIV_Schmalturm>	4.5 4.5 0.13 0.000000	</G77_PzIV_Schmalturm>
-        <G78_Panther_M10>	2.5 2.6 0.32 0.18	</G78_Panther_M10>
+        <G78_Panther_M10>	2.4 2.4 0.000000 0.000000	</G78_Panther_M10>
         <G79_Pz_IV_AusfGH>	2.8 2.9 0.000000 0.000000	</G79_Pz_IV_AusfGH>
         <G80_Pz_IV_AusfD>	1.2 1.2 0.000000 0.000000	</G80_Pz_IV_AusfD>
         <G80_Pz_IV_AusfD_bootcamp>	3 3 0.000000 0.000000	</G80_Pz_IV_AusfD_bootcamp>
@@ -519,6 +530,7 @@
         <G87_VK3002DB_V1>	2.7 2.8 0.000000 0.000000	</G87_VK3002DB_V1>
         <G88_Indien_Panzer>	2.2 2.2 0.15 0.000000	</G88_Indien_Panzer>
         <G89_Leopard1>	3.4 3.5 0.000000 0.000000	</G89_Leopard1>
+        <G89_Leopard1_bob>	3.4 3.5 0.000000 0.000000	</G89_Leopard1_bob>
         <G90_DW_II>	2.2 2.2 0.000000 0.000000	</G90_DW_II>
         <G91_Pro_Ag_A>	3.4 3.4 0.5 0.000000	</G91_Pro_Ag_A>
         <G92_VK7201>	2.7 2.8 4.7 0.000000	</G92_VK7201>
@@ -534,8 +546,14 @@
         <germany:G140_HWK_30>	1.52 1.52 0.000000 0.000000	</germany:G140_HWK_30>
         <germany:G143_E75_TS>	2 2 0.04 0.000000	</germany:G143_E75_TS>
         <germany:G144_Kpz_50t>	1.52 1.52 0.000000 0.000000	</germany:G144_Kpz_50t>
+        <germany:G147_Kunze_Panzer>	1.52 1.52 0.000000 0.000000	</germany:G147_Kunze_Panzer>
         <germany:G18_JagdPanther>	3.5 3.3 0.16 0.000000	</germany:G18_JagdPanther>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.394127  2.393865	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -608,7 +626,6 @@
         <G12_Ltraktor>	1.9 1.9 0.58 0.000000	</G12_Ltraktor>
         <G12_Ltraktor_bot>	2 2 0.000000 0.000000	</G12_Ltraktor_bot>
         <G134_PzKpfw_VII>	2.6 3.2 0.06 0.000000	</G134_PzKpfw_VII>
-        <G134_PzKpfw_VII_bob>	2.6 3.2 0.06 0.000000	</G134_PzKpfw_VII_bob>
         <G136_Tiger_131>	2.2 2.2 0.000000 0.000000	</G136_Tiger_131>
         <G137_PzVI_Tiger_217>	0.8 0.8 0.000000 0.000000	</G137_PzVI_Tiger_217>
         <G138_VK168_02>	1.2 1.2 0.000000 0.000000	</G138_VK168_02>
@@ -677,7 +694,7 @@
         <G73_E50_Ausf_M>	2.1 2.1 0.2 0.000000	</G73_E50_Ausf_M>
         <G76_Pz_Sfl_IVc>	2 2 0.000000 0.000000	</G76_Pz_Sfl_IVc>
         <G77_PzIV_Schmalturm>	5.6 5.6 0.000000 0.000000	</G77_PzIV_Schmalturm>
-        <G78_Panther_M10>	2.3 2.3 0.000000 0.000000	</G78_Panther_M10>
+        <G78_Panther_M10>	2.1 2.1 0.2 0.000000	</G78_Panther_M10>
         <G79_Pz_IV_AusfGH>	2.9 3 0.36 0.000000	</G79_Pz_IV_AusfGH>
         <G80_Pz_IV_AusfD>	1.2 1.2 2.2 0.000000	</G80_Pz_IV_AusfD>
         <G80_Pz_IV_AusfD_bootcamp>	3 3 0.000000 0.000000	</G80_Pz_IV_AusfD_bootcamp>
@@ -690,6 +707,7 @@
         <G87_VK3002DB_V1>	3 3 0.000000 0.000000	</G87_VK3002DB_V1>
         <G88_Indien_Panzer>	1.9 1.9 0.000000 0.000000	</G88_Indien_Panzer>
         <G89_Leopard1>	2.2 2.2 0.000000 0.000000	</G89_Leopard1>
+        <G89_Leopard1_bob>	2.2 2.2 0.000000 0.000000	</G89_Leopard1_bob>
         <G90_DW_II>	1.3 1.3 0.000000 0.000000	</G90_DW_II>
         <G91_Pro_Ag_A>	2.7 2.5 0.21 0.000000	</G91_Pro_Ag_A>
         <G92_VK7201>	2.6 3.2 0.06 0.000000	</G92_VK7201>
@@ -705,8 +723,14 @@
         <germany:G140_HWK_30>	1.57 1.57 0.000000 0.000000	</germany:G140_HWK_30>
         <germany:G143_E75_TS>	2 2 0.000000 0.000000	</germany:G143_E75_TS>
         <germany:G144_Kpz_50t>	1.57 1.57 0.000000 0.000000	</germany:G144_Kpz_50t>
+        <germany:G147_Kunze_Panzer>	1.57 1.57 0.000000 0.000000	</germany:G147_Kunze_Panzer>
         <germany:G18_JagdPanther>	3 3 0.000000 0.000000	</germany:G18_JagdPanther>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.198556  2.190356	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
   <itemGroup>
@@ -781,7 +805,6 @@
         <G12_Ltraktor>	2.1 2.1 0.000000 0.000000	</G12_Ltraktor>
         <G12_Ltraktor_bot>	2.1 2.1 0.000000 0.000000	</G12_Ltraktor_bot>
         <G134_PzKpfw_VII>	5 5 0.000000 0.000000	</G134_PzKpfw_VII>
-        <G134_PzKpfw_VII_bob>	5 5 0.000000 0.000000	</G134_PzKpfw_VII_bob>
         <G136_Tiger_131>	1.8 1.8 0.000000 0.000000	</G136_Tiger_131>
         <G138_VK168_02>	1.9 1.9 0.000000 0.000000	</G138_VK168_02>
         <G13_VK3001H>	4.3 4.3 0.000000 0.000000	</G13_VK3001H>
@@ -849,7 +872,7 @@
         <G73_E50_Ausf_M>	2.6 2.6 0.000000 0.000000	</G73_E50_Ausf_M>
         <G76_Pz_Sfl_IVc>	3.8 3.8 1.5 1.9	</G76_Pz_Sfl_IVc>
         <G77_PzIV_Schmalturm>	5 5 0.000000 0.000000	</G77_PzIV_Schmalturm>
-        <G78_Panther_M10>	5 5 0.000000 0.000000	</G78_Panther_M10>
+        <G78_Panther_M10>	2.6 2.6 0.000000 0.000000	</G78_Panther_M10>
         <G79_Pz_IV_AusfGH>	5 5 0.000000 0.000000	</G79_Pz_IV_AusfGH>
         <G80_Pz_IV_AusfD>	1.7 1.7 0.000000 0.000000	</G80_Pz_IV_AusfD>
         <G80_Pz_IV_AusfD_bootcamp>	3 3 0.000000 0.000000	</G80_Pz_IV_AusfD_bootcamp>
@@ -862,6 +885,7 @@
         <G87_VK3002DB_V1>	4.1 4.1 0.000000 0.000000	</G87_VK3002DB_V1>
         <G88_Indien_Panzer>	4.3 4.3 0.000000 0.000000	</G88_Indien_Panzer>
         <G89_Leopard1>	5 5 0.000000 0.000000	</G89_Leopard1>
+        <G89_Leopard1_bob>	5 5 0.000000 0.000000	</G89_Leopard1_bob>
         <G90_DW_II>	2.5 2.5 0.000000 0.000000	</G90_DW_II>
         <G91_Pro_Ag_A>	5 5 0.000000 0.000000	</G91_Pro_Ag_A>
         <G92_VK7201>	1.6 1.6 2.1 8.5	</G92_VK7201>
@@ -878,8 +902,14 @@
         <germany:G142_M48RPz>	1.3 1.3 3.93 0.47	</germany:G142_M48RPz>
         <germany:G143_E75_TS>	1.72 1.72 0.000000 0.000000	</germany:G143_E75_TS>
         <germany:G144_Kpz_50t>	1.45 1.45 0.000000 0.000000	</germany:G144_Kpz_50t>
+        <germany:G147_Kunze_Panzer>	1.45 1.45 0.000000 0.000000	</germany:G147_Kunze_Panzer>
         <germany:G18_JagdPanther>	5 5 0.000000 0.000000	</germany:G18_JagdPanther>
       </tiling>
+      <tilingSettings>
+        <type>	relative	</type>
+        <factor>	2.768587  2.769468	</factor>
+        <offset>	0.000000 0.000000	</offset>
+      </tilingSettings>
     </camouflage>
   </itemGroup>
 </germany_nonCN.xml>

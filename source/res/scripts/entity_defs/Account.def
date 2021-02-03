@@ -1,4 +1,6 @@
 <Account.def>
+  <xmlns:xsi>	http://www.w3.org/2001/XMLSchema-instance	</xmlns:xsi>
+  <xsi:noNamespaceSchemaLocation>	../../../tools/schema/entity_def.xsd	</xsi:noNamespaceSchemaLocation>
   <Implements>
     <Interface>	Chat	</Interface>
     <Interface>	PlayerMessenger_chat2	</Interface>
@@ -31,11 +33,11 @@
     <Interface>	AvatarCreator	</Interface>
   </Implements>
   <Properties>
-    <requiredVersion_11010>
+    <requiredVersion_11110>
       <Type>	STRING	</Type>
       <Flags>	BASE_AND_CLIENT	</Flags>
-      <Default>	na_1.10.1_1	</Default>
-    </requiredVersion_11010>
+      <Default>	eu_1.11.1_2	</Default>
+    </requiredVersion_11110>
     <name>
       <Type>	STRING	</Type>
       <Flags>	BASE_AND_CLIENT	</Flags>
@@ -210,10 +212,6 @@
     <onKickedFromQueue>
       <Arg>	UINT8	</Arg>
     </onKickedFromQueue>
-    <onUnitAssemblerSuccess>
-      <Arg>	UINT64	</Arg>
-      <Arg>	INT32	</Arg>
-    </onUnitAssemblerSuccess>
     <onArenaCreated></onArenaCreated>
     <onIGRTypeChanged>
       <Arg>	STRING	</Arg>
@@ -501,8 +499,8 @@
     <onGameSessionFinish></onGameSessionFinish>
     <makeDenunciation>
       <Exposed></Exposed>
-      <Arg>	OBJECT_ID	</Arg>
-      <Arg>	INT64	</Arg>
+      <Arg>	DB_ID	</Arg>
+      <Arg>	INT32	</Arg>
       <Arg>	INT8	</Arg>
     </makeDenunciation>
     <banUnbanUser>

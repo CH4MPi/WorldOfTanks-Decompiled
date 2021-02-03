@@ -15,7 +15,7 @@ from gui.Scaleform.locale.MENU import MENU
 from gui.impl import backport
 from gui.impl.gen.resources import R
 from gui.periodic_battles.models import CalendarStatusVO
-from gui.ranked_battles.constants import PrimeTimeStatus
+from gui.shared.prime_time_constants import PrimeTimeStatus
 from gui.server_events.events_dispatcher import showMissionsCategories
 from gui.shared import event_dispatcher
 from gui.shared.formatters import text_styles, icons
@@ -184,12 +184,12 @@ class EpicBattlesWidget(EpicBattlesWidgetMeta):
                     if nextCycle is not None:
                         cycleNumber = nextCycle.getEpicCycleNumber()
                         timeLeftStr = time_utils.getTillTimeString(nextCycle.startDate - currTime, EPIC_BATTLE.STATUS_TIMELEFT, removeLeadingZeros=True)
-                        alertStr = backport.text(rAlertMsgBlock.startIn(), cycle=int2roman(cycleNumber), time=timeLeftStr)
+                        alertStr = backport.text(rAlertMsgBlock.startIn.single() if nextSeason.isSingleCycleSeason() else rAlertMsgBlock.startIn.multi(), cycle=int2roman(cycleNumber), time=timeLeftStr)
                 if not alertStr:
                     prevSeason = currSeason or self.__eventProgression.getPreviousSeason()
                     if prevSeason is not None:
                         prevCycle = prevSeason.getLastActiveCycleInfo(currTime)
                         if prevCycle is not None:
                             cycleNumber = prevCycle.getEpicCycleNumber()
-                            alertStr = backport.text(rAlertMsgBlock.noCycleMessage(), cycle=int2roman(cycleNumber))
+                            alertStr = backport.text(rAlertMsgBlock.noCycleMessage.single() if prevSeason.isSingleCycleSeason() else rAlertMsgBlock.noCycleMessage.multi(), cycle=int2roman(cycleNumber))
         return text_styles.vehicleStatusCriticalText(alertStr)

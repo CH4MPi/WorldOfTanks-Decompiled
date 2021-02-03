@@ -11,8 +11,6 @@ from gui.battle_control import avatar_getter, vehicle_getter
 from gui.battle_control.arena_info import settings
 from gui.battle_control.dog_tag_composer import layoutComposer
 from gui.doc_loaders.badges_loader import getSelectedByLayout
-from gui.impl import backport
-from gui.impl.gen import R
 from gui.shared.gui_items import Vehicle
 from gui.shared.gui_items.Vehicle import VEHICLE_TAGS, VEHICLE_CLASS_NAME
 from helpers import dependency, i18n
@@ -253,18 +251,12 @@ class VehicleTypeInfoVO(object):
 
 
 class VehicleArenaInfoVO(object):
-    __slots__ = ('vehicleID', 'team', 'player', 'playerStatus', 'vehicleType', 'vehicleStatus', 'prebattleID', 'events', 'squadIndex', 'invitationDeliveryStatus', 'ranked', 'gameModeSpecific', 'overriddenBadge', 'badges', '__prefixBadge', '__suffixBadge', 'dogTag')
+    __slots__ = ('vehicleID', 'team', 'player', 'playerStatus', 'vehicleType', 'vehicleStatus', 'prebattleID', 'events', 'squadIndex', 'invitationDeliveryStatus', 'ranked', 'gameModeSpecific', 'overriddenBadge', 'badges', '__prefixBadge', '__suffixBadge', 'dogTag', 'bobInfo')
 
-    def __init__(self, vehicleID, team=0, isAlive=None, isAvatarReady=None, isTeamKiller=None, prebattleID=None, events=None, forbidInBattleInvitations=False, ranked=None, badges=None, overriddenBadge=None, **kwargs):
+    def __init__(self, vehicleID, team=0, isAlive=None, isAvatarReady=None, isTeamKiller=None, prebattleID=None, events=None, forbidInBattleInvitations=False, ranked=None, badges=None, overriddenBadge=None, bobInfo=None, **kwargs):
         super(VehicleArenaInfoVO, self).__init__()
         self.vehicleID = vehicleID
         self.team = team
-        arena = avatar_getter.getArena()
-        guiType = None if not arena else arena.guiType
-        if guiType and guiType == ARENA_GUI_TYPE.EVENT_BATTLES and kwargs:
-            if kwargs['accountDBID'] == 0:
-                name = kwargs['name']
-                kwargs['name'] = backport.text(R.strings.event.bot_name.dyn(name)())
         self.player = PlayerInfoVO(forbidInBattleInvitations=forbidInBattleInvitations, **kwargs)
         self.vehicleType = VehicleTypeInfoVO(**kwargs)
         self.prebattleID = prebattleID
@@ -274,6 +266,9 @@ class VehicleArenaInfoVO(object):
         self.events = events or {}
         self.squadIndex = 0
         self.ranked = PlayerRankedInfoVO(ranked) if ranked is not None else PlayerRankedInfoVO()
+        self.bobInfo = PlayerBobInfoVO(*bobInfo) if bobInfo is not None else PlayerBobInfoVO()
+        arena = avatar_getter.getArena()
+        guiType = None if not arena else arena.guiType
         self.gameModeSpecific = GameModeDataVO(guiType, True)
         self.overriddenBadge = overriddenBadge
         self.badges = badges or ((), ())
@@ -357,6 +352,12 @@ class VehicleArenaInfoVO(object):
             invalidate = _INVALIDATE_OP.addIfNot(invalidate, _INVALIDATE_OP.VEHICLE_INFO)
         return invalidate
 
+    def updateBob(self, invalidate=_INVALIDATE_OP.NONE, bobInfo=None, **kwargs):
+        if bobInfo is not None:
+            self.bobInfo = PlayerBobInfoVO(*bobInfo)
+            invalidate = _INVALIDATE_OP.addIfNot(invalidate, _INVALIDATE_OP.VEHICLE_INFO)
+        return invalidate
+
     def updateEvents(self, invalidate=_INVALIDATE_OP.NONE, events=None, **kwargs):
         if events is not None:
             self.events.update(events)
@@ -385,6 +386,7 @@ class VehicleArenaInfoVO(object):
         invalidate = self.updateInvitationStatus(invalidate=invalidate, **kwargs)
         invalidate = self.updateRanked(invalidate=invalidate, **kwargs)
         invalidate = self.updateEvents(invalidate=invalidate, **kwargs)
+        invalidate = self.updateBob(invalidate=invalidate, **kwargs)
         return invalidate
 
     def getSquadID(self):
@@ -431,7 +433,7 @@ class VehicleArenaInfoVO(object):
     def isChatCommandsDisabled(self, isAlly):
         arena = avatar_getter.getArena()
         isEvent = arena.guiType == ARENA_GUI_TYPE.EVENT_BATTLES if arena else False
-        if not self.player.avatarSessionID and not isEvent:
+        if not (self.player.avatarSessionID or isEvent):
             if isAlly:
                 return True
             if arena is None or arena.guiType not in (ARENA_GUI_TYPE.RANDOM, ARENA_GUI_TYPE.TRAINING, ARENA_GUI_TYPE.EPIC_BATTLE):
@@ -623,6 +625,16 @@ class PlayerRankedInfoVO(object):
     def __init__(self, rank=None):
         super(PlayerRankedInfoVO, self).__init__()
         self.rank, self.rankStep = rank or (0, 0)
+
+
+class PlayerBobInfoVO(object):
+    __slots__ = ('bloggerID', 'isBlogger')
+
+    def __init__(self, bloggerID=None, isBlogger=False):
+        super(PlayerBobInfoVO, self).__init__()
+        self.bloggerID = bloggerID if bloggerID is not None else -1
+        self.isBlogger = isBlogger
+        return
 
 
 class ChatCommandVO(object):

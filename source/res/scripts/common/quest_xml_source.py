@@ -195,7 +195,6 @@ class Source(object):
                 questClientData['conditions'] = mainNode.questClientConditions
             if mainNode.groupContent:
                 questClientData['groupContent'] = mainNode.groupContent
-                mainNode.info['groupContent'] = mainNode.groupContent
             self.__stripServerQuestData(questClientData)
             mainNode.info['questClientData'] = questClientData
             nodes.setdefault(eventType, []).append(mainNode)
@@ -490,7 +489,8 @@ class Source(object):
          'eventCoin',
          'entitlement',
          'rankedDailyBattles',
-         'rankedBonusBattles'}
+         'rankedBonusBattles',
+         'dogTagComponent'}
         if eventType in (EVENT_TYPE.BATTLE_QUEST, EVENT_TYPE.PERSONAL_QUEST, EVENT_TYPE.NT_QUEST):
             bonusTypes.update(('xp', 'tankmenXP', 'xpFactor', 'creditsFactor', 'freeXPFactor', 'tankmenXPFactor'))
         if eventType in (EVENT_TYPE.NT_QUEST,):
@@ -672,10 +672,10 @@ class Source(object):
         node.addChild(section.has_key('force'))
 
     def __readCondition_attackReason(self, _, section, node):
-        attackReasons = set([ int(id) for id in section.asString.split() ])
-        if any((not 0 <= x < len(ATTACK_REASONS) for x in attackReasons)):
+        attackReason = section.asInt
+        if not 0 <= attackReason < len(ATTACK_REASONS):
             raise SoftException('Invalid attack reason index')
-        node.addChild(attackReasons)
+        node.addChild(section.asInt)
 
     def __readCondition_set(self, _, section, node):
         node.addChild(set([ int(id) for id in section.asString.split() ]))

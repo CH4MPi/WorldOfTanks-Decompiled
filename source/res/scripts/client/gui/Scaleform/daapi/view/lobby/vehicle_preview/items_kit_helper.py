@@ -34,9 +34,13 @@ from gui.Scaleform.locale.RES_ICONS import RES_ICONS
 from gui.Scaleform.genConsts.TOOLTIPS_CONSTANTS import TOOLTIPS_CONSTANTS
 from gui.shared.formatters import text_styles, icons
 
-class ITEM_SORT_RULE(CONST_CONTAINER):
+class ItemSortRule(CONST_CONTAINER):
     REGULAR = 'regular'
     FRONTLINE = 'frontline'
+
+
+class EventDataType(CONST_CONTAINER):
+    EVENT_PROGRESSION = 'eventProgression'
 
 
 OFFER_CHANGED_EVENT = 'offerChanged'
@@ -665,7 +669,7 @@ class _CustomCrewSkillsNodeContainer(_NodeContainer):
 
 def getDataOneVehicle(itemsPack, vehicle, vehicleGroupId):
     rule = __getItemsSortRule(itemsPack)
-    if rule == ITEM_SORT_RULE.FRONTLINE:
+    if rule == ItemSortRule.FRONTLINE:
         root = __getFrontlinePackRule()
     else:
         root = __getDefaultPackRule()
@@ -698,7 +702,7 @@ def getCouponBonusesForItemPack(itemsPack):
 
 def getDataMultiVehicles(itemsPack, vehicle):
     rule = __getItemsSortRule(itemsPack)
-    return [] if rule == ITEM_SORT_RULE.FRONTLINE else _packDataMultiVehicles(itemsPack, vehicle)
+    return [] if rule == ItemSortRule.FRONTLINE else _packDataMultiVehicles(itemsPack, vehicle)
 
 
 @dependency.replace_none_kwargs(itemsCache=IItemsCache)
@@ -799,7 +803,7 @@ def _packDataMultiVehicles(itemsPack, vehicle):
 
 def __getItemsSortRule(itemsPack):
     frontlineOffer = getCouponDiscountForItemPack(itemsPack) != MONEY_ZERO_GOLD
-    return ITEM_SORT_RULE.FRONTLINE if frontlineOffer else ITEM_SORT_RULE.REGULAR
+    return ItemSortRule.FRONTLINE if frontlineOffer else ItemSortRule.REGULAR
 
 
 def __getDefaultPackRule():

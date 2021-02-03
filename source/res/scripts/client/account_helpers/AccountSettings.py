@@ -42,6 +42,9 @@ RANKED_CAROUSEL_FILTER_CLIENT_1 = 'RANKED_CAROUSEL_FILTER_CLIENT_1'
 EPICBATTLE_CAROUSEL_FILTER_1 = 'EPICBATTLE_CAROUSEL_FILTER_1'
 EPICBATTLE_CAROUSEL_FILTER_2 = 'EPICBATTLE_CAROUSEL_FILTER_2'
 EPICBATTLE_CAROUSEL_FILTER_CLIENT_1 = 'EPICBATTLE_CAROUSEL_FILTER_CLIENT_1'
+BOB_CAROUSEL_FILTER_1 = 'BOB_CAROUSEL_FILTER_1'
+BOB_CAROUSEL_FILTER_2 = 'BOB_CAROUSEL_FILTER_2'
+BOB_CAROUSEL_FILTER_CLIENT_1 = 'BOB_CAROUSEL_FILTER_CLIENT_1'
 STORAGE_VEHICLES_CAROUSEL_FILTER_1 = 'STORAGE_CAROUSEL_FILTER_1'
 BATTLEPASS_CAROUSEL_FILTER_1 = 'BATTLEPASS_CAROUSEL_FILTER_1'
 BATTLEPASS_CAROUSEL_FILTER_CLIENT_1 = 'BATTLEPASS_CAROUSEL_FILTER_CLIENT_1'
@@ -52,8 +55,7 @@ BARRACKS_FILTER = 'barracks_filter'
 ORDERS_FILTER = 'ORDERS_FILTER'
 CURRENT_VEHICLE = 'current'
 ROYALE_VEHICLE = 'ROYALE_VEHICLE'
-EVENT_CURRENT_VEHICLE = 'event_current'
-EVENT_CURRENT_DIFFICULTY_LEVEL = 'eventCurrentDifficultyLevel'
+BOOTCAMP_VEHICLE = 'BOOTCAMP_VEHICLE'
 GUI_START_BEHAVIOR = 'GUI_START_BEHAVIOR'
 EULA_VERSION = 'EULA_VERSION'
 LINKEDSET_QUESTS = 'LINKEDSET_QUEST'
@@ -73,6 +75,7 @@ PREVIEW_INFO_PANEL_IDX = 'previewInfoPanelIdx'
 NEW_SETTINGS_COUNTER = 'newSettingsCounter'
 NEW_HOF_COUNTER = 'newHofCounter'
 NEW_LOBBY_TAB_COUNTER = 'newLobbyTabCounter'
+BOB_BANNERS_VIEWED = 'bobBannersViewed'
 REFERRAL_COUNTER = 'referralButtonCounter'
 CLAN_NOTIFICATION_COUNTERS = 'ClanButtonNewsCounters'
 PROGRESSIVE_REWARD_VISITED = 'progressiveRewardVisited'
@@ -92,8 +95,7 @@ ELEN_NOTIFICATIONS = 'elenNotifications'
 RECRUIT_NOTIFICATIONS = 'recruitNotifications'
 SPEAKERS_DEVICE = 'speakersDevice'
 SESSION_STATS_PREV_BATTLE_COUNT = 'sessionStatsPrevBattleCnt'
-EVENT_HEALING_SEEN = 'eventHealingSeen'
-EVENT_COMMANDERS_READY_SEEN = 'eventCommandersReadySeen'
+UNIT_FILTER = 'UNIT_FILTER'
 DEFAULT_QUEUE = 'defaultQueue'
 STORE_TAB = 'store_tab'
 STATS_REGULAR_SORTING = 'statsSorting'
@@ -124,6 +126,8 @@ BATTLE_EFFICIENCY_SECTION_EXPANDED_FIELD = 'battleEfficiencySectionExpanded'
 SIEGE_HINT_SECTION = 'siegeModeHint'
 WHEELED_MODE_HINT_SECTION = 'wheeledModeScreenHint'
 TRAJECTORY_VIEW_HINT_SECTION = 'trajectoryViewHint'
+TURBO_SHAFT_ENGINE_MODE_HINT_SECTION = 'turboShaftEngineModeHint'
+DYN_SQUAD_HINT_SECTION = 'dynSquadHint'
 RADAR_HINT_SECTION = 'radarHint'
 PRE_BATTLE_HINT_SECTION = 'preBattleHintSection'
 QUEST_PROGRESS_HINT_SECTION = 'questProgressHint'
@@ -163,7 +167,6 @@ QUEST_DELTAS_PROGRESS = 'questProgress'
 QUEST_DELTAS_TOKENS_PROGRESS = 'tokensProgress'
 TOP_OF_TREE_CONFIG = 'topOfTree'
 DOG_TAGS = 'dogTags'
-HALLOWEEN_NOTES_SEEN = 'halloweenNotesSeen'
 KNOWN_SELECTOR_BATTLES = 'knownSelectorBattles'
 DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                'shop_current': (-1, STORE_CONSTANTS.VEHICLE, False),
@@ -376,6 +379,42 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                                               'crystals': False},
                EPICBATTLE_CAROUSEL_FILTER_CLIENT_1: {'searchNameVehicle': ''},
                BATTLEPASS_CAROUSEL_FILTER_1: {'isCommonProgression': False},
+               BOB_CAROUSEL_FILTER_1: {'ussr': False,
+                                       'germany': False,
+                                       'usa': False,
+                                       'china': False,
+                                       'france': False,
+                                       'uk': False,
+                                       'japan': False,
+                                       'czech': False,
+                                       'sweden': False,
+                                       'poland': False,
+                                       'italy': False,
+                                       'lightTank': False,
+                                       'mediumTank': False,
+                                       'heavyTank': False,
+                                       'SPG': False,
+                                       'AT-SPG': False,
+                                       'level_1': False,
+                                       'level_2': False,
+                                       'level_3': False,
+                                       'level_4': False,
+                                       'level_5': False,
+                                       'level_6': False,
+                                       'level_7': False,
+                                       'level_8': False,
+                                       'level_9': False,
+                                       'level_10': True},
+               BOB_CAROUSEL_FILTER_2: {'premium': False,
+                                       'elite': False,
+                                       'igr': False,
+                                       'rented': True,
+                                       'event': True,
+                                       'gameMode': False,
+                                       'favorite': False,
+                                       'bonus': False,
+                                       'crystals': False},
+               BOB_CAROUSEL_FILTER_CLIENT_1: {'searchNameVehicle': ''},
                MISSION_SELECTOR_FILTER: {'inventory': False},
                PM_SELECTOR_FILTER: {'inventory': False},
                BLUEPRINTS_STORAGE_FILTER: {'unlock_available': False,
@@ -393,7 +432,8 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                                     'isEpicWelcomeViewShowed': False,
                                     'lastShownEpicWelcomeScreen': 0,
                                     'techTreeIntroBlueprintsReceived': False,
-                                    'techTreeIntroShowed': False},
+                                    'techTreeIntroShowed': False,
+                                    'isDisplayPlatoonMembersClicked': False},
                EULA_VERSION: {'version': 0},
                LINKEDSET_QUESTS: {'shown': 0},
                FORT_MEMBER_TUTORIAL: {'wasShown': False},
@@ -439,10 +479,11 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                                    'isInHangarSelected': False},
                PROFILE_TECHNIQUE_MEMBER: {'selectedColumn': 4,
                                           'selectedColumnSorting': 'descending'},
-               SPEAKERS_DEVICE: 0},
- KEY_FAVORITES: {CURRENT_VEHICLE: 0,
+               SPEAKERS_DEVICE: 0,
+               UNIT_FILTER: {GAME.UNIT_FILTER: 2047}},
+ KEY_FAVORITES: {BOOTCAMP_VEHICLE: 0,
+                 CURRENT_VEHICLE: 0,
                  ROYALE_VEHICLE: 0,
-                 EVENT_CURRENT_VEHICLE: 0,
                  FALLOUT_VEHICLES: {}},
  KEY_SETTINGS: {'unitWindow': {SELECTED_INTRO_VEHICLES_FIELD: []},
                 'vehicleSellDialog': {'isOpened': False},
@@ -619,6 +660,7 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                 NEW_SETTINGS_COUNTER: {'GameSettings': {'gameplay_epicStandard': True,
                                                         BattleCommStorageKeys.SHOW_LOCATION_MARKERS: True,
                                                         'c11nHistoricallyAccurate': True,
+                                                        GAME.DISPLAY_PLATOON_MEMBERS: True,
                                                         'hangarCamParallaxEnabled': True,
                                                         'hangarCamPeriod': True,
                                                         'showDamageIcon': True,
@@ -654,6 +696,9 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                 TRAJECTORY_VIEW_HINT_SECTION: {HINTS_LEFT: 3,
                                                LAST_DISPLAY_DAY: 0,
                                                NUM_BATTLES: 0},
+                DYN_SQUAD_HINT_SECTION: {HINTS_LEFT: 3,
+                                         LAST_DISPLAY_DAY: 0,
+                                         NUM_BATTLES: 0},
                 PRE_BATTLE_HINT_SECTION: {QUEST_PROGRESS_HINT_SECTION: {HINTS_LEFT: 3,
                                                                         LAST_DISPLAY_DAY: 0,
                                                                         NUM_BATTLES: 0},
@@ -667,6 +712,9 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                 WHEELED_MODE_HINT_SECTION: {HINTS_LEFT: 3,
                                             LAST_DISPLAY_DAY: 0,
                                             NUM_BATTLES: 0},
+                TURBO_SHAFT_ENGINE_MODE_HINT_SECTION: {HINTS_LEFT: 3,
+                                                       LAST_DISPLAY_DAY: 0,
+                                                       NUM_BATTLES: 0},
                 RADAR_HINT_SECTION: {HINTS_LEFT: 3,
                                      LAST_DISPLAY_DAY: 0,
                                      NUM_BATTLES: 0},
@@ -693,8 +741,7 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                 SUBTITLES: True,
                 RANKED_YEAR_POSITION: None,
                 TOP_OF_TREE_CONFIG: {},
-                NATION_CHANGE_VIEWED: False,
-                HALLOWEEN_NOTES_SEEN: []},
+                BOB_BANNERS_VIEWED: {}},
  KEY_COUNTERS: {NEW_HOF_COUNTER: {PROFILE_CONSTANTS.HOF_ACHIEVEMENTS_BUTTON: True,
                                   PROFILE_CONSTANTS.HOF_VEHICLES_BUTTON: True,
                                   PROFILE_CONSTANTS.HOF_VIEW_RATING_BUTTON: True},
@@ -709,10 +756,7 @@ DEFAULT_VALUES = {KEY_FILTERS: {STORE_TAB: 0,
                 BOOSTERS_FOR_CREDITS_SLOT_COUNTER: 1,
                 SENIORITY_AWARDS_COUNTER: 1,
                 DEMOUNT_KIT_SEEN: False,
-                NEW_SHOP_TABS: {IS_COLLECTIBLE_VEHICLES_VISITED: False},
-                EVENT_HEALING_SEEN: False,
-                EVENT_CURRENT_DIFFICULTY_LEVEL: 1,
-                EVENT_COMMANDERS_READY_SEEN: True},
+                NEW_SHOP_TABS: {IS_COLLECTIBLE_VEHICLES_VISITED: False}},
  KEY_NOTIFICATIONS: {ELEN_NOTIFICATIONS: {MISSIONS_CONSTANTS.ELEN_EVENT_STARTED_NOTIFICATION: set(),
                                           MISSIONS_CONSTANTS.ELEN_EVENT_FINISHED_NOTIFICATION: set(),
                                           MISSIONS_CONSTANTS.ELEN_EVENT_TAB_VISITED: set()},

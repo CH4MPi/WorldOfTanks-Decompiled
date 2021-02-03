@@ -1,7 +1,7 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/shared/utils/requesters/ItemsRequester.py
 from abc import ABCMeta, abstractmethod
-from collections import defaultdict
+from collections import defaultdict, namedtuple
 from typing import TYPE_CHECKING
 import operator
 import constants
@@ -16,6 +16,7 @@ from gui.shared.gui_items import GUI_ITEM_TYPE, GUI_ITEM_TYPE_NAMES, ItemsCollec
 from gui.shared.utils.requesters import vehicle_items_getter
 from gui.shared.gui_items.gui_item_economics import ITEM_PRICE_EMPTY
 from gui.shared.utils.requesters.battle_pass_requester import BattlePassRequester
+from gui.shared.utils.requesters.bob_requester import BobRequester
 from helpers import dependency
 from items import vehicles, tankmen, getTypeOfCompactDescr, makeIntCompactDescrByID
 from items.components.c11n_constants import SeasonType
@@ -265,12 +266,12 @@ class REQ_CRITERIA(object):
         ELITE = RequestCriteria(PredicateCondition(lambda item: item.isElite))
         IS_BOT = RequestCriteria(PredicateCondition(lambda item: item.name.endswith('_bot')))
         IS_CREW_LOCKED = RequestCriteria(PredicateCondition(lambda item: item.isCrewLocked))
-        IS_OUTFIT_LOCKED = RequestCriteria(PredicateCondition(lambda item: item.isOutfitLocked))
         FULLY_ELITE = RequestCriteria(PredicateCondition(lambda item: item.isFullyElite))
         EVENT = RequestCriteria(PredicateCondition(lambda item: item.isEvent))
         EVENT_BATTLE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForEventBattles))
         EPIC_BATTLE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForEpicBattles))
         BATTLE_ROYALE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForBattleRoyaleBattles))
+        BOB_BATTLE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForBob))
         HAS_XP_FACTOR = RequestCriteria(PredicateCondition(lambda item: item.dailyXPFactor != -1))
         IS_RESTORE_POSSIBLE = RequestCriteria(PredicateCondition(lambda item: item.isRestorePossible()))
         CAN_TRADE_IN = RequestCriteria(PredicateCondition(lambda item: item.canTradeIn))
@@ -315,7 +316,6 @@ class REQ_CRITERIA(object):
 
     class EQUIPMENT(object):
         BUILTIN = staticmethod(RequestCriteria(PredicateCondition(lambda item: item.isBuiltIn)))
-        HAS_TAGS = staticmethod(lambda tags: RequestCriteria(PredicateCondition(lambda item: item.tags.issuperset(tags))))
 
     class BATTLE_BOOSTER(object):
         ALL = RequestCriteria(PredicateCondition(lambda item: item.itemTypeID == GUI_ITEM_TYPE.BATTLE_BOOSTER))
@@ -355,7 +355,6 @@ class REQ_CRITERIA(object):
         ONLY_IN_GROUP = staticmethod(lambda group: RequestCriteria(PredicateCondition(lambda item: item.groupUserName == group)))
         DISCLOSABLE = staticmethod(lambda vehicle: RequestCriteria(PredicateCondition(lambda item: item.fullInventoryCount(vehicle.intCD) or not item.isHidden)))
         IS_INSTALLED_ON_VEHICLE = staticmethod(lambda vehicle: RequestCriteria(PredicateCondition(lambda item: item.installedCount(vehicle.intCD) > 0)))
-        IS_INSTALLED_ON_ANY_VEHICLE = RequestCriteria(PredicateCondition(lambda item: len(item.getInstalledVehicles()) > 0))
         HAS_TAGS = staticmethod(lambda tags: RequestCriteria(PredicateCondition(lambda item: item.tags.issuperset(tags))))
         FULL_INVENTORY = RequestCriteria(PredicateCondition(lambda item: item.fullInventoryCount() > 0))
         ON_ACCOUNT = RequestCriteria(PredicateCondition(lambda item: item.fullCount() > 0))
@@ -367,6 +366,11 @@ class RESEARCH_CRITERIA(object):
 
 class ItemsRequester(IItemsRequester):
     itemsFactory = dependency.descriptor(IGuiItemsFactory)
+    _AccountItem = namedtuple('_AccountItem', ['dossier',
+     'clanInfo',
+     'seasons',
+     'ranked',
+     'dogTag'])
 
     def __init__(self, inventory, stats, dossiers, goodies, shop, recycleBin, vehicleRotation, ranked, battleRoyale, badges, epicMetaGame, tokens, festivityRequester, blueprints=None, sessionStatsRequester=None, anonymizerRequester=None):
         self.__inventory = inventory
@@ -386,6 +390,7 @@ class ItemsRequester(IItemsRequester):
         self.__sessionStats = sessionStatsRequester
         self.__anonymizer = anonymizerRequester
         self.__battlePass = BattlePassRequester()
+        self.__bob = BobRequester()
         self.__itemsCache = defaultdict(dict)
         self.__brokenSyncAlreadyLoggedTypes = set()
         self.__fittingItemRequesters = {self.__inventory,
@@ -463,6 +468,10 @@ class ItemsRequester(IItemsRequester):
     def battlePass(self):
         return self.__battlePass
 
+    @property
+    def bob(self):
+        return self.__bob
+
     @async
     @process
     def request(self, callback=None):
@@ -512,6 +521,9 @@ class ItemsRequester(IItemsRequester):
         Waiting.show('download/festivity')
         yield self.__festivity.request()
         Waiting.hide('download/festivity')
+        Waiting.show('download/bob')
+        yield self.__bob.request()
+        Waiting.hide('download/bob')
         self.__brokenSyncAlreadyLoggedTypes.clear()
         callback(self)
 
@@ -526,11 +538,9 @@ class ItemsRequester(IItemsRequester):
         clanInfo = yield dr.getClanInfo()
         seasons = yield dr.getRated7x7Seasons()
         ranked = yield dr.getRankedInfo()
+        dogTag = yield dr.getDogTag()
         container = self.__itemsCache[GUI_ITEM_TYPE.ACCOUNT_DOSSIER]
-        container[databaseID] = (userAccDossier,
-         clanInfo,
-         seasons,
-         ranked)
+        container[databaseID] = self._AccountItem(userAccDossier, clanInfo, seasons, ranked, dogTag)
         callback((userAccDossier, clanInfo, dr.isHidden))
 
     def unloadUserDossier(self, databaseID):
@@ -573,6 +583,7 @@ class ItemsRequester(IItemsRequester):
         self.__blueprints.clear()
         self.__festivity.clear()
         self.__anonymizer.clear()
+        self.__bob.clear()
 
     def onDisconnected(self):
         self.__tokens.onDisconnected()
@@ -681,7 +692,7 @@ class ItemsRequester(IItemsRequester):
             if itemTypeID == GUI_ITEM_TYPE.CUSTOMIZATION:
                 for vehicleIntCD, outfitsData in itemsDiff.get(CustomizationInvData.OUTFITS, {}).iteritems():
                     invalidate[GUI_ITEM_TYPE.VEHICLE].add(vehicleIntCD)
-                    for season in outfitsData or SeasonType.REGULAR:
+                    for season in outfitsData or SeasonType.RANGE:
                         invalidate[GUI_ITEM_TYPE.OUTFIT].add((vehicleIntCD, season))
 
                 storageKeys = (CustomizationInvData.ITEMS,
@@ -711,6 +722,11 @@ class ItemsRequester(IItemsRequester):
                 invalidate['battlePass'] = diff[('battlePass', '_r')]
             if 'battlePass' in diff:
                 synchronizeDicts(diff['battlePass'], invalidate.setdefault('battlePass', {}))
+        if ('bob', '_r') in diff or 'bob' in diff:
+            if ('bob', '_r') in diff:
+                invalidate['bob'] = diff[('bob', '_r')]
+            if 'bob' in diff:
+                synchronizeDicts(diff['bob'], invalidate.setdefault('bob', {}))
         if 'goodies' in diff:
             vehicleDiscounts = self.__shop.getVehicleDiscountDescriptions()
             for goodieID in diff['goodies'].iterkeys():
@@ -730,15 +746,16 @@ class ItemsRequester(IItemsRequester):
         vehInvData = self.__inventory.getVehicleData(vehInvID)
         return self.__makeVehicle(vehInvData.descriptor.type.compactDescr, vehInvData) if vehInvData is not None else None
 
-    def getStockVehicle(self, typeCompDescr, useInventory=False):
-        if getTypeOfCompactDescr(typeCompDescr) == GUI_ITEM_TYPE.VEHICLE:
-            proxy = self if useInventory else None
-            return self.itemsFactory.createVehicle(typeCompDescr=typeCompDescr, proxy=proxy)
-        else:
-            return
+    def getStockVehicle(self, typeCompDescr):
+        return self.itemsFactory.createVehicle(typeCompDescr=typeCompDescr) if getTypeOfCompactDescr(typeCompDescr) == GUI_ITEM_TYPE.VEHICLE else None
 
     def getVehicleCopy(self, vehicle):
         return self.itemsFactory.createVehicle(typeCompDescr=vehicle.intCD, strCompactDescr=vehicle.descriptor.makeCompactDescr(), inventoryID=vehicle.invID, proxy=self)
+
+    def getVehicleCopyByCD(self, typeCompDescr):
+        vehicle = self.getItemByCD(typeCompDescr)
+        vehicleCopy = self.getVehicleCopy(vehicle)
+        return vehicleCopy
 
     def getLayoutsVehicleCopy(self, vehicle):
         copyVehicle = self.getVehicleCopy(vehicle)
@@ -824,6 +841,9 @@ class ItemsRequester(IItemsRequester):
     def getVehicles(self, criteria=REQ_CRITERIA.EMPTY):
         return self.getItems(GUI_ITEM_TYPE.VEHICLE, criteria=criteria)
 
+    def getStyles(self, criteria=REQ_CRITERIA.EMPTY):
+        return self.getItems(GUI_ITEM_TYPE.STYLE, criteria=criteria)
+
     def getBadges(self, criteria=REQ_CRITERIA.EMPTY):
         result = ItemsCollection()
         for badgeID, badgeData in self.__badges.available.iteritems():
@@ -875,7 +895,7 @@ class ItemsRequester(IItemsRequester):
             dossierDescr = self.__getAccountDossierDescr()
             return self.itemsFactory.createAccountDossier(dossierDescr)
         container = self.__itemsCache[GUI_ITEM_TYPE.ACCOUNT_DOSSIER]
-        dossier, _, _, _ = container.get(int(databaseID))
+        dossier = container.get(int(databaseID)).dossier
         if dossier is None:
             LOG_WARNING('Trying to get empty user dossier', databaseID)
             return
@@ -886,12 +906,23 @@ class ItemsRequester(IItemsRequester):
         if databaseID is None:
             return (self.__stats.clanDBID, self.__stats.clanInfo)
         container = self.__itemsCache[GUI_ITEM_TYPE.ACCOUNT_DOSSIER]
-        _, clanInfo, _, _ = container.get(int(databaseID))
+        clanInfo = container.get(int(databaseID)).clanInfo
         if clanInfo is None:
             LOG_WARNING('Trying to get empty user clan info', databaseID)
             return
         else:
             return clanInfo
+
+    def getDogTag(self, databaseID=None):
+        if databaseID is None:
+            return
+        container = self.__itemsCache[GUI_ITEM_TYPE.ACCOUNT_DOSSIER]
+        dogTag = container.get(int(databaseID)).dogTag
+        if dogTag is None:
+            LOG_WARNING('Trying to get empty user dogTag', databaseID)
+            return
+        else:
+            return dogTag
 
     def getPreviousItem(self, itemTypeID, invDataIdx):
         itemData = self.__inventory.getPreviousItem(itemTypeID, invDataIdx)

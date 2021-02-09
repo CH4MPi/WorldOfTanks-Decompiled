@@ -16,14 +16,6 @@
       <public_key_path>	loginapp_wot.pubkey	</public_key_path>
       <periphery_id>	202	</periphery_id>
     </host>
-    <host>
-      <name>	WOT EU3	</name>
-      <short_name>	EU3	</short_name>
-      <url>	login.p3.worldoftanks.eu:20016	</url>
-      <url_token>	login2.p3.worldoftanks.eu:20016	</url_token>
-      <public_key_path>	loginapp_wot.pubkey	</public_key_path>
-      <periphery_id>	203	</periphery_id>
-    </host>
   </login>
   <updateUrl>	http://worldoftanks.eu/update	</updateUrl>
   <csisUrl>	http://csis.worldoftanks.eu/csis/woteu/	</csisUrl>

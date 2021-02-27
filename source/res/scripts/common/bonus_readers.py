@@ -5,6 +5,7 @@ from typing import Union, TYPE_CHECKING
 import items
 import calendar
 from account_shared import validateCustomizationItem
+from battle_pass_common import NON_VEH_CD
 from invoices_helpers import checkAccountDossierOperation
 from items import vehicles, tankmen, utils
 from items.components.c11n_constants import SeasonType
@@ -549,8 +550,6 @@ def __readBonus_rent(bonus, _name, section):
         credits = section['compensation'].readInt('credits', 0)
         gold = section['compensation'].readInt('gold', 0)
         rent['compensation'] = (credits, gold)
-    if section.has_key('battlePass'):
-        rent['battlePass'] = True
     __readBonus_seasonRent(rent, section)
     bonus['rent'] = rent
 
@@ -890,14 +889,21 @@ def __readBonus_dogTag(bonus, _name, section, eventType):
     value = section.readFloat('value', None)
     grade = section.readInt('grade', None)
     unlock = section.readBool('unlock', None)
+    needRecalculate = section.readBool('needRecalculate', None)
     if value is not None:
         data['value'] = value
     if grade is not None:
         data['grade'] = grade
     if unlock is not None:
         data['unlock'] = unlock
+    if needRecalculate is not None:
+        data['needRecalculate'] = needRecalculate
     bonus.setdefault('dogTagComponents', []).append(data)
     return
+
+
+def __readBonus_battlePassPoints(bonus, _name, section, eventType):
+    bonus['battlePassPoints'] = {'vehicles': {NON_VEH_CD: __readIntWithTokenExpansion(section)}}
 
 
 def __readBonus_group(config, bonusReaders, bonus, section, eventType):
@@ -917,6 +923,7 @@ __BONUS_READERS = {'meta': __readMetaSection,
  'credits': __readBonus_int,
  'crystal': __readBonus_int,
  'eventCoin': __readBonus_int,
+ 'bpcoin': __readBonus_int,
  'freeXP': __readBonus_int,
  'slots': __readBonus_int,
  'berths': __readBonus_int,
@@ -948,6 +955,7 @@ __BONUS_READERS = {'meta': __readMetaSection,
  'rankedDailyBattles': __readBonus_int,
  'rankedBonusBattles': __readBonus_int,
  'dogTagComponent': __readBonus_dogTag,
+ 'battlePassPoints': __readBonus_battlePassPoints,
  'vehicleChoice': __readBonus_vehicleChoice,
  'blueprint': __readBonus_blueprint,
  'blueprintAny': __readBonus_blueprintAny}

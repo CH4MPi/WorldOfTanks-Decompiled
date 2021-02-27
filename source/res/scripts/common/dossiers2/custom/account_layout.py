@@ -611,7 +611,8 @@ _SINGLE_ACHIEVEMENTS_VALUES = ['titleSniper',
  'bob2021MasterTortoise_apac',
  'bob2021SummerTiger_apac',
  'bob2021Maharlika_apac',
- 'february21']
+ 'february21',
+ 'BattlePassCommonPr_4']
 _singleAchievementsPopUps = ['titleSniper',
  'invincible',
  'diehard',
@@ -752,7 +753,8 @@ _singleAchievementsPopUps = ['titleSniper',
  'bob2021MasterTortoise_apac',
  'bob2021SummerTiger_apac',
  'bob2021Maharlika_apac',
- 'february21']
+ 'february21',
+ 'BattlePassCommonPr_4']
 _singleAchievementsBlockBuilder = BinarySetDossierBlockBuilder('singleAchievements', _SINGLE_ACHIEVEMENTS_VALUES, {}, _singleAchievementsPopUps)
 FORT_ACHIEVEMENTS_BLOCK_LAYOUT = ['conqueror',
  'fireAndSword',
@@ -835,7 +837,7 @@ EPIC_BATTLE_ACHIEVEMENTS_BLOCK_LAYOUT = ['occupyingForce',
 _epicBattleAchievementsPopUps = ['frontlineMedal']
 _epicBattleAchievementsBlockBuilder = StaticSizeBlockBuilder('epicBattleAchievements', EPIC_BATTLE_ACHIEVEMENTS_BLOCK_LAYOUT, EPIC_BATTLE_STATS_DEPENDENCIES, _epicBattleAchievementsPopUps)
 _epicBattleSeasonsBlockBuilder = DictBlockBuilder('epicSeasons', 'II', 'HHBB', {})
-_battleRoyaleSeasonsBlockBuilder = DictBlockBuilder('battleRoyaleSeasons', 'II', 'HHBB', {})
+_battleRoyaleSeasonsBlockBuilder = DictBlockBuilder('battleRoyaleSeasons', 'II', 'HHH', {})
 accountDossierLayout = (_a15x15BlockBuilder,
  _a15x15_2BlockBuilder,
  _clanBlockBuilder,

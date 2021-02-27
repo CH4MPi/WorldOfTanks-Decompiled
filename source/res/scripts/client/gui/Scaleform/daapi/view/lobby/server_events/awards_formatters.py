@@ -1,6 +1,7 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/server_events/awards_formatters.py
 from gui.Scaleform.daapi.view.lobby.missions.awards_formatters import NewStyleBonusComposer
+from gui.battle_pass.battle_pass_helpers import getStyleForChapter
 from gui.impl import backport
 from gui.impl.gen import R
 from gui.impl.auxiliary.rewards_helper import NEW_STYLE_FORMATTED_BONUSES
@@ -9,6 +10,7 @@ from gui.server_events.awards_formatters import AWARDS_SIZES, AwardsPacker, Ques
 from gui.server_events.bonuses import BlueprintsBonusSubtypes
 from gui.battle_pass.battle_pass_bonuses_helper import BonusesHelper
 from gui.shared.gui_items.crew_skin import localizedFullName as localizeSkinName
+from gui.shared.utils.functions import makeTooltip
 SIMPLE_BONUSES_MAX_ITEMS = 5
 _DISPLAYED_AWARDS_COUNT = 2
 _END_LINE_SEPARATOR = ','
@@ -146,6 +148,14 @@ class BlueprintsFormatter(OldStyleBonusFormatter):
         return ' '.join([blueprintString, str(count)])
 
 
+class BattlePassPointsFormatter(OldStyleBonusFormatter):
+
+    def accumulateBonuses(self, bonus):
+        formattedList = bonus.formattedList()
+        if formattedList:
+            self._result.append(formatters.packSimpleBonusesBlock(formattedList))
+
+
 class SimpleBonusFormatter(OldStyleBonusFormatter):
 
     def accumulateBonuses(self, bonus, event=None):
@@ -176,6 +186,23 @@ class TextBonusFormatter(OldStyleBonusFormatter):
         return result
 
 
+class BattlePassStyleProgressFormatter(OldStyleBonusFormatter):
+
+    def accumulateBonuses(self, bonus, event=None):
+        formattedList = BonusesHelper.getTextStrings(bonus)
+        if formattedList:
+            self._result.append(formatters.packSimpleBonusesBlock(formattedList, complexTooltip=self.__getTooltip(bonus)))
+
+    def __getTooltip(self, bonus):
+        chapter = bonus.getChapter()
+        style = getStyleForChapter(chapter)
+        tooltip = ''
+        if style is None:
+            body = backport.text(R.strings.battle_pass_2020.styleProgressBonus.notChosen.tooltip())
+            tooltip = makeTooltip(body=body)
+        return tooltip
+
+
 class NewStyleBonusFormatter(OldStyleBonusFormatter):
 
     def __init__(self, awardsPacker=None):
@@ -201,7 +228,8 @@ def getFormattersMap(event):
      'vehicles': VehiclesFormatter(event),
      'crewBooks': CrewBookFormatter(),
      'blueprints': BlueprintsFormatter(),
-     'crewSkins': CrewSkinFormatter()}
+     'crewSkins': CrewSkinFormatter(),
+     'battlePassPoints': BattlePassPointsFormatter()}
 
 
 class OldStyleAwardsPacker(AwardsPacker):
@@ -235,7 +263,8 @@ class OldStyleAwardsPacker(AwardsPacker):
 
 def getTextFormattersMap():
     return {'default': TextBonusFormatter(),
-     'customizations': CustomizationsFormatter()}
+     'customizations': CustomizationsFormatter(),
+     'styleProgressToken': BattlePassStyleProgressFormatter()}
 
 
 class BattlePassTextBonusesPacker(AwardsPacker):

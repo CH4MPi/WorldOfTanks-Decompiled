@@ -84,7 +84,6 @@ class SYSTEM_MESSAGES(object):
     PREBATTLE_VEHICLEINVALID_NO_READYVEHICLE = '#system_messages:prebattle/vehicleInvalid/no_readyVehicle'
     PREBATTLE_VEHICLEINVALID_VEHICLENOTSUPPORTED = '#system_messages:prebattle/vehicleInvalid/vehicleNotSupported'
     PREBATTLE_VEHICLEINVALID_EPICONLY = '#system_messages:prebattle/vehicleInvalid/epicOnly'
-    PREBATTLE_VEHICLEINVALID_BOBONLY = '#system_messages:prebattle/vehicleInvalid/bobOnly'
     PREBATTLE_VEHICLEINVALID_NOTSETREADYSTATUS = '#system_messages:prebattle/vehicleInvalid/notSetReadyStatus'
     PREBATTLE_VEHICLEINVALID_FALLOUTONLY = '#system_messages:prebattle/vehicleInvalid/falloutOnly'
     PREBATTLE_VEHICLEINVALID_LIMITS_NATIONS = '#system_messages:prebattle/vehicleInvalid/limits/nations'
@@ -253,6 +252,8 @@ class SYSTEM_MESSAGES(object):
     CUSTOMIZATION_REMOVED_PERSONALNUMBER_3VALUE = '#system_messages:customization/removed/personalNumber_3Value'
     CUSTOMIZATION_REMOVED_PERSONALNUMBER_2VALUE = '#system_messages:customization/removed/personalNumber_2Value'
     CUSTOMIZATION_REMOVED_PERSONALNUMBER_1VALUE = '#system_messages:customization/removed/personalNumber_1Value'
+    CUSTOMIZATION_PROGRESSION_UP_STYLE = '#system_messages:customization/progression/up/style'
+    CUSTOMIZATION_PROGRESSION_DOWN_STYLE = '#system_messages:customization/progression/down/style'
     BONUSES_BOOSTER_VALUE = '#system_messages:bonuses/booster/value'
     CHECKOUT_ERROR = '#system_messages:checkout_error'
     ANOTHER_PERIPHERY = '#system_messages:another_periphery'
@@ -1169,16 +1170,20 @@ class SYSTEM_MESSAGES(object):
     DAILY_QUESTS_REROLL_UNKNOWN_ERROR = '#system_messages:daily_quests/reroll/unknown_error'
     BATTLEPASS_BUY_SERVER_ERROR = '#system_messages:battlePass_buy/server_error'
     BATTLEPASSLEVELS_BUY_SERVER_ERROR = '#system_messages:battlePassLevels_buy/server_error'
-    CHOOSE_BATTLEPASS_REWARD_SERVER_ERROR = '#system_messages:choose_battlePass_reward/server_error'
     BATTLEPASS_SWITCH_STARTED_TITLE = '#system_messages:battlePass/switch_started/title'
     BATTLEPASS_SWITCH_STARTED_BODY = '#system_messages:battlePass/switch_started/body'
     BATTLEPASS_SWITCH_PAUSE_BODY = '#system_messages:battlePass/switch_pause/body'
     BATTLEPASS_SWITCH_DISABLE_TITLE = '#system_messages:battlePass/switch_disable/title'
     BATTLEPASS_SWITCH_DISABLE_BODY = '#system_messages:battlePass/switch_disable/body'
+    BATTLEPASS_SWITCH_DISABLE_BODY_INCOMPLETESTYLE = '#system_messages:battlePass/switch_disable/body/incompleteStyle'
     BATTLEPASS_SWITCH_ENABLED_BODY = '#system_messages:battlePass/switch_enabled/body'
+    BATTLEPASS_SWITCH_DISABLE_BATTLE_ROYALE_BODY = '#system_messages:battlePass/switch_disable/battle_royale/body'
+    BATTLEPASS_RANKED_ENABLED = '#system_messages:battlePass/ranked/enabled'
+    BATTLEPASS_RANKED_DISABLED = '#system_messages:battlePass/ranked/disabled'
     UPGRADETROPHYDEVICE_SWITCH_ON_BODY = '#system_messages:upgradeTrophyDevice/switch_on/body'
     UPGRADETROPHYDEVICE_SWITCH_OFF_BODY = '#system_messages:upgradeTrophyDevice/switch_off/body'
     BATTLEPASS_BADGEREMOVED_TEXT = '#system_messages:battlePass/badgeRemoved/text'
+    BATTLEPASS_REWARDCHOICE_ERROR = '#system_messages:battlePass/rewardChoice/error'
     COLLECTORVEHICLE_SWITCH_OFF_TITLE = '#system_messages:collectorVehicle/switch_off/title'
     COLLECTORVEHICLE_SWITCH_OFF_BODY = '#system_messages:collectorVehicle/switch_off/body'
     COLLECTORVEHICLE_SWITCH_ON_TITLE = '#system_messages:collectorVehicle/switch_on/title'
@@ -1197,8 +1202,6 @@ class SYSTEM_MESSAGES(object):
     DOG_TAGS_SWITCH_OFF_BODY = '#system_messages:dog_tags/switch_off/body'
     DOG_TAGS_SWITCH_ON_TITLE = '#system_messages:dog_tags/switch_on/title'
     DOG_TAGS_SWITCH_ON_BODY = '#system_messages:dog_tags/switch_on/body'
-    BOB_CLAIMEREWARD_SERVER_ERROR_COOLDOWN = '#system_messages:bob/claimeReward/server_error/COOLDOWN'
-    BOB_CLAIMEREWARD_SERVER_ERROR = '#system_messages:bob/claimeReward/server_error'
     UNIT_NOTIFICATION_DIVISIONTYPE_ENUM = (UNIT_NOTIFICATION_DIVISIONTYPE_MIDDLE, UNIT_NOTIFICATION_DIVISIONTYPE_CHAMPION, UNIT_NOTIFICATION_DIVISIONTYPE_ABSOLUTE)
     UNIT_ERRORS_ENUM = (UNIT_ERRORS_ALREADY_JOINED_UNIT,
      UNIT_ERRORS_CANT_CHANGE_DIVISION,
@@ -1398,7 +1401,6 @@ class SYSTEM_MESSAGES(object):
      PREBATTLE_VEHICLEINVALID_NO_READYVEHICLE,
      PREBATTLE_VEHICLEINVALID_VEHICLENOTSUPPORTED,
      PREBATTLE_VEHICLEINVALID_EPICONLY,
-     PREBATTLE_VEHICLEINVALID_BOBONLY,
      PREBATTLE_VEHICLEINVALID_NOTSETREADYSTATUS,
      PREBATTLE_VEHICLEINVALID_FALLOUTONLY,
      PREBATTLE_VEHICLEINVALID_LIMITS_NATIONS,
@@ -1567,6 +1569,8 @@ class SYSTEM_MESSAGES(object):
      CUSTOMIZATION_REMOVED_PERSONALNUMBER_3VALUE,
      CUSTOMIZATION_REMOVED_PERSONALNUMBER_2VALUE,
      CUSTOMIZATION_REMOVED_PERSONALNUMBER_1VALUE,
+     CUSTOMIZATION_PROGRESSION_UP_STYLE,
+     CUSTOMIZATION_PROGRESSION_DOWN_STYLE,
      BONUSES_BOOSTER_VALUE,
      CHECKOUT_ERROR,
      ANOTHER_PERIPHERY,
@@ -2483,16 +2487,20 @@ class SYSTEM_MESSAGES(object):
      DAILY_QUESTS_REROLL_UNKNOWN_ERROR,
      BATTLEPASS_BUY_SERVER_ERROR,
      BATTLEPASSLEVELS_BUY_SERVER_ERROR,
-     CHOOSE_BATTLEPASS_REWARD_SERVER_ERROR,
      BATTLEPASS_SWITCH_STARTED_TITLE,
      BATTLEPASS_SWITCH_STARTED_BODY,
      BATTLEPASS_SWITCH_PAUSE_BODY,
      BATTLEPASS_SWITCH_DISABLE_TITLE,
      BATTLEPASS_SWITCH_DISABLE_BODY,
+     BATTLEPASS_SWITCH_DISABLE_BODY_INCOMPLETESTYLE,
      BATTLEPASS_SWITCH_ENABLED_BODY,
+     BATTLEPASS_SWITCH_DISABLE_BATTLE_ROYALE_BODY,
+     BATTLEPASS_RANKED_ENABLED,
+     BATTLEPASS_RANKED_DISABLED,
      UPGRADETROPHYDEVICE_SWITCH_ON_BODY,
      UPGRADETROPHYDEVICE_SWITCH_OFF_BODY,
      BATTLEPASS_BADGEREMOVED_TEXT,
+     BATTLEPASS_REWARDCHOICE_ERROR,
      COLLECTORVEHICLE_SWITCH_OFF_TITLE,
      COLLECTORVEHICLE_SWITCH_OFF_BODY,
      COLLECTORVEHICLE_SWITCH_ON_TITLE,
@@ -2510,9 +2518,7 @@ class SYSTEM_MESSAGES(object):
      DOG_TAGS_SWITCH_OFF_TITLE,
      DOG_TAGS_SWITCH_OFF_BODY,
      DOG_TAGS_SWITCH_ON_TITLE,
-     DOG_TAGS_SWITCH_ON_BODY,
-     BOB_CLAIMEREWARD_SERVER_ERROR_COOLDOWN,
-     BOB_CLAIMEREWARD_SERVER_ERROR)
+     DOG_TAGS_SWITCH_ON_BODY)
 
     @classmethod
     def unit_notification_divisiontype(cls, key0):

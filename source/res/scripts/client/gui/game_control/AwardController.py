@@ -15,12 +15,12 @@ from account_helpers.AccountSettings import AccountSettings, AWARDS, SPEAKERS_DE
 from account_helpers.settings_core.settings_constants import SOUND, GuiSettingsBehavior
 from account_shared import getFairPlayViolationName
 from battle_pass_common import BattlePassRewardReason
-from battle_pass_common import BattlePassState
 from chat_shared import SYS_MESSAGE_TYPE
 from collector_vehicle import CollectorVehicleConsts
-from constants import EVENT_TYPE, INVOICE_ASSET, PREMIUM_TYPE
+from constants import EVENT_TYPE, INVOICE_ASSET, PREMIUM_TYPE, DOSSIER_TYPE
 from constants import IS_DEVELOPMENT
 from dossiers2.custom.records import DB_ID_TO_RECORD
+from dossiers2.ui.achievements import BADGES_BLOCK
 from dossiers2.ui.layouts import PERSONAL_MISSIONS_GROUP
 from gui import DialogsInterface
 from gui import SystemMessages
@@ -36,22 +36,24 @@ from gui.Scaleform.locale.EVENT import EVENT
 from gui.Scaleform.locale.MESSENGER import MESSENGER
 from gui.Scaleform.locale.SYSTEM_MESSAGES import SYSTEM_MESSAGES
 from gui.awards.event_dispatcher import showCrewSkinAward, showDynamicAward
+from gui.battle_pass.state_machine.state_machine_helpers import packStartEvent
 from gui.customization.shared import checkIsFirstProgressionDecalOnVehicle
 from gui.gold_fish import isGoldFishActionActive, isTimeToShowGoldFishPromo
-from gui.impl.auxiliary.rewards_helper import getProgressiveRewardBonuses, getBobTeamRewardsBonuses
+from gui.impl.auxiliary.rewards_helper import getProgressiveRewardBonuses
 from gui.impl.gen import R
 from gui.impl.gen.view_models.views.loot_box_view.loot_congrats_types import LootCongratsTypes
 from gui.impl.lobby.battle_pass.battle_pass_awards_view import BattlePassAwardWindow
+from gui.impl.pub.notification_commands import WindowNotificationCommand
 from gui.prb_control.entities.listener import IGlobalListener
 from gui.prb_control.settings import BATTLES_TO_SELECT_RANDOM_MIN_LIMIT
 from gui.ranked_battles import ranked_helpers
 from gui.server_events import events_dispatcher as quests_events, recruit_helper, awards
-from gui.server_events.events_dispatcher import showLootboxesAward, showPiggyBankRewardWindow
+from gui.server_events.events_dispatcher import showLootboxesAward, showPiggyBankRewardWindow, showMissionsBattlePassCommonProgression
 from gui.server_events.events_helpers import isDailyQuest
 from gui.server_events.finders import PM_FINAL_TOKEN_QUEST_IDS_BY_OPERATION_ID, getBranchByOperationId, CHAMPION_BADGES_BY_BRANCH, CHAMPION_BADGE_AT_OPERATION_ID
 from gui.shared import EVENT_BUS_SCOPE, g_eventBus, events
-from gui.shared.event_dispatcher import showProgressiveRewardAwardWindow, showSeniorityRewardAwardWindow, showRankedSeasonCompleteView, showRankedYearAwardWindow, showBattlePassVehicleAwardWindow, showProgressiveItemsRewardWindow, showProgressionRequiredStyleUnlockedWindow, showRankedYearLBAwardWindow, showDedicationRewardWindow, showBobPersonalRewardWindow, showBobTeamRewardWindow, isViewLoaded
-from gui.shared.events import PersonalMissionsEvent, LobbySimpleEvent
+from gui.shared.event_dispatcher import showProgressiveRewardAwardWindow, showSeniorityRewardAwardWindow, showRankedSeasonCompleteView, showRankedYearAwardWindow, showBattlePassVehicleAwardWindow, showProgressiveItemsRewardWindow, showProgressionRequiredStyleUnlockedWindow, showRankedYearLBAwardWindow, showDedicationRewardWindow, showBadgeInvoiceAwardWindow
+from gui.shared.events import PersonalMissionsEvent
 from gui.shared.gui_items.dossier.factories import getAchievementFactory
 from gui.shared.utils import isPopupsWindowsOpenDisabled
 from gui.shared.utils.functions import getViewName
@@ -65,10 +67,9 @@ from messenger.formatters import TimeFormatter
 from messenger.formatters.service_channel import TelecomReceivedInvoiceFormatter
 from messenger.proto.events import g_messengerEvents
 from nations import NAMES
-from shared_utils import findFirst
 from skeletons.account_helpers.settings_core import ISettingsCore
 from skeletons.gui.app_loader import IAppLoader
-from skeletons.gui.game_control import IAwardController, IRankedBattlesController, IBootcampController, IBattlePassController, IBobController
+from skeletons.gui.game_control import IAwardController, IRankedBattlesController, IBootcampController, IBattlePassController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.impl import IGuiLoader, INotificationWindowController
 from skeletons.gui.server_events import IEventsCache
@@ -166,22 +167,18 @@ class AwardController(IAwardController, IGlobalListener):
          DynamicBonusHandler(self),
          ProgressiveItemsRewardHandler(self),
          DedicationReward(self),
-         BobPersonalRewardHandler(self),
-         BobTeamRewardHandler(self)]
+         BadgesInvoiceHandler(self)]
         super(AwardController, self).__init__()
         self.__delayedHandlers = []
         self.__isLobbyLoaded = False
-        self.__overlayLocks = []
         self.__postpone = False
         self.__viewLifecycleWatcher = ViewLifecycleWatcher()
 
     def init(self):
-        g_eventBus.addListener(LobbySimpleEvent.LOCK_OVERLAY_SCREEN, self.__onLockOverlayScreen, EVENT_BUS_SCOPE.LOBBY)
         for handler in self.__handlers:
             handler.init()
 
     def fini(self):
-        g_eventBus.removeListener(LobbySimpleEvent.LOCK_OVERLAY_SCREEN, self.__onLockOverlayScreen, EVENT_BUS_SCOPE.LOBBY)
         for handler in self.__handlers:
             handler.fini()
 
@@ -197,8 +194,6 @@ class AwardController(IAwardController, IGlobalListener):
             removeIndexes = []
             self.__delayedHandlers.sort(key=lambda handle: isinstance(handle, BattlePassRewardHandler), reverse=True)
             for index, (handler, ctx) in enumerate(self.__delayedHandlers):
-                if self.__isLocked():
-                    break
                 _logger.debug('Calling postponed award handler: %s, %s', handler, ctx)
                 handler(ctx)
                 removeIndexes.append(index)
@@ -209,8 +204,6 @@ class AwardController(IAwardController, IGlobalListener):
 
     def canShow(self):
         if self.__postpone:
-            return False
-        elif self.__isLocked():
             return False
         else:
             popupsWindowsDisabled = isPopupsWindowsOpenDisabled() or self.bootcampController.isInBootcamp()
@@ -254,21 +247,6 @@ class AwardController(IAwardController, IGlobalListener):
 
     def __postponeAwards(self, value):
         self.__postpone = value
-
-    def __onLockOverlayScreen(self, event):
-        source = event.ctx.get('source')
-        lock = event.ctx.get('lock', False)
-        if lock:
-            if source and source not in self.__overlayLocks:
-                self.__overlayLocks.append(source)
-        else:
-            if source and source in self.__overlayLocks:
-                self.__overlayLocks.remove(source)
-            if not self.__overlayLocks:
-                self.handlePostponed()
-
-    def __isLocked(self):
-        return len(self.__overlayLocks) > 0
 
 
 class AwardHandler(object):
@@ -1437,29 +1415,21 @@ class BattlePassRewardHandler(ServiceChannelHandler):
         if 'reason' not in data:
             _logger.error('Invalid Battle Pass Reward data received! "reward" key missing!')
             return
-        reason = data['reason']
-        if reason in (BattlePassRewardReason.VOTE,):
-            if IS_DEVELOPMENT:
-                _logger.info('Battle Pass award message ignored because of its reason.')
-            return
-        for key in ('newLevel', 'newState', 'prevState', 'prevLevel'):
-            if key not in data:
-                _logger.error('Invalid Battle Pass Reward data received! "%s" key missing!', key)
+        else:
+            reason = data['reason']
+            if reason in (BattlePassRewardReason.SELECT_STYLE,):
+                if IS_DEVELOPMENT:
+                    _logger.info('Battle Pass award message ignored because of its reason.')
                 return
+            for key in ('newLevel', 'prevLevel'):
+                if key not in data:
+                    _logger.error('Invalid Battle Pass Reward data received! "%s" key missing!', key)
+                    return
 
-        isPremiumPurchase = reason in (BattlePassRewardReason.PURCHASE_BATTLE_PASS, BattlePassRewardReason.PURCHASE_BATTLE_PASS_LEVELS)
-        prevState = data['prevState']
-        level = data['newLevel']
-        state = data['newState']
-        if state == BattlePassState.POST and prevState == BattlePassState.BASE and reason != BattlePassRewardReason.PURCHASE_BATTLE_PASS:
-            g_eventBus.handleEvent(events.BattlePassEvent(events.BattlePassEvent.BUYING_THINGS), scope=EVENT_BUS_SCOPE.LOBBY)
-            self.__battlePassController.getFinalRewardLogic().startFinalFlow([rewards], data)
-        elif isPremiumPurchase or self.__battlePassController.isRareLevel(level, isBase=BattlePassState.BASE == state):
-            if rewards:
-                window = BattlePassAwardWindow([rewards], data)
-                self.__notificationMgr.append(window)
-            else:
-                _logger.error("Can't show empty or invalid reward!")
+            event = packStartEvent(rewards, data, battlePass=self.__battlePassController)
+            if event is not None:
+                self.__notificationMgr.append(event)
+            return
 
 
 class BattlePassBuyEmptyHandler(ServiceChannelHandler):
@@ -1472,13 +1442,33 @@ class BattlePassBuyEmptyHandler(ServiceChannelHandler):
     def _needToShowAward(self, ctx):
         needToShow = super(BattlePassBuyEmptyHandler, self)._needToShowAward(ctx)
         if needToShow:
-            currentLevel = self.__battlePassController.getCurrentLevel()
-            return currentLevel == 0 and self.__battlePassController.getState() == BattlePassState.BASE
-        return False
+            _, message = ctx
+            chapter = message.data.get('chapter')
+            if chapter is None:
+                return False
+            if chapter:
+                minLevel, _ = self.__battlePassController.getChapterLevelInterval(chapter)
+            else:
+                minLevel = 1
+            return self.__battlePassController.getCurrentLevel() < minLevel
+        else:
+            return False
 
     def _showAward(self, ctx):
-        window = BattlePassAwardWindow([], {'reason': BattlePassRewardReason.PURCHASE_BATTLE_PASS})
-        self.__notificationMgr.append(window)
+        _, message = ctx
+        if message.data.get('chapter', 1):
+            reason = BattlePassRewardReason.PURCHASE_BATTLE_PASS
+            callback = None
+        else:
+            reason = BattlePassRewardReason.PURCHASE_BATTLE_PASS_MULTIPLE
+            callback = showMissionsBattlePassCommonProgression
+        chapter = message.data.get('chapter', 1)
+        prevLevel, _ = self.__battlePassController.getChapterLevelInterval(chapter)
+        window = BattlePassAwardWindow([], {'prevLevel': prevLevel,
+         'reason': reason,
+         'callback': callback})
+        self.__notificationMgr.append(WindowNotificationCommand(window))
+        return
 
 
 class BattlePassCapHandler(ServiceChannelHandler):
@@ -1552,75 +1542,28 @@ class DedicationReward(ServiceChannelHandler):
             self.__processOrHold(self.__pending.pop(0))
 
 
-class BobPersonalRewardHandler(ServiceChannelHandler):
-    __bobController = dependency.descriptor(IBobController)
+class BadgesInvoiceHandler(ServiceChannelHandler):
 
     def __init__(self, awardCtrl):
-        super(BobPersonalRewardHandler, self).__init__(SYS_MESSAGE_TYPE.tokenQuests.index(), awardCtrl)
-
-    def _needToShowAward(self, ctx):
-        _, message = ctx
-        if message is not None and message.data and isinstance(message.data, types.DictType):
-            if self.__hasBobPersonalRewardQuest(message.data.get('completedQuestIDs', [])):
-                return super(BobPersonalRewardHandler, self)._needToShowAward(ctx)
-        return False
+        super(BadgesInvoiceHandler, self).__init__(channelType=SYS_MESSAGE_TYPE.invoiceReceived.index(), awardCtrl=awardCtrl)
 
     def _showAward(self, ctx):
         _, message = ctx
-        for questId, rewards in message.data.get('detailedRewards', {}).iteritems():
-            if self.__isBobPersonalRewardQuest(questId):
-                bonuses = getBobTeamRewardsBonuses(rewards)
-                if bonuses:
-                    if not isViewLoaded(R.views.lobby.bob.BobPersonalRewardsView()):
-                        showBobPersonalRewardWindow(bonuses)
-                else:
-                    _logger.error('Could not show empty bonuses')
+        invoiceData = message.data.get('data', {})
+        changes = invoiceData.get('dossier', {}).get(DOSSIER_TYPE.ACCOUNT, {})
+        it = changes.iteritems() if isinstance(changes, dict) else changes
+        for (blockName, recordName), paramsDict in it:
+            if blockName == BADGES_BLOCK:
+                if paramsDict['value'] > 0:
+                    badgeId = int(recordName)
+                    badge = self.itemsCache.items.getBadgeByID(badgeId)
+                    if badge is None:
+                        _logger.error('Unknown Badge. id=%s', badgeId)
+                    elif badge.showCongratsView:
+                        self._showWindow(badge)
 
-    def __hasBobPersonalRewardQuest(self, completedQuestIds):
-        return self.__bobController.personalRewardQuestName in completedQuestIds
+        return
 
-    def __isBobPersonalRewardQuest(self, questId):
-        return questId == self.__bobController.personalRewardQuestName
-
-
-class BobTeamRewardHandler(ServiceChannelHandler):
-    __bobController = dependency.descriptor(IBobController)
-    QUEST_DELIMITER = ':'
-    REWARD_LEVEL_POSITION = 2
-    CHUNK_COUNT_OF_QUEST_NAME = 3
-
-    def __init__(self, awardCtrl):
-        super(BobTeamRewardHandler, self).__init__(SYS_MESSAGE_TYPE.tokenQuests.index(), awardCtrl)
-
-    def _needToShowAward(self, ctx):
-        _, message = ctx
-        if message is not None and message.data and isinstance(message.data, types.DictType):
-            if self.__hasBobTeamRewardQuest(message.data.get('completedQuestIDs', [])):
-                return super(BobTeamRewardHandler, self)._needToShowAward(ctx)
-        return False
-
-    def _showAward(self, ctx):
-        _, message = ctx
-        for questId, rewards in message.data.get('detailedRewards', {}).iteritems():
-            if self.__isBobTeamRewardQuest(questId):
-                level = self.__getLevelFromQuestID(questId)
-                bonuses = getBobTeamRewardsBonuses(rewards)
-                if bonuses:
-                    showBobTeamRewardWindow(bonuses, level)
-                else:
-                    _logger.error('Could not show empty bonuses')
-
-    def __getLevelFromQuestID(self, questId):
-        chunks = questId.split(self.QUEST_DELIMITER)
-        if len(chunks) == self.CHUNK_COUNT_OF_QUEST_NAME:
-            return int(chunks[self.REWARD_LEVEL_POSITION])
-        _logger.warning('Invalid questID=%s of Battle of Bloggers team reward', questId)
-
-    def __isBobTeamRewardQuest(self, questId):
-        questPrefix = self.__bobController.teamRewardQuestPrefix
-        return bool(questPrefix) and questId.startswith(questPrefix)
-
-    def __hasBobTeamRewardQuest(self, completedQuestIds):
-        teamRewardQuestPrefix = self.__bobController.teamRewardQuestPrefix
-        teamRewardQuestId = findFirst(lambda qId: qId.startswith(teamRewardQuestPrefix), completedQuestIds)
-        return teamRewardQuestId is not None
+    @staticmethod
+    def _showWindow(badge):
+        showBadgeInvoiceAwardWindow(badge)

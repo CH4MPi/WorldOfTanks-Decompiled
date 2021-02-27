@@ -4,7 +4,6 @@ import logging
 import types
 import itertools
 from collections import namedtuple
-import typing
 from blueprints.BlueprintTypes import BlueprintTypes
 from frameworks.wulf import ViewFlags
 from gui.battle_royale.constants import ROYALE_POSTBATTLE_REWARDS_COUNT
@@ -91,7 +90,8 @@ _BONUSES_ORDER = (Currency.CREDITS,
  CrewBonusTypes.CREW_SKIN_BONUSES,
  CrewBonusTypes.CREW_BOOK_BONUSES,
  'finalBlueprints',
- Currency.EVENT_COIN)
+ Currency.EVENT_COIN,
+ Currency.BPCOIN)
 BLUEPRINTS_CONGRAT_TYPES = (LootCongratsTypes.CONGRAT_TYPE_BLUEPRINT, LootCongratsTypes.CONGRAT_TYPE_BLUEPRINT_PART)
 _COMPENSATION_TOOLTIP_CONTENT_RES_IDS = (R.views.common.tooltip_window.loot_box_compensation_tooltip.LootBoxCompensationTooltipContent(), R.views.common.tooltip_window.loot_box_compensation_tooltip.CrewSkinsCompensationTooltipContent(), R.views.common.tooltip_window.loot_box_compensation_tooltip.LootBoxVehicleCompensationTooltipContent())
 _COMPENSATION_TOOLTIP_CONTENT_CLASSES = {LootBoxCompensationTooltipTypes.CREW_SKINS: CrewSkinsCompensationTooltipContent,
@@ -643,16 +643,6 @@ def getProgressiveRewardBonuses(rewards, size='big', maxAwardCount=_DEFAULT_DISP
         alwaysVisibleBonuses.sort(key=_keySortOrder)
     formattedBonuses = formatter.getVisibleFormattedBonuses(bonuses, alwaysVisibleBonuses, size)
     return (formattedBonuses, specialRewardType)
-
-
-def getBobTeamRewardsBonuses(rewards):
-    bonuses = []
-    if rewards:
-        for bonusType, bonusValue in rewards.iteritems():
-            bonus = getNonQuestBonuses(bonusType, bonusValue)
-            bonuses.extend(bonus)
-
-    return bonuses
 
 
 def getRoyaleBonuses(bonuses, size='big'):

@@ -202,7 +202,7 @@ class ClientHangarSpace(object):
             self._vsePlans.start()
         return
 
-    def recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback=None):
+    def recreateVehicle(self, vDesc, vState, onVehicleLoadedCallback=None, outfit=None):
         if not self.__vEntityId:
             return
         else:
@@ -213,7 +213,7 @@ class ClientHangarSpace(object):
                 return
             if onVehicleLoadedCallback is None:
                 onVehicleLoadedCallback = self.__onVehicleLoadedCallback
-            vehicle.recreateVehicle(vDesc, vState, onVehicleLoadedCallback)
+            vehicle.recreateVehicle(vDesc, vState, onVehicleLoadedCallback, outfit)
             return
 
     def removeVehicle(self):
@@ -261,13 +261,13 @@ class ClientHangarSpace(object):
 
     def updateAnchorsParams(self, *args):
         vEntity = self.getVehicleEntity()
-        if vEntity is not None and vEntity.isVehicleLoaded:
+        if vEntity is not None and vEntity.appearance is not None:
             vEntity.appearance.updateAnchorsParams(*args)
         return
 
     def getAnchorParams(self, slotId, areaId, regionId):
         vEntity = self.getVehicleEntity()
-        return vEntity.appearance.getAnchorParams(slotId, areaId, regionId) if vEntity is not None and vEntity.isVehicleLoaded else None
+        return vEntity.appearance.getAnchorParams(slotId, areaId, regionId) if vEntity is not None and vEntity.appearance is not None else None
 
     def getVehicleEntity(self):
         return BigWorld.entity(self.__vEntityId) if self.__vEntityId else None

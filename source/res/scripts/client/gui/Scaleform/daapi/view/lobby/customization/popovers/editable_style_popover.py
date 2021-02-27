@@ -182,8 +182,7 @@ class EditableStylePopover(CustomizationEditedKitPopoverMeta):
         data = [ self.__makeItemDataVO(itemData) for itemData in sorted(itemData.values(), key=orderKey) ]
         return data
 
-    @staticmethod
-    def __makeItemDataVO(itemData):
+    def __makeItemDataVO(self, itemData):
         item = itemData.item
         progressionLevel = item.getLatestOpenedProgressionLevel(g_currentVehicle.item)
         icon = item.icon if progressionLevel == -1 else item.iconByProgressionLevel(progressionLevel)
@@ -200,6 +199,9 @@ class EditableStylePopover(CustomizationEditedKitPopoverMeta):
         disabledLabel = backport.text(R.strings.vehicle_customization.popover.style.removed())
         disabledLabel = text_styles.bonusPreviewText(disabledLabel)
         isApplied = itemData.isBase
+        progressionLevel = 0
+        if item.itemTypeID == GUI_ITEM_TYPE.STYLE:
+            progressionLevel = self.__ctx.mode.currentOutfit.progressionLevel
         itemDataVO = {'id': item.intCD,
          'icon': icon,
          'userName': name,
@@ -214,7 +216,8 @@ class EditableStylePopover(CustomizationEditedKitPopoverMeta):
          'isDisabled': itemData.isRemoved,
          'disabledLabel': disabledLabel,
          'isRemovable': itemData.isRemovable,
-         'seasonType': itemData.season}
+         'seasonType': itemData.season,
+         'progressionLevel': progressionLevel}
         return itemDataVO
 
     @staticmethod

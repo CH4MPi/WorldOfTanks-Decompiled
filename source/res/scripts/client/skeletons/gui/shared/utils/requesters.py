@@ -127,6 +127,10 @@ class IStatsRequester(IRequester):
         raise NotImplementedError
 
     @property
+    def bpcoin(self):
+        raise NotImplementedError
+
+    @property
     def money(self):
         raise NotImplementedError
 
@@ -144,6 +148,10 @@ class IStatsRequester(IRequester):
 
     @property
     def actualEventCoin(self):
+        raise NotImplementedError
+
+    @property
+    def actualBpcoin(self):
         raise NotImplementedError
 
     @property
@@ -645,6 +653,9 @@ class IShopRequester(IShopCommonStats, IRequester):
     def getTankmanCostItemPrices(self):
         raise NotImplementedError
 
+    def getNotInShopProgressionLvlItems(self):
+        raise NotImplementedError
+
 
 class IGoodiesRequester(IRequester):
 
@@ -749,6 +760,10 @@ class IBattleRoyaleRequester(IRequester):
 
     @property
     def killCount(self):
+        raise NotImplementedError
+
+    @property
+    def topCount(self):
         raise NotImplementedError
 
 

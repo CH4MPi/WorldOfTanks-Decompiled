@@ -128,3 +128,13 @@ class ICustomizationService(object):
 
     def setDOFparams(self, params):
         raise NotImplementedError
+
+    def changeStyleProgressionLevelPreview(self, level):
+        raise NotImplementedError
+
+    def getCurrentProgressionStyleLevel(self):
+        raise NotImplementedError
+
+    @staticmethod
+    def removeAdditionalProgressionData(outfit, style, vehCD, season):
+        raise NotImplementedError

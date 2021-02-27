@@ -9,7 +9,7 @@ from CurrentVehicle import HeroTankPreviewAppearance
 from async import async, await
 from constants import RentType, GameSeasonType
 from debug_utils import LOG_WARNING
-from frameworks.wulf import ViewFlags
+from frameworks.wulf import ViewFlags, WindowLayer
 from frameworks.wulf import Window
 from frameworks.wulf import WindowFlags, WindowStatus
 from gui import SystemMessages, DialogsInterface, GUI_SETTINGS
@@ -31,11 +31,9 @@ from gui.Scaleform.genConsts.EPICBATTLES_ALIASES import EPICBATTLES_ALIASES
 from gui.Scaleform.genConsts.PERSONAL_MISSIONS_ALIASES import PERSONAL_MISSIONS_ALIASES
 from gui.Scaleform.genConsts.RANKEDBATTLES_ALIASES import RANKEDBATTLES_ALIASES
 from gui.Scaleform.genConsts.STORAGE_CONSTANTS import STORAGE_CONSTANTS
-from gui.Scaleform.genConsts.BATTLE_OF_BLOGGERS_ALIASES import BATTLE_OF_BLOGGERS_ALIASES
 from gui.Scaleform.locale.MESSENGER import MESSENGER
 from gui.game_control.links import URLMacros
 from gui.impl import backport
-from gui.impl.battle.battle_royale.battle_result_view import BrBattleResultsViewInBattle
 from gui.impl.gen import R
 from gui.impl.lobby.common.congrats.common_congrats_view import CongratsWindow
 from gui.impl.lobby.demount_kit.optional_device_dialogs import BuyAndInstallOpDevDialog, BuyAndStorageOpDevDialog, DemountOpDevSinglePriceDialog, DestroyOpDevDialog, InstallOpDevDialog
@@ -48,6 +46,7 @@ from gui.impl.lobby.tank_setup.dialogs.need_repair import NeedRepair
 from gui.impl.lobby.tank_setup.dialogs.refill_shells import RefillShells, ExitFromShellsConfirm
 from gui.impl.lobby.techtree.techtree_intro_view import TechTreeIntroWindow
 from gui.impl.pub.lobby_window import LobbyWindow
+from gui.impl.pub.notification_commands import WindowNotificationCommand
 from gui.prb_control.settings import CTRL_ENTITY_TYPE
 from gui.shared import events, g_eventBus, money
 from gui.shared.ClanCache import g_clanCache
@@ -59,7 +58,7 @@ from gui.shared.money import Currency
 from gui.shared.utils import isPopupsWindowsOpenDisabled
 from gui.shared.utils.functions import getViewName, getUniqueViewName
 from gui.shared.utils.requesters import REQ_CRITERIA
-from gui.shop import generateShopRentRenewProductID, showBuyGoldForRentWebOverlay
+from gui.shop import generateShopRentRenewProductID, showBuyGoldForRentWebOverlay, showBluprintsExchangeOverlay
 from gui.shop import getShopProductInfo
 from gui.shop import makeBuyParamsByProductInfo
 from gui.shop import showBuyVehicleOverlay
@@ -68,6 +67,7 @@ from helpers.aop import pointcutable
 from helpers.i18n import makeString as _ms
 from items import vehicles as vehicles_core, parseIntCompactDescr, ITEM_TYPES
 from nations import NAMES
+from shared_utils import first
 from skeletons.gui.app_loader import IAppLoader
 from skeletons.gui.game_control import IHeroTankController, IReferralProgramController, IEpicBattleMetaGameController, IClanNotificationController, IEventProgressionController, IBrowserController
 from skeletons.gui.goodies import IGoodiesCache
@@ -108,7 +108,7 @@ def showRankedAwardWindow(awardsSequence, rankedInfo, notificationMgr=None):
     alias = RANKEDBATTLES_ALIASES.RANKED_BATTLES_AWARD
     window = SFWindow(SFViewLoadParams(alias, getUniqueViewName(alias)), ctx={'awardsSequence': awardsSequence,
      'rankedInfo': rankedInfo}, scope=EVENT_BUS_SCOPE.LOBBY)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 def showRankedPrimeTimeWindow():
@@ -117,10 +117,6 @@ def showRankedPrimeTimeWindow():
 
 def showEpicBattlesPrimeTimeWindow():
     g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(EPICBATTLES_ALIASES.EPIC_BATTLES_PRIME_TIME_ALIAS), ctx={}), EVENT_BUS_SCOPE.LOBBY)
-
-
-def showBobPrimeTimeWindow():
-    g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(BATTLE_OF_BLOGGERS_ALIASES.BOB_PRIME_TIME_ALIAS), ctx={}), EVENT_BUS_SCOPE.LOBBY)
 
 
 def showEpicBattlesWelcomeBackWindow():
@@ -135,20 +131,20 @@ def showBattleRoyaleLevelUpWindow(reusableInfo, parent=None):
     g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(BATTLEROYALE_ALIASES.LEVEL_UP, parent=parent), ctx={'reusableInfo': reusableInfo}), EVENT_BUS_SCOPE.LOBBY)
 
 
-def showBattleRoyaleResultsView(ctx, isInBattle=False):
-    if isInBattle:
-        window = LobbyWindow(WindowFlags.WINDOW | WindowFlags.WINDOW_FULLSCREEN, content=BrBattleResultsViewInBattle(ctx=ctx))
-        window.load()
-    else:
-        from gui.impl.lobby.battle_royale.battle_result_view import BrBattleResultsViewInLobby
-        uiLoader = dependency.instance(IGuiLoader)
-        contentResId = R.views.lobby.battle_royale.BattleResultView()
-        battleResultView = uiLoader.windowsManager.getViewByLayoutID(contentResId)
-        if battleResultView is not None:
-            if battleResultView.arenaUniqueID == ctx.get('arenaUniqueID', -1):
-                return
-            battleResultView.destroyWindow()
-        g_eventBus.handleEvent(events.LoadGuiImplViewEvent(GuiImplViewLoadParams(contentResId, BrBattleResultsViewInLobby, ScopeTemplates.LOBBY_SUB_SCOPE), ctx=ctx), scope=EVENT_BUS_SCOPE.LOBBY)
+def showBattleRoyalePrimeTimeWindow():
+    g_eventBus.handleEvent(events.LoadViewEvent(SFViewLoadParams(BATTLEROYALE_ALIASES.BATTLE_ROYALE_PRIME_TIME), ctx={}), EVENT_BUS_SCOPE.LOBBY)
+
+
+def showBattleRoyaleResultsView(ctx):
+    from gui.impl.lobby.battle_royale.battle_result_view import BrBattleResultsViewInLobby
+    uiLoader = dependency.instance(IGuiLoader)
+    contentResId = R.views.lobby.battle_royale.BattleResultView()
+    battleResultView = uiLoader.windowsManager.getViewByLayoutID(contentResId)
+    if battleResultView is not None:
+        if battleResultView.arenaUniqueID == ctx.get('arenaUniqueID', -1):
+            return
+        battleResultView.destroyWindow()
+    g_eventBus.handleEvent(events.LoadGuiImplViewEvent(GuiImplViewLoadParams(contentResId, BrBattleResultsViewInLobby, ScopeTemplates.LOBBY_SUB_SCOPE), ctx=ctx), scope=EVENT_BUS_SCOPE.LOBBY)
     return
 
 
@@ -564,7 +560,7 @@ def showPersonalMissionsQuestAwardScreen(quest, ctx, proxyEvent, notificationMgr
     window = SFWindow(SFViewLoadParams(alias, getUniqueViewName(alias)), ctx={'quest': quest,
      'ctxData': ctx,
      'proxyEvent': proxyEvent}, scope=EVENT_BUS_SCOPE.LOBBY)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 def showProfileWindow(databaseID, userName):
@@ -793,14 +789,14 @@ def showProgressiveRewardWindow():
 def showProgressiveRewardAwardWindow(bonuses, specialRewardType, currentStep, notificationMgr=None):
     from gui.impl.lobby.progressive_reward.progressive_reward_award_view import ProgressiveRewardAwardWindow
     window = ProgressiveRewardAwardWindow(bonuses, specialRewardType, currentStep)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 @dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
 def showSeniorityRewardAwardWindow(qID, data, notificationMgr=None):
     from gui.impl.lobby.seniority_awards.seniority_reward_award_view import SeniorityRewardAwardWindow
     window = SeniorityRewardAwardWindow(qID, data, R.views.lobby.seniority_awards.SeniorityAwardsView())
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 def showBattlePassAwardsWindow(bonuses, data, callback=None):
@@ -810,31 +806,18 @@ def showBattlePassAwardsWindow(bonuses, data, callback=None):
     window.load()
 
 
+def showBattlePassHowToEarnPointsView(parent=None):
+    from gui.impl.lobby.battle_pass.battle_pass_how_to_earn_points_view import BattlePassHowToEarnPointsWindow
+    window = BattlePassHowToEarnPointsWindow(parent=parent if parent is not None else getParentWindow())
+    window.load()
+    return
+
+
 @dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
 def showBattlePassVehicleAwardWindow(data, notificationMgr=None):
     from gui.impl.lobby.battle_pass.battle_pass_vehicle_award_view import BattlePassVehicleAwardWindow
     window = BattlePassVehicleAwardWindow(data)
-    notificationMgr.append(window)
-
-
-def showBattleVotingResultWindow(isOverlay=False, parent=None):
-    from gui.impl.lobby.battle_pass.battle_pass_voting_result_view import BattlePassVotingResultWindow
-    window = BattlePassVotingResultWindow(isOverlay, parent)
-    window.load()
-
-
-@dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
-def showBobPersonalRewardWindow(bonuses, notificationMgr=None):
-    from gui.impl.lobby.bob.bob_personal_rewards_view import BobPersonalRewardWindow
-    window = BobPersonalRewardWindow(bonuses)
-    notificationMgr.append(window)
-
-
-@dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
-def showBobTeamRewardWindow(bonuses, level, notificationMgr=None):
-    from gui.impl.lobby.bob.bob_team_rewards_view import BobTeamRewardWindow
-    window = BobTeamRewardWindow(bonuses, level)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 def showDedicationRewardWindow(bonuses, data, closeCallback=None):
@@ -852,14 +835,12 @@ def isViewLoaded(layoutID):
         return view is not None
 
 
-def showBattlePassOnboardingWindow(parent=None):
-    from gui.impl.lobby.battle_pass.battle_pass_onboarding_view import BattlePassOnboardingWindow
-    window = BattlePassOnboardingWindow(parent)
-    window.load()
-
-
 def showEventProgressionStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel=''):
     showStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel, VIEW_ALIAS.EVENT_PROGRESSION_STYLE_PREVIEW)
+
+
+def showProgressionStylesStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel=''):
+    showStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel, VIEW_ALIAS.PROGRESSION_STYLES_STYLE_PREVIEW)
 
 
 def showStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel='', alias=VIEW_ALIAS.STYLE_PREVIEW):
@@ -906,7 +887,7 @@ def findAndLoadWindow(useQueue, windowType, *args, **kwargs):
 
     newWindow = windowType(*args, **kwargs)
     if useQueue:
-        notificationMgr.append(newWindow)
+        notificationMgr.append(WindowNotificationCommand(newWindow))
     else:
         newWindow.load()
     return newWindow
@@ -1142,14 +1123,21 @@ def showOfferRewardWindow(offerID, giftID, cdnTitle='', cdnDescription='', cdnIc
 def showProgressiveItemsRewardWindow(itemCD, vehicleCD, progressionLevel, showSecondButton=True, notificationMgr=None):
     from gui.impl.lobby.customization.progressive_items_reward.progressive_items_upgrade_view import ProgressiveItemsUpgradeWindow
     window = ProgressiveItemsUpgradeWindow(itemCD, vehicleCD, progressionLevel, showSecondButton)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 @dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
 def showProgressionRequiredStyleUnlockedWindow(vehicleCD, notificationMgr=None):
     from gui.impl.lobby.customization.style_unlocked_view.style_unlocked_view import StyleUnlockedWindow
     window = StyleUnlockedWindow(vehicleCD)
-    notificationMgr.append(window)
+    notificationMgr.append(WindowNotificationCommand(window))
+
+
+@dependency.replace_none_kwargs(notificationMgr=INotificationWindowController)
+def showBadgeInvoiceAwardWindow(badge, notificationMgr=None):
+    from gui.impl.lobby.awards.badge_award_view import BadgeAwardViewWindow
+    window = BadgeAwardViewWindow(badge)
+    notificationMgr.append(WindowNotificationCommand(window))
 
 
 def showProgressiveItemsView(itemIntCD=None):
@@ -1222,3 +1210,30 @@ def showBattleAbilitiesConfirmDialog(items, withInstall=None, parent=None):
     from gui.impl.dialogs import dialogs
     result = yield await(dialogs.showSingleDialogWithResultData(layoutID=R.views.lobby.tanksetup.dialogs.Confirm(), wrappedViewClass=BattleAbilitiesSetupConfirm, items=items, withInstall=withInstall, parent=parent))
     raise AsyncReturn(result)
+
+
+def showBlueprintsSalePage(url=None):
+    showBluprintsExchangeOverlay(url=url)
+
+
+def showBlueprintsExchangeStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel=''):
+    showStylePreview(vehCD, style, styleDescr, backCallback, backBtnDescrLabel, VIEW_ALIAS.BLUEPRINTS_EXCHANGE_STYLE_PREVIEW)
+
+
+def showBattlePassDailyQuestsIntroWindow(parent=None):
+    from gui.impl.lobby.battle_pass.battle_pass_daily_quests_intro_view import BattlePassDailyQuestsIntroWindow
+    window = BattlePassDailyQuestsIntroWindow(parent=parent if parent is not None else getParentWindow())
+    window.load()
+    return
+
+
+def showBattlePassRewardChoiceWindow():
+    from gui.impl.lobby.battle_pass.battle_pass_reward_choice_view import BattlePassRewardChoiceWindow
+    window = BattlePassRewardChoiceWindow()
+    window.load()
+
+
+def getParentWindow():
+    guiLoader = dependency.instance(IGuiLoader)
+    windows = guiLoader.windowsManager.findWindows(lambda w: w.layer == WindowLayer.SUB_VIEW)
+    return first(windows)

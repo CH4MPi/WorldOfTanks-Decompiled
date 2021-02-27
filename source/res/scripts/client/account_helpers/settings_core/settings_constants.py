@@ -80,6 +80,7 @@ class GAME(CONST_CONTAINER):
     MINIMAP_ALPHA = 'minimapAlpha'
     ENABLE_POSTMORTEM_DELAY = 'enablePostMortemDelay'
     REPLAY_ENABLED = 'replayEnabled'
+    SNIPER_ZOOM = 'sniperZoom'
     ENABLE_SERVER_AIM = 'useServerAim'
     SHOW_DAMAGE_ICON = 'showDamageIcon'
     SHOW_VEHICLES_COUNTER = 'showVehiclesCounter'
@@ -93,6 +94,7 @@ class GAME(CONST_CONTAINER):
     SNIPER_MODE_BY_SHIFT = 'sniperModeByShift'
     ENABLE_SPEEDOMETER = 'enableSpeedometer'
     ENABLE_REPAIR_TIMER = 'enableRepairTimer'
+    ENABLE_BATTLE_NOTIFIER = 'enableBattleNotifier'
     HANGAR_CAM_PERIOD = 'hangarCamPeriod'
     HANGAR_CAM_PARALLAX_ENABLED = 'hangarCamParallaxEnabled'
     PLAYERS_PANELS_SHOW_LEVELS = 'ppShowLevels'
@@ -427,14 +429,11 @@ class BattlePassStorageKeys(CONST_CONTAINER):
     INTRO_SHOWN = 'introShown'
     INTRO_VIDEO_SHOWN = 'introVideoShown'
     BUY_BUTTON_HINT_IS_SHOWN = 'buyButtonHintIsShown'
-    VOTED_WITH_BOUGHT_BP = 'votedWithBoughtBP'
-    SHOWN_VIDEOS_FLAGS = 'shownVideosFlags'
-    CHOSEN_TROPHY_DEVICES = 'chosenTrophyDevices'
-    CHOSEN_NEW_DEVICES = 'chosenNewDevices'
     BUY_ANIMATION_WAS_SHOWN = 'buyAnimationWasShown'
     FLAGS_VERSION = 'flagsVersion'
     TROPHY_NOTIFICATION_SHOWN = 'trophyNotificationShown'
     NEW_DEVICE_NOTIFICATION_SHOWN = 'newDeviceNotificationShown'
+    DAILY_QUESTS_INTRO_SHOWN = 'dailyQuestsIntroShown'
     MASK_CHOSEN_DEVICES = 15
 
 
@@ -445,3 +444,10 @@ class BattleCommStorageKeys(CONST_CONTAINER):
     SHOW_CALLOUT_MESSAGES = 'showCalloutMessages'
     SHOW_LOCATION_MARKERS = 'showLocationMarkers'
     SHOW_BASE_MARKERS = 'showMarkers'
+
+
+class ScorePanelStorageKeys(CONST_CONTAINER):
+    SHOW_HP_BAR = 'showHPBar'
+    SHOW_HP_VALUES = 'showHPValues'
+    SHOW_HP_DIFFERENCE = 'showHPDifference'
+    ENABLE_TIER_GROUPING = 'enableTierGrouping'

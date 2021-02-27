@@ -13,13 +13,13 @@ from gui.shared.event_dispatcher import hideVehiclePreview
 from helpers import dependency
 from gui import SystemMessages
 from gui.Scaleform.daapi.view.lobby.customization.context.context import CustomizationContext
-from gui.customization.shared import C11N_ITEM_TYPE_MAP, HighlightingMode
+from gui.customization.shared import C11N_ITEM_TYPE_MAP, HighlightingMode, C11nId
 from gui.shared import g_eventBus, events, EVENT_BUS_SCOPE
 from gui.shared.gui_items import GUI_ITEM_TYPE, ItemsCollection
 from gui.shared.gui_items.customization.c11n_items import Customization
 from items.customizations import CustomizationOutfit, createNationalEmblemComponents
 from skeletons.gui.lobby_context import ILobbyContext
-from vehicle_outfit.outfit import Outfit
+from vehicle_outfit.outfit import Outfit, Area
 from gui.shared.gui_items.processors.common import OutfitApplier, CustomizationsBuyer, CustomizationsSeller
 from gui.shared.gui_items.Vehicle import Vehicle
 from gui.shared.utils.decorators import process
@@ -35,6 +35,7 @@ from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
 if typing.TYPE_CHECKING:
     from gui.customization.constants import CustomizationModeSource
     from gui.Scaleform.daapi.view.lobby.customization.shared import CustomizationModes, CustomizationTabs
+    from gui.shared.gui_items.customization.c11n_items import Style
 _logger = logging.getLogger(__name__)
 
 class _ServiceItemShopMixin(object):
@@ -194,6 +195,7 @@ class CustomizationService(_ServiceItemShopMixin, _ServiceHelpersMixin, ICustomi
         g_eventBus.addListener(events.LobbySimpleEvent.NOTIFY_CURSOR_OVER_3DSCENE, self.__onNotifyCursorOver3dScene)
         g_eventBus.addListener(events.LobbySimpleEvent.NOTIFY_CURSOR_DRAGGING, self.__onNotifyCursorDragging)
         g_eventBus.addListener(events.CustomizationEvent.SHOW, self.__onShowCustomization, scope=EVENT_BUS_SCOPE.LOBBY)
+        g_currentVehicle.onChanged += self.__onVehicleChanged
         self.hangarSpace.onSpaceDestroy += self.__onSpaceDestroy
         self.hangarSpace.onSpaceCreate += self.__onSpaceCreate
         Windowing.addWindowAccessibilitynHandler(self.__onWindowAccessibilityChanged)
@@ -205,6 +207,7 @@ class CustomizationService(_ServiceItemShopMixin, _ServiceHelpersMixin, ICustomi
         g_eventBus.removeListener(events.LobbySimpleEvent.NOTIFY_CURSOR_OVER_3DSCENE, self.__onNotifyCursorOver3dScene)
         g_eventBus.removeListener(events.LobbySimpleEvent.NOTIFY_CURSOR_DRAGGING, self.__onNotifyCursorDragging)
         g_eventBus.removeListener(events.CustomizationEvent.SHOW, self.__onShowCustomization, scope=EVENT_BUS_SCOPE.LOBBY)
+        g_currentVehicle.onChanged -= self.__onVehicleChanged
         self.hangarSpace.onSpaceDestroy -= self.__onSpaceDestroy
         self.hangarSpace.onSpaceCreate -= self.__onSpaceCreate
         Windowing.removeWindowAccessibilityHandler(self.__onWindowAccessibilityChanged)
@@ -499,17 +502,53 @@ class CustomizationService(_ServiceItemShopMixin, _ServiceHelpersMixin, ICustomi
         if entity and entity.appearance and entity.appearance.isLoaded():
             self._helper = BigWorld.PyCustomizationHelper(entity.model, self._mode, self._isOver3dScene, self.__onRegionHighlighted)
             self.onCustomizationHelperRecreated()
-            self.selectRegions(self._selectedRegion)
             self._isHighlighterActive = True
+            self.selectRegions(self._selectedRegion)
             if self.__customizationCtx is not None and self.__customizationCtx.c11nCameraManager.isStyleInfo():
                 self.suspendHighlighter()
         return
 
     def __onVehicleLoadStarted(self):
-        self._selectedRegion = ApplyArea.NONE
         self._isHighlighterActive = False
         self._helper = None
         return
 
+    def __onVehicleChanged(self):
+        self._selectedRegion = ApplyArea.NONE
+
     def __onShowCustomization(self, event):
         self.showCustomization(**event.ctx)
+
+    def changeStyleProgressionLevelPreview(self, level):
+        entity = self.hangarSpace.getVehicleEntity()
+        if not entity or not level:
+            return 1
+        else:
+            outfit = entity.appearance.outfit
+            if not outfit.style or not outfit.style.isProgression:
+                return 1
+            outfit.setProgressionLevel(level)
+            self.tryOnOutfit(outfit)
+            if self.__customizationCtx is not None:
+                slotID = C11nId(areaId=Area.MISC, slotType=GUI_ITEM_TYPE.STYLE, regionIdx=0)
+                self.__customizationCtx.events.onComponentChanged(slotID, True)
+            return outfit.progressionLevel
+
+    def getCurrentProgressionStyleLevel(self):
+        entity = self.hangarSpace.getVehicleEntity()
+        if not entity:
+            return None
+        else:
+            outfit = entity.appearance.outfit
+            if not outfit.style or not outfit.style.isProgression:
+                _logger.error('Could not find style progressions')
+                return None
+            return outfit.progressionLevel
+
+    @staticmethod
+    def removeAdditionalProgressionData(outfit, style, vehCD, season):
+        if outfit and outfit.progressionLevel and style and vehCD:
+            additionalOutfit = style.getAdditionalOutfit(outfit.progressionLevel, season, vehCD)
+            if additionalOutfit is not None:
+                return outfit.discard(additionalOutfit)
+        return outfit

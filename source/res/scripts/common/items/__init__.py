@@ -71,8 +71,10 @@ class ItemsPrices(object):
                 info['gold'] = prices[1]
             if len(prices) > 2 and prices[2] != 0:
                 info['crystal'] = prices[2]
-                if len(prices) > 3:
-                    info['eventCoin'] = prices[3]
+            if len(prices) > 3:
+                info['eventCoin'] = prices[3]
+            if len(prices) > 4:
+                info['bpcoin'] = prices[4]
             self._itemsPriceInfo[descriptor] = info
         elif isinstance(prices, dict):
             self._itemsPriceInfo[descriptor] = prices
@@ -151,6 +153,8 @@ def init(preloadEverything, pricesToCollect=None):
         pricesToCollect['playerEmblemGroupPriceFactors'] = {}
         pricesToCollect['notInShopPlayerEmblemGroups'] = set()
         pricesToCollect['operationPrices'] = {}
+        pricesToCollect['progressionLvlPrices'] = {}
+        pricesToCollect['notInShopProgressionLvlItems'] = {}
     from items import stun
     stun.init()
     from items import vehicles

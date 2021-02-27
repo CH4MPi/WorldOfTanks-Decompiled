@@ -328,6 +328,12 @@ class VehicleStateController(IBattleController):
             self.__waitingTI.start()
             return
 
+    def refreshObserverVehicleVisual(self):
+        vehicle = self.getControllingVehicle()
+        if vehicle is not None:
+            self.onVehicleControlling(vehicle)
+        return
+
     def movingToRespawn(self):
         self.__isInPostmortem = False
         self.notifyStateChanged(VEHICLE_VIEW_STATE.SWITCHING, 0)

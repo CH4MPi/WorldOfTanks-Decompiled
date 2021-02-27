@@ -1197,6 +1197,20 @@
     <name>	Spartacus Standalone	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/cool	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	485	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/cool/sticker_61.dds	</texture>
+      <userString>	#vehicle_customization:emblem/cool/sticker_61	</userString>
+      <mirror>	true	</mirror>
+    </decal>
+    <name>	St Patrick	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
   <xmlns:germany>	germany	</xmlns:germany>
   <xmlns:usa>	usa	</xmlns:usa>
@@ -1331,6 +1345,26 @@
       <mirror>	true	</mirror>
     </decal>
     <name>	Brazil Carnival	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/cool	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	486	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/cool/sticker_62.dds	</texture>
+      <userString>	#vehicle_customization:emblem/cool/sticker_62	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	487	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/cool/sticker_63.dds	</texture>
+      <userString>	#vehicle_customization:emblem/cool/sticker_63	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Cosmonautics Day 2021	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -5427,6 +5461,26 @@
       <userString>	#vehicle_customization:emblem/special/sticker_645	</userString>
       <mirror>	true	</mirror>
     </decal>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	466	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_664.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_664	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	467	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_665.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_665	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	BP2021	</name>
+    <type>	EMBLEM	</type>
   </itemGroup>
   <itemGroup>
     <userString>	#vehicle_customization:emblem/special	</userString>
@@ -10258,6 +10312,41 @@
     <name>	Spartacus Standalone	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	484	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_490.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_490	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	BP2021	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <tags>	hiddenInUI	</tags>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	488	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_491.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_491	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	489	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_492.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_492	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Cosmonautics Day 2021	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
   <xmlns:germany>	germany	</xmlns:germany>
   <xmlns:usa>	usa	</xmlns:usa>
@@ -10699,28 +10788,24 @@
     <name>	Battle of Bloggers 2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
-  <xmlns:czech0>	ussr	</xmlns:czech0>
-  <xmlns:germany>	germany	</xmlns:germany>
-  <xmlns:usa>	usa	</xmlns:usa>
-  <xmlns:china>	china	</xmlns:china>
-  <xmlns:france>	france	</xmlns:france>
-  <xmlns:uk>	uk	</xmlns:uk>
-  <xmlns:japan>	japan	</xmlns:japan>
-  <xmlns:czech>	czech	</xmlns:czech>
-  <xmlns:sweden>	sweden	</xmlns:sweden>
-  <xmlns:poland>	poland	</xmlns:poland>
   <itemGroup>
     <userString>	#vehicle_customization:inscription/special	</userString>
     <season>	ALL	</season>
     <historical>	false	</historical>
     <priceGroup>	inscriptions 50g notInShop	</priceGroup>
     <decal>
-      <id>	395	</id>
-      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_445.dds	</texture>
-      <userString>	#vehicle_customization:inscription/special/special_445	</userString>
+      <id>	490	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_493.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_493	</userString>
       <mirror>	false	</mirror>
     </decal>
-    <name>	NA D-Day nonRU	</name>
+    <decal>
+      <id>	491	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_494.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_494	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Cosmonautics Day 2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -10816,6 +10901,20 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Seniority Awards 2020 EN	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	395	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_445.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_445	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	NA D-Day nonRU	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>

@@ -1,6 +1,7 @@
 #-------------------- WOT-UnDec parameters --------------------
 
-exe  = "C:\Program Files (x86)\Borland\Delphi6\Projects\PjOrion\PjOrion.exe"
+#exe  = "C:\Program Files (x86)\Borland\Delphi6\Projects\PjOrion\PjOrion.exe"
+exe  = "C:\Program Files\PjOrion\PjOrion.exe"
 path = "source\"
 unpack_xml = true
 decompile_pyc = true

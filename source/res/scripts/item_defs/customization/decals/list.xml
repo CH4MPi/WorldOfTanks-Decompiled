@@ -5929,28 +5929,19 @@
     <name>	Battle of Bloggers 2021	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
-  <xmlns:czech0>	ussr	</xmlns:czech0>
-  <xmlns:germany>	germany	</xmlns:germany>
-  <xmlns:usa>	usa	</xmlns:usa>
-  <xmlns:china>	china	</xmlns:china>
-  <xmlns:france>	france	</xmlns:france>
-  <xmlns:uk>	uk	</xmlns:uk>
-  <xmlns:japan>	japan	</xmlns:japan>
-  <xmlns:czech>	czech	</xmlns:czech>
-  <xmlns:sweden>	sweden	</xmlns:sweden>
-  <xmlns:poland>	poland	</xmlns:poland>
   <itemGroup>
-    <userString>	#vehicle_customization:emblem/clan_content	</userString>
+    <userString>	#vehicle_customization:emblem/special	</userString>
     <season>	ALL	</season>
     <historical>	false	</historical>
     <priceGroup>	emblems 50g notInShop	</priceGroup>
     <decal>
-      <id>	15858	</id>
-      <texture>	gui/maps/vehicles/decals/player_stickers/clan_content/sticker_08.dds	</texture>
-      <userString>	#vehicle_customization:emblem/group7/clan_content_08	</userString>
+      <id>	493	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_669.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_669	</userString>
+      <description>	#vehicle_customization:emblem/special/sticker_669_desc	</description>
       <mirror>	false	</mirror>
     </decal>
-    <name>	Clan Content nonCN nonNA	</name>
+    <name>	Black Market	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -10808,6 +10799,20 @@
     <name>	Cosmonautics Day 2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	747	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_505.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_505	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Sandbox nonRU	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
   <xmlns:germany>	germany	</xmlns:germany>
   <xmlns:usa>	usa	</xmlns:usa>
@@ -10915,6 +10920,21 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	NA D-Day nonRU	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	494	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_498.dds	</texture>
+      <description>	#vehicle_customization:inscription/special/special_497/description	</description>
+      <userString>	#vehicle_customization:inscription/special/special_498	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Black Market nonRU	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>

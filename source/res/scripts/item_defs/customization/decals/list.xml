@@ -5486,6 +5486,26 @@
     <userString>	#vehicle_customization:emblem/special	</userString>
     <season>	ALL	</season>
     <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	409	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_666.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_666	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	410	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_667.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_667	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	GI Joe	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
     <priceGroup>	emblems 150g notInShop	</priceGroup>
     <decal>
       <id>	370	</id>
@@ -5942,6 +5962,30 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Black Market	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
+  <xmlns:czech0>	ussr	</xmlns:czech0>
+  <xmlns:germany>	germany	</xmlns:germany>
+  <xmlns:usa>	usa	</xmlns:usa>
+  <xmlns:china>	china	</xmlns:china>
+  <xmlns:france>	france	</xmlns:france>
+  <xmlns:uk>	uk	</xmlns:uk>
+  <xmlns:japan>	japan	</xmlns:japan>
+  <xmlns:czech>	czech	</xmlns:czech>
+  <xmlns:sweden>	sweden	</xmlns:sweden>
+  <xmlns:poland>	poland	</xmlns:poland>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/clan_content	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	15858	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/clan_content/sticker_08.dds	</texture>
+      <userString>	#vehicle_customization:emblem/group7/clan_content_08	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Clan Content nonCN nonNA	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -10224,6 +10268,20 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Twitch	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	408	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_451.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_451	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	GI Joe	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <itemGroup>

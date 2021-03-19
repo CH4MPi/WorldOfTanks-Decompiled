@@ -28,6 +28,10 @@ class BattlePassStateMachine(StateMachine):
         lockNotificationManager(False)
         super(BattlePassStateMachine, self).stop()
 
+    def post(self, event):
+        if self.isRunning():
+            super(BattlePassStateMachine, self).post(event)
+
     @property
     def lobby(self):
         return self.getChildByIndex(0)
@@ -101,7 +105,8 @@ class BattlePassStateMachine(StateMachine):
 
     def removeRewardToChoose(self, tokenID, isTaken):
         if isTaken:
-            self.__rewardsToChoose.remove(tokenID)
+            if tokenID in self.__rewardsToChoose:
+                self.__rewardsToChoose.remove(tokenID)
         else:
             if self.__rewards is None:
                 self.__rewards = []

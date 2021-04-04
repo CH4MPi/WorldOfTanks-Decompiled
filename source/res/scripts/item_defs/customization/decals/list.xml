@@ -10396,6 +10396,26 @@
     <name>	Cosmonautics Day 2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	763	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_518.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_518	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	764	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_519.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_519	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Gagarin standalone	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
   <xmlns:germany>	germany	</xmlns:germany>
   <xmlns:usa>	usa	</xmlns:usa>
@@ -11207,6 +11227,26 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Twitch November 2020	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	761	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_516.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_516	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	762	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_517.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_516	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Gagarin nonRU	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>

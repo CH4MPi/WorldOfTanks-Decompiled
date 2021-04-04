@@ -36,7 +36,7 @@
     <requiredVersion_11200>
       <Type>	STRING	</Type>
       <Flags>	BASE_AND_CLIENT	</Flags>
-      <Default>	eu_1.12.0_4	</Default>
+      <Default>	eu_1.12.0_6	</Default>
     </requiredVersion_11200>
     <name>
       <Type>	STRING	</Type>

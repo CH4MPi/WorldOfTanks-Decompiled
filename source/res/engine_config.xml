@@ -634,16 +634,15 @@
   </logging>
   <webBrowser>
     <processExe>	cef_browser_process	</processExe>
-    <userAgent>	Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36 WOWS/1.0	</userAgent>
     <cachePath>	profile/cef_cache	</cachePath>
     <resourcePath>	cef	</resourcePath>
-    <hardwareAcceleration>	false	</hardwareAcceleration>
+    <hardwareAcceleration>	true	</hardwareAcceleration>
     <logFile>	cef.log	</logFile>
-    <logVerbosity>	warning	</logVerbosity>
+    <logVerbosity>	disable	</logVerbosity>
     <enableFlash>	true	</enableFlash>
     <ignoreCertErrors>	false	</ignoreCertErrors>
     <debugPort>	-1	</debugPort>
-    <maxFrameRate>	0	</maxFrameRate>
+    <maxFrameRate>	60	</maxFrameRate>
     <acceptLangList></acceptLangList>
     <locale></locale>
     <autoPlayVideo>	true	</autoPlayVideo>

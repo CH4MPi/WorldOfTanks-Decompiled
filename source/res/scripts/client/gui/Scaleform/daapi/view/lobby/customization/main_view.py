@@ -5,6 +5,7 @@ from collections import namedtuple
 import BigWorld
 from BWUtil import AsyncReturn
 from CurrentVehicle import g_currentVehicle
+from Event import Event
 from Math import Matrix
 from account_helpers.AccountSettings import AccountSettings, CUSTOMIZATION_SECTION, CAROUSEL_ARROWS_HINT_SHOWN_FIELD
 import adisp
@@ -14,7 +15,7 @@ from gui.Scaleform.Waiting import Waiting
 from gui.Scaleform.daapi import LobbySubView
 from gui.Scaleform.daapi.settings.views import VIEW_ALIAS
 from gui.Scaleform.daapi.view.lobby.customization.customization_item_vo import buildCustomizationItemDataVO
-from gui.Scaleform.daapi.view.lobby.customization.shared import getEmptyRegions, checkSlotsFilling, CustomizationTabs, getItemTypesAvailableForVehicle, getSlotDataFromSlot, ITEM_TYPE_TO_SLOT_TYPE
+from gui.Scaleform.daapi.view.lobby.customization.shared import getEmptyRegions, checkSlotsFilling, CustomizationTabs, getItemTypesAvailableForVehicle
 from gui.Scaleform.daapi.view.lobby.customization.sound_constants import SOUNDS, C11N_SOUND_SPACE
 from gui.Scaleform.daapi.view.lobby.header.LobbyHeader import HeaderMenuVisibilityState
 from gui.Scaleform.daapi.view.meta.CustomizationMainViewMeta import CustomizationMainViewMeta
@@ -33,22 +34,24 @@ from gui.hangar_cameras.hangar_camera_common import CameraRelatedEvents
 from gui.impl import backport
 from gui.impl.dialogs import dialogs
 from gui.impl.dialogs.builders import ResPureDialogBuilder, ResSimpleDialogBuilder
-from gui.impl.pub.dialog_window import DialogButtons
 from gui.impl.gen import R
 from gui.impl.gen.view_models.constants.dialog_presets import DialogPresets
 from gui.impl.lobby.customization.customization_cart.customization_cart_view import CustomizationCartView
+from gui.impl.pub.dialog_window import DialogButtons
 from gui.shared import events
 from gui.shared.close_confiramtor_helper import CloseConfirmatorsHelper
 from gui.shared.event_bus import EVENT_BUS_SCOPE
 from gui.shared.event_dispatcher import showProgressiveItemsView
+from gui.shared.event_dispatcher import tryToShowReplaceExistingStyleDialog
 from gui.shared.formatters import formatPrice, formatPurchaseItems, text_styles
 from gui.shared.gui_items import GUI_ITEM_TYPE, GUI_ITEM_TYPE_NAMES
 from gui.shared.gui_items.gui_item_economics import ITEM_PRICE_EMPTY
+from gui.shared.money import Currency
 from gui.shared.utils.functions import makeTooltip
-from gui.shared.event_dispatcher import tryToShowReplaceExistingStyleDialog
 from helpers import dependency, int2roman
 from helpers.i18n import makeString as _ms
 from items.components.c11n_constants import SeasonType, ApplyArea
+from shared_utils import findFirst
 from skeletons.account_helpers.settings_core import ISettingsCore
 from skeletons.gui.app_loader import IAppLoader
 from skeletons.gui.customization import ICustomizationService
@@ -257,6 +260,8 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         pass
 
     def __onVehicleLoadFinished(self):
+        self.__onVehicleLoadFinishedEvent()
+        self.__onVehicleLoadFinishedEvent = Event()
         if self.__ctx.c11nCameraManager is None:
             _logger.warning('Missing customization camera manager')
             return
@@ -267,11 +272,16 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
             return
 
     def __initAnchorsPositions(self):
+        entity = self.__ctx.c11nCameraManager.vEntity
         self.__initAnchorsPositionsCallback = None
-        if self.__ctx.c11nCameraManager.vEntity is not None and self.__ctx.c11nCameraManager.vEntity.isVehicleLoaded:
-            self.__ctx.c11nCameraManager.vEntity.appearance.updateAnchorsParams()
+        if entity is not None:
+            if entity.isVehicleLoaded:
+                entity.appearance.updateAnchorsParams()
+            else:
+                self.__initAnchorsPositionsCallback = BigWorld.callback(0.0, self.__initAnchorsPositions)
+                return
         self.__setAnchorsInitData()
-        self.__locateCameraToCustomizationPreview(updateTankCentralPoint=True)
+        self.__locateCameraToCustomizationPreview(updateTankCentralPoint=True, forceLocate=True)
         return
 
     def onBuyConfirmed(self, isOk):
@@ -351,6 +361,9 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         if self.__styleInfo.visible:
             return
         else:
+            if item is not None and self.__bottomPanel.isItemUnsuitable(item):
+                self.__ctx.mode.unselectItem()
+                needToKeepSelect = False
             if item is not None and needToKeepSelect:
                 itemDataVO = buildCustomizationItemDataVO(item=item, progressionLevel=self.__ctx.mode.storedProgressionLevel, vehicle=g_currentVehicle.item)
                 self.as_reselectS(itemDataVO)
@@ -547,59 +560,94 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
             return
 
     def __onItemsBought(self, originalOutfits, purchaseItems, results):
-        errorCount = 0
+        if results:
+            if not self.__checkPurchaseSuccess(results):
+                _logger.error('Failed to purchase customization outfits.')
+                return
+            cart = getTotalPurchaseInfo(purchaseItems)
+            if cart.totalPrice != ITEM_PRICE_EMPTY:
+                currency = cart.totalPrice.getCurrency(byWeight=True)
+                msgText = self.__getPurchaseMessage(cart, purchaseItems)
+                msgType = CURRENCY_TO_SM_TYPE.get(currency, SM_TYPE.PurchaseForGold)
+                priority = NC_MESSAGE_PRIORITY.DEFAULT if currency != Currency.CREDITS else None
+            else:
+                modifiedOutfits = self.__ctx.mode.getModifiedOutfits()
+                msgText = self.__getModifyMessage(originalOutfits, modifiedOutfits)
+                msgType = SM_TYPE.Information
+                priority = None
+            if msgText is not None:
+                SystemMessages.pushMessage(text=msgText, type=msgType, priority=priority)
+        self.__onCloseWindow()
+        return
+
+    def __checkPurchaseSuccess(self, results):
+        success = True
         for result in results:
-            if not result.success:
-                errorCount += 1
+            success &= result.success
             if result.userMsg:
                 SystemMessages.pushI18nMessage(result.userMsg, type=result.sysMsgType)
 
-        if not errorCount:
-            cart = getTotalPurchaseInfo(purchaseItems)
-            if cart.totalPrice != ITEM_PRICE_EMPTY:
-                msgType = CURRENCY_TO_SM_TYPE.get(cart.totalPrice.getCurrency(byWeight=True), SM_TYPE.PurchaseForGold)
-                if cart.boughtCount == 1:
-                    item = next((purchaseItem for purchaseItem in purchaseItems if not purchaseItem.isFromInventory)).item
-                    if item.itemTypeID == GUI_ITEM_TYPE.STYLE and item.isProgression:
-                        msgCtx = {'name': item.userName,
-                         'level': int2roman(self.__ctx.mode.getStyleProgressionLevel()),
-                         'money': formatPrice(cart.totalPrice.price)}
-                        msgKey = R.strings.messenger.serviceChannelMessages.sysMsg.customization.buyProgressionStyle()
-                    else:
-                        styleItemType = backport.text(R.strings.item_types.customization.style())
-                        msgCtx = {'itemType': styleItemType if item.itemTypeID == GUI_ITEM_TYPE.STYLE else item.userType,
-                         'itemName': item.userName,
-                         'money': formatPrice(cart.totalPrice.price)}
-                        msgKey = R.strings.messenger.serviceChannelMessages.sysMsg.customization.buyOne()
-                else:
-                    formattedItems = formatPurchaseItems(purchaseItems)
-                    msgCtx = {'items': formattedItems,
-                     'money': formatPrice(cart.totalPrice.price)}
-                    msgKey = R.strings.messenger.serviceChannelMessages.sysMsg.customization.buyMany()
-                SystemMessages.pushMessage(backport.text(msgKey, **msgCtx), type=msgType, priority=NC_MESSAGE_PRIORITY.DEFAULT)
-            elif self.__isAnyItemDismantled(originalOutfits, modifiedOutfits=self.__ctx.mode.getModifiedOutfits()):
-                SystemMessages.pushMessage(backport.text(R.strings.messenger.serviceChannelMessages.sysMsg.customization.remove()), type=SM_TYPE.Information)
-            else:
-                SystemMessages.pushMessage(backport.text(R.strings.messenger.serviceChannelMessages.sysMsg.customization.change()), type=SM_TYPE.Information)
-            self.__onCloseWindow()
+        return success
 
-    def __isAnyItemDismantled(self, originalOutfits, modifiedOutfits):
-        if self.__ctx.modeId != CustomizationModes.CUSTOM:
-            return False
+    def __getPurchaseMessage(self, cart, purchaseItems):
+        msgKey = R.strings.messenger.serviceChannelMessages.sysMsg.customization
+        money = formatPrice(cart.totalPrice.price)
+        if cart.boughtCount == 1:
+            pItem = findFirst(lambda i: not i.isFromInventory, purchaseItems)
+            if pItem is None:
+                _logger.error('Failed to construct customization purchase system message. Missing purchase item.')
+                return
+            item = pItem.item
+            isStyle = item.itemTypeID == GUI_ITEM_TYPE.STYLE
+            if isStyle and item.isProgression:
+                msgKey = msgKey.buyProgressionStyle()
+                msgCtx = {'name': item.userName,
+                 'level': int2roman(self.__ctx.mode.getStyleProgressionLevel()),
+                 'money': money}
+            else:
+                msgKey = msgKey.buyOne()
+                itemTypeName = backport.text(R.strings.item_types.customization.style()) if isStyle else item.userType
+                msgCtx = {'itemType': itemTypeName,
+                 'itemName': item.userName,
+                 'money': money}
+        else:
+            msgKey = msgKey.buyMany()
+            msgCtx = {'items': formatPurchaseItems(purchaseItems),
+             'money': money}
+        return backport.text(msgKey, **msgCtx)
+
+    def __getModifyMessage(self, originalOutfits, modifiedOutfits):
+        forwardDiffs = False
+        backwardDiffs = False
         for season in SeasonType.COMMON_SEASONS:
             originalOutfit = originalOutfits[season]
             modifiedOutfit = modifiedOutfits[season]
-            for intCD, _, regionIdx, container, _ in originalOutfit.itemsFull():
-                item = self.service.getItemByCD(intCD)
-                slotType = ITEM_TYPE_TO_SLOT_TYPE.get(item.itemTypeID)
-                slotId = C11nId(container.getAreaID(), slotType, regionIdx)
-                modifiedSlotData = getSlotDataFromSlot(modifiedOutfit, slotId)
-                if not modifiedSlotData.intCD:
-                    return True
+            forwardDiffs |= not originalOutfit.diff(modifiedOutfit).isEmpty()
+            backwardDiffs |= not modifiedOutfit.diff(originalOutfit).isEmpty()
 
-        return False
+        originalProgression = originalOutfits[SeasonType.SUMMER].progressionLevel
+        modifiedProgression = modifiedOutfits[SeasonType.SUMMER].progressionLevel
+        isStyleProgressionLevelChanged = originalProgression != modifiedProgression
+        hasModifications = forwardDiffs or isStyleProgressionLevelChanged
+        hasRemovalsOnly = not hasModifications and backwardDiffs
+        msgKey = R.strings.messenger.serviceChannelMessages.sysMsg.customization
+        if hasModifications:
+            msgText = backport.text(msgKey.change())
+        elif hasRemovalsOnly:
+            msgText = backport.text(msgKey.remove())
+        else:
+            _logger.error('Failed to construct customization purchase system message. Missing outfits diff.')
+            msgText = None
+        return msgText
 
     def onAnchorsShown(self, anchors):
+        entity = self.hangarSpace.getVehicleEntity()
+        if entity and entity.isVehicleLoaded:
+            self.__setAnchors(anchors)
+        else:
+            self.__onVehicleLoadFinishedEvent += lambda : self.__setAnchors(anchors)
+
+    def __setAnchors(self, anchors):
         if self.__ctx.vehicleAnchorsUpdater is not None:
             self.__ctx.vehicleAnchorsUpdater.setAnchors(anchors)
         return
@@ -649,6 +697,7 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         self.__setHeaderInitData()
         self.__setSeasonData()
         self.__ctx.refreshOutfit()
+        self.__onVehicleLoadFinishedEvent = Event()
         self.as_selectSeasonS(SEASON_TYPE_TO_IDX[self.__ctx.season])
         self.fireEvent(CameraRelatedEvents(CameraRelatedEvents.FORCE_DISABLE_IDLE_PARALAX_MOVEMENT, ctx={'isDisable': True,
          'setIdle': True,
@@ -671,8 +720,7 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         if self.__ctx.mode.isRegion:
             highlightingMode = chooseMode(self.__ctx.mode.slotType, self.__ctx.modeId, g_currentVehicle.item)
             self.service.startHighlighter(highlightingMode)
-        progressionEntryPointVisible = isVehicleCanBeCustomized(g_currentVehicle.item, GUI_ITEM_TYPE.PROJECTION_DECAL)
-        self.as_progressionEntryPointVisibleS(progressionEntryPointVisible)
+        self.as_progressionEntryPointVisibleS(any((g_currentVehicle.item.getAnchors(GUI_ITEM_TYPE.PROJECTION_DECAL, areaId) for areaId in Area.ALL)))
         self.__closeConfirmatorHelper.start(self.__closeConfirmator)
         return
 
@@ -766,7 +814,7 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         if visibleTabs:
             self.__ctx.mode.changeTab(visibleTabs[0])
         else:
-            _logger.error('There is no visible customization tabs for current vehicle: %s', g_currentVehicle.item)
+            _logger.info('There is no visible customization tabs for current vehicle: %s', g_currentVehicle.item)
 
     def __updateAnchorsData(self):
         self.as_setAnchorsDataS(self._getUpdatedAnchorsData())
@@ -849,6 +897,7 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
         if self.__itemsGrabMode:
             self.__clearGrabModeCallback()
             self.__finishGrabModeCallback = BigWorld.callback(0.5, self.__finishGrabMode)
+            self.as_releaseItemS()
         if self.__ctx.mode.isRegion:
             self.service.highlightRegions(ApplyArea.NONE)
         self.__updateDnd()
@@ -989,6 +1038,7 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
 
     def __setHeaderInitData(self):
         vehicle = g_currentVehicle.item
+        slotType = self.__ctx.mode.slotType
         if self.__ctx.modeId == CustomizationModes.STYLED:
             if self.__ctx.mode.modifiedStyle is not None:
                 itemsCounter = text_styles.bonusPreviewText(backport.text(R.strings.vehicle_customization.customization.header.counter.style.installed()))
@@ -996,14 +1046,15 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
                 itemsCounter = text_styles.stats(backport.text(R.strings.vehicle_customization.customization.header.counter.style.notInstalled()))
         elif self.__ctx.modeId == CustomizationModes.EDITABLE_STYLE:
             itemsCounter = text_styles.bonusPreviewText(backport.text(R.strings.vehicle_customization.customization.header.counter.editablestyle.installed(), name=self.__ctx.mode.style.userName))
-        else:
-            slotType = self.__ctx.mode.slotType
+        elif isVehicleCanBeCustomized(g_currentVehicle.item, slotType):
             typeName = GUI_ITEM_TYPE_NAMES[slotType]
             outfit = self.__ctx.mode.currentOutfit
             slotsCount, filledSlotsCount = checkSlotsFilling(outfit, slotType)
             textStyle = text_styles.bonusPreviewText if slotsCount == filledSlotsCount else text_styles.stats
             template = '#vehicle_customization:customization/header/counter/' + typeName
             itemsCounter = textStyle(_ms(template, filled=filledSlotsCount, available=slotsCount))
+        else:
+            itemsCounter = ''
         self.as_setHeaderDataS({'tankTier': str(int2roman(vehicle.level)),
          'tankName': vehicle.shortUserName,
          'tankInfo': itemsCounter,
@@ -1067,7 +1118,9 @@ class MainView(LobbySubView, CustomizationMainViewMeta):
             return
 
     def __onViewDestroyedCallback(self):
-        if self.__styleInfo is not None and self.__styleInfo.visible:
+        if not g_currentVehicle.isPresent():
+            return
+        elif self.__styleInfo is not None and self.__styleInfo.visible:
             return
         else:
             self.__ctx.mode.unselectItem()

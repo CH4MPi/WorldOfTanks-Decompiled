@@ -63,10 +63,12 @@ _QUEUE_TYPE_TO_PREBATTLE_ACTION_NAME = {QUEUE_TYPE.EVENT_BATTLES: PREBATTLE_ACTI
 _QUEUE_TYPE_TO_PREBATTLE_TYPE = {QUEUE_TYPE.EVENT_BATTLES: PREBATTLE_TYPE.EVENT,
  QUEUE_TYPE.RANDOMS: PREBATTLE_TYPE.SQUAD,
  QUEUE_TYPE.EPIC: PREBATTLE_TYPE.EPIC,
- QUEUE_TYPE.BATTLE_ROYALE: PREBATTLE_TYPE.BATTLE_ROYALE}
+ QUEUE_TYPE.BATTLE_ROYALE: PREBATTLE_TYPE.BATTLE_ROYALE,
+ QUEUE_TYPE.BATTLE_ROYALE_TOURNAMENT: PREBATTLE_TYPE.BATTLE_ROYALE_TOURNAMENT}
 _PREBATTLE_TYPE_TO_VEH_CRITERIA = {PREBATTLE_TYPE.SQUAD: ~(REQ_CRITERIA.VEHICLE.EPIC_BATTLE ^ REQ_CRITERIA.VEHICLE.BATTLE_ROYALE ^ REQ_CRITERIA.VEHICLE.EVENT_BATTLE),
  PREBATTLE_TYPE.EPIC: ~(REQ_CRITERIA.VEHICLE.BATTLE_ROYALE ^ REQ_CRITERIA.VEHICLE.EVENT_BATTLE),
  PREBATTLE_TYPE.BATTLE_ROYALE: REQ_CRITERIA.VEHICLE.BATTLE_ROYALE,
+ PREBATTLE_TYPE.BATTLE_ROYALE_TOURNAMENT: REQ_CRITERIA.VEHICLE.BATTLE_ROYALE,
  PREBATTLE_TYPE.EVENT: REQ_CRITERIA.VEHICLE.EVENT_BATTLE}
 _MIN_PERF_PRESET_NAME = 'MIN'
 SquadInfo = namedtuple('SquadInfo', ['platoonState', 'squadManStates', 'commanderIndex'])
@@ -731,6 +733,7 @@ class PlatoonController(IPlatoonController, IGlobalListener, CallbackDelayer):
             unitMgr.onUnitLeft += self.__unitMgrOnUnitLeft
         self.startGlobalListening()
         self.__settingsCore.onSettingsChanged += self.__onSettingsChanged
+        self.__settingsCore.onSettingsApplied += self.__onSettingsApplied
         self.__hangarSpace.onSpaceCreate += self.__onHangarSpaceCreate
         self.__hangarSpace.onSpaceDestroy += self.hsSpaceDestroy
         self.__eventProgression.onUpdated += self.__onEventProgressionUpdated
@@ -772,6 +775,7 @@ class PlatoonController(IPlatoonController, IGlobalListener, CallbackDelayer):
             unitMgr.onUnitLeft -= self.__unitMgrOnUnitLeft
         self.stopGlobalListening()
         self.__settingsCore.onSettingsChanged -= self.__onSettingsChanged
+        self.__settingsCore.onSettingsApplied -= self.__onSettingsApplied
         self.__hangarSpace.onSpaceCreate -= self.__onHangarSpaceCreate
         self.__hangarSpace.onSpaceDestroy -= self.hsSpaceDestroy
         self.__eventProgression.onUpdated -= self.__onEventProgressionUpdated
@@ -866,11 +870,14 @@ class PlatoonController(IPlatoonController, IGlobalListener, CallbackDelayer):
             isInPlatoon = self.prbDispatcher.getFunctionalState().isInUnit()
             self.onPlatoonTankVisualizationChanged(self.__isPlatoonVisualizationEnabled and isInPlatoon)
             self.__updatePlatoonTankInfo()
-            if displayPlatoonMembers and self.__checkForSettingsModification():
-                filters = self.__getFilters()
-                filters[GuiSettingsBehavior.DISPLAY_PLATOON_MEMBER_CLICKED] = True
-                self.__settingsCore.serverSettings.setSectionSettings(GUI_START_BEHAVIOR, filters)
             return
+
+    def __onSettingsApplied(self, diff):
+        isDisplayMemberChanged = GAME.DISPLAY_PLATOON_MEMBERS in diff
+        if isDisplayMemberChanged and self.__checkForSettingsModification():
+            filters = self.__getFilters()
+            filters[GuiSettingsBehavior.DISPLAY_PLATOON_MEMBER_CLICKED] = True
+            self.__settingsCore.serverSettings.setSectionSettings(GUI_START_BEHAVIOR, filters)
 
     def __getFilters(self):
         defaults = AccountSettings.getFilterDefault(GUI_START_BEHAVIOR)

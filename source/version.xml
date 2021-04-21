@@ -1,14 +1,14 @@
 <version.xml>
 	<appname>	#menu:login/version	</appname>
-	<version> v.1.12.0.0 #762 </version>
+	<version> v.1.12.1.0 #780 </version>
 	<showLicense> 42 </showLicense>
 	<ingameHelpVersion>	1	</ingameHelpVersion>
 	<meta>
-		<client> 1546397 </client>
-		<overrides> 1547935 </overrides>
-		<localization> 1547174 RU </localization>
+		<client> 1557431 </client>
+		<overrides> 1557542 </overrides>
+		<localization> 1557297 RU </localization>
 		<realm> EU </realm>
-		<branch> v1.12 </branch>
+		<branch> v1.12.1 </branch>
 		<buildScriptsRevision> 1543993 </buildScriptsRevision>
 	</meta>
 </version.xml>

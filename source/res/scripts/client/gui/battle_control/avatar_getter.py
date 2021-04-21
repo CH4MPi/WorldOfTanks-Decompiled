@@ -396,8 +396,8 @@ def setClientReady(avatar=None):
         avatar = BigWorld.player()
     try:
         avatar.setClientReady()
-    except AttributeError:
-        _logger.exception('Attribute "setClientReady" not found')
+    except AttributeError as error:
+        _logger.exception('Attribute "setClientReady" not found, exception %s', error.message)
 
     return
 
@@ -409,6 +409,30 @@ def isObserver(avatar=None):
         result = avatar.isObserver()
     except AttributeError:
         _logger.exception('Attribute "isObserved" is not found')
+        result = False
+
+    return result
+
+
+def isVehiclesColorized(avatar=None):
+    if avatar is None:
+        avatar = BigWorld.player()
+    try:
+        result = avatar.isVehiclesColorized()
+    except AttributeError as error:
+        _logger.exception('Attribute "isVehiclesColorized" not found, exception %s', error.message)
+        result = False
+
+    return result
+
+
+def isObserverSeesAll(avatar=None):
+    if avatar is None:
+        avatar = BigWorld.player()
+    try:
+        result = avatar.observerSeesAll()
+    except AttributeError as error:
+        _logger.exception('Attribute "isObserverSeesAll" not found, exception %s', error.message)
         result = False
 
     return result

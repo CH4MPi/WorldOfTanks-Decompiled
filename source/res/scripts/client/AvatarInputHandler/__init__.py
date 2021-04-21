@@ -48,7 +48,7 @@ from helpers import dependency
 from skeletons.account_helpers.settings_core import ISettingsCore
 from skeletons.gui.app_loader import IAppLoader
 from skeletons.gui.game_control import IBootcampController
-from svarog_script.script_game_object import ScriptGameObject, ComponentDescriptor
+from cgf_obsolete_script.script_game_object import ScriptGameObject, ComponentDescriptor
 INPUT_HANDLER_CFG = 'gui/avatar_input_handler.xml'
 _logger = logging.getLogger(__name__)
 
@@ -80,9 +80,10 @@ _CTRLS_DESC_MAP = {_CTRL_MODE.ARCADE: (control_modes.ArcadeControlMode, 'arcadeM
  _CTRL_MODE.DEATH_FREE_CAM: (epic_battle_death_mode.DeathFreeCamMode, 'epicVideoMode', _CTRL_TYPE.USUAL),
  _CTRL_MODE.DUAL_GUN: (control_modes.DualGunControlMode, 'dualGunMode', _CTRL_TYPE.USUAL)}
 _OVERWRITE_CTRLS_DESC_MAP = {constants.ARENA_BONUS_TYPE.EPIC_BATTLE: {_CTRL_MODE.POSTMORTEM: (epic_battle_death_mode.DeathTankFollowMode, 'postMortemMode', _CTRL_TYPE.USUAL)},
- constants.ARENA_BONUS_TYPE.EPIC_BATTLE_TRAINING: {_CTRL_MODE.POSTMORTEM: (epic_battle_death_mode.DeathTankFollowMode, 'postMortemMode', _CTRL_TYPE.USUAL)},
- constants.ARENA_BONUS_TYPE.BATTLE_ROYALE_SOLO: {_CTRL_MODE.POSTMORTEM: (steel_hunter_control_modes.SHPostMortemControlMode, 'postMortemMode', _CTRL_TYPE.USUAL)},
- constants.ARENA_BONUS_TYPE.BATTLE_ROYALE_SQUAD: {_CTRL_MODE.POSTMORTEM: (steel_hunter_control_modes.SHPostMortemControlMode, 'postMortemMode', _CTRL_TYPE.USUAL)}}
+ constants.ARENA_BONUS_TYPE.EPIC_BATTLE_TRAINING: {_CTRL_MODE.POSTMORTEM: (epic_battle_death_mode.DeathTankFollowMode, 'postMortemMode', _CTRL_TYPE.USUAL)}}
+for royaleBonusCap in constants.ARENA_BONUS_TYPE.BATTLE_ROYALE_RANGE:
+    _OVERWRITE_CTRLS_DESC_MAP[royaleBonusCap] = {_CTRL_MODE.POSTMORTEM: (steel_hunter_control_modes.SHPostMortemControlMode, 'postMortemMode', _CTRL_TYPE.USUAL)}
+
 _DYNAMIC_CAMERAS = (DynamicCameras.ArcadeCamera.ArcadeCamera,
  DynamicCameras.SniperCamera.SniperCamera,
  DynamicCameras.StrategicCamera.StrategicCamera,
@@ -167,6 +168,10 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
         SniperAimingSystem.setStabilizerSettings(useHorizontalStabilizer, True)
 
     @staticmethod
+    def enableHullLock(enable):
+        SniperAimingSystem.hullLockSetting = enable
+
+    @staticmethod
     def isCameraDynamic():
         for dynamicCameraClass in _DYNAMIC_CAMERAS:
             if not dynamicCameraClass.isCameraDynamic():
@@ -178,6 +183,10 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
     def isSniperStabilized():
         return SniperAimingSystem.getStabilizerSettings()
 
+    @staticmethod
+    def isHullLockEnabled():
+        return SniperAimingSystem.hullLockSetting
+
     @property
     def ctrlModeName(self):
         return self.__ctrlModeName
@@ -187,9 +196,9 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
     siegeModeSoundNotifications = ComponentDescriptor()
     steadyVehicleMatrixCalculator = ComponentDescriptor()
 
-    def __init__(self):
+    def __init__(self, spaceID):
         CallbackDelayer.__init__(self)
-        ScriptGameObject.__init__(self, BigWorld.player().spaceID)
+        ScriptGameObject.__init__(self, spaceID, 'AvatarInputHandler')
         self.__alwaysShowAimKey = None
         self.__showMarkersKey = None
         sec = self._readCfg()
@@ -368,23 +377,24 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
     def getAimingMode(self, mode):
         return self.__curCtrl.getAimingMode(mode)
 
-    def setAutorotation(self, bValue):
-        if not self.__curCtrl.enableSwitchAutorotationMode():
+    def setAutorotation(self, bValue, triggeredByKey=False):
+        if not self.__curCtrl.enableSwitchAutorotationMode(triggeredByKey):
             return
         elif not BigWorld.player().isOnArena:
             return
         else:
             if self.__isAutorotation != bValue:
                 self.__isAutorotation = bValue
-                BigWorld.player().enableOwnVehicleAutorotation(self.__isAutorotation)
+                BigWorld.player().enableOwnVehicleAutorotation(self.__isAutorotation, triggeredByKey)
+                self.__curCtrl.onAutorotationChanged(bValue)
             self.__prevModeAutorotation = None
             return
 
     def getAutorotation(self):
         return self.__isAutorotation
 
-    def switchAutorotation(self):
-        self.setAutorotation(not self.__isAutorotation)
+    def switchAutorotation(self, triggeredByKey=False):
+        self.setAutorotation(not self.__isAutorotation, triggeredByKey)
 
     def activatePostmortem(self, isRespawn):
         if self.siegeModeSoundNotifications is not None:
@@ -525,16 +535,15 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
                     player.positionControl.bindToVehicle(True, self.__observerVehicle)
                     return
             if isObserverMode and self.__ctrlModeName == _CTRL_MODE.POSTMORTEM:
-                player = BigWorld.player()
                 self.__observerVehicle = None
                 if player.vehicle and player.vehicle.id != player.playerVehicleID:
                     self.__observerVehicle = player.vehicle.id
-                self.__observerIsSwitching = False
             replayCtrl = BattleReplay.g_replayCtrl
             if replayCtrl.isRecording:
                 replayCtrl.setControlMode(eMode)
             self.__curCtrl.disable()
             prevCtrl = self.__curCtrl
+            prevCtrlModeName = self.__ctrlModeName
             self.__curCtrl = self.__ctrls[eMode]
             self.__ctrlModeName = eMode
             if player is not None:
@@ -549,8 +558,8 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
                         player.positionControl.bindToVehicle(True, self.__observerVehicle)
                     else:
                         player.positionControl.bindToVehicle(True)
-                elif not prevCtrl.isManualBind() and not self.__curCtrl.isManualBind():
-                    if isObserverMode and not self.isObserverFPV:
+                elif not prevCtrl.isManualBind() and not self.__curCtrl.isManualBind() and isObserverMode and not self.isObserverFPV:
+                    if not (prevCtrlModeName == _CTRL_MODE.VIDEO and self.__observerIsSwitching):
                         player.positionControl.bindToVehicle(True)
                 newAutoRotationMode = self.__curCtrl.getPreferredAutorotationMode()
                 if newAutoRotationMode is not None:
@@ -828,6 +837,9 @@ class AvatarInputHandler(CallbackDelayer, ScriptGameObject):
             dynamicCamera = self.settingsCore.getSetting('dynamicCamera')
             horStabilizationSnp = self.settingsCore.getSetting('horStabilizationSnp')
             self.enableDynamicCamera(dynamicCamera, horStabilizationSnp)
+        if 'hullLockEnabled' in diff:
+            hullLock = self.settingsCore.getSetting('hullLockEnabled')
+            self.enableHullLock(hullLock)
 
     def __onRequestFail(self):
         player = BigWorld.player()

@@ -288,8 +288,7 @@ class Source(object):
          'peripheryIDs': {int(p) for p in onlyForPeripheriesList.split()} if onlyForPeripheriesList else set(),
          'runFlags': runFlags,
          'showPostBattleStat': questSection.readBool('showPostBattleStat', False),
-         'saveBonusHistory': questSection.readBool('saveBonusHistory', False),
-         'sendBonusHistory': questSection.readBool('sendBonusHistory', False)}
+         'saveBonusHistory': questSection.readBool('saveBonusHistory', False)}
         if eventType == EVENT_TYPE.MOTIVE_QUEST:
             extraSubsectionsNames = ('advice', 'requirements', 'congratulation')
             for subsectionName in extraSubsectionsNames:
@@ -313,6 +312,8 @@ class Source(object):
             info['ranked'] = (season, cycle)
         if eventType in EVENT_TYPE.QUESTS_WITH_SHOP_BUTTON:
             info['shopButton'] = questSection.readString('shopButton', 'hide')
+        if questSection.has_key('notificationText'):
+            info['notificationText'] = self.__readMetaSection(questSection['notificationText'])
         return info
 
     def __readGroupContent(self, questSection):

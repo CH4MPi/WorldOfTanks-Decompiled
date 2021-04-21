@@ -140,14 +140,15 @@ class ProgressiveItemsView(ViewImpl):
         url = yield self.__urlMacros.parse(self.__guiSettings.get('url'))
         webHandlers = webApiCollection(ui_web_api.CloseViewWebApi, sound_web_api.SoundWebApi, sound_web_api.HangarSoundWebApi)
         ctx = {'url': url,
-         'webHandlers': webHandlers}
+         'webHandlers': webHandlers,
+         'allowRightClick': False}
         showProgressiveItemsBrowserView(ctx)
 
     def _getPossibleItemsForVehicle(self):
         customizationCache = vehicles.g_cache.customization20()
         vehicleType = self._vehicle.descriptor.type
         sortedItems = sorted(customizationCache.customizationWithProgression.itervalues(), key=lambda i: i.id)
-        return [ item.compactDescr for item in sortedItems if item.filter.matchVehicleType(vehicleType) and item.itemType == CustomizationType.PROJECTION_DECAL ]
+        return [ item.compactDescr for item in sortedItems if (item.filter is None or item.filter.matchVehicleType(vehicleType)) and item.itemType == CustomizationType.PROJECTION_DECAL ]
 
     def __setItems(self, model):
         for intCD in self._possibleItems:

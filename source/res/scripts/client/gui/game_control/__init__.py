@@ -19,10 +19,10 @@ def getGameControllersConfig(manager):
     from gui.game_control.BrowserController import BrowserController as _Browser
     from gui.game_control.ChinaController import ChinaController as _China
     from gui.game_control.ChinaController import NoChinaController as _NoChina
-    from gui.game_control.ExternalLinksHandler import ExternalLinksHandler as _ExternalLinks
+    from gui.game_control.links_handlers import ExternalLinksHandler as _ExternalLinks
     from gui.game_control.GameSessionController import GameSessionController as _GameSessions
     from gui.game_control.IGR import IGRController as _IGR
-    from gui.game_control.InternalLinksHandler import InternalLinksHandler as _InternalLinks
+    from gui.game_control.links_handlers import InternalLinksHandler as _InternalLinks
     from gui.game_control.NotifyController import NotifyController as _Notify
     from gui.game_control.PromoController import PromoController as _Promos
     from gui.game_control.RentalsController import RentalsController as _Rentals
@@ -43,6 +43,7 @@ def getGameControllersConfig(manager):
     from gui.game_control.ranked_battles_controller import RankedBattlesController as _Ranked
     from gui.game_control.hangar_loading_controller import HangarLoadingController as _HangarLoading
     from gui.game_control.battle_royale_controller import BattleRoyaleController as _BattleRoyale
+    from gui.game_control.battle_royale_tournament_controller import BattleRoyaleTournamentController as _BRTournament
     from gui.game_control.epic_mode_controller import EpicModeController as _Epic
     from gui.game_control.bootcamp_controller import BootcampController as _Bootcamp
     from gui.game_control.hero_tank_controller import HeroTankController as _HeroTankController
@@ -57,12 +58,12 @@ def getGameControllersConfig(manager):
     from gui.game_control.badges_controller import BadgesController as _Badges
     from gui.game_control.special_sound_ctrl import SpecialSoundCtrl as _SpecialSoundCtrl
     from gui.game_control.battle_pass_controller import BattlePassController
-    from gui.game_control.event_items_controller import EventItemsController
     from gui.game_control.clan_notification_controller import ClanNotificationController as _ClanNotification
     from gui.game_control.craftmachine_controller import CraftmachineController
     from gui.game_control.reactive_comm import ReactiveCommunicationService
     from gui.ui_spam.ui_spam_controller import UISpamController
     from gui.game_control.blueprints_convert_sale_controller import BlueprintsConvertSaleController
+    from gui.game_control.overlay import SteamRegistrationOverlay as _SteamRegistrationOverlay
     tracker = GameStateTracker()
     tracker.init()
     manager.addInstance(_interface.IGameStateTracker, tracker, finalizer='fini')
@@ -105,6 +106,7 @@ def getGameControllersConfig(manager):
     _config(_interface.ICalendarController, _Calendar())
     _config(_interface.IEpicBattleMetaGameController, _EpicMeta())
     _config(_interface.IBattleRoyaleController, _BattleRoyale())
+    _config(_interface.IBattleRoyaleTournamentController, _BRTournament())
     _config(_interface.IManualController, _ManualController())
     _config(_interface.IReferralProgramController, _ReferralController())
     _config(_interface.ISpecialSoundCtrl, _SpecialSoundCtrl())
@@ -123,4 +125,4 @@ def getGameControllersConfig(manager):
     _config(_interface.IEventProgressionController, _EventProgression())
     _config(_interface.IUISpamController, UISpamController())
     _config(_interface.IBlueprintsConvertSaleController, BlueprintsConvertSaleController())
-    _config(_interface.IEventItemsController, EventItemsController())
+    _config(_interface.ISteamRegistrationOverlay, _SteamRegistrationOverlay())

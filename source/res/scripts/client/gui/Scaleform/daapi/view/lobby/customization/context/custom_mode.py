@@ -171,6 +171,10 @@ class CustomMode(CustomizationMode):
             component = self.getComponentFromSlot(slotId)
             if component is not None:
                 component.options ^= option
+                item = self.getItemFromSlot(slotId)
+                if item is not None and item.canBeMirroredOnlyVertically:
+                    mirroredVertically = component.options & Options.MIRRORED_VERTICALLY
+                    component.options = Options.COMBO_MIRRORED if mirroredVertically else Options.NONE
                 self._ctx.refreshOutfit()
                 self._events.onComponentChanged(slotId, False)
             return
@@ -312,7 +316,7 @@ class CustomMode(CustomizationMode):
     @process
     def _applyItems(self, purchaseItems, isModeChanged, callback):
         modifiedOutfits = {season:outfit.copy() for season, outfit in self._modifiedOutfits.iteritems()}
-        originalOutfits = {season:outfit.copy() for season, outfit in self._originalOutfits.iteritems()}
+        originalOutfits = self._ctx.startMode.getOriginalOutfits()
         for pItem in purchaseItems:
             if not pItem.selected:
                 if pItem.slotType:
@@ -325,18 +329,18 @@ class CustomMode(CustomizationMode):
         else:
             modifiedSeasons = tuple((season for season in SeasonType.COMMON_SEASONS if not modifiedOutfits[season].isEqual(self._originalOutfits[season])))
         self._soundEventChecker.lockPlayingSounds()
-        for season in modifiedSeasons:
-            emptyOutfit = self._service.getEmptyOutfit()
-            yield OutfitApplier(g_currentVehicle.item, emptyOutfit, season).request()
-
+        yield OutfitApplier(g_currentVehicle.item, [ (self._service.getEmptyOutfit(), season) for season in modifiedSeasons ]).request()
         results = []
+        requestData = []
         for season in modifiedSeasons:
             outfit = modifiedOutfits[season]
             if outfit.isEmpty():
                 continue
-            result = yield OutfitApplier(g_currentVehicle.item, outfit, season).request()
-            results.append(result)
+            requestData.append((outfit, season))
 
+        if requestData:
+            result = yield OutfitApplier(g_currentVehicle.item, requestData).request()
+            results.append(result)
         self._soundEventChecker.unlockPlayingSounds()
         if self.isInited:
             self._events.onItemsBought(originalOutfits, purchaseItems, results)
@@ -346,7 +350,7 @@ class CustomMode(CustomizationMode):
     def _sellItem(self, item, count):
         if item.fullInventoryCount(g_currentVehicle.item.intCD) < count:
             for season, outfit in getOutfitWithoutItems(self.getOutfitsInfo(), item.intCD, count):
-                yield OutfitApplier(g_currentVehicle.item, outfit, season).request()
+                yield OutfitApplier(g_currentVehicle.item, ((outfit, season),)).request()
 
         yield CustomizationsSeller(g_currentVehicle.item, item, count).request()
 

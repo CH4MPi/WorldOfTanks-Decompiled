@@ -4,10 +4,13 @@ import typing
 import collections
 import weakref
 from collections import defaultdict
+from PlayerEvents import g_playerEvents
+from account_helpers.account_completion import isEmailConfirmationRequired
 from constants import ARENA_BONUS_TYPE
 from account_helpers import AccountSettings
 from account_helpers.AccountSettings import PROGRESSIVE_REWARD_VISITED, SENIORITY_AWARDS_COUNTER
 from adisp import process
+from async import async, await
 from chat_shared import SYS_MESSAGE_TYPE
 from constants import AUTO_MAINTENANCE_RESULT, PremiumConfigs, DAILY_QUESTS_CONFIG, DOG_TAGS_CONFIG
 from collector_vehicle import CollectorVehicleConsts
@@ -30,7 +33,6 @@ from gui.shared.formatters import time_formatters, text_styles
 from gui.shared.notifications import NotificationPriorityLevel
 from gui.shared.utils import showInvitationInWindowsBar
 from gui.shared.view_helpers.UsersInfoHelper import UsersInfoHelper
-from gui.SystemMessages import SM_TYPE
 from gui.wgcg.clan.contexts import GetClanInfoCtx
 from gui.wgnc import g_wgncProvider, g_wgncEvents, wgnc_settings
 from gui.wgnc.settings import WGNC_DATA_PROXY_TYPE
@@ -41,16 +43,19 @@ from messenger.proto.events import g_messengerEvents
 from messenger.proto.xmpp.xmpp_constants import XMPP_ITEM_TYPE
 from messenger.formatters import TimeFormatter
 from notification import tutorial_helper
-from notification.decorators import MessageDecorator, PrbInviteDecorator, C11nMessageDecorator, FriendshipRequestDecorator, WGNCPopUpDecorator, ClanAppsDecorator, ClanInvitesDecorator, ClanAppActionDecorator, ClanInvitesActionDecorator, ClanSingleAppDecorator, ClanSingleInviteDecorator, ProgressiveRewardDecorator, MissingEventsDecorator, RecruitReminderMessageDecorator
+from notification.decorators import MessageDecorator, PrbInviteDecorator, C11nMessageDecorator, FriendshipRequestDecorator, WGNCPopUpDecorator, ClanAppsDecorator, ClanInvitesDecorator, ClanAppActionDecorator, ClanInvitesActionDecorator, ClanSingleAppDecorator, ClanSingleInviteDecorator, ProgressiveRewardDecorator, MissingEventsDecorator, RecruitReminderMessageDecorator, LockButtonMessageDecorator, EmailConfirmationReminderMessageDecorator
 from notification.settings import NOTIFICATION_TYPE, NOTIFICATION_BUTTON_STATE
 from shared_utils import first
-from skeletons.gui.game_control import IBootcampController, IGameSessionController, IBattlePassController, IEventItemsController
+from skeletons.gui.game_control import IBootcampController, IGameSessionController, IBattlePassController
 from skeletons.gui.impl import INotificationWindowController
 from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.login_manager import ILoginManager
+from skeletons.gui.platform.wgnp_controller import IWGNPRequestController
 from skeletons.gui.server_events import IEventsCache
 from skeletons.gui.shared import IItemsCache
 from gui.Scaleform.daapi.view.lobby.hangar.seniority_awards import getSeniorityAwardsBoxesCount
+if typing.TYPE_CHECKING:
+    from notification.NotificationsModel import NotificationsModel
 
 class _FeatureState(object):
     OFF = 0
@@ -189,6 +194,8 @@ class ServiceChannelListener(_NotificationListener):
                 return C11nMessageDecorator
             if messageType == SYS_MESSAGE_TYPE.customizationProgress.index():
                 return C11nMessageDecorator
+            if messageType == SYS_MESSAGE_TYPE.personalMissionFailed.index():
+                return LockButtonMessageDecorator
         return MessageDecorator
 
 
@@ -1168,30 +1175,46 @@ class RecruitReminderlListener(_NotificationListener):
             model.removeNotification(NOTIFICATION_TYPE.RECRUIT_REMINDER, self.MSG_ID)
 
 
-class BlackMarketItemListener(_NotificationListener):
-    __eventItemsController = dependency.descriptor(IEventItemsController)
+class EmailConfirmationReminderListener(_NotificationListener):
+    __bootCampController = dependency.descriptor(IBootcampController)
+    __wgnpCtrl = dependency.descriptor(IWGNPRequestController)
+    MSG_ID = 0
 
     def start(self, model):
-        if super(BlackMarketItemListener, self).start(model):
-            self.__eventItemsController.onUpdated += self.__onMarketItemUpdated
+        result = super(EmailConfirmationReminderListener, self).start(model)
+        if result:
+            g_playerEvents.onBattleResultsReceived += self.__tryNotify
+            self.__wgnpCtrl.onEmailConfirmed += self.__removeNotify
+            self.__wgnpCtrl.onEmailAddNeeded += self.__removeNotify
+            self.__tryNotify()
+        return result
 
     def stop(self):
-        super(BlackMarketItemListener, self).stop()
-        self.__eventItemsController.onUpdated -= self.__onMarketItemUpdated
+        super(EmailConfirmationReminderListener, self).stop()
+        g_playerEvents.onBattleResultsReceived -= self.__tryNotify
+        self.__wgnpCtrl.onEmailConfirmed -= self.__removeNotify
+        self.__wgnpCtrl.onEmailAddNeeded -= self.__removeNotify
 
-    def __onMarketItemUpdated(self):
-        if not self.__eventItemsController.getEventItemsCount():
+    @async
+    def __tryNotify(self):
+        emailConfirmationRequired = yield await(isEmailConfirmationRequired())
+        isInBootcamp = self.__bootCampController.isInBootcamp()
+        if emailConfirmationRequired and not isInBootcamp:
             model = self._model()
-            for message in model.collection.getListIterator([NOTIFICATION_TYPE.MESSAGE]):
-                msgType = first(message.getSettings().auxData)
-                if msgType in (SM_TYPE.BlackMarketItem.name(), SM_TYPE.BlackMarketItemReceived.name()):
-                    entity = message.getEntity()
-                    if entity is None or not entity.get('buttonsLayout'):
-                        return
-                    entity['buttonsStates'].update({'submit': NOTIFICATION_BUTTON_STATE.HIDDEN})
-                    if model is not None:
-                        model.updateNotification(message.getType(), message.getID(), entity, False)
+            if model is not None:
+                message = R.strings.messenger.serviceChannelMessages.emailConfirmationReminder.text()
+                notification = EmailConfirmationReminderMessageDecorator(self.MSG_ID, backport.text(message))
+                prevNotifacation = model.getNotification(NOTIFICATION_TYPE.EMAIL_CONFIRMATION_REMINDER, notification.getID())
+                if prevNotifacation is None:
+                    model.addNotification(notification)
+                else:
+                    model.updateNotification(NOTIFICATION_TYPE.EMAIL_CONFIRMATION_REMINDER, notification.getID(), notification.getEntity(), False)
+        return
 
+    def __removeNotify(self):
+        model = self._model()
+        if model is not None:
+            model.removeNotification(NOTIFICATION_TYPE.EMAIL_CONFIRMATION_REMINDER, self.MSG_ID)
         return
 
 
@@ -1212,7 +1235,7 @@ class NotificationsListeners(_NotificationListener):
          UpgradeTrophyDeviceListener(),
          ChoosingDeviceslListener(),
          RecruitReminderlListener(),
-         BlackMarketItemListener())
+         EmailConfirmationReminderListener())
 
     def start(self, model):
         for listener in self.__listeners:

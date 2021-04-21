@@ -8,7 +8,7 @@ from gui.Scaleform.daapi.view.common.battle_royale.br_helpers import getEquipmen
 from gui.battle_control.controllers.period_ctrl import IAbstractPeriodView
 from gui.battle_control.controllers.spawn_ctrl import ISpawnListener
 from gui.doc_loaders.battle_royale_settings_loader import getBattleRoyaleSettings
-from helpers import dependency
+from helpers import dependency, isPlayerAvatar
 from skeletons.gui.battle_session import IBattleSessionProvider
 from gui.battle_control.battle_constants import VEHICLE_VIEW_STATE, TIMER_VIEW_STATE, COUNTDOWN_STATE
 from helpers.CallbackDelayer import CallbackDelayer
@@ -177,14 +177,20 @@ class _VehicleStateSoundPlayer(object):
     def init(self):
         ctrl = self._sessionProvider.shared.vehicleState
         ctrl.onVehicleStateUpdated += self._onVehicleStateUpdated
+        BigWorld.player().onSwitchingViewPoint += self._onSwitchViewPoint
 
     def destroy(self):
         ctrl = self._sessionProvider.shared.vehicleState
         if ctrl is not None:
             ctrl.onVehicleStateUpdated -= self._onVehicleStateUpdated
+        if isPlayerAvatar():
+            BigWorld.player().onSwitchingViewPoint -= self._onSwitchViewPoint
         return
 
     def _onVehicleStateUpdated(self, state, value):
+        pass
+
+    def _onSwitchViewPoint(self):
         pass
 
 
@@ -199,6 +205,9 @@ class LootSoundPlayer(_VehicleStateSoundPlayer):
                 BREvents.playSound(BREvents.LOOT_PICKUP_DONE)
             elif action == LootAction.PICKUP_FAILED:
                 BREvents.playSound(BREvents.LOOT_PICKUP_STOP)
+
+    def _onSwitchViewPoint(self):
+        BREvents.playSound(BREvents.LOOT_PICKUP_STOP)
 
 
 class DeathScreenSoundPlayer(object):
@@ -235,9 +244,7 @@ class DeathzoneSoundPlayer(_VehicleStateSoundPlayer):
         return
 
     def destroy(self):
-        if self.__isInZone:
-            BREvents.playSound(BREvents.DEATHZONE_EXIT[self.__isInZone])
-            BRStates.setState(BRStates.STATE_DEATHZONE[self.__isInZone], BRStates.STATE_DEATHZONE_OUT[self.__isInZone])
+        self.__stopEvent()
         super(DeathzoneSoundPlayer, self).destroy()
 
     def _onVehicleStateUpdated(self, state, value):
@@ -249,13 +256,21 @@ class DeathzoneSoundPlayer(_VehicleStateSoundPlayer):
             else:
                 zoneLevel = value.level
             if zoneLevel != self.__isInZone:
-                if self.__isInZone:
-                    BREvents.playSound(BREvents.DEATHZONE_EXIT[self.__isInZone])
-                    BRStates.setState(BRStates.STATE_DEATHZONE[self.__isInZone], BRStates.STATE_DEATHZONE_OUT[self.__isInZone])
+                self.__stopEvent()
                 if zoneLevel:
                     BREvents.playSound(BREvents.DEATHZONE_ENTER[zoneLevel])
                     BRStates.setState(BRStates.STATE_DEATHZONE[zoneLevel], BRStates.STATE_DEATHZONE_IN[zoneLevel])
                 self.__isInZone = zoneLevel
+        return
+
+    def _onSwitchViewPoint(self):
+        self.__stopEvent()
+
+    def __stopEvent(self):
+        if self.__isInZone is not None:
+            BREvents.playSound(BREvents.DEATHZONE_EXIT[self.__isInZone])
+            BRStates.setState(BRStates.STATE_DEATHZONE[self.__isInZone], BRStates.STATE_DEATHZONE_OUT[self.__isInZone])
+            self.__isInZone = None
         return
 
 
@@ -453,7 +468,7 @@ class ArenaPeriodSoundPlayer(IAbstractPeriodView, IViewComponentsCtrlListener, I
 
     def setPeriod(self, period):
         self.__period = period
-        if period == ARENA_PERIOD.PREBATTLE:
+        if period == ARENA_PERIOD.PREBATTLE and not BigWorld.player().isObserver():
             BREvents.playSound(BREvents.BATTLE_STARTED)
         else:
             self.__checkBattleEnd()
@@ -463,21 +478,25 @@ class ArenaPeriodSoundPlayer(IAbstractPeriodView, IViewComponentsCtrlListener, I
         self.__checkBattleEnd()
 
     def setPlayerVehicleAlive(self, isAlive):
-        if self.__isAlive and not isAlive:
+        if self.__isAlive and not isAlive and not BigWorld.player().isObserver():
             BREvents.playSound(BREvents.BATTLE_DEFEAT)
         self.__isAlive = isAlive
 
     def __checkBattleEnd(self):
-        if self.__period == ARENA_PERIOD.AFTERBATTLE and self.__winStatus is not None and self.__isAlive:
-            eventName = BREvents.BATTLE_WIN if self.__winStatus.isWin() else BREvents.BATTLE_DEFEAT
-            BREvents.playSound(eventName)
-        return
+        if BigWorld.player().isObserver():
+            return
+        else:
+            if self.__period == ARENA_PERIOD.AFTERBATTLE and self.__winStatus is not None and self.__isAlive:
+                eventName = BREvents.BATTLE_WIN if self.__winStatus.isWin() else BREvents.BATTLE_DEFEAT
+                BREvents.playSound(eventName)
+            return
 
 
 class PostmortemSoundPlayer(IVehicleCountListener):
 
     def setPlayerVehicleAlive(self, isAlive):
-        stateValue = BRStates.STATE_POSTMORTEM_OFF if isAlive else BRStates.STATE_POSTMORTEM_ON
+        isOff = isAlive and not BigWorld.player().isObserver()
+        stateValue = BRStates.STATE_POSTMORTEM_OFF if isOff else BRStates.STATE_POSTMORTEM_ON
         BRStates.setState(BRStates.STATE_POSTMORTEM, stateValue)
 
 
@@ -591,42 +610,43 @@ class EquipmentSoundPlayer(IVehicleCountListener, IViewComponentsCtrlListener):
         return
 
 
-class BerserkerSoundPlayer(_VehicleStateSoundPlayer):
-    __slots__ = ('__effectIsWorking', '__delayer')
+class BerserkerSoundPlayer(_VehicleStateSoundPlayer, CallbackDelayer):
 
     def __init__(self):
-        self.__effectIsWorking = False
-        self.__delayer = None
-        return
-
-    def _onVehicleStateUpdated(self, state, value):
-        if state == VEHICLE_VIEW_STATE.DOT_EFFECT:
-            if value is not None:
-                if value.attackReasonID == ATTACK_REASONS.index(ATTACK_REASON.BERSERKER):
-                    self.__effectIsWorking = True
-                    BREvents.playSound(BREvents.BERSERKER_ACTIVATION)
-                    self.__delayer = CallbackDelayer()
-                    self.__delayer.delayCallback(value.period, self.__updateShowDotEffect, value.period)
-            elif self.__effectIsWorking:
-                self.__effectIsWorking = False
-                self.__delayer.stopCallback(self.__updateShowDotEffect)
-                self.__delayer = None
-                BREvents.playSound(BREvents.BERSERKER_DEACTIVATION)
+        CallbackDelayer.__init__(self)
+        self.__period = None
         return
 
     def destroy(self):
-        if self.__delayer is not None:
-            self.__delayer.stopCallback(self.__updateShowDotEffect)
-            self.__delayer = None
-        if self.__effectIsWorking:
-            BREvents.playSound(BREvents.BERSERKER_DEACTIVATION)
-            self.__effectIsWorking = False
+        self.__stopEffect()
+        CallbackDelayer.destroy(self)
         super(BerserkerSoundPlayer, self).destroy()
+
+    def _onVehicleStateUpdated(self, state, value):
+        if state == VEHICLE_VIEW_STATE.DOT_EFFECT:
+            if value is None:
+                self.__stopEffect()
+                return
+            if value.attackReasonID == ATTACK_REASONS.index(ATTACK_REASON.BERSERKER):
+                BREvents.playSound(BREvents.BERSERKER_ACTIVATION)
+                self.__stopEffect()
+                self.__period = value.period
+                self.delayCallback(value.period, self.__updateEffect)
         return
 
-    def __updateShowDotEffect(self, period):
+    def __updateEffect(self):
         BREvents.playSound(BREvents.BERSERKER_PULSE_RED)
-        return period
+        return self.__period
+
+    def _onSwitchViewPoint(self):
+        self.__stopEffect()
+
+    def __stopEffect(self):
+        if self.__period is not None:
+            self.stopCallback(self.__updateEffect)
+            self.__period = None
+            BREvents.playSound(BREvents.BERSERKER_DEACTIVATION)
+        return
 
 
 class BaseEfficiencySoundPlayer(object):
@@ -730,6 +750,10 @@ class _DamagingSmokeAreaSoundPlayer(_VehicleStateSoundPlayer):
     def __init__(self):
         self.__effectIsWorking = False
 
+    def destroy(self):
+        self.__stopEvent()
+        super(_DamagingSmokeAreaSoundPlayer, self).destroy()
+
     def _onVehicleStateUpdated(self, state, value):
         if state == VEHICLE_VIEW_STATE.SMOKE:
             _, self._smokeEquipment = getSmokeDataByPredicate(value, self.__isEquipmentWithDamage)
@@ -739,8 +763,15 @@ class _DamagingSmokeAreaSoundPlayer(_VehicleStateSoundPlayer):
                     BREvents.playSound(BREvents.BR_SMOKE_DAMGE_AREA_ENTER)
                 return
             if self.__effectIsWorking:
-                self.__effectIsWorking = False
-                BREvents.playSound(BREvents.BR_SMOKE_DAMGE_AREA_EXIT)
+                self.__stopEvent()
+
+    def _onSwitchViewPoint(self):
+        self.__stopEvent()
+
+    def __stopEvent(self):
+        if self.__effectIsWorking:
+            self.__effectIsWorking = False
+            BREvents.playSound(BREvents.BR_SMOKE_DAMGE_AREA_EXIT)
 
     def __isEquipmentWithDamage(self, equipmentId):
         equipment = getEquipmentById(equipmentId)

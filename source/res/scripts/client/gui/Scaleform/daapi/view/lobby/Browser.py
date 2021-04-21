@@ -13,7 +13,7 @@ from web.web_client_api import WebCommandHandler
 from soft_exception import SoftException
 
 class Browser(BrowserMeta):
-    browserCtrl = dependency.descriptor(IBrowserController)
+    __browserCtrl = dependency.descriptor(IBrowserController)
 
     def __init__(self):
         super(Browser, self).__init__()
@@ -38,7 +38,7 @@ class Browser(BrowserMeta):
         else:
             self.__clean()
             self.__browserID = browserID
-            self.__browser = self.browserCtrl.getBrowser(self.__browserID)
+            self.__browser = self.__browserCtrl.getBrowser(self.__browserID)
             if self.__browser is None:
                 raise SoftException('Cannot find browser')
             self.__webCommandHandler = WebCommandHandler(self.__browserID, alias, self)
@@ -95,8 +95,8 @@ class Browser(BrowserMeta):
             self.__browser.invalidateView()
         return
 
-    def setBrowserSize(self, width, height):
-        self.__size = (width, height)
+    def setBrowserSize(self, width, height, scale):
+        self.__size = (width, height, scale)
         if self.__browser is not None:
             self.__browser.updateSize(self.__size)
         return
@@ -122,7 +122,7 @@ class Browser(BrowserMeta):
         if self.__webEventSender:
             self.__webEventSender.fini()
             self.__webEventSender = None
-        self.browserCtrl.delBrowser(self.__browserID)
+        self.__browserCtrl.delBrowser(self.__browserID)
         self.__browser = None
         super(Browser, self)._dispose()
         return
@@ -137,7 +137,6 @@ class Browser(BrowserMeta):
             self.__browser.onNavigate -= self.__onNavigate
             self.__browser.onJsHostQuery -= self.__onJsHostQuery
             self.__browser.onTitleChange -= self.__onTitleChange
-            self.__browser.onReady -= self.__onReady
         if self.__webEventSender:
             self.__webEventSender.onCallback -= self.__onWebEventCallback
         self.removeListener(BrowserEvent.BROWSER_CREATED, self.__handleBrowserCreated)
@@ -193,7 +192,7 @@ class Browser(BrowserMeta):
     def __handleBrowserCreated(self, event):
         if event.ctx['browserID'] == self.__browserID:
             self.removeListener(BrowserEvent.BROWSER_CREATED, self.__handleBrowserCreated)
-            self.__browser = self.browserCtrl.getBrowser(self.__browserID)
+            self.__browser = self.__browserCtrl.getBrowser(self.__browserID)
             if self.__browser is None:
                 raise SoftException('Cannot find browser')
             self.__prepareBrowser()

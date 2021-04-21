@@ -189,7 +189,6 @@ class ShowDialogEvent(SharedEvent):
     SHOW_CREW_SKINS_COMPENSATION_DIALOG = 'showCrewSkinsCompensationDialog'
     SHOW_PM_CONFIRMATION_DIALOG = 'showPMConfirmationDialog'
     SHOW_CONFIRM_MODULE = 'showConfirmModule'
-    SHOW_CONFIRM_BOOSTER = 'showConfirmBooster'
     SHOW_SYSTEM_MESSAGE_DIALOG = 'showSystemMessageDialog'
     SHOW_DISMISS_TANKMAN_DIALOG = 'showDismissTankmanDialog'
     SHOW_RESTORE_TANKMAN_DIALOG = 'showRestoreTankmanDialog'
@@ -266,6 +265,7 @@ class HideWindowEvent(HasCtxEvent):
     HIDE_VEHICLE_PREVIEW = 'hideVehiclePreview'
     HIDE_OVERLAY_BROWSER_VIEW = 'hideOverlayBrowserView'
     HIDE_MISSIONS_PAGE_VIEW = 'hideMissionsPageView'
+    HIDE_SPECIAL_BATTLE_WINDOW = 'hideSpecialBattleWindow'
 
 
 class HidePopoverEvent(HasCtxEvent):
@@ -369,6 +369,7 @@ class CoolDownEvent(SharedEvent):
     WGCG = 'wgcg'
     STRONGHOLD = 'stronghold'
     BATTLE_ACTION = 'battleAction'
+    WGNP = 'wgnp'
 
     def __init__(self, eventType=None, requestID=0, coolDown=5.0):
         super(CoolDownEvent, self).__init__(eventType)
@@ -667,6 +668,7 @@ class BattlePassEvent(HasCtxEvent):
     BUYING_THINGS = 'buyingThings'
     AWARD_VIEW_CLOSE = 'onAwardViewClose'
     ON_PURCHASE_LEVELS = 'onPurchaseLevels'
+    ON_PREVIEW_PROGRESSION_STYLE_CLOSE = 'onPreviewProgressionStyleClose'
 
 
 class ChoosingDevicesEvent(HasCtxEvent):
@@ -738,7 +740,3 @@ class DogTagsEvent(SharedEvent):
 
 class PlatoonDropdownEvent(HasCtxEvent):
     NAME = 'DropdownEvent'
-
-
-class EventItemEvents(HasCtxEvent):
-    EVENT_ITEM_OPENED = 'onEventItemOpened'

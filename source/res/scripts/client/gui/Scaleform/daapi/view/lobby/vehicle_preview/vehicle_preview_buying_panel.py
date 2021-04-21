@@ -3,7 +3,7 @@
 import time
 from collections import namedtuple
 import BigWorld
-from adisp import process
+from adisp import process, async
 from CurrentVehicle import g_currentPreviewVehicle
 from collector_vehicle import CollectorVehicleConsts
 from constants import RentType, GameSeasonType
@@ -21,6 +21,7 @@ from gui.Scaleform.locale.RES_ICONS import RES_ICONS
 from gui.Scaleform.locale.TOOLTIPS import TOOLTIPS
 from gui.Scaleform.locale.VEHICLE_PREVIEW import VEHICLE_PREVIEW
 from gui.game_control import CalendarInvokeOrigin
+from gui.game_control.links import URLMacros
 from gui.game_control.wallet import WalletController
 from gui.hangar_cameras.hangar_camera_common import CameraRelatedEvents
 from gui.impl import backport
@@ -48,7 +49,7 @@ from helpers.i18n import makeString as _ms
 from items_kit_helper import lookupItem, BOX_TYPE, showItemTooltip
 from items_kit_helper import OFFER_CHANGED_EVENT, getActiveOffer, mayObtainForMoney, mayObtainWithMoneyExchange
 from skeletons.gui.app_loader import IAppLoader
-from skeletons.gui.game_control import IVehicleComparisonBasket, ICalendarController, IMarathonEventsController
+from skeletons.gui.game_control import IVehicleComparisonBasket, ICalendarController, IMarathonEventsController, IExternalLinksController
 from skeletons.gui.game_control import ITradeInController, IRestoreController, IHeroTankController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.lobby_context import ILobbyContext
@@ -104,6 +105,7 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
     _lobbyContext = dependency.descriptor(ILobbyContext)
     _marathonsCtrl = dependency.descriptor(IMarathonEventsController)
     __calendarController = dependency.descriptor(ICalendarController)
+    __linksCtrl = dependency.descriptor(IExternalLinksController)
 
     def __init__(self, skipConfirm=False):
         super(VehiclePreviewBuyingPanel, self).__init__()
@@ -136,6 +138,7 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
         self.__cachedCollapsedItemsVOs = None
         self.__couponInfo = None
         self.__hasSSEDiscount = False
+        self.__urlMacros = URLMacros()
         g_techTreeDP.load()
         return
 
@@ -297,7 +300,10 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
         self.__stopTimer()
         self.__styleByGroup.clear()
         self.__vehicleByGroup.clear()
+        self.__urlMacros.clear()
+        self.__urlMacros = None
         super(VehiclePreviewBuyingPanel, self)._dispose()
+        return
 
     def __update(self, collapseItems=False):
         if self.__cachedVehiclesVOs:
@@ -342,6 +348,7 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
                     g_currentPreviewVehicle.previewStyle(style)
             return
 
+    @process
     def __updateBtnState(self, *_):
         item = g_currentPreviewVehicle.item
         if item is None:
@@ -356,6 +363,11 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
             else:
                 buyingPanelData = self.__previewDP.getBuyingPanelData(item, btnData, self.__isHeroTank)
             buyingPanelData.update({'isReferralEnabled': self.__isReferralWindow()})
+            hasExternalLink = yield self.__hasExternalLink()
+            if hasExternalLink:
+                btnIcon = backport.image(R.images.gui.maps.icons.library.buyInWeb())
+                buyingPanelData.update({'buyButtonIcon': btnIcon,
+                 'buyButtonIconAlign': 'right'})
             self.as_setBuyDataS(buyingPanelData)
             return
 
@@ -614,6 +626,7 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
     def __purchaseSingleVehicle(self, vehicle):
         event_dispatcher.showVehicleBuyDialog(vehicle, returnAlias=self.__backAlias, returnCallback=self.__backCallback)
 
+    @process
     def __purchaseHeroTank(self):
         if self._heroTanks.isAdventHero():
             self.__calendarController.showWindow(invokedFrom=CalendarInvokeOrigin.HANGAR)
@@ -622,8 +635,19 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
         if shopUrl:
             event_dispatcher.showShop(shopUrl)
         else:
-            url = self._heroTanks.getCurrentRelatedURL()
+            url = yield self.__urlMacros.parse(self._heroTanks.getCurrentRelatedURL())
             self.fireEvent(events.OpenLinkEvent(events.OpenLinkEvent.SPECIFIED, url=url))
+
+    @async
+    @process
+    def __hasExternalLink(self, callback=None):
+        url = ''
+        if self._marathonEvent:
+            url = yield self._marathonEvent.getMarathonVehicleUrl()
+        elif self.__isHeroTank:
+            if not self._heroTanks.isAdventHero() and not self._heroTanks.getCurrentShopUrl():
+                url = self._heroTanks.getCurrentRelatedURL()
+        callback(self.__linksCtrl.externalAllowed(url) if url else False)
 
     @process
     def __purchaseMarathonPackage(self):

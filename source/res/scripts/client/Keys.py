@@ -1,6 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/Keys.py
-# Compiled at: 2081-05-07 07:17:23
+# Compiled at: 2074-02-13 22:24:20
 """
 This module contains definitions of all keycodes known to the client.
 They are set to the values as in the C++ files.

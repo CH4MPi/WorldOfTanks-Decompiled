@@ -1,6 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/common/Lib/ntpath.py
-# Compiled at: 2082-02-02 11:33:58
+# Compiled at: 2075-05-03 17:20:06
 """Common pathname manipulations, WindowsNT/95 version.
 
 Instead of importing this module directly, import os and refer to this

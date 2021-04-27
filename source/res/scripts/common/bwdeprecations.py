@@ -1,6 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/common/bwdeprecations.py
-# Compiled at: 2082-05-23 08:58:15
+# Compiled at: 2075-11-13 21:43:53
 """
 This module is imported by the BigWorld engine before BWAutoImport, and handles
 connecting wrappers for deprecated methods and types to their new names.

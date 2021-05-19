@@ -1,6 +1,6 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/common/Lib/tokenize.py
-# Compiled at: 2075-10-06 02:34:47
+# Compiled at: 2064-11-05 00:24:09
 """Tokenization help for Python programs.
 
 generate_tokens(readline) is a generator that breaks a stream of

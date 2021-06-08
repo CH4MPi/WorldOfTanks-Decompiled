@@ -11,7 +11,7 @@ class QUESTS(object):
     MISSIONS_TAB_CURRENTVEHICLE = '#quests:missions/tab/currentVehicle'
     MISSIONS_TAB_BATTLE_PASS = '#quests:missions/tab/battle_pass'
     MISSIONS_TAB_DAILY = '#quests:missions/tab/daily'
-    MISSIONS_TAB_MAY21_MARATHON = '#quests:missions/tab/may21_marathon'
+    MISSIONS_TAB_MAPBOX = '#quests:missions/tab/mapbox'
     IGR_TOOLTIP_BATTLESLABEL = '#quests:igr/tooltip/battlesLabel'
     IGR_TOOLTIP_WINSLABEL = '#quests:igr/tooltip/winsLabel'
     POSTBATTLE_PROGRESSRESET = '#quests:postBattle/progressReset'
@@ -603,7 +603,6 @@ class QUESTS(object):
     DETAILS_CONDITIONS_INSTALLEDMODULE_TURRETS_NOT = '#quests:details/conditions/installedModule/turrets/not'
     DETAILS_CONDITIONS_INSTALLEDMODULE_RADIOS_NOT = '#quests:details/conditions/installedModule/radios/not'
     DETAILS_CONDITIONS_INSTALLEDMODULE_OPTIONALDEVICE_NOT = '#quests:details/conditions/installedModule/optionalDevice/not'
-    DETAILS_CONDITIONS_USEDEQUIPMENT = '#quests:details/conditions/usedEquipment'
     DETAILS_CONDITIONS_MULTISTUNEVENT = '#quests:details/conditions/multiStunEvent'
     DETAILS_CONDITIONS_MULTISTUNEVENT_NOT = '#quests:details/conditions/multiStunEvent/not'
     DETAILS_CONDITIONS_VEHICLESTUN = '#quests:details/conditions/vehicleStun'
@@ -945,7 +944,7 @@ class QUESTS(object):
     DETAILS_DOSSIER_22_BATTLESCOUNT = '#quests:details/dossier/22/battlesCount'
     DETAILS_DOSSIER_24_BATTLESCOUNT = '#quests:details/dossier/24/battlesCount'
     DETAILS_DOSSIER_27_BATTLESCOUNT = '#quests:details/dossier/27/battlesCount'
-    DETAILS_DOSSIER_36_BATTLESCOUNT = '#quests:details/dossier/36/battlesCount'
+    DETAILS_DOSSIER_37_BATTLESCOUNT = '#quests:details/dossier/37/battlesCount'
     DETAILS_MODIFIERS_TITLE_DISCOUNT = '#quests:details/modifiers/title/discount'
     DETAILS_MODIFIERS_TITLE_SELLING = '#quests:details/modifiers/title/selling'
     DETAILS_MODIFIERS_TITLE_AVAILABILITY = '#quests:details/modifiers/title/availability'
@@ -1018,14 +1017,11 @@ class QUESTS(object):
     MISSIONS_GROUP_MOTIVE_LABEL = '#quests:missions/group/motive/label'
     MISSIONS_AWARDS_MERGED = '#quests:missions/awards/merged'
     MISSIONS_TAB_LABEL_KURSK = '#quests:missions/tab/label/kursk'
-    MISSIONS_TAB_LABEL_MARATHON = '#quests:missions/tab/label/marathon'
+    MISSIONS_TAB_LABEL_MARATHONS = '#quests:missions/tab/label/marathons'
     MISSIONS_TAB_KURSK_HEADER = '#quests:missions/tab/kursk/header'
     MISSIONS_TAB_KURSK_BODY = '#quests:missions/tab/kursk/body'
     MISSIONS_TAB_MARATHONS_HEADER = '#quests:missions/tab/marathons/header'
     MISSIONS_TAB_MARATHONS_BODY = '#quests:missions/tab/marathons/body'
-    MISSIONS_TAB_LABEL_MAY21_MARATHON = '#quests:missions/tab/label/may21_marathon'
-    MISSIONS_TAB_MAY21_MARATHON_HEADER = '#quests:missions/tab/may21_marathon/header'
-    MISSIONS_TAB_MAY21_MARATHON_BODY = '#quests:missions/tab/may21_marathon/body'
     MISSIONS_TAB_MISSIONS_HEADER = '#quests:missions/tab/missions/header'
     MISSIONS_TAB_MISSIONS_BODY = '#quests:missions/tab/missions/body'
     MISSIONS_TAB_LABEL_MISSIONS = '#quests:missions/tab/label/missions'
@@ -1046,6 +1042,8 @@ class QUESTS(object):
     MISSIONS_TAB_DAILY_BODY = '#quests:missions/tab/daily/body'
     MISSIONS_TAB_BATTLE_PASS_BODY = '#quests:missions/tab/battle_pass/body'
     MISSIONS_TAB_BATTLE_PASS_HEADER = '#quests:missions/tab/battle_pass/header'
+    MISSIONS_TAB_MAPBOX_BODY = '#quests:missions/tab/mapbox/body'
+    MISSIONS_TAB_MAPBOX_HEADER = '#quests:missions/tab/mapbox/header'
     MISSIONS_TAB_LABEL_CURRENTVEHICLE = '#quests:missions/tab/label/currentVehicle'
     MISSIONS_TAB_CURRENTVEHICLE_HEADER = '#quests:missions/tab/currentVehicle/header'
     MISSIONS_TAB_CURRENTVEHICLE_BODY = '#quests:missions/tab/currentVehicle/body'
@@ -2183,7 +2181,7 @@ class QUESTS(object):
      DETAILS_DOSSIER_22_BATTLESCOUNT,
      DETAILS_DOSSIER_24_BATTLESCOUNT,
      DETAILS_DOSSIER_27_BATTLESCOUNT,
-     DETAILS_DOSSIER_36_BATTLESCOUNT)
+     DETAILS_DOSSIER_37_BATTLESCOUNT)
     PERSONALMISSION_STATUS_ADDBOTTOM_VEHICLETYPE_ENUM = (PERSONALMISSION_STATUS_ADDBOTTOM_VEHICLETYPE_ALLIANCE_USSR,
      PERSONALMISSION_STATUS_ADDBOTTOM_VEHICLETYPE_ALLIANCE_GERMANY,
      PERSONALMISSION_STATUS_ADDBOTTOM_VEHICLETYPE_ALLIANCE_USA,

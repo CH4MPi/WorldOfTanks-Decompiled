@@ -1304,6 +1304,20 @@
     <name>	Girls und Panzer	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/cool	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	776	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/cool/sticker_72.dds	</texture>
+      <userString>	#vehicle_customization:emblem/cool/sticker_72	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Asia Tattoo	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
   <xmlns:germany>	germany	</xmlns:germany>
   <xmlns:usa>	usa	</xmlns:usa>
@@ -5689,24 +5703,24 @@
     <historical>	false	</historical>
     <priceGroup>	emblems 50g notInShop	</priceGroup>
     <decal>
-      <id>	748	</id>
-      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_680.dds	</texture>
-      <userString>	#vehicle_customization:emblem/special/sticker_680	</userString>
+      <id>	773	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_684.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_684	</userString>
       <mirror>	false	</mirror>
     </decal>
     <decal>
-      <id>	749	</id>
-      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_681.dds	</texture>
-      <userString>	#vehicle_customization:emblem/special/sticker_681	</userString>
+      <id>	774	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_685.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_685	</userString>
       <mirror>	false	</mirror>
     </decal>
     <decal>
-      <id>	750	</id>
-      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_682.dds	</texture>
-      <userString>	#vehicle_customization:emblem/special/sticker_682	</userString>
+      <id>	775	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_686.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_686	</userString>
       <mirror>	false	</mirror>
     </decal>
-    <name>	CIS Tournament	</name>
+    <name>	CIS Event tournaments	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -6168,6 +6182,20 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Twitch May 2021	</name>
+    <type>	EMBLEM	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:emblem/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	emblems 50g notInShop	</priceGroup>
+    <decal>
+      <id>	778	</id>
+      <texture>	gui/maps/vehicles/decals/player_stickers/special/sticker_687.dds	</texture>
+      <userString>	#vehicle_customization:emblem/special/sticker_687	</userString>
+      <mirror>	true	</mirror>
+    </decal>
+    <name>	EU Tankfest 2021	</name>
     <type>	EMBLEM	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -10578,6 +10606,24 @@
       <userString>	#vehicle_customization:inscription/special/special_490	</userString>
       <mirror>	false	</mirror>
     </decal>
+    <decal>
+      <id>	768	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_525.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_525	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	769	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_526.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_526	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	372	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_528.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_528	</userString>
+      <mirror>	false	</mirror>
+    </decal>
     <name>	BP2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
@@ -10788,6 +10834,26 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	ASIA Traditional Beauty	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	779	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_530.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_530	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <decal>
+      <id>	780	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_531.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_531	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	CN 360 Anniversary	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>
@@ -11271,6 +11337,20 @@
     <historical>	false	</historical>
     <priceGroup>	inscriptions 50g notInShop	</priceGroup>
     <decal>
+      <id>	765	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_522.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_522	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	Bastille Day	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
       <id>	759	</id>
       <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_514.dds	</texture>
       <userString>	#vehicle_customization:inscription/special/special_514	</userString>
@@ -11291,6 +11371,20 @@
       <mirror>	false	</mirror>
     </decal>
     <name>	Twitch May 2021	</name>
+    <type>	INSCRIPTION	</type>
+  </itemGroup>
+  <itemGroup>
+    <userString>	#vehicle_customization:inscription/special	</userString>
+    <season>	ALL	</season>
+    <historical>	false	</historical>
+    <priceGroup>	inscriptions 50g notInShop	</priceGroup>
+    <decal>
+      <id>	777	</id>
+      <texture>	gui/maps/vehicles/decals/inscriptions/special/inscription_529.dds	</texture>
+      <userString>	#vehicle_customization:inscription/special/special_529	</userString>
+      <mirror>	false	</mirror>
+    </decal>
+    <name>	EU Tankfest 2021	</name>
     <type>	INSCRIPTION	</type>
   </itemGroup>
   <xmlns:czech0>	ussr	</xmlns:czech0>

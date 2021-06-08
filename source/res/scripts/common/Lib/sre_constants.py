@@ -1,7 +1,5 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/common/Lib/sre_constants.py
-# Compiled at: 2064-11-08 16:39:12
-"""Internal support module for sre"""
 MAGIC = 20031017
 try:
     from _sre import MAXREPEAT

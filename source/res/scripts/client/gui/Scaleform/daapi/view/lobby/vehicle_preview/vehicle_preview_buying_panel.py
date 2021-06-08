@@ -152,10 +152,10 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
             self.__purchasePackage()
         elif self.__offers is not None:
             self.__purchaseOffer()
-        elif canBuyGoldForVehicleThroughWeb(vehicle):
-            self.__purchaseSingleVehicle(vehicle)
         elif self.__isHeroTank:
             self.__purchaseHeroTank()
+        elif canBuyGoldForVehicleThroughWeb(vehicle):
+            self.__purchaseSingleVehicle(vehicle)
         else:
             self.__research()
         return
@@ -651,12 +651,8 @@ class VehiclePreviewBuyingPanel(VehiclePreviewBuyingPanelMeta):
 
     @process
     def __purchaseMarathonPackage(self):
-        if self._marathonEvent.hasIgbLink():
-            url = yield self._marathonEvent.getMarathonVehicleUrlIgb()
-            event_dispatcher.showShop(url)
-        else:
-            url = yield self._marathonEvent.getMarathonVehicleUrl()
-            self.fireEvent(events.OpenLinkEvent(events.OpenLinkEvent.SPECIFIED, url=url))
+        url = yield self._marathonEvent.getMarathonVehicleUrl()
+        self.fireEvent(events.OpenLinkEvent(events.OpenLinkEvent.SPECIFIED, url=url))
 
     def __research(self):
         if self._actionType == factory.UNLOCK_ITEM:

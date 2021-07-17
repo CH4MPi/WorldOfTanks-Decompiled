@@ -3,8 +3,10 @@
 from typing import *
 import ResMgr
 from ResMgr import DataSection
+from WeakMixin import WeakMixin
 from items import ITEM_TYPES, parseIntCompactDescr, makeIntCompactDescrByID, EQUIPMENT_TYPES, vehicles
 from items.basic_item import BasicItem
+from items.vehicles import getItemByCompactDescr
 from nations import NONE_INDEX
 from soft_exception import SoftException
 from supply_slot_categories import CategoriesHolder, SlotCategories
@@ -12,7 +14,7 @@ if TYPE_CHECKING:
     from items.artefacts import Equipment
 
 class SupplySlot(CategoriesHolder):
-    __slots__ = ('slotID', 'tags')
+    __slots__ = ('slotID', 'tags', '__weakref__')
     itemType = None
 
     def __init__(self):
@@ -86,6 +88,22 @@ class EquipmentSlot(SupplySlot):
         return self.equipmentType
 
 
+class EpicEquipmentSlot(WeakMixin):
+    FL_AVATAR_TAGS = frozenset(('avatar', 'fl'))
+    JOINING_TAGS = frozenset(('reconnaissance', 'tactics', 'firesupport'))
+
+    @classmethod
+    def fromEquipmentSlot(cls, equipmentSlot):
+        return EpicEquipmentSlot(equipmentSlot) if isinstance(equipmentSlot, EquipmentSlot) and cls.FL_AVATAR_TAGS.issubset(equipmentSlot.tags) else None
+
+    def _checkSlotCompatibility(self, parsedCompDescr=None, descr=None):
+        res, _ = super(EpicEquipmentSlot, self)._checkSlotCompatibility(parsedCompDescr, descr)
+        if not res:
+            return (res, _)
+        item = descr or getItemByCompactDescr(parsedCompDescr)
+        return (self.tags.intersection(self.JOINING_TAGS).issubset(getattr(item, 'tags', ())), '')
+
+
 class ShellSlot(SupplySlot):
     itemType = ITEM_TYPES.shell
 
@@ -116,6 +134,10 @@ class SupplySlotsCache(object):
 
     def getSlotDescr(self, slotID):
         return self.slotDescrs[slotID]
+
+    def getSlotDescrsByTags(self, itags=(), etags=()):
+        itags, etags = set(itags), etags
+        return {} if not itags.isdisjoint(etags) else {i:sd for i, sd in self.__slotDescrs.iteritems() if sd.tags.isdisjoint(etags) and bool(itags) ^ sd.tags.isdisjoint(itags)}
 
     @property
     def categories(self):

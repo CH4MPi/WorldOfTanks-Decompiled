@@ -66,13 +66,15 @@ from items.components.crew_books_constants import CREW_BOOK_RARITY
 from items.components.crew_skins_constants import NO_CREW_SKIN_ID
 from items.components.c11n_constants import UNBOUND_VEH_KEY
 from items.tankmen import RECRUIT_TMAN_TOKEN_PREFIX
+from maps_training_common.maps_training_constants import SCENARIO_RESULT, SCENARIO_INDEXES
 from messenger import g_settings
 from messenger.ext import passCensor
 from messenger.formatters import TimeFormatter, NCContextItemFormatter
 from messenger.formatters.service_channel_helpers import EOL, getCustomizationItemData, MessageData, getRewardsForQuests, mergeRewards
 from nations import NAMES
 from shared_utils import BoundMethodWeakref, first
-from skeletons.gui.game_control import IRankedBattlesController, IEventProgressionController, IBattlePassController, IBattleRoyaleController, IMapboxController
+from skeletons.gui.cdn import IPurchaseCache
+from skeletons.gui.game_control import IRankedBattlesController, IBattlePassController, IBattleRoyaleController, IMapboxController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.offers import IOffersDataProvider
@@ -373,6 +375,8 @@ class BattleResultsFormatter(WaitItemsSyncFormatter):
     __BRResultKeys = {-1: 'battleRoyaleDefeatResult',
      0: 'battleRoyaleDefeatResult',
      1: 'battleRoyaleVictoryResult'}
+    __MTResultKeys = {SCENARIO_RESULT.LOSE: 'mapsTrainingDefeatResult',
+     SCENARIO_RESULT.WIN: 'mapsTrainingVictoryResult'}
     __goldTemplateKey = 'battleResultGold'
     __questsTemplateKey = 'battleQuests'
 
@@ -439,6 +443,10 @@ class BattleResultsFormatter(WaitItemsSyncFormatter):
                             battleResKey = 1 if winnerIfDraw == team else -1
                 if guiType == ARENA_GUI_TYPE.BATTLE_ROYALE:
                     battleResultKeys = self.__BRResultKeys
+                elif guiType == ARENA_GUI_TYPE.MAPS_TRAINING:
+                    ctx = self.__makeMapsTrainingMsgCtx(battleResults, ctx)
+                    battleResKey = battleResults.get('mtScenarioResult')
+                    battleResultKeys = self.__MTResultKeys
                 else:
                     battleResultKeys = self.__battleResultKeys
                 templateName = battleResultKeys[battleResKey]
@@ -459,6 +467,31 @@ class BattleResultsFormatter(WaitItemsSyncFormatter):
         else:
             callback([MessageData(None, None)])
         return
+
+    def __makeMapsTrainingMsgCtx(self, battleResults, ctx):
+        vehTypeCompDescr = next(battleResults['playerVehicles'].iterkeys())
+        vType = vehicles_core.getVehicleType(vehTypeCompDescr)
+        vehicleClass = vehicles_core.getVehicleClassFromVehicleType(vType)
+        team = battleResults['team']
+        vehTypeStr = backport.text(R.strings.maps_training.vehicleType.dyn(vehicleClass)())
+        ctx['baseStr'] = backport.text(R.strings.maps_training.baseNum()).format(base=team)
+        ctx['mtRewards'] = self.__makeMapsTrainingRewardsMsg(battleResults)
+        ctx['scenario'] = backport.text(R.strings.maps_training.scenarioTooltip.scenario.title()).format(num=SCENARIO_INDEXES[team, vehicleClass], vehicleType=vehTypeStr)
+        return ctx
+
+    def __makeMapsTrainingRewardsMsg(self, battleResults):
+        if not battleResults.get('mtCanGetRewards'):
+            return g_settings.htmlTemplates.format('mtRewardGot')
+        rewards = []
+        creditsReward = battleResults.get('credits', 0)
+        rewards.append(g_settings.htmlTemplates.format('mtCredits', ctx={'credits': self.__makeCurrencyString(Currency.CREDITS, creditsReward)}))
+        freeXP = battleResults.get('freeXP', 0)
+        if freeXP:
+            rewards.append(g_settings.htmlTemplates.format('mtFreeXP', ctx={'freeXP': backport.getIntegralFormat(freeXP)}))
+        questResults = QuestAchievesFormatter.formatQuestAchieves(battleResults, asBattleFormatter=True)
+        if questResults:
+            rewards.append(g_settings.htmlTemplates.format('mtQuests', ctx={'quests': questResults}))
+        return '<br/>'.join(rewards)
 
     def __makeQuestsAchieve(self, message):
         fmtMsg = QuestAchievesFormatter.formatQuestAchieves(message.data, asBattleFormatter=True)
@@ -861,6 +894,7 @@ class GiftReceivedFormatter(ServiceChannelFormatter):
 
 
 class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
+    __purchaseCache = dependency.descriptor(IPurchaseCache)
     __assetHandlers = {INVOICE_ASSET.GOLD: '_formatAmount',
      INVOICE_ASSET.CREDITS: '_formatAmount',
      INVOICE_ASSET.CRYSTAL: '_formatAmount',
@@ -868,7 +902,8 @@ class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
      INVOICE_ASSET.BPCOIN: '_formatAmount',
      INVOICE_ASSET.PREMIUM: '_formatAmount',
      INVOICE_ASSET.FREE_XP: '_formatAmount',
-     INVOICE_ASSET.DATA: '_formatData'}
+     INVOICE_ASSET.DATA: '_formatData',
+     INVOICE_ASSET.PURCHASE: '_formatPurchase'}
     __currencyToInvoiceAsset = {Currency.GOLD: INVOICE_ASSET.GOLD,
      Currency.CREDITS: INVOICE_ASSET.CREDITS,
      Currency.CRYSTAL: INVOICE_ASSET.CRYSTAL,
@@ -898,7 +933,9 @@ class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
      INVOICE_ASSET.BPCOIN: 'bpcoinInvoiceReceived',
      INVOICE_ASSET.PREMIUM: 'premiumInvoiceReceived',
      INVOICE_ASSET.FREE_XP: 'freeXpInvoiceReceived',
-     INVOICE_ASSET.DATA: 'dataInvoiceReceived'}
+     INVOICE_ASSET.DATA: 'dataInvoiceReceived',
+     INVOICE_ASSET.PURCHASE: 'purchaseInvoiceReceived'}
+    __INVALID_TYPE_ASSET = -1
     __goodiesCache = dependency.descriptor(IGoodiesCache)
     __eventsCache = dependency.descriptor(IEventsCache)
 
@@ -909,13 +946,17 @@ class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
         formatted, settings = (None, None)
         if isSynced:
             data = message.data
-            self.__prerocessRareAchievements(data)
-            assetType = data.get('assetType', -1)
-            handler = self.__assetHandlers.get(assetType)
-            if handler is not None:
-                formatted = getattr(self, handler)(assetType, data)
-            if formatted is not None:
-                settings = self._getGuiSettings(message, self._getMessageTemplateKey(assetType))
+            isDataSynced = yield self.__waitForSyncData(data)
+            if isDataSynced:
+                self.__prerocessRareAchievements(data)
+                assetType = data.get('assetType', self.__INVALID_TYPE_ASSET)
+                handler = self.__assetHandlers.get(assetType)
+                if handler is not None:
+                    formatted = getattr(self, handler)(assetType, data)
+                if formatted is not None:
+                    settings = self._getGuiSettings(message, self._getMessageTemplateKey(assetType))
+            else:
+                _logger.error('Message data has not been synchronized properly!')
         callback([MessageData(formatted, settings)])
         return
 
@@ -1208,29 +1249,61 @@ class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
             return operations
 
     def _formatData(self, assetType, data):
-        if 'customFormatting' in data.get('tags', ()):
-            return None
-        else:
-            operations = self._composeOperations(data)
-            compensation = Money()
-            for customizationData in data['data'].get('customizations', ()):
-                compensation += Money.makeFromMoneyTuple(customizationData.get('customCompensation', (0, 0)))
+        operations = self._composeOperations(data)
+        compensation = Money()
+        for customizationData in data['data'].get('customizations', ()):
+            compensation += Money.makeFromMoneyTuple(customizationData.get('customCompensation', (0, 0)))
 
-            if compensation.gold > 0:
-                icon = 'goldIcon'
-            elif compensation.credits > 0:
-                icon = 'creditsIcon'
-            else:
-                icon = 'informationIcon'
-            return None if not operations else g_settings.msgTemplates.format(self._getMessageTemplateKey(assetType), ctx={'at': self._getOperationTimeString(data),
-             'desc': self.__getL10nDescription(data),
-             'op': '<br/>'.join(operations)}, data={'icon': icon})
+        if compensation.gold > 0:
+            icon = 'goldIcon'
+        elif compensation.credits > 0:
+            icon = 'creditsIcon'
+        else:
+            icon = 'informationIcon'
+        return None if not operations else g_settings.msgTemplates.format(self._getMessageTemplateKey(assetType), ctx={'at': self._getOperationTimeString(data),
+         'desc': self.__getL10nDescription(data),
+         'op': '<br/>'.join(operations)}, data={'icon': icon})
 
     def _formatAmount(self, assetType, data):
         amount = data.get('amount', None)
         return None if amount is None else g_settings.msgTemplates.format(self._getMessageTemplateKey(assetType), ctx={'at': self._getOperationTimeString(data),
          'desc': self.__getL10nDescription(data),
          'op': self.__getFinOperationString(assetType, amount)})
+
+    def _formatPurchase(self, assetType, data):
+        if 'customFormatting' in data.get('tags', ()):
+            return None
+        else:
+            operations = self._composeOperations(data)
+            if not operations:
+                return None
+            ctx = {'at': self._getOperationTimeString(data),
+             'desc': self.__getL10nDescription(data),
+             'op': '<br/>'.join(operations)}
+            templateData = {}
+            metadata = data.get('meta')
+            title = backport.text(R.strings.messenger.serviceChannelMessages.invoiceReceived.invoice())
+            subtitle = ''
+            if metadata:
+                purchase = self.__purchaseCache.getCachedPurchase(self.__purchaseCache.getProductCode(metadata))
+                titleID = purchase.getTitleID()
+                if titleID:
+                    title = backport.text(R.strings.messenger.serviceChannelMessages.invoiceReceived.purchase.title.dyn(titleID)())
+                else:
+                    _logger.info('Could not find title in the purchase descriptor!')
+                purchaseName = purchase.getProductName()
+                if purchaseName:
+                    subtitle = g_settings.htmlTemplates.format('purchaseSubtitle', {'text': purchaseName})
+                else:
+                    _logger.info('Could not find name in the purchase descriptor!')
+                iconID = purchase.getIconID()
+                if iconID:
+                    templateData['icon'] = iconID
+                else:
+                    _logger.info('Could not find icon in the purchase descriptor!')
+            ctx['title'] = title
+            ctx['subtitle'] = subtitle
+            return g_settings.msgTemplates.format(self._getMessageTemplateKey(assetType), ctx=ctx, data=templateData)
 
     def _getMessageTemplateKey(self, assetType):
         return self.__messageTemplateKeys[assetType]
@@ -1591,6 +1664,32 @@ class InvoiceReceivedFormatter(WaitItemsSyncFormatter):
             debitedFormatted = g_settings.htmlTemplates.format(templateId, ctx={'bonusBattles': debitedStr})
             result = text_styles.concatStylesToMultiLine(result, debitedFormatted) if result else debitedFormatted
         return result
+
+    @async
+    @process
+    def __waitForSyncData(self, data, callback):
+        yield lambda callback: callback(True)
+        assetType = data.get('assetType', self.__INVALID_TYPE_ASSET)
+        if assetType == INVOICE_ASSET.PURCHASE:
+            if self.__purchaseCache.canBeRequestedFromProduct(data):
+                purchaseDescrUrl = self.__purchaseCache.getProductCode(data.get('meta'))
+                yield self.__purchaseCache.requestPurchaseByID(purchaseDescrUrl)
+            else:
+                _logger.debug('Data can not be requested from the product! System message will be shown without product data!')
+            callback(True)
+        else:
+            callback(True)
+
+    def __getMetaUrlData(self, data):
+        meta = data.get('meta')
+        if meta:
+            productUrl = meta.get('product_id')
+            if productUrl:
+                return productUrl
+            _logger.error('Could not find product_code in meta section of invoice!')
+        else:
+            _logger.error('Could not find meta section in purchase invoice!')
+        return None
 
 
 class AdminMessageFormatter(ServiceChannelFormatter):
@@ -2250,7 +2349,6 @@ class QuestAchievesFormatter(object):
     __lobbyContext = dependency.descriptor(ILobbyContext)
     __goodiesCache = dependency.descriptor(IGoodiesCache)
     __itemsCache = dependency.descriptor(IItemsCache)
-    __eventProgression = dependency.descriptor(IEventProgressionController)
 
     @classmethod
     def formatQuestAchieves(cls, data, asBattleFormatter, processCustomizations=True):
@@ -2338,9 +2436,7 @@ class QuestAchievesFormatter(object):
             for tokenID, tokenData in tokens.iteritems():
                 count = backport.getIntegralFormat(tokenData.get('count', 1))
                 name = None
-                if tokenID == cls.__eventProgression.rewardPointsTokenID:
-                    name = backport.text(R.strings.messenger.serviceChannelMessages.battleResults.epicRewardPoints())
-                elif tokenID == BATTLE_BONUS_X5_TOKEN:
+                if tokenID == BATTLE_BONUS_X5_TOKEN:
                     name = backport.text(R.strings.quests.bonusName.battle_bonus_x5())
                 if name is not None:
                     itemsNames.append(backport.text(R.strings.messenger.serviceChannelMessages.battleResults.quests.items.name(), name=name, count=count))

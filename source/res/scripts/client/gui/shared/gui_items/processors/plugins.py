@@ -1,30 +1,33 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/shared/gui_items/processors/plugins.py
-from functools import partial
 import logging
 from collections import namedtuple
-import async as future_async
-from adisp import process, async
-from account_helpers import isLongDisconnectedFromCenter
+from functools import partial
 from account_helpers.AccountSettings import AccountSettings
-from gui.Scaleform.daapi.view import dialogs
-from gui.goodies.demount_kit import getDemountKitForOptDevice
-from gui.shared.gui_items.artefacts import OptionalDevice
-from gui.shared.gui_items.vehicle_equipment import EMPTY_ITEM
-from items import tankmen
-from gui.Scaleform.Waiting import Waiting
-from gui.Scaleform.locale.RES_ICONS import RES_ICONS
-from gui.Scaleform.daapi.view.dialogs.missions_dialogs_meta import UseAwardSheetDialogMeta
+import async as future_async
+from account_helpers import isLongDisconnectedFromCenter
+from adisp import process, async
 from gui import DialogsInterface
+from gui import makeHtmlString
+from gui.Scaleform.Waiting import Waiting
+from gui.Scaleform.daapi.view import dialogs
+from gui.Scaleform.daapi.view.dialogs import I18nConfirmDialogMeta, I18nInfoDialogMeta, DIALOG_BUTTON_ID, IconPriceDialogMeta, IconDialogMeta, PMConfirmationDialogMeta, TankmanOperationDialogMeta, HtmlMessageDialogMeta, HtmlMessageLocalDialogMeta, CheckBoxDialogMeta, CrewSkinsRemovalCompensationDialogMeta, CrewSkinsRemovalDialogMeta
+from gui.Scaleform.daapi.view.dialogs.missions_dialogs_meta import UseAwardSheetDialogMeta
+from gui.Scaleform.locale.RES_ICONS import RES_ICONS
 from gui.game_control import restore_contoller
+from gui.goodies.demount_kit import getDemountKitForOptDevice
+from gui.impl import backport
+from gui.impl.gen import R
 from gui.shared.formatters.tankmen import formatDeletedTankmanStr
-from gui.shared.utils.requesters import REQ_CRITERIA
-from gui.shared.utils.vehicle_collector_helper import isAvailableForPurchase
 from gui.shared.gui_items import GUI_ITEM_TYPE, GUI_ITEM_ECONOMY_CODE
 from gui.shared.gui_items.Vehicle import VEHICLE_TAGS
+from gui.shared.gui_items.artefacts import OptionalDevice
+from gui.shared.gui_items.vehicle_equipment import EMPTY_ITEM
 from gui.shared.money import Currency
-from gui.Scaleform.daapi.view.dialogs import I18nConfirmDialogMeta, I18nInfoDialogMeta, DIALOG_BUTTON_ID, IconPriceDialogMeta, IconDialogMeta, PMConfirmationDialogMeta, TankmanOperationDialogMeta, HtmlMessageDialogMeta, HtmlMessageLocalDialogMeta, CheckBoxDialogMeta, CrewSkinsRemovalCompensationDialogMeta, CrewSkinsRemovalDialogMeta
+from gui.shared.utils.requesters import REQ_CRITERIA
+from gui.shared.utils.vehicle_collector_helper import isAvailableForPurchase
 from helpers import dependency
+from items import tankmen
 from items.components import skills_constants
 from items.components.c11n_constants import SeasonType
 from skeletons.gui.game_control import IEpicBattleMetaGameController
@@ -32,9 +35,6 @@ from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.lobby_context import ILobbyContext
 from skeletons.gui.server_events import IEventsCache
 from skeletons.gui.shared import IItemsCache
-from gui import makeHtmlString
-from gui.impl import backport
-from gui.impl.gen import R
 from soft_exception import SoftException
 _logger = logging.getLogger(__name__)
 PluginResult = namedtuple('PluginResult', 'success errorMsg ctx')
@@ -477,8 +477,10 @@ class BuyAndInstallConfirmator(ModuleBuyerConfirmator):
         self.item = item
 
     def _gfMakeMeta(self):
-        from gui.shared.event_dispatcher import showOptionalDeviceBuyAndInstall
-        return partial(showOptionalDeviceBuyAndInstall, self.item.intCD) if self.item.itemTypeID == GUI_ITEM_TYPE.OPTIONALDEVICE else None
+        from gui.shared.event_dispatcher import showBuyModuleDialog
+        itemTypeIdx = self.item.itemTypeID
+        installedModule = self.itemsCache.items.getItemByCD(self.ctx['installedModuleCD'])
+        return partial(showBuyModuleDialog, self.item, installedModule, self.ctx['currency'], self.ctx['installReason']) if itemTypeIdx in GUI_ITEM_TYPE.VEHICLE_MODULES else None
 
 
 class BCBuyAndInstallConfirmator(BuyAndInstallConfirmator):
@@ -490,6 +492,9 @@ class BCBuyAndInstallConfirmator(BuyAndInstallConfirmator):
      'vehicleRadio': 'bcRadio.png',
      'vehicleWheels': 'bcWheels.png',
      'vehicleEngine': 'bcEngine.png'}
+
+    def _gfMakeMeta(self):
+        return None
 
     @staticmethod
     def getPath(itemTypeName):
@@ -505,17 +510,6 @@ class BCBuyAndInstallConfirmator(BuyAndInstallConfirmator):
          'costValue': self.ctx['price'],
          'isBuy': True}
         return dialogs.BCConfirmDialogMeta(dialogData)
-
-
-class BuyAndStorageConfirmator(ModuleBuyerConfirmator):
-
-    def __init__(self, localeKey, ctx=None, activeHandler=None, isEnabled=True, item=None):
-        super(BuyAndStorageConfirmator, self).__init__(localeKey, ctx, activeHandler, isEnabled)
-        self.item = item
-
-    def _gfMakeMeta(self):
-        from gui.shared.event_dispatcher import showOptionalDeviceBuyAndStorage
-        return partial(showOptionalDeviceBuyAndStorage, self.item.intCD) if self.item.itemTypeID == GUI_ITEM_TYPE.OPTIONALDEVICE else None
 
 
 class HtmlMessageConfirmator(I18nMessageAbstractConfirmator):
@@ -621,18 +615,6 @@ class IconMessageConfirmator(I18nMessageAbstractConfirmator):
 
     def _makeMeta(self):
         return IconDialogMeta(self.localeKey, self.ctx, self.ctx, focusedID=DIALOG_BUTTON_ID.SUBMIT)
-
-
-class InstallDeviceConfirmator(MessageConfirmator):
-
-    def __init__(self, isEnabled=True, item=None):
-        super(InstallDeviceConfirmator, self).__init__(None, isEnabled=isEnabled)
-        self.item = item
-        return
-
-    def _gfMakeMeta(self):
-        from gui.shared import event_dispatcher
-        return partial(event_dispatcher.showOptionalDeviceInstall, self.item.intCD)
 
 
 class DestroyDeviceConfirmator(IconMessageConfirmator):

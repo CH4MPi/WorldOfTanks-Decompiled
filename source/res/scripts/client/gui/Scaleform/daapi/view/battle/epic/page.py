@@ -5,6 +5,7 @@ from gui.Scaleform.daapi.view.battle.shared.start_countdown_sound_player import 
 from gui.battle_control.battle_constants import BATTLE_CTRL_ID
 from gui.Scaleform.daapi.view.meta.EpicBattlePageMeta import EpicBattlePageMeta
 from gui.Scaleform.genConsts.BATTLE_VIEW_ALIASES import BATTLE_VIEW_ALIASES
+from gui.battle_control.controllers.sound_ctrls.epic_battle_sounds import EpicBattleSoundController
 from gui.shared import EVENT_BUS_SCOPE, events
 from gui.Scaleform.genConsts.EPIC_CONSTS import EPIC_CONSTS
 from gui.Scaleform.daapi.view.battle.epic import markers2d
@@ -43,7 +44,8 @@ class _EpicBattleComponentsConfig(ComponentsConfig):
          (BATTLE_CTRL_ID.BATTLE_FIELD_CTRL, (DynamicAliases.EPIC_DRONE_MUSIC_PLAYER,)),
          (BATTLE_CTRL_ID.BATTLE_FIELD_CTRL, (BATTLE_VIEW_ALIASES.SUPER_PLATOON_PANEL,)),
          (BATTLE_CTRL_ID.ARENA_LOAD_PROGRESS, (DynamicAliases.EPIC_DRONE_MUSIC_PLAYER,)),
-         (BATTLE_CTRL_ID.GAME_MESSAGES_PANEL, (BATTLE_VIEW_ALIASES.GAME_MESSAGES_PANEL,))), viewsConfig=((DynamicAliases.PERIOD_MUSIC_LISTENER, period_music_listener.PeriodMusicListener), (DynamicAliases.EPIC_DRONE_MUSIC_PLAYER, drone_music_player.EpicDroneMusicPlayer), (ClassicDynAliases.PREBATTLE_TIMER_SOUND_PLAYER, StartCountdownSoundPlayer)))
+         (BATTLE_CTRL_ID.GAME_MESSAGES_PANEL, (BATTLE_VIEW_ALIASES.GAME_MESSAGES_PANEL,)),
+         (BATTLE_CTRL_ID.BATTLE_HINTS, (BATTLE_VIEW_ALIASES.GAME_MESSAGES_PANEL,))), viewsConfig=((DynamicAliases.PERIOD_MUSIC_LISTENER, period_music_listener.PeriodMusicListener), (DynamicAliases.EPIC_DRONE_MUSIC_PLAYER, drone_music_player.EpicDroneMusicPlayer), (ClassicDynAliases.PREBATTLE_TIMER_SOUND_PLAYER, StartCountdownSoundPlayer)))
 
 
 EPIC_BATTLE_CLASSIC_CONFIG = _EpicBattleComponentsConfig()
@@ -81,7 +83,7 @@ _GAME_UI = {BATTLE_VIEW_ALIASES.VEHICLE_ERROR_MESSAGES,
  BATTLE_VIEW_ALIASES.GAME_MESSAGES_PANEL,
  BATTLE_VIEW_ALIASES.RECOVERY_PANEL,
  BATTLE_VIEW_ALIASES.SIEGE_MODE_INDICATOR,
- BATTLE_VIEW_ALIASES.TIMERS_PANEL,
+ BATTLE_VIEW_ALIASES.STATUS_NOTIFICATIONS_PANEL,
  BATTLE_VIEW_ALIASES.BATTLE_DAMAGE_LOG_PANEL,
  BATTLE_VIEW_ALIASES.SUPER_PLATOON_PANEL,
  BATTLE_VIEW_ALIASES.EPIC_INGAME_RANK,
@@ -129,7 +131,7 @@ _STATE_TO_UI = {PageStates.GAME: _GAME_UI,
  PageStates.SPECTATOR_FREE: _SPECTATOR_UI.union({BATTLE_VIEW_ALIASES.SUPER_PLATOON_PANEL}),
  PageStates.SPECTATOR_FOLLOW: _SPECTATOR_UI.union({BATTLE_VIEW_ALIASES.DAMAGE_PANEL,
                                BATTLE_VIEW_ALIASES.RECOVERY_PANEL,
-                               BATTLE_VIEW_ALIASES.TIMERS_PANEL,
+                               BATTLE_VIEW_ALIASES.STATUS_NOTIFICATIONS_PANEL,
                                BATTLE_VIEW_ALIASES.EPIC_MISSIONS_PANEL,
                                BATTLE_VIEW_ALIASES.GAME_MESSAGES_PANEL}),
  PageStates.GAME_OVER: _GAME_UI.difference({BATTLE_VIEW_ALIASES.EPIC_REINFORCEMENT_PANEL,
@@ -146,6 +148,7 @@ class EpicBattlePage(EpicBattlePageMeta, BattleGUIKeyHandler):
             components = _EPIC_BATTLE_CLASSICS_COMPONENTS if self.sessionProvider.isReplayPlaying else _EPIC_BATTLE_EXTENDED_COMPONENTS
         super(EpicBattlePage, self).__init__(components=components, external=external, fullStatsAlias=fullStatsAlias)
         self.__battleStarted = False
+        self.__epicSoundControl = None
         self.__pageState = PageStates.COUNTDOWN
         self.__topState = PageStates.NONE
         self.__activeState = PageStates.NONE
@@ -200,12 +203,17 @@ class EpicBattlePage(EpicBattlePageMeta, BattleGUIKeyHandler):
         if arena is not None:
             arena.onPeriodChange += self.__arena_onPeriodChange
             self.__arena_onPeriodChange(arena.period)
+        self.__epicSoundControl = EpicBattleSoundController()
+        self.__epicSoundControl.init()
         return
 
     def _dispose(self):
         arena = self.sessionProvider.arenaVisitor.getArenaSubscription()
         if arena is not None:
             arena.onPeriodChange -= self.__arena_onPeriodChange
+        if self.__epicSoundControl is not None:
+            self.__epicSoundControl.destroy()
+            self.__epicSoundControl = None
         super(EpicBattlePage, self)._dispose()
         return
 

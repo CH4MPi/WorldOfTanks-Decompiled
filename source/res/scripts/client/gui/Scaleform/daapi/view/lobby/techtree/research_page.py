@@ -12,6 +12,7 @@ from gui.Scaleform.daapi.view.lobby.techtree.settings import SelectedNation, NOD
 from gui.Scaleform.daapi.view.lobby.vehicle_compare.formatters import resolveStateTooltip
 from gui.Scaleform.daapi.view.meta.ResearchMeta import ResearchMeta
 from gui.Scaleform.framework.managers.loaders import SFViewLoadParams
+from gui.Scaleform.genConsts.NODE_STATE_FLAGS import NODE_STATE_FLAGS
 from gui.Scaleform.genConsts.RESEARCH_ALIASES import RESEARCH_ALIASES
 from gui.Scaleform.genConsts.STORE_CONSTANTS import STORE_CONSTANTS
 from gui.Scaleform.genConsts.VEHPREVIEW_CONSTANTS import VEHPREVIEW_CONSTANTS
@@ -131,6 +132,7 @@ class Research(ResearchMeta):
         self._resolveLoadCtx(ctx=ctx)
         self._exitEvent = ctx.get(BackButtonContextKeys.EXIT, None)
         self._skipConfirm = skipConfirm
+        self.__preloadingBP = None
         return
 
     def __del__(self):
@@ -183,8 +185,14 @@ class Research(ResearchMeta):
         else:
             self._doBuyAndInstallItemAction(itemCD)
 
+    def onModuleHover(self, itemCD):
+        itemCD = int(itemCD)
+        result = self._data.invalidateHovered(itemCD)
+        if result:
+            self.as_setNodesStatesS(NODE_STATE_FLAGS.DASHED, result)
+
     def _doBuyAndInstallItemAction(self, itemCD):
-        ItemsActionsFactory.doAction(ItemsActionsFactory.BUY_AND_INSTALL_ITEM, itemCD, self._data.getRootCD(), skipConfirm=self._skipConfirm)
+        ItemsActionsFactory.doAction(ItemsActionsFactory.BUY_AND_INSTALL_AND_SELL_ITEM, itemCD, self._data.getRootCD(), skipConfirm=self._skipConfirm)
 
     def _doBuyVehicleAction(self, itemCD):
         ItemsActionsFactory.doAction(ItemsActionsFactory.BUY_VEHICLE, itemCD, False, VehicleBuyActionTypes.BUY, skipConfirm=self._skipConfirm)
@@ -290,11 +298,16 @@ class Research(ResearchMeta):
         self.as_setWalletStatusS(self._wallet.componentsStatuses)
         self.as_setFreeXPS(self._itemsCache.items.stats.actualFreeXP)
         self.addListener(events.VehicleBuyEvent.VEHICLE_SELECTED, self.__onTradeOffSelectedChanged)
-        g_blueprintGenerator.generate(self._data.getRootCD())
+        self.__preloadingBP = self._data.getRootCD()
+        g_blueprintGenerator.generate(self.__preloadingBP)
 
     def _dispose(self):
+        if self.__preloadingBP is not None:
+            g_blueprintGenerator.cancel(self.__preloadingBP)
+            self.__preloadingBP = None
         self.removeListener(events.VehicleBuyEvent.VEHICLE_SELECTED, self.__onTradeOffSelectedChanged)
         super(Research, self)._dispose()
+        return
 
     def _onRegisterFlashComponent(self, viewPy, alias):
         if alias == VEHPREVIEW_CONSTANTS.TRADE_OFF_WIDGET_ALIAS:
@@ -380,7 +393,7 @@ class Research(ResearchMeta):
             if discount != 0:
                 return _BANNER_GETTERS[States.RENT](discount)
         if not NODE_STATE.inInventory(nodeState) and NODE_STATE.isActionVehicle(nodeState) or NODE_STATE.isCollectibleActionVehicle(nodeState):
-            actionDueDate = getDueDateOrTimeStr(rootNode.getActionFinishTime())
+            actionDueDate = getDueDateOrTimeStr(rootNode.getActionFinishTime(), isShortDateFormat=True)
             if actionDueDate:
                 return _BANNER_GETTERS[States.ACTION](actionDueDate, rootNode.getActionDiscount())
         return htmlStr

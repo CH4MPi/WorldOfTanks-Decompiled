@@ -33,6 +33,10 @@ def getTooltipBuilders():
      AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.GOLD, TOOLTIPS_CONSTANTS.GOLD_INFO, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI),
      AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.BPCOIN, TOOLTIPS_CONSTANTS.BPCOIN_INFO, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI),
      AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.FREE_XP, TOOLTIPS_CONSTANTS.FREEXP_INFO, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI),
+     AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.GOLD, TOOLTIPS_CONSTANTS.GOLD_INFO_FULL_SCREEN, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI, True),
+     AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.CREDITS, TOOLTIPS_CONSTANTS.CREDITS_INFO_FULL_SCREEN, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI, True),
+     AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.CRYSTAL, TOOLTIPS_CONSTANTS.CRYSTAL_INFO_FULL_SCREEN, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI, True),
+     AdvancedHeaderMoneyAndXpBuilder(CURRENCIES_CONSTANTS.FREE_XP, TOOLTIPS_CONSTANTS.FREEXP_INFO_FULL_SCREEN, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI, True),
      DataBuilder(TOOLTIPS_CONSTANTS.VEHICLE_FILTER, TOOLTIPS_CONSTANTS.BLOCKS_DEFAULT_UI, VehicleFilterTooltip(contexts.TechCustomizationContext())),
      DataBuilder(TOOLTIPS_CONSTANTS.VEHICLE_ELITE_BONUS, TOOLTIPS_CONSTANTS.VEHICLE_INFO_UI, common.VehicleEliteBonusTooltipData(contexts.VehicleEliteBonusContext())),
      DataBuilder(TOOLTIPS_CONSTANTS.VEHICLE_HISTORICAL_REFERENCE, TOOLTIPS_CONSTANTS.VEHICLE_INFO_UI, common.VehicleHistoricalReferenceTooltipData(contexts.VehicleHistoricalReferenceContext())),
@@ -61,12 +65,13 @@ class HeaderMoneyAndXpBuilder(DataBuilder):
 
 
 class AdvancedHeaderMoneyAndXpBuilder(AdvancedDataBuilder):
-    __slots__ = ('__btnType',)
+    __slots__ = ('__btnType', '__hideActionBlock')
 
-    def __init__(self, btnType, tooltipType, linkage):
+    def __init__(self, btnType, tooltipType, linkage, hideActionBlock=False):
         super(AdvancedHeaderMoneyAndXpBuilder, self).__init__(tooltipType, linkage, common.HeaderMoneyAndXpTooltipData(contexts.ToolTipContext(None)), advanced.MoneyAndXpAdvanced(contexts.ToolTipContext(None)))
         self.__btnType = btnType
+        self.__hideActionBlock = hideActionBlock
         return
 
     def _buildData(self, _advanced, *args, **kwargs):
-        return super(AdvancedHeaderMoneyAndXpBuilder, self)._buildData(_advanced, self.__btnType)
+        return super(AdvancedHeaderMoneyAndXpBuilder, self)._buildData(_advanced, self.__btnType, self.__hideActionBlock)

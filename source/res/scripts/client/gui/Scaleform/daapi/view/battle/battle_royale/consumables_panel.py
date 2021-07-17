@@ -109,6 +109,8 @@ class BattleRoyaleConsumablesPanel(ConsumablesPanel):
                 self.as_setGlowS(idx, CONSUMABLES_PANEL_SETTINGS.GLOW_ID_GREEN_SPECIAL)
             elif currStage == EQUIPMENT_STAGES.COOLDOWN and prevStage in (EQUIPMENT_STAGES.READY, EQUIPMENT_STAGES.PREPARING, EQUIPMENT_STAGES.ACTIVE):
                 self.as_setGlowS(idx, CONSUMABLES_PANEL_SETTINGS.GLOW_ID_ORANGE)
+            elif currStage == EQUIPMENT_STAGES.READY and prevStage == EQUIPMENT_STAGES.PREPARING:
+                self.as_setEquipmentActivatedS(idx, False)
             return
 
     def _updateOptionalDeviceSlot(self, idx, isOn):

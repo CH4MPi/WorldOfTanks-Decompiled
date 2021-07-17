@@ -1061,7 +1061,7 @@
       </surveyingDeviceHealth>
       <guns>
         <_90mm_Gun_M3A1>	shared	  <maxAmmo>	70	</maxAmmo>
-          <reloadTime>	8.1	</reloadTime>
+          <reloadTime>	7.4	</reloadTime>
           <shotDispersionFactors>
             <turretRotation>	0.08	</turretRotation>
             <afterShot>	3.5	</afterShot>
@@ -1083,7 +1083,7 @@
             <gun>	35	</gun>
           </armor>
           <shotDispersionRadius>	0.38	</shotDispersionRadius>
-          <aimingTime>	2.5	</aimingTime>
+          <aimingTime>	2.2	</aimingTime>
           <invisibilityFactorAtShot>	0.238	</invisibilityFactorAtShot>
           <turretYawLimits>	-180 180	</turretYawLimits>
           <models>

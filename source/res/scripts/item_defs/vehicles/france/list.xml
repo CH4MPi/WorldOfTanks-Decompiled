@@ -58,6 +58,8 @@
     <userString>	#france_vehicles:_105_leFH18B2	</userString>
     <shortUserString>	#france_vehicles:_105_leFH18B2_short	</shortUserString>
     <description>	#france_vehicles:_105_leFH18B2_descr	</description>
+    <shortDescriptionSpecial>	#france_vehicles:_105_leFH18B2_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#france_vehicles:_105_leFH18B2_long_special	</longDescriptionSpecial>
     <price>	1500	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -69,6 +71,8 @@
     <userString>	#france_vehicles:FCM_36Pak40	</userString>
     <shortUserString>	#france_vehicles:FCM_36Pak40_short	</shortUserString>
     <description>	#france_vehicles:FCM_36Pak40_descr	</description>
+    <shortDescriptionSpecial>	#france_vehicles:F27_FCM_36Pak40_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#france_vehicles:F27_FCM_36Pak40_long_special	</longDescriptionSpecial>
     <price>	850	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -117,7 +121,7 @@
     <shortUserString>	#france_vehicles:Bat_Chatillon25t_short	</shortUserString>
     <description>	#france_vehicles:Bat_Chatillon25t_descr	</description>
     <price>	6100000	</price>
-    <tags>	mediumTank HD mediumTank2 improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_assassin	</tags>
+    <tags>	mediumTank HD mediumTank2 improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_support	</tags>
     <level>	10	</level>
   </F18_Bat_Chatillon25t>
   <F09_AMX_50_120>
@@ -189,7 +193,7 @@
     <shortUserString>	#france_vehicles:AMX_50_68t_short	</shortUserString>
     <description>	#france_vehicles:AMX_50_68t_descr	</description>
     <price>	6100000	</price>
-    <tags>	heavyTank HD heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_fireSupport	</tags>
+    <tags>	heavyTank HD heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_support	</tags>
     <level>	10	</level>
   </F10_AMX_50B>
   <F15_AMX_12t>
@@ -332,10 +336,12 @@
     <userString>	#france_vehicles:AMX_50Fosh_155	</userString>
     <description>	#france_vehicles:AMX_50Fosh_155_descr	</description>
     <shortUserString>	#france_vehicles:AMX_50Fosh_155_short	</shortUserString>
+    <shortDescriptionSpecial>	#france_vehicles:AMX_50Fosh_155_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#france_vehicles:AMX_50Fosh_155_long_special	</longDescriptionSpecial>
     <price>	5	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	AT-SPG HD special heavyAT-SPG AT-SPG2 improvedVentilation_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_burstDamage	</tags>
+    <tags>	AT-SPG HD special heavyAT-SPG AT-SPG2 improvedVentilation_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_support	</tags>
     <level>	10	</level>
   </F64_AMX_50Fosh_155>
   <F62_ELC_AMX>
@@ -389,7 +395,7 @@
     <shortUserString>	#france_vehicles:F72_AMX_30_short	</shortUserString>
     <description>	#france_vehicles:F72_AMX_30_descr	</description>
     <price>	6100000	</price>
-    <tags>	mediumTank HD collectorVehicle mediumTank1 improvedVentilation_class2_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_fireSupport	</tags>
+    <tags>	mediumTank HD collectorVehicle mediumTank1 improvedVentilation_class2_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_sniper	</tags>
     <level>	10	</level>
   </F72_AMX_30>
   <F71_AMX_30_prototype>
@@ -452,7 +458,7 @@
     <shortUserString>	#france_vehicles:F88_AMX_13_105_short	</shortUserString>
     <description>	#france_vehicles:F88_AMX_13_105_descr	</description>
     <price>	6100000	</price>
-    <tags>	lightTank HD scout improvedVentilation_class3_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_tracked	</tags>
+    <tags>	lightTank HD scout improvedVentilation_class3_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_universal	</tags>
     <level>	10	</level>
   </F88_AMX_13_105>
   <F87_Batignolles-Chatillon_12t>
@@ -470,7 +476,7 @@
     <description>	#france_vehicles:F64_AMX_50Fosh_B_descr	</description>
     <shortUserString>	#france_vehicles:F64_AMX_50Fosh_B_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	AT-SPG HD heavyAT-SPG AT-SPG2 improvedVentilation_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_burstDamage	</tags>
+    <tags>	AT-SPG HD heavyAT-SPG AT-SPG2 improvedVentilation_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_support	</tags>
     <level>	10	</level>
   </F64_AMX_50Fosh_B>
   <F109_AMD_Panhard_178B>
@@ -836,7 +842,7 @@
     <description>	#france_vehicles:AMX_50_68t_fallout_descr	</description>
     <price>	0	</price>
     <notInShop>	true	</notInShop>
-    <tags>	heavyTank HD secret fallout improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_fireSupport	</tags>
+    <tags>	heavyTank HD secret fallout improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_support	</tags>
     <level>	10	</level>
   </F10_AMX_50B_fallout>
   <F36_AMX_AC_Mle1948_IGR>
@@ -900,7 +906,7 @@
     <shortUserString>	#igr_vehicles:Bat_Chatillon25t_IGR_short	</shortUserString>
     <description>	#igr_vehicles:Bat_Chatillon25t_IGR_descr	</description>
     <price>	1	</price>
-    <tags>	mediumTank HD secret premiumIGR improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_assassin	</tags>
+    <tags>	mediumTank HD secret premiumIGR improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_support	</tags>
     <level>	10	</level>
   </F18_Bat_Chatillon25t_IGR>
   <F01_RenaultFT_bot>
@@ -932,4 +938,26 @@
     <tags>	mediumTank HD battle_royale lockOutfit lockCrew lockCrewSkills cannot_be_sold lockDevices lockEquipment lockShells secret siegeMode dualgun charger	</tags>
     <level>	1	</level>
   </F43_AMC_35_SH>
+  <F23_AMX_13F3AM_MapsTraining_Dummy_SPG_2>
+    <id>	110	</id>
+    <userString>	#maps_training:botVehicleType/SPG	</userString>
+    <description>	#maps_training:botVehicleDescription	</description>
+    <price>	935000	</price>
+    <tags>	SPG HD lightSPG tankRammer_class2_user antifragmentationLining_light_user secret maps_training	</tags>
+    <level>	6	</level>
+    <clone_tags>	cloned	</clone_tags>
+    <notInShop>	True	</notInShop>
+  </F23_AMX_13F3AM_MapsTraining_Dummy_SPG_2>
+  <F83_AMX_M4_Mle1949_Bis_FL>
+    <id>	251	</id>
+    <userString>	#france_vehicles:F83_AMX_M4_Mle1949_Bis_FL	</userString>
+    <shortUserString>	#france_vehicles:F83_AMX_M4_Mle1949_Bis_FL_short	</shortUserString>
+    <description>	#france_vehicles:F83_AMX_M4_Mle1949_Bis_descr	</description>
+    <price>	1	  <gold></gold>
+    </price>
+    <notInShop>	true	</notInShop>
+    <cannotBeBought>	true	</cannotBeBought>
+    <tags>	heavyTank HD heavyTank1 epic_battles improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
+    <level>	9	</level>
+  </F83_AMX_M4_Mle1949_Bis_FL>
 </list.xml>

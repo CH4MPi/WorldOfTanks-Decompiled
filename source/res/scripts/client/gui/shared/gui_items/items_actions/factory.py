@@ -12,6 +12,7 @@ UNLOCK_ITEM = 'unlockAction'
 BC_UNLOCK_ITEM = 'bcUnlockAction'
 INSTALL_ITEM = 'installItemAction'
 BUY_AND_INSTALL_ITEM = 'buyAndInstallItemAction'
+BUY_AND_INSTALL_AND_SELL_ITEM = 'BuyAndInstallWithOptionalSellItemAction'
 BC_BUY_AND_INSTALL_ITEM = 'bcBuyAndInstallItemAction'
 VEHICLE_AUTO_FILL_LAYOUT = 'vehicleAutoFillLayoutAction'
 BUY_BERTHS = 'buyBerths'
@@ -34,7 +35,7 @@ _ACTION_MAP = {SELL_ITEM: actions.SellItemAction,
  BUY_MODULE: actions.ModuleBuyAction,
  BUY_VEHICLE: actions.VehicleBuyAction,
  INSTALL_ITEM: actions.InstallItemAction,
- BUY_AND_INSTALL_ITEM: actions.BuyAndInstallItemAction,
+ BUY_AND_INSTALL_AND_SELL_ITEM: actions.BuyAndInstallWithOptionalSellItemAction,
  BC_BUY_AND_INSTALL_ITEM: actions.BCBuyAndInstallItemAction,
  VEHICLE_AUTO_FILL_LAYOUT: actions.VehicleAutoFillLayoutAction,
  BUY_BERTHS: actions.BuyBerthsAction,

@@ -7,7 +7,7 @@ import weakref
 from collections import defaultdict
 from PlayerEvents import g_playerEvents
 from account_helpers.account_completion import isEmailConfirmationRequired
-from constants import ARENA_BONUS_TYPE
+from constants import ARENA_BONUS_TYPE, MAPS_TRAINING_ENABLED_KEY
 from account_helpers import AccountSettings
 from account_helpers.AccountSettings import PROGRESSIVE_REWARD_VISITED, SENIORITY_AWARDS_COUNTER
 from adisp import process
@@ -102,6 +102,10 @@ class _StateExtractor(object):
     def getDogTagsUnlockingState(cls):
         return cls.__lobbyContext.getServerSettings().isDogTagEnabled()
 
+    @classmethod
+    def getMapsTrainingState(cls):
+        return cls.__lobbyContext.getServerSettings().isMapsTrainingEnabled()
+
 
 _FEATURES_DATA = {PremiumConfigs.DAILY_BONUS: {_FeatureState.ON: (R.strings.system_messages.daily_xp_bonus.switch_on.title(), R.strings.system_messages.daily_xp_bonus.switch_on.body(), SystemMessages.SM_TYPE.FeatureSwitcherOn),
                               _FeatureState.OFF: (R.strings.system_messages.daily_xp_bonus.switch_off.title(), R.strings.system_messages.daily_xp_bonus.switch_off.body(), SystemMessages.SM_TYPE.FeatureSwitcherOff),
@@ -126,7 +130,10 @@ _FEATURES_DATA = {PremiumConfigs.DAILY_BONUS: {_FeatureState.ON: (R.strings.syst
                                       _FUNCTION: _StateExtractor.getCollectorVehicleState},
  DOG_TAGS_CONFIG: {_FeatureState.ON: (R.strings.system_messages.dog_tags.switch_on.title(), R.strings.system_messages.dog_tags.switch_on.body(), SystemMessages.SM_TYPE.FeatureSwitcherOn),
                    _FeatureState.OFF: (R.strings.system_messages.dog_tags.switch_off.title(), R.strings.system_messages.dog_tags.switch_off.body(), SystemMessages.SM_TYPE.FeatureSwitcherOff),
-                   _FUNCTION: _StateExtractor.getDogTagsUnlockingState}}
+                   _FUNCTION: _StateExtractor.getDogTagsUnlockingState},
+ MAPS_TRAINING_ENABLED_KEY: {_FeatureState.ON: (R.strings.system_messages.maps_training.switch.title(), R.strings.system_messages.maps_training.switch_on.body(), SystemMessages.SM_TYPE.FeatureSwitcherOn),
+                             _FeatureState.OFF: (R.strings.system_messages.maps_training.switch.title(), R.strings.system_messages.maps_training.switch_off.body(), SystemMessages.SM_TYPE.FeatureSwitcherOff),
+                             _FUNCTION: _StateExtractor.getMapsTrainingState}}
 
 class _NotificationListener(object):
 
@@ -950,6 +957,7 @@ class BattlePassListener(_NotificationListener):
         self.__isStarted = None
         self.__isFinished = None
         self.__arenaBonusTypesEnabledState = None
+        self.__arenaBonusTypesHandlers = None
         return
 
     def start(self, model):
@@ -957,7 +965,8 @@ class BattlePassListener(_NotificationListener):
         self.__isStarted = self.__battlePassController.isSeasonStarted()
         self.__isFinished = self.__battlePassController.isSeasonFinished()
         self.__arenaBonusTypesHandlers = {ARENA_BONUS_TYPE.RANKED: self.__pushEnableChangeRanked,
-         ARENA_BONUS_TYPE.BATTLE_ROYALE_SOLO: self.__pushBattleRoyaleEnableChange}
+         ARENA_BONUS_TYPE.BATTLE_ROYALE_SOLO: self.__pushBattleRoyaleEnableChange,
+         ARENA_BONUS_TYPE.EPIC_BATTLE: self.__pushEpicBattleModeChanged}
         self.__battlePassController.onSeasonStateChange += self.__onSeasonStateChange
         self.__battlePassController.onBattlePassSettingsChange += self.__onBattlePassSettingsChange
         self.__notificationCtrl.onEventNotificationsChanged += self.__onEventNotification
@@ -1052,10 +1061,10 @@ class BattlePassListener(_NotificationListener):
 
     def __pushEnableChangeRanked(self, isEnabled):
         if isEnabled:
-            msg = backport.text(R.strings.system_messages.battlePass.ranked.enabled())
+            msg = backport.text(R.strings.system_messages.battlePass.switch_enabled.ranked.body())
             msgType = SystemMessages.SM_TYPE.Warning
         else:
-            msg = backport.text(R.strings.system_messages.battlePass.ranked.disabled())
+            msg = backport.text(R.strings.system_messages.battlePass.switch_disable.ranked.body())
             msgType = SystemMessages.SM_TYPE.ErrorSimple
         SystemMessages.pushMessage(text=msg, type=msgType)
 
@@ -1064,6 +1073,16 @@ class BattlePassListener(_NotificationListener):
         supportedTypes = self.__battlePassController.getSupportedArenaBonusTypes()
         for arenaBonusType in supportedTypes:
             self.__arenaBonusTypesEnabledState[arenaBonusType] = self.__battlePassController.isGameModeEnabled(arenaBonusType)
+
+    @staticmethod
+    def __pushEpicBattleModeChanged(isEnabled):
+        if isEnabled:
+            msg = backport.text(R.strings.system_messages.battlePass.switch_enabled.epicBattle.body())
+            msgType = SystemMessages.SM_TYPE.Warning
+        else:
+            msg = backport.text(R.strings.system_messages.battlePass.switch_disable.epicBattle.body())
+            msgType = SystemMessages.SM_TYPE.ErrorSimple
+        SystemMessages.pushMessage(text=msg, type=msgType)
 
 
 class UpgradeTrophyDeviceListener(_NotificationListener):

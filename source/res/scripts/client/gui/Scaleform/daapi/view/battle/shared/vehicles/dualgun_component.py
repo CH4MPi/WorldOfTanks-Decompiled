@@ -276,8 +276,8 @@ class DualGunComponent(DualGunPanelMeta):
             return GunStatesUI.READY if state == DUAL_GUN.GUN_STATE.READY else None
 
     def __updateGunState(self, gunID, state, serverCooldownData):
-        leftTime = int(serverCooldownData[gunID][DualGunConstants.LEFT_TIME] * DualGunConstants.TIME_MULTIPLIER)
-        baseTime = int(serverCooldownData[gunID][DualGunConstants.BASE_TIME] * DualGunConstants.TIME_MULTIPLIER)
+        leftTime = int(serverCooldownData[gunID].leftTime * DualGunConstants.TIME_MULTIPLIER)
+        baseTime = int(serverCooldownData[gunID].baseTime * DualGunConstants.TIME_MULTIPLIER)
         self.as_setGunStateS(gunID, state, leftTime, baseTime)
 
     def __onVehicleFeedbackReceived(self, eventID, vehicleID, value):
@@ -301,8 +301,8 @@ class DualGunComponent(DualGunPanelMeta):
         rightGunState = self._convertServerStateToUI(states[DUAL_GUN.ACTIVE_GUN.RIGHT])
         self.__updateGunState(DUAL_GUN.COOLDOWNS.LEFT, leftGunState, cooldownTimes)
         self.__updateGunState(DUAL_GUN.COOLDOWNS.RIGHT, rightGunState, cooldownTimes)
-        leftTime = cooldownTimes[DUAL_GUN.COOLDOWNS.SWITCH][DualGunConstants.LEFT_TIME]
-        baseTime = cooldownTimes[DUAL_GUN.COOLDOWNS.SWITCH][DualGunConstants.BASE_TIME]
+        leftTime = cooldownTimes[DUAL_GUN.COOLDOWNS.SWITCH].leftTime
+        baseTime = cooldownTimes[DUAL_GUN.COOLDOWNS.SWITCH].baseTime
         activeGunReloadingTimeLeft = max(leftTime, cooldownTimes[activeGun].leftTime)
         switchLeftTime = int(activeGunReloadingTimeLeft * DualGunConstants.TIME_MULTIPLIER)
         switchBaseTime = int(baseTime * DualGunConstants.TIME_MULTIPLIER)

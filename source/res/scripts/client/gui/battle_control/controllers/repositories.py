@@ -7,6 +7,7 @@ from gui.battle_control.controllers import arena_border_ctrl, arena_load_ctrl, b
 from gui.battle_control.controllers.appearance_cache_ctrls.battle_royale_appearance_cache_ctrl import BattleRoyaleAppearanceCacheController
 from gui.battle_control.controllers.appearance_cache_ctrls.default_appearance_cache_ctrl import DefaultAppearanceCacheController
 from gui.battle_control.controllers.appearance_cache_ctrls.event_appearance_cache_ctrl import EventAppearanceCacheController
+from gui.battle_control.controllers.appearance_cache_ctrls.maps_training_appearance_cache_ctrl import MapsTrainingAppearanceCacheController
 from gui.battle_control.controllers.quest_progress import quest_progress_ctrl
 from skeletons.gui.battle_session import ISharedControllersLocator, IDynamicControllersLocator
 from gui.battle_control.controllers import battle_hints_ctrl
@@ -409,6 +410,7 @@ class EpicControllersRepository(_ControllersRepository):
         repository.addArenaViewController(battle_field_ctrl.BattleFieldCtrl(), setup)
         repository.addArenaViewController(epic_team_bases_ctrl.createEpicTeamsBasesCtrl(setup), setup)
         repository.addArenaController(DefaultAppearanceCacheController(setup), setup)
+        repository.addViewController(battle_hints_ctrl.createBattleHintsController(), setup)
         return repository
 
 
@@ -447,4 +449,22 @@ class EventControllerRepository(_ControllersRepositoryByBonuses):
         repository.addArenaViewController(battle_field_ctrl.BattleFieldCtrl(), setup)
         repository.addViewController(battle_hints_ctrl.createBattleHintsController(), setup)
         repository.addArenaController(EventAppearanceCacheController(setup), setup)
+        return repository
+
+
+class MapsTrainingControllerRepository(_ControllersRepositoryByBonuses):
+    __slots__ = ()
+
+    @classmethod
+    def create(cls, setup):
+        from gui.Scaleform.daapi.view.battle.maps_training import battle_hints_mt
+        repository = super(MapsTrainingControllerRepository, cls).create(setup)
+        repository.addArenaViewController(team_bases_ctrl.createTeamsBasesCtrl(setup), setup)
+        repository.addArenaController(dyn_squad_functional.DynSquadFunctional(setup), setup)
+        repository.addViewController(debug_ctrl.DebugController(), setup)
+        repository.addViewController(default_maps_ctrl.DefaultMapsController(setup), setup)
+        repository.addViewController(game_messages_ctrl.createGameMessagesController(setup), setup)
+        repository.addArenaViewController(battle_field_ctrl.BattleFieldCtrl(), setup)
+        repository.addViewController(battle_hints_mt.createBattleHintsController(), setup)
+        repository.addArenaController(MapsTrainingAppearanceCacheController(setup), setup)
         return repository

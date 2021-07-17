@@ -3,6 +3,7 @@
 import itertools
 from account_helpers.settings_core.options import KeyboardSetting
 from frameworks.wulf import Array
+from gui.impl import backport
 from gui.impl.gen import R
 from gui.impl.gen.view_models.constants.item_highlight_types import ItemHighlightTypes
 from gui.impl.gen.view_models.views.lobby.tank_setup.common.base_ammunition_slot import BaseAmmunitionSlot
@@ -12,6 +13,9 @@ from gui.impl.gen.view_models.views.lobby.tank_setup.common.shell_ammunition_slo
 from gui.impl.gen.view_models.views.lobby.tank_setup.common.specialization_model import SpecializationModel
 from gui.impl.gen.view_models.views.lobby.tank_setup.tank_setup_constants import TankSetupConstants
 from gui.impl.lobby.tank_setup.tank_setup_helper import getCategoriesMask, NONE_ID
+from helpers import dependency
+from items.components.supply_slot_categories import SlotCategories
+from skeletons.gui.game_control import IEpicBattleMetaGameController
 EMPTY_NAME = 'empty'
 
 class BaseBlock(object):
@@ -256,10 +260,14 @@ class BattleBoostersBlock(BaseBlock):
 
 
 class BattleAbilitiesBlock(BaseBlock):
+    __epicMetaGameCtrl = dependency.descriptor(IEpicBattleMetaGameController)
 
     def createBlock(self, viewModel):
         super(BattleAbilitiesBlock, self).createBlock(viewModel)
         viewModel.setType(self._getSectionName())
+        vehType = self._vehicle.type.replace('-', '_')
+        viewModel.setVehicle(backport.text(R.strings.menu.classes.short.dyn(vehType)()))
+        viewModel.setVehicleType(vehType)
 
     def _getSectionName(self):
         return TankSetupConstants.BATTLE_ABILITIES
@@ -276,11 +284,28 @@ class BattleAbilitiesBlock(BaseBlock):
     def _getLayout(self):
         return self._vehicle.battleAbilities.layout
 
-    def _updateEmptySlot(self, model, idx):
-        super(BattleAbilitiesBlock, self)._updateEmptySlot(model, idx)
-        model.setLevel(0)
-
     def _updateSlotWithItem(self, model, idx, slotItem):
         super(BattleAbilitiesBlock, self)._updateSlotWithItem(model, idx, slotItem)
-        model.setImageSource(R.images.gui.maps.icons.artefact.dyn(slotItem.descriptor.iconName)())
-        model.setLevel(slotItem.level)
+        model.setImageSource(R.images.gui.maps.icons.epicBattles.skills.c_48x48.dyn(slotItem.descriptor.iconName)())
+        categoryName = self._getSlotCategoryName(idx)
+        if categoryName:
+            model.setCategoryImgSource(R.images.gui.maps.icons.tanksetup.panel.dyn(categoryName)())
+        model.setIsInstalled(slotItem in self._getInstalled())
+
+    def _getSlotCategoryName(self, idx):
+        slots = self._vehicle.battleAbilities.slots
+        slotsOrder = self.__epicMetaGameCtrl.getAbilitySlotsOrder(self._vehicle.descriptor.type)
+        if idx >= len(slots):
+            return None
+        else:
+            sID = slotsOrder[idx]
+            for slot in slots:
+                if sID != slot.slotID:
+                    continue
+                categories = SlotCategories.ALL
+                slotCategory = tuple(categories.intersection(slot.tags))
+                if slotCategory:
+                    return slotCategory[0]
+                return None
+
+            return None

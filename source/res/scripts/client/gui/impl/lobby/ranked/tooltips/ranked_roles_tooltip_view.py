@@ -1,12 +1,12 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/impl/lobby/ranked/tooltips/ranked_roles_tooltip_view.py
-from constants import ACTIONS_GROUP_TYPE_TO_LABEL, ACTION_TYPE_TO_LABEL, ROLE_TYPE_TO_LABEL
+from constants import ACTION_TYPE_TO_LABEL, ROLE_TYPE_TO_LABEL
 from gui.impl.gen import R
 from gui.impl.pub import ViewImpl
 from frameworks.wulf import ViewSettings
 from gui.impl.gen.view_models.views.lobby.ranked.tooltips.roles_view_model import RolesViewModel
 from gui.impl.gen.view_models.views.lobby.ranked.tooltips.role_action_model import RoleActionModel
-from items.vehicles import getActionsByRole, getRolesActionsGroups
+from items.vehicles import getActionsByRole
 
 class RankedRolesTooltipView(ViewImpl):
 
@@ -22,10 +22,8 @@ class RankedRolesTooltipView(ViewImpl):
         super(RankedRolesTooltipView, self)._onLoading(*args, **kwargs)
         actions = getActionsByRole(roleID)
         roleLabel = ROLE_TYPE_TO_LABEL[roleID]
-        rolesToActionsGroups = getRolesActionsGroups()
-        actionsGroupLabel = ACTIONS_GROUP_TYPE_TO_LABEL[rolesToActionsGroups[roleID]]
         with self.getViewModel().transaction() as model:
-            model.setRoleType(actionsGroupLabel)
+            model.setRoleType(roleLabel)
             model.setRoleBgImage(R.images.gui.maps.icons.roleExp.actionsTooltip.headerImage.dyn(roleLabel)())
             roleActions = model.roleActions
             for action in actions:

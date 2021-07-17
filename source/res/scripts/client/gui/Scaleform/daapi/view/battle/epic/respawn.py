@@ -137,6 +137,7 @@ class EpicBattleRespawn(EpicRespawnViewMeta, IEpicRespawnView):
     def show(self, selectedID, vehsList, cooldowns, limits=0):
         self.__carousel.resetFilters()
         self.__updateSlotData(vehsList, cooldowns, limits)
+        self.__carousel.show()
         BigWorld.wg_enableGUIBackground(True, False)
         if self.__battleCtx:
             BigWorld.wg_setGUIBackground(self.__battleCtx.getArenaRespawnIcon())

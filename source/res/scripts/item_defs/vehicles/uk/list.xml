@@ -195,7 +195,7 @@
     <price>	5	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	heavyTank HD special improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_superheavy_user earn_crystals role_HT_fireSupport	</tags>
+    <tags>	heavyTank HD special improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_superheavy_user earn_crystals role_HT_support	</tags>
     <level>	10	</level>
   </GB13_FV215b>
   <GB60_Covenanter>
@@ -290,10 +290,12 @@
     <userString>	#gb_vehicles:GB48_FV215b_183	</userString>
     <description>	#gb_vehicles:GB48_FV215b_183_descr	</description>
     <shortUserString>	#gb_vehicles:GB48_FV215b_183_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB48_FV215b_183_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB48_FV215b_183_long_special	</longDescriptionSpecial>
     <price>	5	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	AT-SPG HD special heavyAT-SPG AT-SPG2 RE_ATSPG_3 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_burstDamage	</tags>
+    <tags>	AT-SPG HD special heavyAT-SPG AT-SPG2 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_support	</tags>
     <level>	10	</level>
   </GB48_FV215b_183>
   <GB74_AT8>
@@ -426,7 +428,7 @@
     <description>	#gb_vehicles:GB83_FV4005_descr	</description>
     <shortUserString>	#gb_vehicles:GB83_FV4005_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	AT-SPG HD heavyAT-SPG AT-SPG2 RE_ATSPG_3 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_burstDamage	</tags>
+    <tags>	AT-SPG HD heavyAT-SPG AT-SPG2 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_support	</tags>
     <level>	10	</level>
   </GB83_FV4005>
   <GB41_Challenger>
@@ -514,7 +516,7 @@
     <description>	#gb_vehicles:GB92_FV217_descr	</description>
     <shortUserString>	#gb_vehicles:GB92_FV217_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	AT-SPG HD heavyAT-SPG improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_tank	</tags>
+    <tags>	AT-SPG HD heavyAT-SPG improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_assault	</tags>
     <level>	10	</level>
   </GB92_FV217>
   <GB107_Cavalier>
@@ -559,7 +561,7 @@
     <description>	#gb_vehicles:GB100_Manticore_descr	</description>
     <shortUserString>	#gb_vehicles:GB100_Manticore_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	lightTank HD scout improvedVentilation_class3_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_tracked	</tags>
+    <tags>	lightTank HD scout improvedVentilation_class3_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_universal	</tags>
     <level>	10	</level>
   </GB100_Manticore>
   <GB84_Chieftain_Mk6>
@@ -567,6 +569,8 @@
     <userString>	#gb_vehicles:GB84_Chieftain_Mk6	</userString>
     <description>	#gb_vehicles:GB84_Chieftain_Mk6_descr	</description>
     <shortUserString>	#gb_vehicles:GB84_Chieftain_Mk6_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB84_Chieftain_Mk6_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB84_Chieftain_Mk6_long_special	</longDescriptionSpecial>
     <price>	100	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -578,6 +582,8 @@
     <userString>	#gb_vehicles:GB87_Chieftain_T95_turret	</userString>
     <description>	#gb_vehicles:GB87_Chieftain_T95_turret_descr	</description>
     <shortUserString>	#gb_vehicles:GB87_Chieftain_T95_turret_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB87_Chieftain_T95_turret_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB87_Chieftain_T95_turret_long_special	</longDescriptionSpecial>
     <price>	6400	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -589,6 +595,8 @@
     <userString>	#gb_vehicles:GB33_Sentinel_AC_I	</userString>
     <description>	#gb_vehicles:GB33_Sentinel_AC_I_descr	</description>
     <shortUserString>	#gb_vehicles:GB33_Sentinel_AC_I_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB33_Sentinel_AC_I_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB33_Sentinel_AC_I_long_special	</longDescriptionSpecial>
     <price>	1200	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -658,6 +666,8 @@
     <userString>	#gb_vehicles:GB76_Mk_VIC	</userString>
     <description>	#gb_vehicles:GB76_Mk_VIC_descr	</description>
     <shortUserString>	#gb_vehicles:GB76_Mk_VIC_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB76_Mk_VIC_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB76_Mk_VIC_long_special	</longDescriptionSpecial>
     <price>	750	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -745,6 +755,8 @@
     <userString>	#gb_vehicles:GB88_T95_Chieftain_turret	</userString>
     <description>	#gb_vehicles:GB88_T95_Chieftain_turret_descr	</description>
     <shortUserString>	#gb_vehicles:GB88_T95_Chieftain_turret_short	</shortUserString>
+    <shortDescriptionSpecial>	#gb_vehicles:GB88_T95_Chieftain_turret_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#gb_vehicles:GB88_T95_Chieftain_turret_long_special	</longDescriptionSpecial>
     <price>	5	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -760,7 +772,6 @@
     <longDescriptionSpecial>	#gb_vehicles:GB93_Caernarvon_AX_long_special	</longDescriptionSpecial>
     <price>	9400	  <gold></gold>
     </price>
-    <notInShop>	true	</notInShop>
     <tags>	heavyTank HD improvedVentilation_class1_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
     <level>	8	</level>
   </GB93_Caernarvon_AX>
@@ -951,7 +962,7 @@
     <userString>	#igr_vehicles:GB13_FV215b_IGR	</userString>
     <description>	#igr_vehicles:GB13_FV215b_IGR_descr	</description>
     <price>	1	</price>
-    <tags>	heavyTank secret premiumIGR improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_superheavy_user earn_crystals role_HT_fireSupport	</tags>
+    <tags>	heavyTank secret premiumIGR improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_superheavy_user earn_crystals role_HT_support	</tags>
     <level>	10	</level>
   </GB13_FV215b_IGR>
   <GB01_Medium_Mark_I_bot>
@@ -983,4 +994,26 @@
     <tags>	mediumTank HD battle_royale lockOutfit lockCrew lockCrewSkills cannot_be_sold lockDevices lockEquipment lockShells secret	</tags>
     <level>	1	</level>
   </GB107_Cavalier_SH>
+  <GB19_Sherman_Firefly_MapsTraining_Dummy_MT_2>
+    <id>	110	</id>
+    <userString>	#maps_training:botVehicleType/mediumTank	</userString>
+    <description>	#maps_training:botVehicleDescription	</description>
+    <price>	945000	</price>
+    <tags>	mediumTank HD collectorVehicle improvedVentilation_class2_user tankRammer_class2_user aimingStabilizer_class2_user extraHealthReserve_class2_user antifragmentationLining_medium_user secret maps_training	</tags>
+    <level>	6	</level>
+    <clone_tags>	cloned	</clone_tags>
+    <notInShop>	True	</notInShop>
+  </GB19_Sherman_Firefly_MapsTraining_Dummy_MT_2>
+  <GB12_Conqueror_FL>
+    <id>	208	</id>
+    <userString>	#gb_vehicles:GB12_Conqueror_FL	</userString>
+    <shortUserString>	#gb_vehicles:GB12_Conqueror_FL_short	</shortUserString>
+    <description>	#gb_vehicles:GB12_Conqueror_descr	</description>
+    <price>	1	  <gold></gold>
+    </price>
+    <notInShop>	true	</notInShop>
+    <cannotBeBought>	true	</cannotBeBought>
+    <tags>	heavyTank HD epic_battles improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
+    <level>	9	</level>
+  </GB12_Conqueror_FL>
 </list.xml>

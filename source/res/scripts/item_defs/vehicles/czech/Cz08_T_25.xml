@@ -3506,6 +3506,8 @@
       <unlocks>
         <vehicle>	Cz05_T34_100	  <cost>	57950	</cost>
         </vehicle>
+        <vehicle>	Cz19_Vz_44_1	  <cost>	56600	</cost>
+        </vehicle>
       </unlocks>
       <armor>
         <armor_1>	50	</armor_1>

@@ -157,7 +157,7 @@ def getChassisRotationSpeed(vehicleDescr, factors):
 
 def getInvisibility(vehicleDescr, factors, baseInvisibility, isMoving):
     baseValue = baseInvisibility[0 if isMoving else 1]
-    additiveTerm = factors['invisibility'][0] + vehicleDescr.miscAttrs['invisibilityAdditiveTerm']
+    additiveTerm = factors['invisibility'][0] + factors.get('invisibilityAdditiveTerm', 0.0) + vehicleDescr.miscAttrs['invisibilityAdditiveTerm']
     multFactor = factors['invisibility'][1]
     return (baseValue + additiveTerm) * multFactor
 
@@ -218,13 +218,13 @@ if IS_CLIENT:
     def updateAttrFactorsWithSplit(vehicleDescr, crewCompactDescrs, eqs, factors, perksController=None):
         extras = {}
         extraAspects = {VEHICLE_TTC_ASPECTS.WHEN_STILL: ('invisibility',)}
-        updateVehicleAttrFactors(vehicleDescr, perksController, crewCompactDescrs, eqs, factors, VEHICLE_TTC_ASPECTS.DEFAULT)
         for aspect in extraAspects.iterkeys():
             currFactors = copy.deepcopy(factors)
             updateVehicleAttrFactors(vehicleDescr, perksController, crewCompactDescrs, eqs, currFactors, aspect)
             for coefficient in extraAspects[aspect]:
                 extras.setdefault(coefficient, {})[aspect] = currFactors[coefficient]
 
+        updateVehicleAttrFactors(vehicleDescr, perksController, crewCompactDescrs, eqs, factors, VEHICLE_TTC_ASPECTS.DEFAULT)
         for coefficientName, coefficientValue in extras.iteritems():
             coefficientValue[VEHICLE_TTC_ASPECTS.DEFAULT] = factors[coefficientName]
             factors[coefficientName] = coefficientValue

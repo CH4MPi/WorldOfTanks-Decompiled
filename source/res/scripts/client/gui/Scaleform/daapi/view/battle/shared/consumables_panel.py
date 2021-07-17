@@ -185,7 +185,7 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         self._cds[idx] = intCD
         if item is None:
             bwKey, sfKey = self.__genKey(idx)
-            self.as_addEquipmentSlotS(idx, bwKey, sfKey, 0, 0, 0, None, EMPTY_EQUIPMENT_TOOLTIP, ANIMATION_TYPES.NONE)
+            self.as_addEquipmentSlotS(idx=idx, keyCode=bwKey, sfKeyCode=sfKey, quantity=0, timeRemaining=0, reloadingTime=0, iconPath='', tooltipText=EMPTY_EQUIPMENT_TOOLTIP, animation=ANIMATION_TYPES.NONE)
             snap = self._cds[self._EQUIPMENT_START_IDX:self._EQUIPMENT_END_IDX + 1]
             if snap == self.__emptyEquipmentsSlice:
                 self.as_showEquipmentSlotsS(False)
@@ -205,7 +205,7 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
             quantity = item.getQuantity()
             timeRemaining = item.getTimeRemaining()
             reloadingTime = item.getTotalTime()
-            iconPath = self._getEquipmentIconPath() % descriptor.icon[0]
+            iconPath = self._getEquipmentIcon(idx, descriptor.icon[0])
             animationType = item.getAnimationType()
             body = descriptor.description
             if reloadingTime > 0:
@@ -218,7 +218,7 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
                 paramsString = backport.text(tooltipStr, cooldownSeconds=cooldownSeconds)
                 body = '\n\n'.join((body, paramsString))
             toolTip = TOOLTIP_FORMAT.format(descriptor.userString, body)
-            self.as_addEquipmentSlotS(idx, bwKey, sfKey, quantity, timeRemaining, reloadingTime, iconPath, toolTip, animationType)
+            self.as_addEquipmentSlotS(idx=idx, keyCode=bwKey, sfKeyCode=sfKey, quantity=quantity, timeRemaining=timeRemaining, reloadingTime=reloadingTime, iconPath=iconPath, tooltipText=toolTip, animation=animationType)
         return
 
     def _addOptionalDeviceSlot(self, idx, optDeviceInBattle):
@@ -226,6 +226,9 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         descriptor = optDeviceInBattle.getDescriptor()
         iconPath = descriptor.icon[0]
         self.as_addOptionalDeviceSlotS(idx, -1 if optDeviceInBattle.getStatus() else 0, iconPath, TOOLTIPS_CONSTANTS.BATTLE_OPT_DEVICE, True, optDeviceInBattle.getIntCD(), optDeviceInBattle.isUsed())
+
+    def _getEquipmentIcon(self, _, icon):
+        return self._getEquipmentIconPath() % icon
 
     def _updateShellSlot(self, idx, quantity):
         self.as_setItemQuantityInSlotS(idx, quantity)
@@ -265,6 +268,13 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         if optDeviceInBattle.isNeedGlow():
             self.as_setGlowS(idx, CONSUMABLES_PANEL_SETTINGS.GLOW_ID_GREEN)
         self.as_setCoolDownTimeS(self._cds.index(intCD), duration, duration, 0)
+
+    def _resetEquipmentSlot(self, idx, intCD, item):
+        self._cds[idx] = intCD
+        bwKey, _ = self.__genKey(idx)
+        if bwKey in self.__keys:
+            self.__keys.pop(bwKey)
+        self._updateEquipmentSlot(idx, item)
 
     def _showEquipmentGlow(self, equipmentIndex, glowType=CONSUMABLES_PANEL_SETTINGS.GLOW_ID_ORANGE):
         if BigWorld.player().isObserver():
@@ -323,6 +333,10 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         self._addEquipmentSlot(idx, intCD, item)
         return
 
+    def _onEquipmentReset(self, oldIntCD, intCD, item):
+        idx = self._cds.index(oldIntCD)
+        self._resetEquipmentSlot(idx, intCD, item)
+
     def _isAvatarEquipment(self, item):
         return item.isAvatar()
 
@@ -349,6 +363,7 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         if eqCtrl is not None:
             self.__fillEquipments(eqCtrl)
             eqCtrl.onEquipmentAdded += self._onEquipmentAdded
+            eqCtrl.onEquipmentReset += self._onEquipmentReset
             eqCtrl.onEquipmentUpdated += self.__onEquipmentUpdated
             eqCtrl.onEquipmentCooldownInPercent += self.__onEquipmentCooldownInPercent
             eqCtrl.onEquipmentCooldownTime += self.__onEquipmentCooldownTime
@@ -392,6 +407,7 @@ class ConsumablesPanel(ConsumablesPanelMeta, BattleGUIKeyHandler, CallbackDelaye
         eqCtrl = self.sessionProvider.shared.equipments
         if eqCtrl is not None:
             eqCtrl.onEquipmentAdded -= self._onEquipmentAdded
+            eqCtrl.onEquipmentReset -= self._onEquipmentReset
             eqCtrl.onEquipmentUpdated -= self.__onEquipmentUpdated
             eqCtrl.onEquipmentCooldownInPercent -= self.__onEquipmentCooldownInPercent
             eqCtrl.onEquipmentCooldownTime -= self.__onEquipmentCooldownTime

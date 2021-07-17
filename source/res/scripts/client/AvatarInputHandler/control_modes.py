@@ -1364,11 +1364,13 @@ class PostMortemControlMode(IControlMode):
             self.__aih.onControlModeChanged(CTRL_MODE_NAME.VIDEO, prevModeName=CTRL_MODE_NAME.POSTMORTEM, camMatrix=self.__cam.camera.matrix, curVehicleID=self.__curVehicleID)
             return True
         if cmdMap.isFired(CommandMapping.CMD_CM_POSTMORTEM_NEXT_VEHICLE, key) and isDown and not guiCtrlEnabled:
-            self.__switch()
-            return True
+            if self.__aih.isAllowToSwitchPositionOrFPV():
+                self.__switch()
+                return True
         if cmdMap.isFired(CommandMapping.CMD_CM_POSTMORTEM_SELF_VEHICLE, key) and isDown and not guiCtrlEnabled:
-            self.__switch(False)
-            return True
+            if self.__aih.isAllowToSwitchPositionOrFPV():
+                self.__switch(False)
+                return True
         if cmdMap.isFiredList((CommandMapping.CMD_CM_CAMERA_ROTATE_LEFT,
          CommandMapping.CMD_CM_CAMERA_ROTATE_RIGHT,
          CommandMapping.CMD_CM_CAMERA_ROTATE_UP,

@@ -332,7 +332,7 @@ class BattleBooster(Equipment):
 
 
 class BattleAbility(Equipment):
-    __slots__ = ('_level', '_unlocked')
+    __slots__ = ('_level', '_unlocked', '__weakref__')
     __epicMetaGameCtrl = dependency.descriptor(IEpicBattleMetaGameController)
 
     def __init__(self, *args, **kwargs):

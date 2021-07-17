@@ -296,6 +296,41 @@
         <global-active>	_DogTagsEnabled	</global-active>
       </condition>
     </hint>
+    <hint>	HangarManualHint	  <item-id>	LobbyMenuBnt	</item-id>
+      <text>	_(#manual:manual_update/hint)	</text>
+      <arrow>
+        <direction>	R	</direction>
+        <loop>	True	</loop>
+      </arrow>
+      <ignore-outside-click>	True	</ignore-outside-click>
+      <condition>
+        <condition-and>
+          <condition-hint-showed>
+            <hint-id>	DogTagHangarHint	</hint-id>
+            <value>	True	</value>
+          </condition-hint-showed>
+        </condition-and>
+      </condition>
+      <checked-ui-state>
+        <simple-state>
+          <state>	enabled	</state>
+          <value>	True	</value>
+        </simple-state>
+      </checked-ui-state>
+      <update-runtime>	True	</update-runtime>
+    </hint>
+    <hint>	LobbyMenuManualHint	  <item-id>	LobbyMenuManualItem	</item-id>
+      <text></text>
+      <condition>
+        <global-active>	_LobbyMenuItemManual	</global-active>
+      </condition>
+    </hint>
+    <hint>	LobbyMenuBootcampHint	  <item-id>	LobbyMenuBootcampItem	</item-id>
+      <text></text>
+      <condition>
+        <global-active>	_LobbyMenuItemBootcamp	</global-active>
+      </condition>
+    </hint>
     <hint>	DogTagProfileHint	  <item-id>	DogTagsWidget	</item-id>
       <text>	#dogtags:tutorial/playerProfile/dogtag	</text>
       <arrow>
@@ -527,10 +562,58 @@
       <hide-immediately>	True	</hide-immediately>
       <ignore-outside-click>	True	</ignore-outside-click>
     </hint>
+    <hint>	AmmunitionPanelBattleAbilitiesHint	  <item-id>	AmmunitionPanelBattleAbilities	</item-id>
+      <text>	_(#tank_setup:hints/ammunitionPanel/reserves/changed)	</text>
+      <arrow>
+        <direction>	T	</direction>
+        <loop>	True	</loop>
+      </arrow>
+      <checked-ui-state>
+        <simple-state>
+          <state>	visible	</state>
+          <value>	True	</value>
+        </simple-state>
+      </checked-ui-state>
+      <update-runtime>	True	</update-runtime>
+      <hide-immediately>	True	</hide-immediately>
+      <ignore-outside-click>	True	</ignore-outside-click>
+    </hint>
     <hint>	FilterHintZoneHint	  <item-id>	FilterTutorialHintZone	</item-id>
       <text>	_(#tank_setup:hints/filters/specialization)	</text>
       <arrow>
         <direction>	B	</direction>
+        <loop>	True	</loop>
+      </arrow>
+      <checked-ui-state>
+        <simple-state>
+          <state>	visible	</state>
+          <value>	True	</value>
+        </simple-state>
+      </checked-ui-state>
+      <update-runtime>	True	</update-runtime>
+      <hide-immediately>	True	</hide-immediately>
+      <ignore-outside-click>	True	</ignore-outside-click>
+    </hint>
+    <hint>	FilterHintZoneHint	  <item-id>	FilterTutorialHintZone	</item-id>
+      <text>	_(#tank_setup:hints/filters/specialization)	</text>
+      <arrow>
+        <direction>	B	</direction>
+        <loop>	True	</loop>
+      </arrow>
+      <checked-ui-state>
+        <simple-state>
+          <state>	visible	</state>
+          <value>	True	</value>
+        </simple-state>
+      </checked-ui-state>
+      <update-runtime>	True	</update-runtime>
+      <hide-immediately>	True	</hide-immediately>
+      <ignore-outside-click>	True	</ignore-outside-click>
+    </hint>
+    <hint>	ShowAbilitiesButtonHint	  <item-id>	ShowAbilitiesButton	</item-id>
+      <text>	_(#tank_setup:hints/ammunition/reserves/control)	</text>
+      <arrow>
+        <direction>	T	</direction>
         <loop>	True	</loop>
       </arrow>
       <checked-ui-state>

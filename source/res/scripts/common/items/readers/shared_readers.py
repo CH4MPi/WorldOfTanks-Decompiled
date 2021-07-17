@@ -47,14 +47,6 @@ def _readProjectionDecalSlot(ctx, subsection, slotType):
         availableShowOnRegions = c11n_constants.ApplyArea.HULL | c11n_constants.ApplyArea.TURRET | c11n_constants.ApplyArea.GUN
         if descr.showOn | availableShowOnRegions != availableShowOnRegions:
             _xml.raiseWrongSection(ctx, 'showOn')
-    if subsection.has_key('attachedPart'):
-        attachedPartsData = _xml.readString(ctx, subsection, 'attachedPart')
-        descr.attachedParts = defaultdict(set)
-        for partData in attachedPartsData.split():
-            pType, pName = partData.split(':')
-            if pType != 'hull':
-                descr.attachedParts[pType].add(pName)
-
     if subsection.has_key('compatibleModels'):
         descr.compatibleModels = _xml.readTupleOfStrings(ctx, subsection, 'compatibleModels')
     if subsection.has_key('itemId'):

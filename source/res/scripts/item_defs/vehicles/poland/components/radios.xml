@@ -18,6 +18,7 @@
     <RT10_26P>	17	</RT10_26P>
     <R_123P>	18	</R_123P>
     <R_123_1>	19	</R_123_1>
+    <R_113_P_FL>	501	</R_113_P_FL>
     <Development_Radio>	65000	</Development_Radio>
   </ids>
   <shared>
@@ -214,6 +215,18 @@
       <maxRegenHealth>	150	</maxRegenHealth>
       <repairCost>	3	</repairCost>
     </R_113_P>
+    <R_113_P_FL>
+      <userString>	#poland_vehicles:R_113_P	</userString>
+      <tags></tags>
+      <level>	9	</level>
+      <price>	43500	</price>
+      <notInShop>	true	</notInShop>
+      <weight>	100	</weight>
+      <distance>	700	</distance>
+      <maxHealth>	200	</maxHealth>
+      <maxRegenHealth>	150	</maxRegenHealth>
+      <repairCost>	3	</repairCost>
+    </R_113_P_FL>
     <_9RM_O>
       <userString>	#poland_vehicles:_9RM	</userString>
       <tags></tags>

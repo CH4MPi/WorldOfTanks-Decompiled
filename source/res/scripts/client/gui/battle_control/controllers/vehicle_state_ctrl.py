@@ -55,11 +55,11 @@ class _SpeedStateHandler(_StateHandler):
 
     def _invalidate(self, vehicle):
         fwdSpeedLimit, bckwdSpeedLimit = vehicle.typeDescriptor.physics['speedLimits']
-        if self.__isOwnVehicle:
-            player = BigWorld.player()
+        player = BigWorld.player()
+        if self.__isOwnVehicle or player.isObserver():
             if player is None:
                 return ()
-            if player.isVehicleAlive:
+            if player.isVehicleAlive or player.isObserver():
                 speed, _ = player.getOwnVehicleSpeeds()
             else:
                 speed = 0
@@ -357,6 +357,8 @@ class VehicleStateController(IBattleController):
                 notifications.clear()
             SoundGroups.g_instance.soundModes.setCurrentNation(nations.NAMES[nationID])
         self.onVehicleControlling(vehicle)
+        if VEHICLE_VIEW_STATE.DUAL_GUN_STATE_UPDATED in self.__cachedStateValues.keys():
+            self.onVehicleStateUpdated(VEHICLE_VIEW_STATE.DUAL_GUN_STATE_UPDATED, self.getStateValue(VEHICLE_VIEW_STATE.DUAL_GUN_STATE_UPDATED))
         if self.__updater is not None:
             self.__updater.start()
         return

@@ -17,7 +17,9 @@ class BattleAbilityItemContextMenu(BaseEquipmentItemContextMenu):
         self._slotsCount = self._getVehicle().battleAbilities.installed.getCapacity()
 
     def _isVisible(self, label):
-        return False if label == CMLabel.INFORMATION else super(BattleAbilityItemContextMenu, self)._isVisible(label)
+        if label == CMLabel.INFORMATION:
+            return False
+        return False if label == TankSetupCMLabel.TAKE_OFF else super(BattleAbilityItemContextMenu, self)._isVisible(label)
 
 
 class BattleAbilitySlotContextMenu(BaseEquipmentSlotContextMenu):
@@ -38,7 +40,7 @@ class BattleAbilitySlotContextMenu(BaseEquipmentSlotContextMenu):
     def _isVisible(self, label):
         if label == CMLabel.INFORMATION:
             return False
-        return True if label == TankSetupCMLabel.TAKE_OFF else super(BattleAbilitySlotContextMenu, self)._isVisible(label)
+        return False if label == TankSetupCMLabel.TAKE_OFF else super(BattleAbilitySlotContextMenu, self)._isVisible(label)
 
 
 class HangarBattleAbilitySlotContextMenu(BaseHangarEquipmentSlotContextMenu):
@@ -71,7 +73,7 @@ class HangarBattleAbilitySlotContextMenu(BaseHangarEquipmentSlotContextMenu):
     def _isVisible(self, label):
         if label == CMLabel.INFORMATION:
             return False
-        return True if label == TankSetupCMLabel.TAKE_OFF else super(HangarBattleAbilitySlotContextMenu, self)._isVisible(label)
+        return False if label == TankSetupCMLabel.TAKE_OFF else super(HangarBattleAbilitySlotContextMenu, self)._isVisible(label)
 
     @async
     @process

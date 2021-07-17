@@ -3,4 +3,6 @@
 from gui.Scaleform.daapi.view.battle.classic.page import ClassicPage
 
 class EpicBattlePageMeta(ClassicPage):
-    pass
+
+    def as_setSelectReservesAvailableS(self, value):
+        return self.flashObject.as_setSelectReservesAvailable(value) if self._isDAAPIInited() else None

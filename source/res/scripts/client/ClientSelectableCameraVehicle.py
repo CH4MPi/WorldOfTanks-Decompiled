@@ -39,6 +39,7 @@ class ClientSelectableCameraVehicle(ClientSelectableCameraObject):
                 self.__createFakeShadow(prereqs[shadowName])
 
     def onLeaveWorld(self):
+        super(ClientSelectableCameraVehicle, self).onLeaveWorld()
         if self.__vAppearance:
             self.__vAppearance.destroy()
             self.__vAppearance = None
@@ -48,7 +49,6 @@ class ClientSelectableCameraVehicle(ClientSelectableCameraObject):
             BigWorld.delModel(self.__fakeShadowModel)
             self.__fakeShadowModel.fashion = None
             self.__fakeShadowModel = None
-        super(ClientSelectableCameraVehicle, self).onLeaveWorld()
         return
 
     def recreateVehicle(self, typeDescriptor=None, state=ModelStates.UNDAMAGED, callback=None, outfit=None):

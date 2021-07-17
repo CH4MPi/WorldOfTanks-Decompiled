@@ -27,6 +27,7 @@ from gui.shared.tooltips import TOOLTIP_COMPONENT
 from gui.shared.utils.requesters.blueprints_requester import getFragmentNationID
 from helpers import dependency
 from helpers.i18n import makeString
+from rent_common import RENT_TYPE_TO_DURATION
 from shared_utils import findFirst, first
 from skeletons.gui.game_control import IRankedBattlesController, IBattlePassController
 from skeletons.gui.goodies import IGoodiesCache
@@ -228,16 +229,17 @@ class AwardContext(DefaultContext):
         self._rentExpiryTime = None
         self._rentBattlesLeft = None
         self._rentWinsLeft = None
-        self._rentSeason = None
+        self._seasonRent = None
         self._isSeniority = False
         return
 
-    def buildItem(self, intCD, tmanCrewLevel=None, rentExpiryTime=None, rentBattles=None, rentWins=None, rentSeason=None, isSeniority=False):
+    def buildItem(self, intCD, tmanCrewLevel=None, rentExpiryTime=None, rentBattles=None, rentWins=None, rentSeason=None, rentCycle=None, isSeniority=False):
         self._tmanRoleLevel = tmanCrewLevel
         self._rentExpiryTime = rentExpiryTime
         self._rentBattlesLeft = rentBattles
         self._rentWinsLeft = rentWins
-        self._rentSeason = rentSeason
+        self._seasonRent = {'season': rentSeason or [],
+         'cycle': rentCycle or []}
         self._isSeniority = isSeniority
         return self.itemsCache.items.getItemByCD(int(intCD))
 
@@ -264,11 +266,16 @@ class AwardContext(DefaultContext):
         return value
 
     def getParams(self):
+        seasonRent = dict()
+        for key in ('season', 'cycle'):
+            for seasonType, seasonID in self._seasonRent[key]:
+                seasonRent.setdefault(seasonType, []).append((int(seasonID), RENT_TYPE_TO_DURATION[key]))
+
         return {'tmanRoleLevel': self._tmanRoleLevel,
          'rentExpiryTime': self._rentExpiryTime,
          'rentBattlesLeft': self._rentBattlesLeft,
          'rentWinsLeft': self._rentWinsLeft,
-         'rentSeason': self._rentSeason,
+         'rentSeason': seasonRent,
          'isSeniority': self._isSeniority}
 
 

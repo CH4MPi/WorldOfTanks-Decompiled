@@ -43,6 +43,8 @@ class InventoryRequester(AbstractSyncDataRequester, IInventoryRequester):
 
     def invalidateItem(self, itemTypeID, invIdx):
         cache = self.__itemsCache[itemTypeID]
+        if itemTypeID == 29:
+            print invIdx
         if invIdx in cache:
             self.__itemsPreviousCache[itemTypeID][invIdx] = cache[invIdx]
             del cache[invIdx]

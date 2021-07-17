@@ -92,41 +92,41 @@ VEHICLE_BATTLE_TYPES_ORDER = (VEHICLE_CLASS_NAME.HEAVY_TANK,
  VEHICLE_CLASS_NAME.LIGHT_TANK,
  VEHICLE_CLASS_NAME.SPG)
 VEHICLE_BATTLE_TYPES_ORDER_INDICES = dict(((n, i) for i, n in enumerate(VEHICLE_BATTLE_TYPES_ORDER)))
-_ALL_ACTION_GROUPS_ORDER = [constants.ACTIONS_GROUP_TYPE.LT_TRACKED,
- constants.ACTIONS_GROUP_TYPE.LT_WHEELED,
- constants.ACTIONS_GROUP_TYPE.HT_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.MT_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.ATSPG_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.HT_TANK,
- constants.ACTIONS_GROUP_TYPE.MT_TANK,
- constants.ACTIONS_GROUP_TYPE.ATSPG_TANK,
- constants.ACTIONS_GROUP_TYPE.MT_FIRESUPPORT,
- constants.ACTIONS_GROUP_TYPE.ATSPG_FIRESUPPORT,
- constants.ACTIONS_GROUP_TYPE.MT_ASSASIN,
- constants.ACTIONS_GROUP_TYPE.HT_ASSAULT,
- constants.ACTIONS_GROUP_TYPE.HT_FIRESUPPORT,
- constants.ACTIONS_GROUP_TYPE.ATSPG_BURSTDAMAGE,
- constants.ACTIONS_GROUP_TYPE.SPG]
-_LIGHT_GROUPS = [constants.ACTIONS_GROUP_TYPE.LT_TRACKED, constants.ACTIONS_GROUP_TYPE.LT_WHEELED]
-_MEDIUM_GROUPS = [constants.ACTIONS_GROUP_TYPE.MT_TANK,
- constants.ACTIONS_GROUP_TYPE.MT_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.MT_FIRESUPPORT,
- constants.ACTIONS_GROUP_TYPE.MT_ASSASIN]
-_HEAVY_GROUPS = [constants.ACTIONS_GROUP_TYPE.HT_TANK,
- constants.ACTIONS_GROUP_TYPE.HT_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.HT_ASSAULT,
- constants.ACTIONS_GROUP_TYPE.HT_FIRESUPPORT]
-_AT_SPG_GROUPS = [constants.ACTIONS_GROUP_TYPE.ATSPG_TANK,
- constants.ACTIONS_GROUP_TYPE.ATSPG_UNIVERSAL,
- constants.ACTIONS_GROUP_TYPE.ATSPG_FIRESUPPORT,
- constants.ACTIONS_GROUP_TYPE.ATSPG_BURSTDAMAGE]
-_SPG_GROUPS = {constants.ACTIONS_GROUP_TYPE.SPG}
-VEHICLE_ACTION_GROUPS_LABELS = [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _ALL_ACTION_GROUPS_ORDER ]
-VEHICLE_ACTION_GROUPS_LABELS_BY_CLASS = {VEHICLE_CLASS_NAME.LIGHT_TANK: [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _LIGHT_GROUPS ],
- VEHICLE_CLASS_NAME.MEDIUM_TANK: [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _MEDIUM_GROUPS ],
- VEHICLE_CLASS_NAME.HEAVY_TANK: [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _HEAVY_GROUPS ],
- VEHICLE_CLASS_NAME.AT_SPG: [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _AT_SPG_GROUPS ],
- VEHICLE_CLASS_NAME.SPG: [ constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(group) for group in _SPG_GROUPS ]}
+_ALL_ROLES_ORDER = [constants.ROLE_TYPE.LT_UNIVERSAL,
+ constants.ROLE_TYPE.LT_WHEELED,
+ constants.ROLE_TYPE.HT_UNIVERSAL,
+ constants.ROLE_TYPE.MT_UNIVERSAL,
+ constants.ROLE_TYPE.ATSPG_UNIVERSAL,
+ constants.ROLE_TYPE.HT_ASSAULT,
+ constants.ROLE_TYPE.MT_ASSAULT,
+ constants.ROLE_TYPE.ATSPG_ASSAULT,
+ constants.ROLE_TYPE.MT_SNIPER,
+ constants.ROLE_TYPE.ATSPG_SNIPER,
+ constants.ROLE_TYPE.MT_SUPPORT,
+ constants.ROLE_TYPE.HT_BREAK,
+ constants.ROLE_TYPE.HT_SUPPORT,
+ constants.ROLE_TYPE.ATSPG_SUPPORT,
+ constants.ROLE_TYPE.SPG]
+_LIGHT_GROUPS = [constants.ROLE_TYPE.LT_UNIVERSAL, constants.ROLE_TYPE.LT_WHEELED]
+_MEDIUM_GROUPS = [constants.ROLE_TYPE.MT_ASSAULT,
+ constants.ROLE_TYPE.MT_UNIVERSAL,
+ constants.ROLE_TYPE.MT_SNIPER,
+ constants.ROLE_TYPE.MT_SUPPORT]
+_HEAVY_GROUPS = [constants.ROLE_TYPE.HT_ASSAULT,
+ constants.ROLE_TYPE.HT_UNIVERSAL,
+ constants.ROLE_TYPE.HT_BREAK,
+ constants.ROLE_TYPE.HT_SUPPORT]
+_AT_SPG_GROUPS = [constants.ROLE_TYPE.ATSPG_ASSAULT,
+ constants.ROLE_TYPE.ATSPG_UNIVERSAL,
+ constants.ROLE_TYPE.ATSPG_SNIPER,
+ constants.ROLE_TYPE.ATSPG_SUPPORT]
+_SPG_GROUPS = {constants.ROLE_TYPE.SPG}
+VEHICLE_ROLES_LABELS = [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _ALL_ROLES_ORDER ]
+VEHICLE_ROLES_LABELS_BY_CLASS = {VEHICLE_CLASS_NAME.LIGHT_TANK: [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _LIGHT_GROUPS ],
+ VEHICLE_CLASS_NAME.MEDIUM_TANK: [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _MEDIUM_GROUPS ],
+ VEHICLE_CLASS_NAME.HEAVY_TANK: [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _HEAVY_GROUPS ],
+ VEHICLE_CLASS_NAME.AT_SPG: [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _AT_SPG_GROUPS ],
+ VEHICLE_CLASS_NAME.SPG: [ constants.ROLE_TYPE_TO_LABEL.get(group) for group in _SPG_GROUPS ]}
 
 class VEHICLE_TAGS(CONST_CONTAINER):
     PREMIUM = 'premium'
@@ -149,6 +149,7 @@ class VEHICLE_TAGS(CONST_CONTAINER):
     BATTLE_ROYALE = 'battle_royale'
     RENT_PROMOTION = 'rent_promotion'
     EARN_CRYSTALS = 'earn_crystals'
+    MAPS_TRAINING = 'maps_training'
 
 
 EPIC_ACTION_VEHICLE_CDS = (44033, 63265)
@@ -180,7 +181,9 @@ class Vehicle(FittingItem):
         UNAVAILABLE = 'unavailable'
         UNSUITABLE_TO_QUEUE = 'unsuitableToQueue'
         UNSUITABLE_TO_UNIT = 'unsuitableToUnit'
-        CUSTOM = (UNSUITABLE_TO_QUEUE, UNSUITABLE_TO_UNIT)
+        WILL_BE_UNLOCKED_IN_BATTLE = 'willBeUnlockedInBattle'
+        CUSTOM = (UNSUITABLE_TO_QUEUE, UNSUITABLE_TO_UNIT, WILL_BE_UNLOCKED_IN_BATTLE)
+        UNSUITABLE = (UNSUITABLE_TO_QUEUE, UNSUITABLE_TO_UNIT)
         DEAL_IS_OVER = 'dealIsOver'
         ROTATION_GROUP_UNLOCKED = 'rotationGroupUnlocked'
         ROTATION_GROUP_LOCKED = 'rotationGroupLocked'
@@ -197,7 +200,8 @@ class Vehicle(FittingItem):
      VEHICLE_STATE.UNSUITABLE_TO_UNIT,
      VEHICLE_STATE.ROTATION_GROUP_UNLOCKED,
      VEHICLE_STATE.ROTATION_GROUP_LOCKED,
-     VEHICLE_STATE.TOO_HEAVY)
+     VEHICLE_STATE.TOO_HEAVY,
+     VEHICLE_STATE.WILL_BE_UNLOCKED_IN_BATTLE)
     TRADE_OFF_NOT_READY_STATES = (VEHICLE_STATE.DAMAGED,
      VEHICLE_STATE.EXPLODED,
      VEHICLE_STATE.DESTROYED,
@@ -210,6 +214,7 @@ class Vehicle(FittingItem):
         CRITICAL = 'critical'
         INFO = 'info'
         WARNING = 'warning'
+        ATTENTION = 'attention'
         RENTED = 'rented'
         RENTABLE = 'rentableBlub'
         ROLE = 'role'
@@ -285,7 +290,7 @@ class Vehicle(FittingItem):
             hasAvailableRentPackages, mainRentType, seasonType = self.rentalsController.getRentPackagesInfo(proxy.shop.getVehicleRentPrices().get(self.intCD, {}), self._rentInfo)
             self._rentPackagesInfo = RentPackagesInfo(hasAvailableRentPackages, mainRentType, seasonType)
             self._isSelected = bool(self.invID in proxy.stats.oldVehInvIDs)
-            self._outfits = self._parseOutfits(proxy)
+            self.createAppliedOutfits(proxy)
             restoreConfig = proxy.shop.vehiclesRestoreConfig
             self._restorePrice = calcVehicleRestorePrice(self.buyPrices.itemPrice.defPrice, proxy.shop)
             self._restoreInfo = proxy.recycleBin.getVehicleRestoreInfo(self.intCD, restoreConfig.restoreDuration, restoreConfig.restoreCooldown)
@@ -467,37 +472,13 @@ class Vehicle(FittingItem):
         self._perksController = perksController
 
     def _calcSellPrice(self, proxy):
-        if self.isRented:
-            return MONEY_UNDEFINED
-        price = self.sellPrices.itemPrice.price
-        defaultDevices, installedDevices, _ = self.descriptor.getDevices()
-        for defCompDescr, instCompDescr in izip(defaultDevices, installedDevices):
-            if defCompDescr == instCompDescr:
-                continue
-            modulePrice = FittingItem(defCompDescr, proxy).sellPrices.itemPrice.price
-            price = price - modulePrice
-            modulePrice = FittingItem(instCompDescr, proxy).sellPrices.itemPrice.price
-            price = price + modulePrice
+        return self.__calcSellPrice(proxy, self.sellPrices.itemPrice.price)
 
-        return price
+    def _calcDefaultSellPrice(self, proxy):
+        return self.__calcSellPrice(proxy, self.sellPrices.itemPrice.defPrice)
 
     def _getDescriptor(self):
         return None
-
-    def _calcDefaultSellPrice(self, proxy):
-        if self.isRented:
-            return MONEY_UNDEFINED
-        price = self.sellPrices.itemPrice.defPrice
-        defaultDevices, installedDevices, _ = self.descriptor.getDevices()
-        for defCompDescr, instCompDescr in izip(defaultDevices, installedDevices):
-            if defCompDescr == instCompDescr:
-                continue
-            modulePrice = FittingItem(defCompDescr, proxy).sellPrices.itemPrice.defPrice
-            price = price - modulePrice
-            modulePrice = FittingItem(instCompDescr, proxy).sellPrices.itemPrice.defPrice
-            price = price + modulePrice
-
-        return price
 
     def _calcCrewBonuses(self, crew, proxy):
         bonuses = dict()
@@ -549,8 +530,7 @@ class Vehicle(FittingItem):
         nId, innID = vehicles.parseVehicleCompactDescr(compactDescr)
         return (GUI_ITEM_TYPE.VEHICLE, nId, innID)
 
-    def _parseOutfits(self, proxy):
-        outfits = {}
+    def createAppliedOutfits(self, proxy):
         styleOutfitData = proxy.inventory.getOutfitData(self.intCD, SeasonType.ALL)
         if styleOutfitData is not None:
             self._isStyleInstalled = True
@@ -568,9 +548,9 @@ class Vehicle(FittingItem):
                 self._isStyleInstalled = not isCustomOutfitInstalled
         for season in SeasonType.SEASONS:
             outfitComp = self._getOutfitComponent(proxy, style, season)
-            outfits[season] = self.itemsFactory.createOutfit(component=outfitComp, vehicleCD=self.descriptor.makeCompactDescr())
+            self._outfits[season] = self.itemsFactory.createOutfit(component=outfitComp, vehicleCD=self.descriptor.makeCompactDescr())
 
-        return outfits
+        return
 
     def _getOutfitComponent(self, proxy, style, season):
         if style is not None:
@@ -1038,7 +1018,7 @@ class Vehicle(FittingItem):
             ms = Vehicle.VEHICLE_STATE.ROTATION_GROUP_LOCKED
         ms = self.checkUndamagedState(ms, isCurrentPlayer)
         ms = self.__getRentableState(ms, isCurrentPlayer)
-        if ms in Vehicle.CAN_SELL_STATES and self.__customState:
+        if ms in Vehicle.CAN_SELL_STATES and self.__customState in Vehicle.VEHICLE_STATE.UNSUITABLE:
             ms = self.__customState
         return (ms, self.__getStateLevel(ms))
 
@@ -1066,6 +1046,8 @@ class Vehicle(FittingItem):
                 return Vehicle.VEHICLE_STATE.AMMO_NOT_FULL
             if not self.isRotationGroupLocked and self.rotationGroupNum != 0:
                 return Vehicle.VEHICLE_STATE.ROTATION_GROUP_UNLOCKED
+            if self.__customState == Vehicle.VEHICLE_STATE.WILL_BE_UNLOCKED_IN_BATTLE:
+                return self.__customState
         return state
 
     def __getRentableState(self, state, isCurrentPlayer):
@@ -1103,7 +1085,9 @@ class Vehicle(FittingItem):
             return Vehicle.VEHICLE_STATE_LEVEL.CRITICAL
         if state in (Vehicle.VEHICLE_STATE.UNDAMAGED, Vehicle.VEHICLE_STATE.ROTATION_GROUP_UNLOCKED):
             return Vehicle.VEHICLE_STATE_LEVEL.INFO
-        return Vehicle.VEHICLE_STATE_LEVEL.RENTABLE if state in (Vehicle.VEHICLE_STATE.RENTABLE, Vehicle.VEHICLE_STATE.RENTABLE_AGAIN) else Vehicle.VEHICLE_STATE_LEVEL.WARNING
+        if state in (Vehicle.VEHICLE_STATE.RENTABLE, Vehicle.VEHICLE_STATE.RENTABLE_AGAIN):
+            return Vehicle.VEHICLE_STATE_LEVEL.RENTABLE
+        return Vehicle.VEHICLE_STATE_LEVEL.ATTENTION if state in (Vehicle.VEHICLE_STATE.WILL_BE_UNLOCKED_IN_BATTLE,) else Vehicle.VEHICLE_STATE_LEVEL.WARNING
 
     @property
     def isPremium(self):
@@ -1284,6 +1268,10 @@ class Vehicle(FittingItem):
         return checkForTags(self.tags, VEHICLE_TAGS.BATTLE_ROYALE)
 
     @property
+    def isOnlyForMapsTrainingBattles(self):
+        return checkForTags(self.tags, VEHICLE_TAGS.MAPS_TRAINING)
+
+    @property
     def isTelecom(self):
         return checkForTags(self.tags, VEHICLE_TAGS.TELECOM)
 
@@ -1386,14 +1374,6 @@ class Vehicle(FittingItem):
     @property
     def roleLabel(self):
         return constants.ROLE_TYPE_TO_LABEL.get(self.role)
-
-    @property
-    def actionsGroup(self):
-        return self._descriptor.type.actionsGroup
-
-    @property
-    def actionsGroupLabel(self):
-        return constants.ACTIONS_GROUP_TYPE_TO_LABEL.get(self.actionsGroup)
 
     @property
     def roleActions(self):
@@ -1636,6 +1616,20 @@ class Vehicle(FittingItem):
     def _sortByType(self, other):
         return compareByVehTypeName(self.type, other.type)
 
+    def __calcSellPrice(self, proxy, price):
+        if self.isRented:
+            return MONEY_UNDEFINED
+        defaultDevices, installedDevices, _ = self.descriptor.getDevices()
+        for defCompDescr, instCompDescr in izip(defaultDevices, installedDevices):
+            if defCompDescr == instCompDescr:
+                continue
+            modulePrice = FittingItem(defCompDescr, proxy).sellPrices.itemPrice.defPrice
+            price = price - modulePrice
+            modulePrice = FittingItem(instCompDescr, proxy).sellPrices.itemPrice.defPrice
+            price = price + modulePrice
+
+        return price
+
     def __hasModulesToSelect(self):
         components = []
         for moduleCD in self.descriptor.type.installableComponents:
@@ -1743,7 +1737,8 @@ def getIconShopPath(vehicleName, size=STORE_CONSTANTS.ICON_SIZE_MEDIUM):
 
 def getIconResource(vehicleName):
     rName = getIconResourceName(vehicleName=vehicleName)
-    return R.images.gui.maps.icons.vehicle.dyn(rName)
+    image = R.images.gui.maps.icons.vehicle.dyn(rName)
+    return image() if image.isValid() else None
 
 
 def getIconResourceName(vehicleName):

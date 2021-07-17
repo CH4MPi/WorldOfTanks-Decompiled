@@ -17,7 +17,7 @@ from gui.Scaleform.locale.TOOLTIPS import TOOLTIPS
 from gui.shared.formatters import getItemUnlockPricesVO, getItemRestorePricesVO, getItemSellPricesVO, getMoneyVO
 from gui.shared.gui_items.gui_item_economics import getMinRentItemPrice
 from gui.shared.formatters import text_styles, moneyWithIcon, icons, getItemPricesVO
-from gui.shared.formatters.time_formatters import RentLeftFormatter, getTimeLeftInfo
+from gui.shared.formatters.time_formatters import RentLeftFormatter, getTimeLeftInfo, getTimeLeftStr
 from gui.shared.gui_items import GUI_ITEM_ECONOMY_CODE, KPI
 from gui.shared.gui_items.Tankman import Tankman, getRoleUserName, CrewTypes
 from gui.shared.gui_items.Vehicle import VEHICLE_CLASS_NAME
@@ -184,10 +184,16 @@ class VehicleInfoTooltipData(BlocksTooltipData):
                 rentLeftKey = '#tooltips:vehicle/rentLeft/%s'
                 rentInfo = vehicle.rentInfo
             rentFormatter = RentLeftFormatter(rentInfo)
-            rentLeftInfo = rentFormatter.getRentLeftStr(rentLeftKey, formatter=lambda key, countType, count, _=None: {'left': count,
-             'descr': i18n.makeString(key % countType)})
-            if rentLeftInfo:
-                items.append(formatters.packTextParameterWithIconBlockData(name=text_styles.main(rentLeftInfo['descr']), value=text_styles.main(rentLeftInfo['left']), icon=ICON_TEXT_FRAMES.RENTALS, iconYOffset=2, gap=0, valueWidth=valueWidth, padding=formatters.packPadding(left=0, bottom=-10)))
+            descrStr = rentFormatter.getRentLeftStr(rentLeftKey)
+            leftStr = ''
+            if rentInfo.rentExpiryTime:
+                leftStr = getTimeLeftStr(rentLeftKey, rentInfo.getTimeLeft())
+            elif rentInfo.battlesLeft:
+                leftStr = str(rentInfo.battlesLeft)
+            elif rentInfo.winsLeft > 0:
+                leftStr = str(rentInfo.winsLeft)
+            if descrStr or leftStr:
+                items.append(formatters.packTextParameterWithIconBlockData(name=text_styles.main(descrStr), value=text_styles.main(leftStr), icon=ICON_TEXT_FRAMES.RENTALS, iconYOffset=2, gap=0, valueWidth=valueWidth, padding=formatters.packPadding(left=0, bottom=-10)))
         if statsConfig.showRankedBonusBattle:
             items.append(formatters.packTextParameterWithIconBlockData(name=text_styles.main(backport.text(R.strings.tooltips.vehicle.rankedBonusBattle())), value='', icon=ICON_TEXT_FRAMES.BONUS_BATTLE, iconYOffset=2, valueWidth=valueWidth, gap=0, padding=formatters.packPadding(left=0, top=-2, bottom=5)))
         if statsConfig.dailyXP:
@@ -984,6 +990,8 @@ class StatusBlockConstructor(VehicleTooltipBlockConstructor):
                     headerFormatter = text_styles.critical
                 elif statusLevel == Vehicle.VEHICLE_STATE_LEVEL.WARNING:
                     headerFormatter = text_styles.warning
+                elif statusLevel == Vehicle.VEHICLE_STATE_LEVEL.ATTENTION:
+                    headerFormatter = text_styles.statusAttention
                 elif statusLevel in (Vehicle.VEHICLE_STATE_LEVEL.RENTED, Vehicle.VEHICLE_STATE_LEVEL.RENTABLE):
                     headerFormatter = text_styles.warning
                 else:

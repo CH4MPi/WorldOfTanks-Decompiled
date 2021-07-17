@@ -19,7 +19,8 @@ from visual_script.multi_plan_provider import makeMultiPlanProvider, CallablePro
 TeamBaseProvider = namedtuple('TeamBaseProvider', ('points', 'invadersCnt', 'capturingStopped'))
 
 class ClientArena(object):
-    __onUpdate = {ARENA_UPDATE.VEHICLE_LIST: '_ClientArena__onVehicleListUpdate',
+    __onUpdate = {ARENA_UPDATE.SETTINGS: '_ClientArena__onArenaSettingsUpdate',
+     ARENA_UPDATE.VEHICLE_LIST: '_ClientArena__onVehicleListUpdate',
      ARENA_UPDATE.VEHICLE_ADDED: '_ClientArena__onVehicleAddedUpdate',
      ARENA_UPDATE.PERIOD: '_ClientArena__onPeriodInfoUpdate',
      ARENA_UPDATE.STATISTICS: '_ClientArena__onStatisticsUpdate',
@@ -57,8 +58,10 @@ class ClientArena(object):
         self.__hasFogOfWarHiddenVehicles = False
         self.__arenaInfo = None
         self.__teamInfo = None
+        self.__settings = {}
         self.__eventManager = Event.EventManager()
         em = self.__eventManager
+        self.onArenaSettingsReceived = Event.Event(em)
         self.onNewVehicleListReceived = Event.Event(em)
         self.onVehicleAdded = Event.Event(em)
         self.onVehicleUpdated = Event.Event(em)
@@ -96,6 +99,7 @@ class ClientArena(object):
         self.componentSystem = assembler.createComponentSystem(self, self.bonusType, self.arenaType)
         return
 
+    settings = property(lambda self: self.__settings)
     vehicles = property(lambda self: self.__vehicles)
     positions = property(lambda self: self.__positions)
     statistics = property(lambda self: self.__statistics)
@@ -151,7 +155,7 @@ class ClientArena(object):
         return None if self.__arenaBBCollider is None and not self.__setupBBColliders() else self.__arenaBBCollider.getClosestPointOnBB(point)
 
     def collideWithSpaceBB(self, start, end):
-        return None if self.__spaceBBCollider is None and not self.__setupBBColliders() else self.__spaceBBCollider.collide(start, end)
+        return (None, None) if self.__spaceBBCollider is None and not self.__setupBBColliders() else self.__spaceBBCollider.collide(start, end)
 
     def getSpaceBB(self):
         return (None, None) if self.__spaceBBCollider is None and not self.__setupBBColliders() else (self.__spaceBBCollider.getMinBounds(), self.__spaceBBCollider.getMaxBounds())
@@ -182,6 +186,12 @@ class ClientArena(object):
         self.__spaceBBCollider = _BBCollider(spaceBB, (-500.0, 500.0))
         return True
 
+    def __onArenaSettingsUpdate(self, argStr):
+        arenaSettings = cPickle.loads(argStr)
+        LOG_DEBUG_DEV('__onArenaSettingsUpdate', arenaSettings)
+        self.__settings = arenaSettings
+        self.onArenaSettingsReceived()
+
     def __onVehicleListUpdate(self, argStr):
         vehiclesList = cPickle.loads(zlib.decompress(argStr))
         LOG_DEBUG_DEV('__onVehicleListUpdate', vehiclesList)
@@ -196,6 +206,7 @@ class ClientArena(object):
 
     def __onVehicleAddedUpdate(self, argStr):
         infoAsTuple = cPickle.loads(zlib.decompress(argStr))
+        LOG_DEBUG_DEV('__onVehicleAddedUpdate', infoAsTuple)
         vehID, info = self.__vehicleInfoAsDict(infoAsTuple)
         self.__vehicles[vehID] = self.__preprocessVehicleInfo(info)
         self.__rebuildIndexToId()

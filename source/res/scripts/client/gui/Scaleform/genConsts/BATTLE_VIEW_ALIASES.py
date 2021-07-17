@@ -81,3 +81,4 @@ class BATTLE_VIEW_ALIASES(object):
     FRAG_PANEL = 'fragPanel'
     BR_PLAYER_STATS_IN_BATTLE = 'brPlayerStatsInBattle'
     ROLE_DESCRIPTION = 'roleDescription'
+    MAPS_TRAINING_GOALS = 'mapsTrainingGoals'

@@ -177,7 +177,7 @@ class ClassicPage(SharedPage):
             self._setComponentsVisibility(hidden={BATTLE_VIEW_ALIASES.DAMAGE_PANEL, BATTLE_VIEW_ALIASES.BATTLE_DAMAGE_LOG_PANEL})
 
     def _handleGUIToggled(self, event):
-        if self._fullStatsAlias and not self.as_isComponentVisibleS(self._fullStatsAlias):
+        if not self._fullStatsAlias or not self.as_isComponentVisibleS(self._fullStatsAlias):
             self._toggleGuiVisible()
 
     def _switchToPostmortem(self):

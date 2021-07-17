@@ -86,9 +86,45 @@
     <shortUserString>	#czech_vehicles:Cz04_T50_51_short	</shortUserString>
     <description>	#czech_vehicles:Cz04_T50_51_descr	</description>
     <price>	6100000	</price>
-    <tags>	mediumTank HD mediumTank2 improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_assassin	</tags>
+    <tags>	mediumTank HD mediumTank2 improvedVentilation_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_MT_support	</tags>
     <level>	10	</level>
   </Cz04_T50_51>
+  <Cz17_Vz_55>
+    <id>	11	</id>
+    <userString>	#czech_vehicles:Cz17_Vz_55	</userString>
+    <description>	#czech_vehicles:Cz17_Vz_55_descr	</description>
+    <shortUserString>	#czech_vehicles:Cz17_Vz_55_short	</shortUserString>
+    <price>	6100000	</price>
+    <tags>	heavyTank HD improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
+    <level>	10	</level>
+  </Cz17_Vz_55>
+  <Cz16_TNH_T_vz51>
+    <id>	12	</id>
+    <userString>	#czech_vehicles:Cz16_TNH_T_vz51	</userString>
+    <description>	#czech_vehicles:Cz16_TNH_T_vz51_descr	</description>
+    <shortUserString>	#czech_vehicles:Cz16_TNH_T_vz51_short	</shortUserString>
+    <price>	3540000	</price>
+    <tags>	heavyTank HD improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
+    <level>	9	</level>
+  </Cz16_TNH_T_vz51>
+  <Cz18_TNH_105_1000>
+    <id>	13	</id>
+    <userString>	#czech_vehicles:Cz18_TNH_105_1000	</userString>
+    <description>	#czech_vehicles:Cz18_TNH_105_1000_descr	</description>
+    <shortUserString>	#czech_vehicles:Cz18_TNH_105_1000_short	</shortUserString>
+    <price>	2520000	</price>
+    <tags>	heavyTank HD improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
+    <level>	8	</level>
+  </Cz18_TNH_105_1000>
+  <Cz19_Vz_44_1>
+    <id>	14	</id>
+    <userString>	#czech_vehicles:Cz19_Vz_44_1	</userString>
+    <shortUserString>	#czech_vehicles:Cz19_Vz_44_1_short	</shortUserString>
+    <description>	#czech_vehicles:Cz19_Vz_44_1_descr	</description>
+    <price>	1480000	</price>
+    <tags>	heavyTank HD improvedVentilation_class2_user tankRammer_class2_user extraHealthReserve_class2_user antifragmentationLining_medium_user	</tags>
+    <level>	7	</level>
+  </Cz19_Vz_44_1>
   <Cz14_Skoda_T-56>
     <id>	199	</id>
     <userString>	#czech_vehicles:Cz14_Skoda_T-56	</userString>

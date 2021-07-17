@@ -510,6 +510,18 @@ class ARTEFACTS(object):
     BR_MINEFIELD_DESCR = '#artefacts:br_minefield/descr'
     BR_MINEFIELD_SHORTDESCR = '#artefacts:br_minefield/shortDescr'
     BR_MINEFIELD_LONGDESCR = '#artefacts:br_minefield/longDescr'
+    EB_MINEFIELD_NAME = '#artefacts:eb_minefield/name'
+    EB_MINEFIELD_DESCR = '#artefacts:eb_minefield/descr'
+    EB_MINEFIELD_SHORT_DESCR = '#artefacts:eb_minefield/short_descr'
+    EB_MINEFIELD_LONG_DESCR = '#artefacts:eb_minefield/long_descr'
+    EB_REGENERATIONKIT_NAME = '#artefacts:eb_regenerationKit/name'
+    EB_REGENERATIONKIT_DESCR = '#artefacts:eb_regenerationKit/descr'
+    EB_REGENERATIONKIT_SHORT_DESCR = '#artefacts:eb_regenerationKit/short_descr'
+    EB_REGENERATIONKIT_LONG_DESCR = '#artefacts:eb_regenerationKit/long_descr'
+    STEALTHRADAR_NAME = '#artefacts:stealthRadar/name'
+    STEALTHRADAR_DESCR = '#artefacts:stealthRadar/descr'
+    STEALTHRADAR_SHORT_DESCR = '#artefacts:stealthRadar/short_descr'
+    STEALTHRADAR_LONG_DESCR = '#artefacts:stealthRadar/long_descr'
     ALL_GAIN_ENUM = (IMPROVEDCONFIGURATIONBATTLEBOOSTER_GAIN_SIMPLE,
      IMPROVEDCONFIGURATIONBATTLEBOOSTER_GAIN_DELUXE,
      IMPROVEDVENTILATIONBATTLEBOOSTER_GAIN_SIMPLE,

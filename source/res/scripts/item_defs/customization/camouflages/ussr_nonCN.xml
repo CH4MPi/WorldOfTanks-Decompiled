@@ -13,7 +13,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -62,6 +62,7 @@
         <R107_LTB>	3.3 3.3 0.000000 0.000000	</R107_LTB>
         <R108_T34_85M>	3 3 0.000000 0.000000	</R108_T34_85M>
         <R109_T54S>	4.8 4.8 0.4 0.000000	</R109_T54S>
+        <R109_T54S_FL>	4.8 4.8 0.4 0.000000	</R109_T54S_FL>
         <R10_AT-1>	2.6 2.6 0.000000 0.000000	</R10_AT-1>
         <R110_Object_260>	5.9 3.6 0.07 0.000000	</R110_Object_260>
         <R111_ISU130>	6.9 6.9 0.000000 0.000000	</R111_ISU130>
@@ -139,6 +140,7 @@
         <R38_KV-220_beta>	2.4 2.4 0.19 0.000000	</R38_KV-220_beta>
         <R39_KV-3>	3 3 0.26 0.36	</R39_KV-3>
         <R40_T-54>	3.5 3.6 0.4 0.000000	</R40_T-54>
+        <R40_T-54_FL>	3.5 3.6 0.4 0.000000	</R40_T-54_FL>
         <R41_T-50>	4.7 4.7 0.000000 0.000000	</R41_T-50>
         <R42_T-60>	1 1 0.000000 0.1	</R42_T-60>
         <R43_T-70>	1.1 1.1 0.22 0.000000	</R43_T-70>
@@ -220,7 +222,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -269,6 +271,7 @@
         <R107_LTB>	5 5 0.2 0.000000	</R107_LTB>
         <R108_T34_85M>	5 5 0.2 0.000000	</R108_T34_85M>
         <R109_T54S>	4.8 4.9 0.000000 0.000000	</R109_T54S>
+        <R109_T54S_FL>	4.8 4.9 0.000000 0.000000	</R109_T54S_FL>
         <R10_AT-1>	2.9 2.9 0.000000 0.000000	</R10_AT-1>
         <R110_Object_260>	7.3 5 0.000000 0.000000	</R110_Object_260>
         <R111_ISU130>	6.3 6.4 0.000000 0.32	</R111_ISU130>
@@ -345,6 +348,7 @@
         <R38_KV-220_beta>	3 3 0.42 0.94	</R38_KV-220_beta>
         <R39_KV-3>	2.4 2.4 0.56 0.36	</R39_KV-3>
         <R40_T-54>	5 5 0.000000 0.000000	</R40_T-54>
+        <R40_T-54_FL>	5 5 0.000000 0.000000	</R40_T-54_FL>
         <R41_T-50>	5 5 0.000000 0.000000	</R41_T-50>
         <R42_T-60>	1 1 0.000000 2.2	</R42_T-60>
         <R43_T-70>	1.6 1.6 0.000000 0.000000	</R43_T-70>
@@ -425,7 +429,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -474,6 +478,7 @@
         <R107_LTB>	5.6 5 0.41 0.1	</R107_LTB>
         <R108_T34_85M>	5 5 0.000000 0.000000	</R108_T34_85M>
         <R109_T54S>	4.7 4.7 0.33 0.000000	</R109_T54S>
+        <R109_T54S_FL>	4.7 4.7 0.33 0.000000	</R109_T54S_FL>
         <R10_AT-1>	2 2 0.3 0.000000	</R10_AT-1>
         <R110_Object_260>	5.4 3.3 0.06 0.000000	</R110_Object_260>
         <R111_ISU130>	5.9 6 0.000000 0.22	</R111_ISU130>
@@ -549,6 +554,7 @@
         <R38_KV-220_beta>	3.5 3.5 0.55 0.26	</R38_KV-220_beta>
         <R39_KV-3>	3.5 3.5 0.000000 0.88	</R39_KV-3>
         <R40_T-54>	2.6 2.8 0.32 0.000000	</R40_T-54>
+        <R40_T-54_FL>	2.6 2.8 0.32 0.000000	</R40_T-54_FL>
         <R41_T-50>	4.5 4.5 0.17 0.4	</R41_T-50>
         <R42_T-60>	1.1 1.1 0.000000 0.000000	</R42_T-60>
         <R43_T-70>	1.5 1.5 0.06 0.42	</R43_T-70>
@@ -627,7 +633,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -676,6 +682,7 @@
         <R107_LTB>	5 5 0.54 0.000000	</R107_LTB>
         <R108_T34_85M>	5 5 0.000000 0.000000	</R108_T34_85M>
         <R109_T54S>	3.2 3.2 0.000000 0.000000	</R109_T54S>
+        <R109_T54S_FL>	3.2 3.2 0.000000 0.000000	</R109_T54S_FL>
         <R10_AT-1>	1.3 1.3 0.000000 0.000000	</R10_AT-1>
         <R110_Object_260>	4.8 3.3 0.06 0.000000	</R110_Object_260>
         <R111_ISU130>	6.3 6.3 0.000000 0.24	</R111_ISU130>
@@ -752,6 +759,7 @@
         <R38_KV-220_beta>	2.4 2.4 0.000000 0.56	</R38_KV-220_beta>
         <R39_KV-3>	3.1 3.1 0.000000 0.000000	</R39_KV-3>
         <R40_T-54>	3 3.1 0.000000 0.000000	</R40_T-54>
+        <R40_T-54_FL>	3 3.1 0.000000 0.000000	</R40_T-54_FL>
         <R41_T-50>	4.1 4.1 0.000000 0.000000	</R41_T-50>
         <R42_T-60>	1 1 0.000000 0.3	</R42_T-60>
         <R43_T-70>	1.2 1.2 0.000000 0.000000	</R43_T-70>
@@ -829,7 +837,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -878,6 +886,7 @@
         <R107_LTB>	6 5 0.12 0.2	</R107_LTB>
         <R108_T34_85M>	5 5 0.000000 0.000000	</R108_T34_85M>
         <R109_T54S>	4.9 4.9 0.000000 0.000000	</R109_T54S>
+        <R109_T54S_FL>	4.9 4.9 0.000000 0.000000	</R109_T54S_FL>
         <R10_AT-1>	2.1 2.1 0.000000 0.000000	</R10_AT-1>
         <R110_Object_260>	4.8 4 0.000000 0.000000	</R110_Object_260>
         <R111_ISU130>	7.4 7.6 0.000000 0.000000	</R111_ISU130>
@@ -953,6 +962,7 @@
         <R38_KV-220_beta>	3 3 0.000000 0.000000	</R38_KV-220_beta>
         <R39_KV-3>	4.1 4.1 0.000000 0.2	</R39_KV-3>
         <R40_T-54>	5 5 0.000000 0.000000	</R40_T-54>
+        <R40_T-54_FL>	5 5 0.000000 0.000000	</R40_T-54_FL>
         <R41_T-50>	5 5 0.000000 0.000000	</R41_T-50>
         <R42_T-60>	1.3 1.3 0.000000 0.000000	</R42_T-60>
         <R43_T-70>	1.6 1.6 0.000000 0.000000	</R43_T-70>
@@ -1034,7 +1044,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	ALL	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>

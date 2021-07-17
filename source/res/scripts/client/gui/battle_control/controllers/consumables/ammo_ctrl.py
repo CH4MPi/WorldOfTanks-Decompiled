@@ -576,13 +576,6 @@ class AmmoController(MethodsRules, IBattleController):
 
     @MethodsRules.delayable('setGunSettings')
     def setShells(self, intCD, quantity, quantityInClip):
-        player = BigWorld.player()
-        observedVehicleData = player.observedVehicleData.get(player.observedVehicleID)
-        if observedVehicleData is not None:
-            ammoCDs = [ ammoData[0] for ammoData in observedVehicleData.orderedAmmo ]
-            if intCD not in ammoCDs:
-                _logger.debug('Skip ammo with cd=%d , current ammoCDs are %s', intCD, str(ammoCDs))
-                return
         result = SHELL_SET_RESULT.UNDEFINED
         if intCD in self.__ammo:
             prevAmmo = self.__ammo[intCD]

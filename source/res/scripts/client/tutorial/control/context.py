@@ -145,6 +145,8 @@ class GLOBAL_FLAG(object):
     ALL_BONUSES_RECEIVED = '_AllBonusesReceived'
     MAY_PAWN_PERSONAL_MISSION = '_MayPawnPersonalMission'
     HAVE_NEW_BADGE = '_HaveNewBadge'
+    LOBBY_MENU_ITEM_MANUAL = '_LobbyMenuItemManual'
+    LOBBY_MENU_ITEM_BOOTCAMP = '_LobbyMenuItemBootcamp'
     HAVE_NEW_SUFFIX_BADGE = '_HaveNewSuffixBadge'
     BADGE_PAGE_HAS_NEW_SUFFIX_BADGE = '_BadgePageHasNewSuffixBadge'
     CREW_BOOKS_ENABLED = '_CrewBooksEnabled'

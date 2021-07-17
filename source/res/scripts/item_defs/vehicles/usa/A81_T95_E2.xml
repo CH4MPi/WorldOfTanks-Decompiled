@@ -1724,7 +1724,7 @@
           </armor>
           <shotDispersionRadius>	0.36	</shotDispersionRadius>
           <reloadTime>	7.5	</reloadTime>
-          <aimingTime>	2.3	</aimingTime>
+          <aimingTime>	2	</aimingTime>
           <turretYawLimits>	-180 180	</turretYawLimits>
           <invisibilityFactorAtShot>	0.238	</invisibilityFactorAtShot>
           <models>

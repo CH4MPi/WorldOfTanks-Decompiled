@@ -27,6 +27,8 @@
     <id>	2	</id>
     <userString>	#china_vehicles:Type59_gold	</userString>
     <description>	#china_vehicles:Ch01_Type59_descr	</description>
+    <shortDescriptionSpecial>	#china_vehicles:Ch01_Type59_Gold_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#china_vehicles:Ch01_Type59_Gold_long_special	</longDescriptionSpecial>
     <price>	13500	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -183,7 +185,7 @@
     <description>	#china_vehicles:Ch22_113_descr	</description>
     <price>	6100000	</price>
     <notInShop>	false	</notInShop>
-    <tags>	heavyTank HD collectorVehicle improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_assault	</tags>
+    <tags>	heavyTank HD collectorVehicle improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
     <level>	10	</level>
   </Ch22_113>
   <Ch28_WZ_132A>
@@ -201,7 +203,7 @@
     <description>	#china_vehicles:Ch29_Type_62C_prot_descr	</description>
     <shortUserString>	#china_vehicles:Ch29_Type_62C_prot_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	lightTank HD scout improvedVentilation_class3_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_tracked	</tags>
+    <tags>	lightTank HD scout improvedVentilation_class3_user tankRammer_class2_user aimingStabilizer_class1_user extraHealthReserve_class2_user antifragmentationLining_light_user earn_crystals role_LT_universal	</tags>
     <level>	10	</level>
   </Ch29_Type_62C_prot>
   <Ch41_WZ_111_5A>
@@ -210,7 +212,7 @@
     <description>	#china_vehicles:Ch41_WZ_111_5A_descr	</description>
     <shortUserString>	#china_vehicles:Ch41_WZ_111_5A_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	heavyTank HD improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_assault	</tags>
+    <tags>	heavyTank HD improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
     <level>	10	</level>
   </Ch41_WZ_111_5A>
   <Ch30_T-26G_FT>
@@ -291,7 +293,7 @@
     <description>	#china_vehicles:Ch38_WZ113G_FT_descr	</description>
     <shortUserString>	#china_vehicles:Ch38_WZ113G_FT_short	</shortUserString>
     <price>	6100000	</price>
-    <tags>	AT-SPG HD heavyAT-SPG improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_tank	</tags>
+    <tags>	AT-SPG HD heavyAT-SPG improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_assault	</tags>
     <level>	10	</level>
   </Ch38_WZ113G_FT>
   <Ch44_114_SP2>
@@ -301,10 +303,10 @@
     <shortUserString>	#china_vehicles:Ch44_114_SP2_short	</shortUserString>
     <shortDescriptionSpecial>	#china_vehicles:Ch44_114_SP2_short_special	</shortDescriptionSpecial>
     <longDescriptionSpecial>	#china_vehicles:Ch44_114_SP2_long_special	</longDescriptionSpecial>
-    <price>	100	  <gold></gold>
+    <price>	22500	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	AT-SPG HD secret special testTank heavyAT-SPG AT-SPG1 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_fireSupport	</tags>
+    <tags>	AT-SPG HD special heavyAT-SPG AT-SPG1 improvedVentilation_class1_user tankRammer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_ATSPG_sniper	</tags>
     <level>	10	</level>
   </Ch44_114_SP2>
   <Ch42_WalkerBulldog_M41D>
@@ -330,7 +332,7 @@
     <price>	5	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	heavyTank HD special lockExceptProgression improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_assault	</tags>
+    <tags>	heavyTank HD special lockExceptProgression improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
     <level>	10	</level>
   </Ch41_WZ_111_QL>
   <Ch22_113_Beijing_Opera>
@@ -339,10 +341,11 @@
     <description>	#china_vehicles:Ch22_113_Beijing_Opera_descr	</description>
     <shortUserString>	#china_vehicles:Ch22_113_Beijing_Opera_short	</shortUserString>
     <shortDescriptionSpecial>	#china_vehicles:Ch22_113_Beijing_Opera_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#china_vehicles:Ch22_113_Beijing_Opera_long_special	</longDescriptionSpecial>
     <price>	25000	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	heavyTank HD secret lockExceptProgression disabledInRoaming improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_assault	</tags>
+    <tags>	heavyTank HD secret lockExceptProgression disabledInRoaming improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
     <level>	10	</level>
   </Ch22_113_Beijing_Opera>
   <Ch22_113P>
@@ -350,10 +353,11 @@
     <userString>	#china_vehicles:Ch22_113P	</userString>
     <description>	#china_vehicles:Ch22_113P_descr	</description>
     <shortDescriptionSpecial>	#china_vehicles:Ch22_113P_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#china_vehicles:Ch22_113P_long_special	</longDescriptionSpecial>
     <price>	25000	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
-    <tags>	heavyTank HD secret disabledInRoaming improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_assault	</tags>
+    <tags>	heavyTank HD secret disabledInRoaming improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_break	</tags>
     <level>	10	</level>
   </Ch22_113P>
   <Ch40_WZ120G_FT>
@@ -361,6 +365,8 @@
     <userString>	#china_vehicles:Ch40_WZ120G_FT	</userString>
     <description>	#china_vehicles:Ch40_WZ120G_FT_descr	</description>
     <shortUserString>	#china_vehicles:Ch40_WZ120G_FT_short	</shortUserString>
+    <shortDescriptionSpecial>	#china_vehicles:Ch40_WZ120G_FT_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#china_vehicles:Ch40_WZ120G_FT_long_special	</longDescriptionSpecial>
     <price>	19700	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -497,7 +503,7 @@
     <price>	6100000	</price>
     <notInShop>	true	</notInShop>
     <cannotBeBought>	true	</cannotBeBought>
-    <tags>	heavyTank HD secret bob cannot_be_sold improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user role_HT_assault	</tags>
+    <tags>	heavyTank HD secret bob cannot_be_sold improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user role_HT_break	</tags>
     <level>	10	</level>
   </Ch41_WZ_111_5A_bob>
   <Ch43_WZ_122_2>
@@ -567,4 +573,16 @@
     <clone_tags>	cloned	</clone_tags>
     <notInShop>	True	</notInShop>
   </Ch20_Type58_bootcamp>
+  <Ch12_111_1_2_3_FL>
+    <id>	220	</id>
+    <userString>	#china_vehicles:Ch12_111_1_2_3_FL	</userString>
+    <description>	#china_vehicles:Ch12_111_1_2_3_descr	</description>
+    <shortUserString>	#china_vehicles:Ch12_111_1_2_3_FL_short	</shortUserString>
+    <price>	1	  <gold></gold>
+    </price>
+    <notInShop>	true	</notInShop>
+    <cannotBeBought>	true	</cannotBeBought>
+    <tags>	heavyTank HD epic_battles improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
+    <level>	9	</level>
+  </Ch12_111_1_2_3_FL>
 </list.xml>

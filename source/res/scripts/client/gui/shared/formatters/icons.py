@@ -197,7 +197,7 @@ def makeImageTag(source, width=16, height=16, vSpace=-4, hSpace=0):
 def getRoleIcon(role, vSpace=-6):
     if role == 'role_' + COMPONENTS.SPG:
         return ''
-    source = backport.image(R.images.gui.maps.icons.roleExp.actionGroups.c_24x24.dyn(role)())
+    source = backport.image(R.images.gui.maps.icons.roleExp.roles.c_24x24.dyn(role)())
     return makeImageTag(source, width=24, height=24, vSpace=vSpace)
 
 

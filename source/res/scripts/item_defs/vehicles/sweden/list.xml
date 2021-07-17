@@ -86,7 +86,7 @@
     <shortUserString>	#sweden_vehicles:S16_Kranvagn_short	</shortUserString>
     <description>	#sweden_vehicles:S16_Kranvagn_descr	</description>
     <price>	6100000	</price>
-    <tags>	heavyTank HD heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_fireSupport	</tags>
+    <tags>	heavyTank HD heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user earn_crystals role_HT_support	</tags>
     <level>	10	</level>
   </S16_Kranvagn>
   <S09_L_120_TD>
@@ -160,6 +160,8 @@
     <userString>	#sweden_vehicles:S15_L_60	</userString>
     <shortUserString>	#sweden_vehicles:S15_L_60_short	</shortUserString>
     <description>	#sweden_vehicles:S15_L_60_descr	</description>
+    <shortDescriptionSpecial>	#sweden_vehicles:S15_L_60_short_special	</shortDescriptionSpecial>
+    <longDescriptionSpecial>	#sweden_vehicles:S15_L_60_long_special	</longDescriptionSpecial>
     <price>	500	  <gold></gold>
     </price>
     <notInShop>	true	</notInShop>
@@ -190,7 +192,7 @@
     <shortUserString>	#sweden_vehicles:S11_Strv_103B_short	</shortUserString>
     <description>	#sweden_vehicles:S11_Strv_103B_descr	</description>
     <price>	6100000	</price>
-    <tags>	AT-SPG HD siegeMode hydraulicChassis mediumAT-SPG AT-SPG1 improvedVentilation_class2_user tankRammer_class2_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_ATSPG_fireSupport	</tags>
+    <tags>	AT-SPG HD siegeMode hydraulicChassis mediumAT-SPG AT-SPG1 improvedVentilation_class2_user tankRammer_class2_user extraHealthReserve_class2_user antifragmentationLining_medium_user earn_crystals role_ATSPG_sniper	</tags>
     <level>	10	</level>
   </S11_Strv_103B>
   <S29_UDES_14_5>
@@ -292,7 +294,7 @@
     <price>	6100000	</price>
     <notInShop>	true	</notInShop>
     <cannotBeBought>	true	</cannotBeBought>
-    <tags>	heavyTank HD secret bob cannot_be_sold heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user role_HT_fireSupport	</tags>
+    <tags>	heavyTank HD secret bob cannot_be_sold heavyTank2 improvedVentilation_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user role_HT_support	</tags>
     <level>	10	</level>
   </S16_Kranvagn_bob>
   <S30_UDES_03_Alt_3>
@@ -335,4 +337,16 @@
     <tags>	heavyTank HD secret special improvedVentilation_class1_user tankRammer_class1_user aimingStabilizer_class1_user extraHealthReserve_class1_user antifragmentationLining_heavy_user	</tags>
     <level>	9	</level>
   </S31_Strv_K>
+  <S10_Strv_103_0_Series_FL>
+    <id>	212	</id>
+    <userString>	#sweden_vehicles:S10_Strv_103_0_Series_FL	</userString>
+    <shortUserString>	#sweden_vehicles:S10_Strv_103_0_Series_FL_short	</shortUserString>
+    <description>	#sweden_vehicles:S10_Strv_103_0_Series_descr	</description>
+    <price>	1	  <gold></gold>
+    </price>
+    <notInShop>	true	</notInShop>
+    <cannotBeBought>	true	</cannotBeBought>
+    <tags>	AT-SPG HD siegeMode hydraulicChassis mediumAT-SPG AT-SPG1 epic_battles improvedVentilation_class2_user tankRammer_class2_user extraHealthReserve_class2_user antifragmentationLining_medium_user	</tags>
+    <level>	9	</level>
+  </S10_Strv_103_0_Series_FL>
 </list.xml>

@@ -1,19 +1,19 @@
 <poland.xml>
-  <poland:Pl06_10TP1>	ussr	</poland:Pl06_10TP1>
-  <poland:Pl05_50TP_Tyszkiewicza4>	germany	</poland:Pl05_50TP_Tyszkiewicza4>
-  <poland:Pl06_10TP0>	usa	</poland:Pl06_10TP0>
-  <poland:Pl05_50TP_Tyszkiewicza1>	china	</poland:Pl05_50TP_Tyszkiewicza1>
-  <poland:Pl05_50TP_Tyszkiewicza3>	france	</poland:Pl05_50TP_Tyszkiewicza3>
-  <poland:Pl05_50TP_Tyszkiewicza9>	uk	</poland:Pl05_50TP_Tyszkiewicza9>
-  <poland:Pl05_50TP_Tyszkiewicza6>	japan	</poland:Pl05_50TP_Tyszkiewicza6>
-  <poland:Pl05_50TP_Tyszkiewicza2>	czech	</poland:Pl05_50TP_Tyszkiewicza2>
-  <poland:Pl05_50TP_Tyszkiewicza8>	sweden	</poland:Pl05_50TP_Tyszkiewicza8>
-  <poland:Pl05_50TP_Tyszkiewicza7>	poland	</poland:Pl05_50TP_Tyszkiewicza7>
-  <poland:Pl05_50TP_Tyszkiewicza5>	italy	</poland:Pl05_50TP_Tyszkiewicza5>
+  <poland:Pl05_50TP_Tyszkiewicza_FL2>	ussr	</poland:Pl05_50TP_Tyszkiewicza_FL2>
+  <poland:Pl05_50TP_Tyszkiewicza5>	germany	</poland:Pl05_50TP_Tyszkiewicza5>
+  <poland:Pl05_50TP_Tyszkiewicza_FL1>	usa	</poland:Pl05_50TP_Tyszkiewicza_FL1>
+  <poland:Pl05_50TP_Tyszkiewicza2>	china	</poland:Pl05_50TP_Tyszkiewicza2>
+  <poland:Pl05_50TP_Tyszkiewicza4>	france	</poland:Pl05_50TP_Tyszkiewicza4>
+  <poland:Pl05_50TP_Tyszkiewicza_FL0>	uk	</poland:Pl05_50TP_Tyszkiewicza_FL0>
+  <poland:Pl05_50TP_Tyszkiewicza7>	japan	</poland:Pl05_50TP_Tyszkiewicza7>
+  <poland:Pl05_50TP_Tyszkiewicza3>	czech	</poland:Pl05_50TP_Tyszkiewicza3>
+  <poland:Pl05_50TP_Tyszkiewicza9>	sweden	</poland:Pl05_50TP_Tyszkiewicza9>
+  <poland:Pl05_50TP_Tyszkiewicza8>	poland	</poland:Pl05_50TP_Tyszkiewicza8>
+  <poland:Pl05_50TP_Tyszkiewicza6>	italy	</poland:Pl05_50TP_Tyszkiewicza6>
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages poland 50g	</priceGroup>
     <vehicleFilter>
       <include>
@@ -38,6 +38,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.6 1.6 0.000000 0.75	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	3.78378 2.2973 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	3.78378 2.2973 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3.15 3.15 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.65676 1.65676 1.32857 1.25844	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.71 1.71 0.34 0.000000	</Pl10_40TP_Habicha>
@@ -46,13 +47,13 @@
         <Pl13_53TP_Markowskiego>	2.4 2.4 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.3 1.3 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.21 1.21 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.92 1.92 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.65676 1.65676 1.32857 1.25844	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.92 1.92 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.65676 1.65676 1.32857 1.25844	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.65676 1.65676 1.32857 1.25844	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -64,7 +65,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages poland 50g	</priceGroup>
     <vehicleFilter>
       <include>
@@ -89,15 +90,16 @@
       <tiling>
         <Pl01_TKS_20mm>	4 4 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3 3 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	4.25946 4.25946 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	2.67 2.67 0.000000 0.000000	</Pl10_40TP_Habicha>
         <Pl12_25TP_KSUST_II>	3 3 0.000000 0.000000	</Pl12_25TP_KSUST_II>
         <Pl13_53TP_Markowskiego>	3 3 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
-        <poland:Pl03_PzV_Poland6>	1.39 1.39 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland8>	4.25946 4.25946 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland7>	1.39 1.39 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
         <poland:Pl03_PzV_Poland9>	4.25946 4.25946 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
+        <poland:Pl05_50TP_Tyszkiewicza0>	4.25946 4.25946 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -109,7 +111,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages poland 50g	</priceGroup>
     <vehicleFilter>
       <include>
@@ -134,6 +136,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.7 1.7 0.000000 0.34	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2.5 2.5 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2.5 2.5 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3.7 3.7 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.45676 1.45676 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.23 1.23 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -141,10 +144,10 @@
         <Pl13_53TP_Markowskiego>	1.58 1.58 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.21 1.21 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland5>	1.08 1.08 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.39 1.39 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland8>	1.45676 1.45676 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland6>	1.08 1.08 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.39 1.39 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
         <poland:Pl03_PzV_Poland9>	1.45676 1.45676 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.45676 1.45676 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -156,7 +159,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -182,6 +185,7 @@
       <tiling>
         <Pl01_TKS_20mm>	2.8 2.8 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3.35 3.35 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.62162 1.62162 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	2.19 2.19 1.51 0.000000	</Pl10_40TP_Habicha>
@@ -189,9 +193,9 @@
         <Pl13_53TP_Markowskiego>	1.58 1.58 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.14 1.14 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland6>	1.43 1.43 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland8>	1.62162 1.62162 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland7>	1.43 1.43 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
         <poland:Pl03_PzV_Poland9>	1.62162 1.62162 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.62162 1.62162 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -203,7 +207,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -229,6 +233,7 @@
       <tiling>
         <Pl01_TKS_20mm>	2 2 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	4.15 4.15 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.59189 1.59189 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	0.93 0.93 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -237,14 +242,14 @@
         <Pl13_53TP_Markowskiego>	1.71 1.71 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.21 1.21 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.13 1.13 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.13 1.13 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	3 3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.43 1.43 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.13 1.13 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.59189 1.59189 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.13 1.13 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	3 3 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.43 1.43 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.13 1.13 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.59189 1.59189 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.13 1.13 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.59189 1.59189 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.13 1.13 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -256,7 +261,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g IGR notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -282,17 +287,18 @@
       <tiling>
         <Pl01_TKS_20mm>	1.7 1.7 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.47 2.47 0.000000 0.000000	</Pl07_14TP>
         <Pl10_40TP_Habicha>	1.23 1.23 0.000000 0.000000	</Pl10_40TP_Habicha>
         <Pl11_45TP_Habicha>	1.3 1.3 0.000000 0.000000	</Pl11_45TP_Habicha>
         <Pl12_25TP_KSUST_II>	2 2 0.000000 0.000000	</Pl12_25TP_KSUST_II>
         <Pl13_53TP_Markowskiego>	1.37 1.37 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.6 1.6 0.000000 0.000000	</Pl14_4TP>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.53 1.53 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.53 1.53 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -304,7 +310,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -330,6 +336,7 @@
       <tiling>
         <Pl01_TKS_20mm>	2.2 2.2 0.63 0.29	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.8 2.8 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	2.0973 2.0973 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.23 1.23 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -338,14 +345,14 @@
         <Pl13_53TP_Markowskiego>	2.09 2.09 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.63 1.63 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	3 3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.69 1.69 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.0973 2.0973 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	3 3 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.69 1.69 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.0973 2.0973 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.0973 2.0973 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -357,7 +364,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -383,6 +390,7 @@
       <tiling>
         <Pl01_TKS_20mm>	2 2 1.16 3.08	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.23 2.23 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.48649 1.48649 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.51 1.51 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -390,14 +398,14 @@
         <Pl12_25TP_KSUST_II>	1.8 1.8 0.000000 0.000000	</Pl12_25TP_KSUST_II>
         <Pl13_53TP_Markowskiego>	1.27 1.27 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
-        <poland:Pl03_PzV_Poland3>	1.07 1.07 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.07 1.07 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	0.77 0.77 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.55 1.55 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.07 1.07 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.48649 1.48649 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.07 1.07 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	0.77 0.77 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.55 1.55 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.07 1.07 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.48649 1.48649 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.07 1.07 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.48649 1.48649 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.07 1.07 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -409,7 +417,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -435,6 +443,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.9 1.9 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.66 2.66 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.7 1.7 0.6 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.6 1.6 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -443,14 +452,14 @@
         <Pl13_53TP_Markowskiego>	2 2 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.75 1.75 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.76 1.76 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
         <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.01 2.01 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.7 1.7 0.6 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland6>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.01 2.01 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.7 1.7 0.6 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.7 1.7 0.6 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -462,7 +471,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -488,6 +497,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.6 1.6 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.6 2.6 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.75676 1.75676 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.64 1.64 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -496,14 +506,14 @@
         <Pl13_53TP_Markowskiego>	1.64 1.64 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.34 1.34 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.27 1.27 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.27 1.27 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.89 1.89 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.27 1.27 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.75676 1.75676 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.27 1.27 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.89 1.89 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.27 1.27 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.75676 1.75676 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.27 1.27 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.75676 1.75676 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.27 1.27 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -515,7 +525,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -541,6 +551,7 @@
       <tiling>
         <Pl01_TKS_20mm>	2 2 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	1.5 1.5 4.80519 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	1.5 1.5 4.80519 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.6 2.6 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.48649 1.48649 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.3 1.3 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -548,9 +559,9 @@
         <Pl13_53TP_Markowskiego>	1.6 1.6 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	0.86 0.86 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland6>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland8>	1.48649 1.48649 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
         <poland:Pl03_PzV_Poland9>	1.48649 1.48649 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.48649 1.48649 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -562,7 +573,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -588,6 +599,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.6 1.6 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	3 3 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3.42 3.42 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.28108 1.28108 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.37 1.37 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -595,9 +607,9 @@
         <Pl13_53TP_Markowskiego>	1.4 1.4 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2 2 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.14 1.14 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland6>	2.11 2.11 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland8>	1.28108 1.28108 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland7>	2.11 2.11 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
         <poland:Pl03_PzV_Poland9>	1.28108 1.28108 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.28108 1.28108 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -609,7 +621,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -635,6 +647,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.9 1.9 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.66 2.66 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.7 1.7 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.6 1.6 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -643,13 +656,13 @@
         <Pl13_53TP_Markowskiego>	2 2 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.75 1.75 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.76 1.76 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	2.35 2.35 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.7 1.7 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	2.35 2.35 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.7 1.7 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.7 1.7 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -661,7 +674,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -687,6 +700,7 @@
       <tiling>
         <Pl01_TKS_20mm>	3 3 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2.7027 2.7027 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2.7027 2.7027 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	3.08 3.08 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.62162 1.62162 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.37 1.37 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -695,13 +709,13 @@
         <Pl13_53TP_Markowskiego>	1.54 1.54 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.6 1.6 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.55 1.55 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.89 1.89 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.62162 1.62162 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.89 1.89 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.62162 1.62162 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.5 1.5 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.62162 1.62162 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.5 1.5 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -713,7 +727,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -739,6 +753,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.9 1.9 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	2 2 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl07_14TP>	2.66 2.66 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.7 1.7 0.000000 0.000000	</Pl08_50TP_prototyp>
         <Pl10_40TP_Habicha>	1.6 1.6 0.000000 0.000000	</Pl10_40TP_Habicha>
@@ -747,13 +762,13 @@
         <Pl13_53TP_Markowskiego>	2 2 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	1.75 1.75 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.76 1.76 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.72 1.72 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.7 1.7 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.72 1.72 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.7 1.7 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.7 1.7 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -765,7 +780,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -790,6 +805,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.8 1.8 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl06_10TP>	1.1 1.1 0.000000 0.000000	</Pl06_10TP>
         <Pl07_14TP>	3.3 3.3 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.71 1.71 0.000000 0.000000	</Pl08_50TP_prototyp>
@@ -800,14 +816,14 @@
         <Pl13_53TP_Markowskiego>	1.64 1.64 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2.3 2.3 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.58 1.58 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.11 1.11 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.23 2.23 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.11 1.11 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.23 2.23 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.71 1.71 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -819,7 +835,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -844,6 +860,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.8 1.8 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl06_10TP>	1.1 1.1 0.000000 0.000000	</Pl06_10TP>
         <Pl07_14TP>	3.3 3.3 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.71 1.71 0.000000 0.000000	</Pl08_50TP_prototyp>
@@ -854,14 +871,14 @@
         <Pl13_53TP_Markowskiego>	1.64 1.64 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2.3 2.3 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.58 1.58 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	0.96 0.96 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.77 1.77 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	0.96 0.96 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.77 1.77 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.71 1.71 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -873,7 +890,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -898,6 +915,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.8 1.8 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl06_10TP>	1.1 1.1 0.000000 0.000000	</Pl06_10TP>
         <Pl07_14TP>	3.3 3.3 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.71 1.71 0.000000 0.000000	</Pl08_50TP_prototyp>
@@ -908,14 +926,14 @@
         <Pl13_53TP_Markowskiego>	1.64 1.64 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2.3 2.3 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.58 1.58 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.08 1.08 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.63 1.63 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.08 1.08 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.63 1.63 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.71 1.71 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -927,7 +945,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -952,6 +970,7 @@
       <tiling>
         <Pl01_TKS_20mm>	1.8 1.8 0.000000 0.000000	</Pl01_TKS_20mm>
         <Pl05_50TP_Tyszkiewicza>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza>
+        <Pl05_50TP_Tyszkiewicza_FL>	1.7 1.7 0.000000 0.000000	</Pl05_50TP_Tyszkiewicza_FL>
         <Pl06_10TP>	1.1 1.1 0.000000 0.000000	</Pl06_10TP>
         <Pl07_14TP>	3.3 3.3 0.000000 0.000000	</Pl07_14TP>
         <Pl08_50TP_prototyp>	1.71 1.71 0.000000 0.000000	</Pl08_50TP_prototyp>
@@ -962,14 +981,14 @@
         <Pl13_53TP_Markowskiego>	1.64 1.64 0.000000 0.000000	</Pl13_53TP_Markowskiego>
         <Pl14_4TP>	2.3 2.3 0.000000 0.000000	</Pl14_4TP>
         <Pl15_60TP_Lewandowskiego>	1.58 1.58 0.000000 0.000000	</Pl15_60TP_Lewandowskiego>
-        <poland:Pl03_PzV_Poland3>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.22 1.22 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	1.67 1.67 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.22 1.22 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	1.67 1.67 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.3 1.3 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.71 1.71 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.71 1.71 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.3 1.3 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -981,7 +1000,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1006,24 +1025,25 @@
       <tiling>
         <poland:Pl01_TKS_20mm>	2.2 2.2 0.000000 0.000000	</poland:Pl01_TKS_20mm>
         <poland:Pl05_50TP_Tyszkiewicza>	1.9 1.9 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	1.9 1.9 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	1.05 1.05 0.000000 0.000000	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	4.91 4.91 0.03 0.000000	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	2.12 2.12 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	1.39 1.39 0.15 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.89 1.89 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.47 1.47 0.14 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.37 2.37 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2.07 2.07 0.37 0.000000	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	2.18 2.18 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland3>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland0>	2.37 2.37 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2.07 2.07 0.37 0.000000	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	2.18 2.18 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.11 1.11 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.23 2.23 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.11 1.11 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.23 2.23 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.47 1.47 0.14 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.12 2.12 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.47 1.47 0.14 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1035,7 +1055,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1060,23 +1080,24 @@
       <tiling>
         <poland:Pl01_TKS_20mm>	3.3 3.3 0.000000 0.000000	</poland:Pl01_TKS_20mm>
         <poland:Pl05_50TP_Tyszkiewicza>	2.96 2.96 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.96 2.96 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	2.15 2.15 0.000000 0.000000	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	3.78 3.78 0.000000 0.000000	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	2.52 2.52 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	2.56 2.56 0.000000 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	2.46 2.46 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	2.34 2.34 0.000000 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.81 2.81 0.000000 0.000000	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2.3 2.3 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	1.61 1.61 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	2.4 2.4 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland3>	2.34 2.34 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland0>	2.81 2.81 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2.3 2.3 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	1.61 1.61 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	2.4 2.4 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
         <poland:Pl03_PzV_Poland4>	2.34 2.34 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.31 1.31 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	2.34 2.34 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.52 2.52 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland5>	2.34 2.34 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.31 1.31 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	2.34 2.34 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.52 2.52 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	2.34 2.34 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.52 2.52 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	2.34 2.34 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1088,7 +1109,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1113,23 +1134,24 @@
       <tiling>
         <poland:Pl01_TKS_20mm>	2.61 2.61 0.000000 0.000000	</poland:Pl01_TKS_20mm>
         <poland:Pl05_50TP_Tyszkiewicza>	2.15 2.15 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.15 2.15 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	0.99 0.99 0.000000 0.000000	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	3.37 3.37 0.000000 0.000000	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	1.46 1.46 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	0.89 0.89 0.000000 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.63 1.63 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.4 1.4 0.000000 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.62 2.62 0.000000 0.000000	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2.21 2.21 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.15 2.15 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	1.86 1.86 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland3>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland3>
-        <poland:Pl03_PzV_Poland4>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.84 1.84 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.46 1.46 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	2.62 2.62 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2.21 2.21 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.15 2.15 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	1.86 1.86 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland4>	1.47 1.47 0.14 0.000000	</poland:Pl03_PzV_Poland4>
+        <poland:Pl03_PzV_Poland5>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.84 1.84 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.46 1.46 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.46 1.46 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1141,7 +1163,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1166,22 +1188,23 @@
       <tiling>
         <poland:Pl01_TKS_20mm>	2.61 2.61 0.47 0.000000	</poland:Pl01_TKS_20mm>
         <poland:Pl05_50TP_Tyszkiewicza>	2.15 2.15 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.15 2.15 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	0.99 0.99 0.000000 0.000000	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	3.37 3.37 0.000000 0.000000	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	1.46 1.46 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	0.89 0.89 0.000000 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.63 1.63 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.4 1.4 0.000000 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.62 2.62 0.000000 0.000000	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2.21 2.21 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.15 2.15 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	1.86 1.86 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland6>	1.53 1.53 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	1.46 1.46 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	2.62 2.62 0.000000 0.000000	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2.21 2.21 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.15 2.15 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	1.86 1.86 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland7>	1.53 1.53 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.4 1.4 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	1.46 1.46 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	1.46 1.46 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.4 1.4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1193,7 +1216,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1224,23 +1247,24 @@
         <poland:Pl01_TKS_20mm>	2.2 2.2 0.11 0.06	</poland:Pl01_TKS_20mm>
         <poland:Pl03_PzV_Poland>	4.31 4.31 2.18 1.84	</poland:Pl03_PzV_Poland>
         <poland:Pl05_50TP_Tyszkiewicza>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	1.55 1.55 2.27 2.39	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	5.4 5.4 1.92 2.02	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	2.12 2.12 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	1.39 1.39 0.15 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.89 1.89 0.18 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.64 1.64 1.93 2	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.72 2.72 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	3.11 3.11 2.09 2.04	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	2.18 2.18 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.41 1.41 -2.83 -2.88	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.56 2.56 -6.69 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	2.72 2.72 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	3.11 3.11 2.09 2.04	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	2.18 2.18 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.41 1.41 -2.83 -2.88	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.56 2.56 -6.69 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.64 1.64 1.93 2	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.12 2.12 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.64 1.64 1.93 2	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1252,7 +1276,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1283,23 +1307,24 @@
         <poland:Pl01_TKS_20mm>	1.75 1.75 7.06 3.21	</poland:Pl01_TKS_20mm>
         <poland:Pl03_PzV_Poland>	3.9 3.9 2.26 1.84	</poland:Pl03_PzV_Poland>
         <poland:Pl05_50TP_Tyszkiewicza>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	1.3 1.3 2.27 2.39	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	5.4 5.4 1.92 2.02	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	2.12 2.12 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	1.1 1.1 0.06 0.24	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.63 1.63 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.64 1.64 1.93 2	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.72 2.72 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2 2 1.93 5.4	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	1.7 1.7 1.69 5.82	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	1.15 1.15 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.08 2.08 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	2.72 2.72 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2 2 1.93 5.4	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.24 2.24 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	1.7 1.7 1.69 5.82	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	1.15 1.15 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.08 2.08 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.64 1.64 1.93 2	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.64 1.64 1.93 2	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.12 2.12 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.64 1.64 1.93 2	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1311,7 +1336,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	summer	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1342,23 +1367,24 @@
         <poland:Pl01_TKS_20mm>	1.75 1.75 7.06 3.21	</poland:Pl01_TKS_20mm>
         <poland:Pl03_PzV_Poland>	3.9 3.9 2.26 1.84	</poland:Pl03_PzV_Poland>
         <poland:Pl05_50TP_Tyszkiewicza>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	2.42 2.42 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	1.3 1.3 2.27 2.39	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	5.4 5.4 1.92 2.02	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	2.12 2.12 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	1.1 1.1 0.06 0.24	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	1.63 1.63 0.33 0.47	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	1.5 1.5 0.000000 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	2.72 2.72 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	2 2 1.93 5.4	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	2.33 2.33 0.19 0.06	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	1.7 1.7 1.78 5.82	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	3.1 3.1 -0.91 -0.01	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	2.37 2.37 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	2.72 2.72 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	2 2 1.93 5.4	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	2.33 2.33 0.19 0.06	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	1.7 1.7 1.78 5.82	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	3.1 3.1 -0.91 -0.01	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.37 2.37 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	1.5 1.5 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	2.12 2.12 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	1.5 1.5 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	2.12 2.12 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	1.5 1.5 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1370,7 +1396,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	winter	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1401,23 +1427,24 @@
         <poland:Pl01_TKS_20mm>	3.74 3.74 7.06 3.21	</poland:Pl01_TKS_20mm>
         <poland:Pl03_PzV_Poland>	6.63 6.63 2.26 1.84	</poland:Pl03_PzV_Poland>
         <poland:Pl05_50TP_Tyszkiewicza>	6.09 6.09 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	6.09 6.09 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	2.8 2.8 2.27 2.39	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	10.92 10.92 1.92 2.02	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	6.04 6.04 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	3.27 3.27 0.06 0.24	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	4.26 4.26 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	4 4 0.000000 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	7.41 7.41 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	6.47 6.47 1.93 5.4	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	4.84 4.84 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	5.1 5.1 1.69 5.82	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	4 4 0.000000 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	4.79 4.79 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	5.78 5.78 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	4 4 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	6.04 6.04 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	7.41 7.41 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	6.47 6.47 1.93 5.4	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	4.84 4.84 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	5.1 5.1 1.69 5.82	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	4 4 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	4.79 4.79 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	5.78 5.78 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	4 4 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	6.04 6.04 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	4 4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	6.04 6.04 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	4 4 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1429,7 +1456,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/transparent	</userString>
     <season>	desert	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1455,23 +1482,24 @@
         <poland:Pl01_TKS_20mm>	3.3 3.3 0.000000 0.000000	</poland:Pl01_TKS_20mm>
         <poland:Pl03_PzV_Poland>	5.38 5.38 0.000000 0.000000	</poland:Pl03_PzV_Poland>
         <poland:Pl05_50TP_Tyszkiewicza>	4.69 4.69 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza>
+        <poland:Pl05_50TP_Tyszkiewicza_FL>	4.69 4.69 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza_FL>
         <poland:Pl06_10TP>	2.39 2.39 0.000000 0.000000	</poland:Pl06_10TP>
         <poland:Pl07_14TP>	7.93 7.93 0.03 0.000000	</poland:Pl07_14TP>
         <poland:Pl08_50TP_prototyp>	4.02 4.02 0.000000 0.000000	</poland:Pl08_50TP_prototyp>
         <poland:Pl09_7TP>	2.59 2.59 0.15 0.000000	</poland:Pl09_7TP>
         <poland:Pl10_40TP_Habicha>	3.25 3.25 0.000000 0.000000	</poland:Pl10_40TP_Habicha>
         <poland:Pl11_45TP_Habicha>	3 3 0.14 0.000000	</poland:Pl11_45TP_Habicha>
-        <poland:Pl12_25TP_KSUST_II>	6.16 6.16 0.26 0.66	</poland:Pl12_25TP_KSUST_II>
-        <poland:Pl03_PzV_Poland0>	4.52 4.52 0.37 0.000000	</poland:Pl03_PzV_Poland0>
-        <poland:Pl03_PzV_Poland1>	3.78 3.78 0.000000 0.000000	</poland:Pl03_PzV_Poland1>
-        <poland:Pl03_PzV_Poland2>	3.94 3.94 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
-        <poland:Pl03_PzV_Poland4>	3 3 0.14 0.000000	</poland:Pl03_PzV_Poland4>
-        <poland:Pl03_PzV_Poland5>	3.16 3.16 0.000000 0.000000	</poland:Pl03_PzV_Poland5>
-        <poland:Pl03_PzV_Poland6>	4.23 4.23 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
-        <poland:Pl03_PzV_Poland7>	3 3 0.14 0.000000	</poland:Pl03_PzV_Poland7>
-        <poland:Pl03_PzV_Poland8>	4.02 4.02 0.000000 0.000000	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland0>	6.16 6.16 0.26 0.66	</poland:Pl03_PzV_Poland0>
+        <poland:Pl03_PzV_Poland1>	4.52 4.52 0.37 0.000000	</poland:Pl03_PzV_Poland1>
+        <poland:Pl03_PzV_Poland2>	3.78 3.78 0.000000 0.000000	</poland:Pl03_PzV_Poland2>
+        <poland:Pl03_PzV_Poland3>	3.94 3.94 0.000000 0.000000	</poland:Pl03_PzV_Poland3>
+        <poland:Pl03_PzV_Poland5>	3 3 0.14 0.000000	</poland:Pl03_PzV_Poland5>
+        <poland:Pl03_PzV_Poland6>	3.16 3.16 0.000000 0.000000	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	4.23 4.23 0.000000 0.000000	</poland:Pl03_PzV_Poland7>
+        <poland:Pl03_PzV_Poland8>	3 3 0.14 0.000000	</poland:Pl03_PzV_Poland8>
         <poland:Pl03_PzV_Poland9>	4.02 4.02 0.000000 0.000000	</poland:Pl03_PzV_Poland9>
-        <poland:Pl05_50TP_Tyszkiewicza0>	3 3 0.14 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza0>	4.02 4.02 0.000000 0.000000	</poland:Pl05_50TP_Tyszkiewicza0>
+        <poland:Pl05_50TP_Tyszkiewicza1>	3 3 0.14 0.000000	</poland:Pl05_50TP_Tyszkiewicza1>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1483,7 +1511,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	ALL	</season>
-    <historical>	false	</historical>
+    <historical>	1	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1512,7 +1540,7 @@
         <GUN>	-0.785398	</GUN>
       </rotation>
       <tiling>
-        <poland:Pl03_PzV_Poland6>	2.7 2.7 0.37 -1.12	</poland:Pl03_PzV_Poland6>
+        <poland:Pl03_PzV_Poland7>	2.7 2.7 0.37 -1.12	</poland:Pl03_PzV_Poland7>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>
@@ -1524,7 +1552,7 @@
   <itemGroup>
     <userString>	#vehicle_customization:camouflage/opaque	</userString>
     <season>	ALL	</season>
-    <historical>	true	</historical>
+    <historical>	0	</historical>
     <priceGroup>	camouflages 50g notInShop	</priceGroup>
     <vehicleFilter>
       <include>
@@ -1553,7 +1581,7 @@
         <GUN>	0.453786	</GUN>
       </rotation>
       <tiling>
-        <poland:Pl03_PzV_Poland8>	1.3 1.7 1.75 2.53	</poland:Pl03_PzV_Poland8>
+        <poland:Pl03_PzV_Poland9>	1.3 1.7 1.75 2.53	</poland:Pl03_PzV_Poland9>
       </tiling>
       <tilingSettings>
         <type>	relative	</type>

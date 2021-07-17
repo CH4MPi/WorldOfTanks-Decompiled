@@ -10,7 +10,6 @@ from gui.shared.utils import makeSearchableString
 from gui.shared.utils.requesters import REQ_CRITERIA
 from helpers import dependency
 from skeletons.account_helpers.settings_core import ISettingsCore
-from skeletons.gui.game_control import IBattleRoyaleController
 
 def _filterDict(dictionary, keys):
     return {key:value for key, value in dictionary.iteritems() if key in keys}
@@ -116,7 +115,6 @@ class CriteriesGroup(object):
 
 class CarouselFilter(_CarouselFilter):
     settingsCore = dependency.descriptor(ISettingsCore)
-    __battleRoyaleController = dependency.descriptor(IBattleRoyaleController)
 
     def __init__(self):
         super(CarouselFilter, self).__init__()

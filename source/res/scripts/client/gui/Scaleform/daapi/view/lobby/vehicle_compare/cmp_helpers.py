@@ -108,9 +108,11 @@ def isCamouflageSet(vehicle):
     return bool(vehicle.getBonusCamo())
 
 
-@dependency.replace_none_kwargs(factory=IGuiItemsFactory)
-def applyCamouflage(vehicle, select, factory=None):
+@dependency.replace_none_kwargs(factory=IGuiItemsFactory, itemsCache=IItemsCache)
+def applyCamouflage(vehicle, select, factory=None, itemsCache=None):
     if select:
+        if not vehicle.outfits:
+            vehicle.createAppliedOutfits(itemsCache.items)
         camo = getSuitableCamouflage(vehicle)
         if camo:
             season = first(camo.seasons)
@@ -123,10 +125,16 @@ def applyCamouflage(vehicle, select, factory=None):
 
 
 def removeVehicleCamouflages(vehicle):
-    for season in SeasonType.SEASONS:
-        outfit = vehicle.getOutfit(season)
-        if outfit:
-            outfit.hull.slotFor(GUI_ITEM_TYPE.CAMOUFLAGE).clear()
+    camo = getSuitableCamouflage(vehicle)
+    if camo is None:
+        return
+    else:
+        for season in SeasonType.SEASONS:
+            outfit = vehicle.getOutfit(season)
+            if outfit:
+                outfit.hull.slotFor(GUI_ITEM_TYPE.CAMOUFLAGE).clear()
+
+        return
 
 
 def getVehicleModules(vehicle):

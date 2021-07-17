@@ -165,6 +165,10 @@ class IDynamicControllersLocator(object):
     def battleNotifier(self):
         raise NotImplementedError
 
+    @property
+    def gameNotifications(self):
+        raise NotImplementedError
+
 
 class ISquadInvitationsHandler(object):
     __slots__ = ()

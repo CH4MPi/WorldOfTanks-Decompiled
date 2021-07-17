@@ -41,7 +41,7 @@ class ResearchItemContextMenuHandler(AbstractContextMenuHandler, EventSystemEnti
         ItemsActionsFactory.doAction(ItemsActionsFactory.UNLOCK_ITEM, self._nodeCD, unlockProps, skipConfirm=self.__skipConfirm)
 
     def buyModule(self):
-        ItemsActionsFactory.doAction(ItemsActionsFactory.BUY_AND_INSTALL_ITEM, self._nodeCD, self._rootCD, skipConfirm=self.__skipConfirm)
+        ItemsActionsFactory.doAction(ItemsActionsFactory.BUY_AND_INSTALL_AND_SELL_ITEM, self._nodeCD, self._rootCD, skipConfirm=self.__skipConfirm)
 
     def equipModule(self):
         ItemsActionsFactory.doAction(ItemsActionsFactory.INSTALL_ITEM, self._nodeCD, self._rootCD)

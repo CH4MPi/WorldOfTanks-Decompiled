@@ -263,6 +263,11 @@
       <Flags>	ALL_CLIENTS	</Flags>
       <DetailLevel>	MY_VEHICLE	</DetailLevel>
     </quickShellChangerFactor>
+    <ownVehiclePosition>
+      <Type>	OWN_VEHICLE_POSITION	</Type>
+      <Flags>	ALL_CLIENTS	</Flags>
+      <DetailLevel>	MY_VEHICLE	</DetailLevel>
+    </ownVehiclePosition>
   </Properties>
   <TempProperties>
     <events></events>
@@ -298,6 +303,11 @@
       <Arg>	UINT8	</Arg>
       <Arg>	UINT8	</Arg>
     </showShooting>
+    <updateLaserSight>
+      <Arg>	OBJECT_ID	</Arg>
+      <Arg>	BOOL	</Arg>
+      <Arg>	STRING	</Arg>
+    </updateLaserSight>
     <showDamageFromShot>
       <Arg>	OBJECT_ID	</Arg>
       <Arg>	ARRAY	  <of>	UINT64	</of>
@@ -455,9 +465,6 @@
       <Arg>	UINT8	</Arg>
       <Arg>	UINT16	</Arg>
     </receiveFirstDetectionFromArena>
-    <sendPositionsToClient>
-      <Arg>	BOOL	</Arg>
-    </sendPositionsToClient>
     <requestDamagedDevicesFromFor>
       <Arg>	OBJECT_ID	</Arg>
       <Arg>	MAILBOX	</Arg>

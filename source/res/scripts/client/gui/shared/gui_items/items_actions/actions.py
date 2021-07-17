@@ -1,6 +1,8 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/shared/gui_items/items_actions/actions.py
+import logging
 from collections import namedtuple
+from functools import partial
 import async as future_async
 from account_helpers import AccountSettings
 from account_helpers.AccountSettings import NATION_CHANGE_VIEWED
@@ -44,12 +46,13 @@ from gui.shared.gui_items.processors.vehicle import tryToLoadDefaultShellsLayout
 from gui.shared.money import ZERO_MONEY, Money
 from gui.shared.utils import decorators
 from helpers import dependency
-from items import vehicles
+from items import vehicles, ITEM_TYPE_NAMES, parseIntCompactDescr
 from shared_utils import first, allEqual
 from skeletons.gui.game_control import ITradeInController
 from skeletons.gui.goodies import IGoodiesCache
 from skeletons.gui.shared import IItemsCache
 from soft_exception import SoftException
+_logger = logging.getLogger(__name__)
 ItemSellSpec = namedtuple('ItemSellSpec', ('typeIdx', 'intCD', 'count'))
 
 def showMessage(scopeMsg, msg, item, msgType=SystemMessages.SM_TYPE.Error, **kwargs):
@@ -398,15 +401,11 @@ class InstallItemAction(BuyAction):
         RequestState.sent(state)
         if item.isInInventory:
             proc = getInstallerProcessor(vehicle, item, conflictedEqs=conflictedEqs, skipConfirm=self.skipConfirm)
-            if not proc.IS_GAMEFACE_SUPPORTED:
-                Waiting.show('applyModule')
             result = yield proc.request()
             processMsg(result)
             if result.success and item.itemTypeID in (GUI_ITEM_TYPE.TURRET, GUI_ITEM_TYPE.GUN):
                 vehicle = self._itemsCache.items.getItemByCD(vehicle.intCD)
                 yield tryToLoadDefaultShellsLayout(vehicle)
-            if not proc.IS_GAMEFACE_SUPPORTED:
-                Waiting.hide('applyModule')
         RequestState.received(state)
         yield lambda callback=None: callback
         return
@@ -415,13 +414,15 @@ class InstallItemAction(BuyAction):
 class BuyAndInstallItemAction(InstallItemAction):
     _buyAndInstallItemProcessorCls = BuyAndInstallItemProcessor
 
+    @process
     def doAction(self):
         if RequestState.inProcess('buyAndInstall'):
             SystemMessages.pushI18nMessage('#system_messages:shop/item/buy_and_equip_in_processing', type=SystemMessages.SM_TYPE.Warning)
-        self.buyAndInstallItem(self._itemCD, self._rootCD, 'buyAndInstall')
+        yield self.buyAndInstallItem(self._itemCD, self._rootCD, 'buyAndInstall')
 
+    @async
     @process
-    def buyAndInstallItem(self, itemCD, rootCD, state):
+    def buyAndInstallItem(self, itemCD, rootCD, state, callback):
         itemTypeID, _, __ = vehicles.parseIntCompactDescr(itemCD)
         if itemTypeID not in GUI_ITEM_TYPE.VEHICLE_MODULES:
             raise SoftException('Specified type (itemTypeID={}) is not type of module'.format(itemTypeID))
@@ -445,8 +446,41 @@ class BuyAndInstallItemAction(InstallItemAction):
                 vehicle = self._itemsCache.items.getItemByCD(rootCD)
                 if item.isInstalled(vehicle):
                     yield tryToLoadDefaultShellsLayout(vehicle)
+            callback((result, proc.requestCtx))
         RequestState.received(state)
-        yield lambda callback=None: callback
+        yield lambda callback=None: partial(callback, (False, {}))
+        return
+
+
+class BuyAndInstallWithOptionalSellItemAction(BuyAndInstallItemAction):
+    AUTO_SELL_KEY = 'sellPreviousModule'
+
+    @process
+    def doAction(self):
+        if RequestState.inProcess('buyAndInstall'):
+            SystemMessages.pushI18nMessage('#system_messages:shop/item/buy_and_equip_in_processing', type=SystemMessages.SM_TYPE.Warning)
+        itemToSellCD = self._getItemToBeReplaced(self._itemCD)
+        isSuccess, data = yield self.buyAndInstallItem(self._itemCD, self._rootCD, 'buyAndInstall')
+        _logger.debug('buyAndInstallAction was a success: %s data: %s', isSuccess, data)
+        if self.AUTO_SELL_KEY in data and data[self.AUTO_SELL_KEY]:
+            self.sellModule(itemToSellCD)
+
+    def _getItemToBeReplaced(self, itemCD):
+        vehicle = self._itemsCache.items.getItemByCD(self._rootCD)
+        itemTypeIdx, _, _ = parseIntCompactDescr(itemCD)
+        installedModuleCD = vehicle.descriptor.getComponentsByType(ITEM_TYPE_NAMES[itemTypeIdx])[0].compactDescr
+        return installedModuleCD
+
+    @process
+    def sellModule(self, moduleToSellCD):
+        moduleToSell = self._itemsCache.items.getItemByCD(moduleToSellCD)
+        _logger.debug('sellModule module %s isInInventory=%s itemsCache synced %s', moduleToSell.userName, moduleToSell.isInInventory, self._itemsCache.isSynced())
+        if moduleToSell.isInInventory:
+            result = yield ModuleSeller(moduleToSell, count=1).request()
+            if result.userMsg:
+                SystemMessages.pushI18nMessage(result.userMsg, type=result.sysMsgType)
+        else:
+            yield lambda callback=None: callback
         return
 
 

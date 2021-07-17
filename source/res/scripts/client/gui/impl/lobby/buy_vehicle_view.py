@@ -7,7 +7,6 @@ import adisp
 import nations
 import constants
 from CurrentVehicle import g_currentPreviewVehicle
-from gui.game_control.event_progression_controller import EventProgressionScreens
 from gui.impl import backport
 from gui.impl.pub.lobby_window import LobbyWindow
 from items import UNDEFINED_ITEM_CD
@@ -51,7 +50,7 @@ from gui.shared.events import VehicleBuyEvent
 from gui.shared.gui_items.processors.vehicle import VehicleBuyer, VehicleSlotBuyer, VehicleRenter, VehicleTradeInProcessor, VehicleRestoreProcessor, VehiclePersonalTradeInProcessor
 from helpers import i18n, dependency, int2roman, func_utils
 from shared_utils import CONST_CONTAINER
-from skeletons.gui.game_control import IRentalsController, ITradeInController, IRestoreController, IBootcampController, IWalletController, IEventProgressionController, IPersonalTradeInController, ISoundEventChecker
+from skeletons.gui.game_control import IRentalsController, ITradeInController, IRestoreController, IBootcampController, IWalletController, IPersonalTradeInController, ISoundEventChecker
 from skeletons.gui.shared import IItemsCache
 from frameworks.wulf import WindowFlags, ViewStatus, ViewSettings
 _logger = logging.getLogger(__name__)
@@ -80,7 +79,6 @@ class BuyVehicleView(ViewImpl, EventSystemEntity):
     __wallet = dependency.descriptor(IWalletController)
     __restore = dependency.descriptor(IRestoreController)
     __bootcamp = dependency.descriptor(IBootcampController)
-    __eventProgression = dependency.descriptor(IEventProgressionController)
     __soundEventChecker = dependency.descriptor(ISoundEventChecker)
     __RENT_NOT_SELECTED_IDX = -2
     __RENT_UNLIM_IDX = -1
@@ -413,8 +411,6 @@ class BuyVehicleView(ViewImpl, EventSystemEntity):
                 else:
                     event = g_entitiesFactories.makeLoadEvent(SFViewLoadParams(self.__returnAlias), {'isBackEvent': True})
                     returnCallback = partial(self.fireEvent, event, scope=EVENT_BUS_SCOPE.LOBBY)
-            elif self.__previousAlias == VIEW_ALIAS.EVENT_PROGRESSION_VEHICLE_PREVIEW:
-                returnCallback = partial(self.__eventProgression.showCustomScreen, EventProgressionScreens.MAIN)
         self.__returnCallback = returnCallback
         return
 

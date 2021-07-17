@@ -55,8 +55,8 @@ class ICarouselEnvironment(object):
     def hasRoles(self):
         return False
 
-    def hasBattleRoyaleVehicles(self):
-        return False
+    def getCustomParams(self):
+        return dict()
 
 
 class CarouselEnvironment(CarouselEnvironmentMeta, IGlobalListener, ICarouselEnvironment):

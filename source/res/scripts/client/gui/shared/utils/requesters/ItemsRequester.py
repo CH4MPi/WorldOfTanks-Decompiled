@@ -18,7 +18,7 @@ from gui.shared.gui_items.gui_item_economics import ITEM_PRICE_EMPTY
 from gui.shared.utils.requesters.battle_pass_requester import BattlePassRequester
 from helpers import dependency
 from items import vehicles, tankmen, getTypeOfCompactDescr, makeIntCompactDescrByID
-from items.components.c11n_constants import SeasonType
+from items.components.c11n_constants import SeasonType, CustomizationDisplayType
 from items.components.crew_skins_constants import CrewSkinType
 from skeletons.gui.shared import IItemsRequester, IItemsCache
 from skeletons.gui.shared.gui_items import IGuiItemsFactory
@@ -245,7 +245,7 @@ class REQ_CRITERIA(object):
         LOCKED = RequestCriteria(PredicateCondition(lambda item: item.isLocked))
         CLASSES = staticmethod(lambda types=constants.VEHICLE_CLASS_INDICES.keys(): RequestCriteria(PredicateCondition(lambda item: item.type in types)))
         LEVELS = staticmethod(lambda levels=range(1, constants.MAX_VEHICLE_LEVEL + 1): RequestCriteria(PredicateCondition(lambda item: item.level in levels)))
-        ACTION_GROUPS = staticmethod(lambda actionsGroups=constants.ACTION_LABEL_TO_TYPE.keys(): RequestCriteria(PredicateCondition(lambda item: item.actionsGroupLabel in actionsGroups)))
+        ROLES = staticmethod(lambda roles=constants.ROLE_LABEL_TO_TYPE.keys(): RequestCriteria(PredicateCondition(lambda item: item.roleLabel in roles)))
         LEVEL = staticmethod(lambda level=1: RequestCriteria(PredicateCondition(lambda item: item.level == level)))
         SPECIFIC_BY_CD = staticmethod(lambda typeCompDescrs: RequestCriteria(PredicateCondition(lambda item: item.intCD in typeCompDescrs)))
         SPECIFIC_BY_NAME = staticmethod(lambda typeNames: RequestCriteria(PredicateCondition(lambda item: item.name in typeNames)))
@@ -270,6 +270,7 @@ class REQ_CRITERIA(object):
         EVENT_BATTLE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForEventBattles))
         EPIC_BATTLE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForEpicBattles))
         BATTLE_ROYALE = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForBattleRoyaleBattles))
+        MAPS_TRAINING = RequestCriteria(PredicateCondition(lambda item: item.isOnlyForMapsTrainingBattles))
         HAS_XP_FACTOR = RequestCriteria(PredicateCondition(lambda item: item.dailyXPFactor != -1))
         IS_RESTORE_POSSIBLE = RequestCriteria(PredicateCondition(lambda item: item.isRestorePossible()))
         CAN_TRADE_IN = RequestCriteria(PredicateCondition(lambda item: item.canTradeIn))
@@ -343,7 +344,9 @@ class REQ_CRITERIA(object):
         DESERT = RequestCriteria(PredicateCondition(lambda item: item.isDesert()))
         ALL_SEASON = RequestCriteria(PredicateCondition(lambda item: item.isAllSeason()))
         SEASON = staticmethod(lambda season: RequestCriteria(PredicateCondition(lambda item: item.season & season)))
-        HISTORICAL = RequestCriteria(PredicateCondition(lambda item: item.isHistorical()))
+        HISTORICAL = RequestCriteria(PredicateCondition(lambda item: item.customizationDisplayType() == CustomizationDisplayType.HISTORICAL))
+        NON_HISTORICAL = RequestCriteria(PredicateCondition(lambda item: item.customizationDisplayType() == CustomizationDisplayType.NON_HISTORICAL))
+        FANTASTICAL = RequestCriteria(PredicateCondition(lambda item: item.customizationDisplayType() == CustomizationDisplayType.FANTASTICAL))
         FOR_VEHICLE = staticmethod(lambda vehicle: RequestCriteria(PredicateCondition(lambda item: item.mayInstall(vehicle))))
         UNLOCKED_BY = staticmethod(lambda token: RequestCriteria(PredicateCondition(lambda item: item.requiredToken == token)))
         IS_UNLOCKED = staticmethod(lambda progress: RequestCriteria(PredicateCondition(lambda item: not item.requiredToken or item.requiredToken and progress.getTokenCount(item.requiredToken) > 0)))
@@ -359,7 +362,7 @@ class REQ_CRITERIA(object):
 
 
 class RESEARCH_CRITERIA(object):
-    VEHICLE_TO_UNLOCK = ~REQ_CRITERIA.SECRET | ~REQ_CRITERIA.HIDDEN | ~REQ_CRITERIA.VEHICLE.PREMIUM | ~REQ_CRITERIA.VEHICLE.IS_PREMIUM_IGR | ~REQ_CRITERIA.VEHICLE.EVENT | ~REQ_CRITERIA.VEHICLE.BATTLE_ROYALE
+    VEHICLE_TO_UNLOCK = ~REQ_CRITERIA.SECRET | ~REQ_CRITERIA.HIDDEN | ~REQ_CRITERIA.VEHICLE.PREMIUM | ~REQ_CRITERIA.VEHICLE.IS_PREMIUM_IGR | ~REQ_CRITERIA.VEHICLE.EVENT | ~REQ_CRITERIA.VEHICLE.BATTLE_ROYALE | ~REQ_CRITERIA.VEHICLE.MAPS_TRAINING
 
 
 class ItemsRequester(IItemsRequester):

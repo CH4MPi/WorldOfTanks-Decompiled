@@ -7,6 +7,8 @@ from gui.impl.gen.view_models.views.lobby.tank_setup.tank_setup_constants import
 from gui.impl.lobby.tabs_controller import TabsController, tabUpdateFunc
 from gui.impl.lobby.tank_setup.ammunition_panel_blocks import OptDeviceBlock, ShellsBlock, ConsumablesBlock, BattleBoostersBlock, BattleAbilitiesBlock
 from gui.prb_control import prbDispatcherProperty
+from helpers import dependency
+from skeletons.gui.game_control import IEpicBattleMetaGameController
 RANDOM_BATTLE_TABS = (TankSetupConstants.OPT_DEVICES,
  TankSetupConstants.SHELLS,
  TankSetupConstants.CONSUMABLES,
@@ -31,6 +33,7 @@ class BaseAmmunitionBlocksController(TabsController):
 
 class AmmunitionBlocksController(BaseAmmunitionBlocksController):
     __slots__ = ()
+    __epicMetaGameCtrl = dependency.descriptor(IEpicBattleMetaGameController)
 
     @prbDispatcherProperty
     def prbDispatcher(self):
@@ -40,7 +43,7 @@ class AmmunitionBlocksController(BaseAmmunitionBlocksController):
         if self._vehicle is None:
             return []
         else:
-            return FRONTLINE_TABS if self.prbDispatcher is not None and self.prbDispatcher.getFunctionalState().isInPreQueue(QUEUE_TYPE.EPIC) or self.prbDispatcher.getFunctionalState().isInUnit(PREBATTLE_TYPE.EPIC) else RANDOM_BATTLE_TABS
+            return FRONTLINE_TABS if self.prbDispatcher is not None and (self.prbDispatcher.getFunctionalState().isInPreQueue(QUEUE_TYPE.EPIC) or self.prbDispatcher.getFunctionalState().isInUnit(PREBATTLE_TYPE.EPIC)) and self._vehicle.level in self.__epicMetaGameCtrl.getValidVehicleLevels() else RANDOM_BATTLE_TABS
 
     @tabUpdateFunc(TankSetupConstants.OPT_DEVICES)
     def _updateOptDevices(self, viewModel, isFirst=False):

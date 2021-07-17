@@ -14,7 +14,7 @@ from gui.shared.gui_items.Vehicle import Vehicle
 from gui.shared.utils.requesters.ItemsRequester import REQ_CRITERIA
 from helpers import dependency
 from helpers.local_cache import FileLocalCache
-from items import getTypeOfCompactDescr, ITEM_TYPE_NAMES, vehicles, EQUIPMENT_TYPES, ITEM_TYPES
+from items import ITEM_TYPE_NAMES, vehicles, EQUIPMENT_TYPES, ITEM_TYPES
 from items.vehicles import VehicleDescr
 from nation_change_helpers.client_nation_change_helper import getValidVehicleCDForNationChange
 from skeletons.gui.game_control import IVehicleComparisonBasket, IBootcampController
@@ -34,19 +34,6 @@ def getVehicleCriteriaForComparing():
 
 def isValidVehicleForComparing(vehicle):
     return vehicle is not None and getVehicleCriteriaForComparing()(vehicle)
-
-
-@dependency.replace_none_kwargs(itemsCache=IItemsCache)
-def getSuitableChassis(vehicle, itemsCache=None):
-    chassis = []
-    for _, _, nodeCD, _ in vehicle.getUnlocksDescrs():
-        itemTypeID = getTypeOfCompactDescr(nodeCD)
-        if itemTypeID == GUI_ITEM_TYPE.CHASSIS:
-            chassisCand = itemsCache.items.getItemByCD(nodeCD)
-            if chassisCand.mayInstall(vehicle) and not chassisCand.isInstalled(vehicle):
-                chassis.append(chassisCand)
-
-    return chassis
 
 
 def getInstalledModulesCDs(vehicle):

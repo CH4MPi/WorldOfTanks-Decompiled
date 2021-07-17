@@ -187,12 +187,6 @@ class RES_SHOP(object):
     MAPS_SHOP_KPI_INFINITY_BENEFITS = '../maps/shop/kpi/infinity_benefits.png'
     MAPS_SHOP_KPI_MONEY_BENEFITS = '../maps/shop/kpi/money_benefits.png'
     MAPS_SHOP_KPI_STAR_ICON_BENEFITS = '../maps/shop/kpi/star_icon_benefits.png'
-    MAPS_SHOP_MISC_CARD_WG = '../maps/shop/misc/card_wg.png'
-    MAPS_SHOP_MISC_PAYPAL = '../maps/shop/misc/paypal.png'
-    MAPS_SHOP_MISC_QIWI = '../maps/shop/misc/qiwi.png'
-    MAPS_SHOP_MISC_VISA_NA = '../maps/shop/misc/visa.NA.png'
-    MAPS_SHOP_MISC_VISA = '../maps/shop/misc/visa.png'
-    MAPS_SHOP_MISC_YANDEX = '../maps/shop/misc/yandex.png'
     MAPS_SHOP_MODULES_180X135_VEHICLECHASSIS = '../maps/shop/modules/180x135/vehicleChassis.png'
     MAPS_SHOP_MODULES_180X135_VEHICLEENGINE = '../maps/shop/modules/180x135/vehicleEngine.png'
     MAPS_SHOP_MODULES_180X135_VEHICLEGUN = '../maps/shop/modules/180x135/vehicleGun.png'
@@ -333,6 +327,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_A127_TL_1_LPC = '../maps/shop/vehicles/180x135/A127_TL_1_LPC.png'
     MAPS_SHOP_VEHICLES_180X135_A128_CONCEPT_1B = '../maps/shop/vehicles/180x135/A128_concept_1b.png'
     MAPS_SHOP_VEHICLES_180X135_A129_T6_MEDIUM = '../maps/shop/vehicles/180x135/A129_T6_medium.png'
+    MAPS_SHOP_VEHICLES_180X135_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1 = '../maps/shop/vehicles/180x135/A129_T6_medium_MapsTraining_Dummy_MT_1.png'
     MAPS_SHOP_VEHICLES_180X135_A12_T32 = '../maps/shop/vehicles/180x135/A12_T32.png'
     MAPS_SHOP_VEHICLES_180X135_A12_T32_FL = '../maps/shop/vehicles/180x135/A12_T32_FL.png'
     MAPS_SHOP_VEHICLES_180X135_A130_SUPER_HELLCAT = '../maps/shop/vehicles/180x135/A130_Super_Hellcat.png'
@@ -342,12 +337,15 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY = '../maps/shop/vehicles/180x135/A13_T34_hvy.png'
     MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY_BF = '../maps/shop/vehicles/180x135/A13_T34_hvy_BF.png'
     MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY_FL = '../maps/shop/vehicles/180x135/A13_T34_hvy_FL.png'
+    MAPS_SHOP_VEHICLES_180X135_A140_ASTRON_REX_105MM = '../maps/shop/vehicles/180x135/A140_ASTRON_REX_105mm.png'
     MAPS_SHOP_VEHICLES_180X135_A14_T30 = '../maps/shop/vehicles/180x135/A14_T30.png'
+    MAPS_SHOP_VEHICLES_180X135_A14_T30_FL = '../maps/shop/vehicles/180x135/A14_T30_FL.png'
     MAPS_SHOP_VEHICLES_180X135_A16_M7_PRIEST = '../maps/shop/vehicles/180x135/A16_M7_Priest.png'
     MAPS_SHOP_VEHICLES_180X135_A17_M37 = '../maps/shop/vehicles/180x135/A17_M37.png'
     MAPS_SHOP_VEHICLES_180X135_A18_M41 = '../maps/shop/vehicles/180x135/A18_M41.png'
     MAPS_SHOP_VEHICLES_180X135_A19_T2_LT = '../maps/shop/vehicles/180x135/A19_T2_lt.png'
     MAPS_SHOP_VEHICLES_180X135_A21_T14 = '../maps/shop/vehicles/180x135/A21_T14.png'
+    MAPS_SHOP_VEHICLES_180X135_A21_T14_MAPSTRAINING_PLAYER_HT_1 = '../maps/shop/vehicles/180x135/A21_T14_MapsTraining_Player_HT_1.png'
     MAPS_SHOP_VEHICLES_180X135_A22_M5_STUART = '../maps/shop/vehicles/180x135/A22_M5_Stuart.png'
     MAPS_SHOP_VEHICLES_180X135_A23_M7_MED = '../maps/shop/vehicles/180x135/A23_M7_med.png'
     MAPS_SHOP_VEHICLES_180X135_A24_T2_MED = '../maps/shop/vehicles/180x135/A24_T2_med.png'
@@ -374,6 +372,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_A58_T67 = '../maps/shop/vehicles/180x135/A58_T67.png'
     MAPS_SHOP_VEHICLES_180X135_A62_RAM_II = '../maps/shop/vehicles/180x135/A62_Ram-II.png'
     MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON = '../maps/shop/vehicles/180x135/A63_M46_Patton.png'
+    MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON_FL = '../maps/shop/vehicles/180x135/A63_M46_Patton_FL.png'
     MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON_KR = '../maps/shop/vehicles/180x135/A63_M46_Patton_KR.png'
     MAPS_SHOP_VEHICLES_180X135_A64_T25_AT = '../maps/shop/vehicles/180x135/A64_T25_AT.png'
     MAPS_SHOP_VEHICLES_180X135_A66_M103 = '../maps/shop/vehicles/180x135/A66_M103.png'
@@ -382,6 +381,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_A69_T110E5 = '../maps/shop/vehicles/180x135/A69_T110E5.png'
     MAPS_SHOP_VEHICLES_180X135_A69_T110E5_BOB = '../maps/shop/vehicles/180x135/A69_T110E5_bob.png'
     MAPS_SHOP_VEHICLES_180X135_A71_T21 = '../maps/shop/vehicles/180x135/A71_T21.png'
+    MAPS_SHOP_VEHICLES_180X135_A71_T21_MAPSTRAINING_DUMMY_LT_2 = '../maps/shop/vehicles/180x135/A71_T21_MapsTraining_Dummy_LT_2.png'
     MAPS_SHOP_VEHICLES_180X135_A72_T25_2 = '../maps/shop/vehicles/180x135/A72_T25_2.png'
     MAPS_SHOP_VEHICLES_180X135_A72_T25_2_SH = '../maps/shop/vehicles/180x135/A72_T25_2_SH.png'
     MAPS_SHOP_VEHICLES_180X135_A74_T1_E6 = '../maps/shop/vehicles/180x135/A74_T1_E6.png'
@@ -416,6 +416,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_CH10_IS2 = '../maps/shop/vehicles/180x135/Ch10_IS2.png'
     MAPS_SHOP_VEHICLES_180X135_CH11_110 = '../maps/shop/vehicles/180x135/Ch11_110.png'
     MAPS_SHOP_VEHICLES_180X135_CH12_111_1_2_3 = '../maps/shop/vehicles/180x135/Ch12_111_1_2_3.png'
+    MAPS_SHOP_VEHICLES_180X135_CH12_111_1_2_3_FL = '../maps/shop/vehicles/180x135/Ch12_111_1_2_3_FL.png'
     MAPS_SHOP_VEHICLES_180X135_CH14_T34_3 = '../maps/shop/vehicles/180x135/Ch14_T34_3.png'
     MAPS_SHOP_VEHICLES_180X135_CH15_59_16 = '../maps/shop/vehicles/180x135/Ch15_59_16.png'
     MAPS_SHOP_VEHICLES_180X135_CH16_WZ_131 = '../maps/shop/vehicles/180x135/Ch16_WZ_131.png'
@@ -467,6 +468,10 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_CZ13_T_27 = '../maps/shop/vehicles/180x135/Cz13_T_27.png'
     MAPS_SHOP_VEHICLES_180X135_CZ14_SKODA_T_56 = '../maps/shop/vehicles/180x135/Cz14_Skoda_T-56.png'
     MAPS_SHOP_VEHICLES_180X135_CZ15_SKODA_T_45_PREM = '../maps/shop/vehicles/180x135/Cz15_Skoda_T-45_Prem.png'
+    MAPS_SHOP_VEHICLES_180X135_CZ16_TNH_T_VZ51 = '../maps/shop/vehicles/180x135/Cz16_TNH_T_vz51.png'
+    MAPS_SHOP_VEHICLES_180X135_CZ17_VZ_55 = '../maps/shop/vehicles/180x135/Cz17_Vz_55.png'
+    MAPS_SHOP_VEHICLES_180X135_CZ18_TNH_105_1000 = '../maps/shop/vehicles/180x135/Cz18_TNH_105_1000.png'
+    MAPS_SHOP_VEHICLES_180X135_CZ19_VZ_44_1 = '../maps/shop/vehicles/180x135/Cz19_Vz_44_1.png'
     MAPS_SHOP_VEHICLES_180X135_EMPTY_TANK = '../maps/shop/vehicles/180x135/empty_tank.png'
     MAPS_SHOP_VEHICLES_180X135_F01_RENAULTFT = '../maps/shop/vehicles/180x135/F01_RenaultFT.png'
     MAPS_SHOP_VEHICLES_180X135_F02_D1 = '../maps/shop/vehicles/180x135/F02_D1.png'
@@ -504,6 +509,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_F21_LORRAINE39_L_AM = '../maps/shop/vehicles/180x135/F21_Lorraine39_L_AM.png'
     MAPS_SHOP_VEHICLES_180X135_F22_AMX_105AM = '../maps/shop/vehicles/180x135/F22_AMX_105AM.png'
     MAPS_SHOP_VEHICLES_180X135_F23_AMX_13F3AM = '../maps/shop/vehicles/180x135/F23_AMX_13F3AM.png'
+    MAPS_SHOP_VEHICLES_180X135_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2 = '../maps/shop/vehicles/180x135/F23_AMX_13F3AM_MapsTraining_Dummy_SPG_2.png'
     MAPS_SHOP_VEHICLES_180X135_F24_LORRAINE155_50 = '../maps/shop/vehicles/180x135/F24_Lorraine155_50.png'
     MAPS_SHOP_VEHICLES_180X135_F25_LORRAINE155_51 = '../maps/shop/vehicles/180x135/F25_Lorraine155_51.png'
     MAPS_SHOP_VEHICLES_180X135_F27_FCM_36PAK40 = '../maps/shop/vehicles/180x135/F27_FCM_36Pak40.png'
@@ -543,6 +549,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_F81_CHAR_DE_65T = '../maps/shop/vehicles/180x135/F81_Char_de_65t.png'
     MAPS_SHOP_VEHICLES_180X135_F82_AMX_M4_MLE1949_TER = '../maps/shop/vehicles/180x135/F82_AMX_M4_Mle1949_Ter.png'
     MAPS_SHOP_VEHICLES_180X135_F83_AMX_M4_MLE1949_BIS = '../maps/shop/vehicles/180x135/F83_AMX_M4_Mle1949_Bis.png'
+    MAPS_SHOP_VEHICLES_180X135_F83_AMX_M4_MLE1949_BIS_FL = '../maps/shop/vehicles/180x135/F83_AMX_M4_Mle1949_Bis_FL.png'
     MAPS_SHOP_VEHICLES_180X135_F84_SOMUA_SM = '../maps/shop/vehicles/180x135/F84_Somua_SM.png'
     MAPS_SHOP_VEHICLES_180X135_F85_M4A1_FL10 = '../maps/shop/vehicles/180x135/F85_M4A1_FL10.png'
     MAPS_SHOP_VEHICLES_180X135_F87_BATIGNOLLES_CHATILLON_12T = '../maps/shop/vehicles/180x135/F87_Batignolles-Chatillon_12t.png'
@@ -554,11 +561,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_G03_PZV_PANTHER = '../maps/shop/vehicles/180x135/G03_PzV_Panther.png'
     MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_I = '../maps/shop/vehicles/180x135/G04_PzVI_Tiger_I.png'
     MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_IA = '../maps/shop/vehicles/180x135/G04_PzVI_Tiger_IA.png'
+    MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2 = '../maps/shop/vehicles/180x135/G04_PzVI_Tiger_I_MapsTraining_Player_HT_2.png'
     MAPS_SHOP_VEHICLES_180X135_G05_STUG_40_AUSFG = '../maps/shop/vehicles/180x135/G05_StuG_40_AusfG.png'
     MAPS_SHOP_VEHICLES_180X135_G06_PZII = '../maps/shop/vehicles/180x135/G06_PzII.png'
     MAPS_SHOP_VEHICLES_180X135_G07_PZ35T = '../maps/shop/vehicles/180x135/G07_Pz35t.png'
     MAPS_SHOP_VEHICLES_180X135_G08_PZ38T = '../maps/shop/vehicles/180x135/G08_Pz38t.png'
     MAPS_SHOP_VEHICLES_180X135_G09_HETZER = '../maps/shop/vehicles/180x135/G09_Hetzer.png'
+    MAPS_SHOP_VEHICLES_180X135_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1 = '../maps/shop/vehicles/180x135/G09_Hetzer_MapsTraining_Dummy_ATSPG_1.png'
     MAPS_SHOP_VEHICLES_180X135_G100_GTRAKTOR_KRUPP = '../maps/shop/vehicles/180x135/G100_Gtraktor_Krupp.png'
     MAPS_SHOP_VEHICLES_180X135_G101_STUG_III = '../maps/shop/vehicles/180x135/G101_StuG_III.png'
     MAPS_SHOP_VEHICLES_180X135_G102_PZ_III = '../maps/shop/vehicles/180x135/G102_Pz_III.png'
@@ -608,6 +617,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_G147_KUNZE_PANZER = '../maps/shop/vehicles/180x135/G147_Kunze_Panzer.png'
     MAPS_SHOP_VEHICLES_180X135_G151_PZ_SFL_IC = '../maps/shop/vehicles/180x135/G151_Pz_Sfl_IC.png'
     MAPS_SHOP_VEHICLES_180X135_G154_KPZ_07_RH = '../maps/shop/vehicles/180x135/G154_Kpz_07_RH.png'
+    MAPS_SHOP_VEHICLES_180X135_G158_VK2801_105_SPXXI = '../maps/shop/vehicles/180x135/G158_VK2801_105_SPXXI.png'
     MAPS_SHOP_VEHICLES_180X135_G15_VK3601H = '../maps/shop/vehicles/180x135/G15_VK3601H.png'
     MAPS_SHOP_VEHICLES_180X135_G16_PZVIB_TIGER_II = '../maps/shop/vehicles/180x135/G16_PzVIB_Tiger_II.png'
     MAPS_SHOP_VEHICLES_180X135_G16_PZVIB_TIGER_II_F = '../maps/shop/vehicles/180x135/G16_PzVIB_Tiger_II_F.png'
@@ -633,13 +643,16 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_G35_B_1BIS_CAPTURED = '../maps/shop/vehicles/180x135/G35_B-1bis_captured.png'
     MAPS_SHOP_VEHICLES_180X135_G36_PZII_J = '../maps/shop/vehicles/180x135/G36_PzII_J.png'
     MAPS_SHOP_VEHICLES_180X135_G37_FERDINAND = '../maps/shop/vehicles/180x135/G37_Ferdinand.png'
+    MAPS_SHOP_VEHICLES_180X135_G37_FERDINAND_FL = '../maps/shop/vehicles/180x135/G37_Ferdinand_FL.png'
     MAPS_SHOP_VEHICLES_180X135_G39_MARDER_III = '../maps/shop/vehicles/180x135/G39_Marder_III.png'
     MAPS_SHOP_VEHICLES_180X135_G40_NASHORN = '../maps/shop/vehicles/180x135/G40_Nashorn.png'
+    MAPS_SHOP_VEHICLES_180X135_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2 = '../maps/shop/vehicles/180x135/G40_Nashorn_MapsTraining_Dummy_ATSPG_2.png'
     MAPS_SHOP_VEHICLES_180X135_G41_DICKERMAX = '../maps/shop/vehicles/180x135/G41_DickerMax.png'
     MAPS_SHOP_VEHICLES_180X135_G42_MAUS = '../maps/shop/vehicles/180x135/G42_Maus.png'
     MAPS_SHOP_VEHICLES_180X135_G43_STURER_EMIL = '../maps/shop/vehicles/180x135/G43_Sturer_Emil.png'
     MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGER = '../maps/shop/vehicles/180x135/G44_JagdTiger.png'
     MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGERH = '../maps/shop/vehicles/180x135/G44_JagdTigerH.png'
+    MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGER_FL = '../maps/shop/vehicles/180x135/G44_JagdTiger_FL.png'
     MAPS_SHOP_VEHICLES_180X135_G45_G_TIGER = '../maps/shop/vehicles/180x135/G45_G_Tiger.png'
     MAPS_SHOP_VEHICLES_180X135_G46_T_25 = '../maps/shop/vehicles/180x135/G46_T-25.png'
     MAPS_SHOP_VEHICLES_180X135_G48_E_25 = '../maps/shop/vehicles/180x135/G48_E-25.png'
@@ -650,6 +663,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_G52_PZ38_NA = '../maps/shop/vehicles/180x135/G52_Pz38_NA.png'
     MAPS_SHOP_VEHICLES_180X135_G53_PZI = '../maps/shop/vehicles/180x135/G53_PzI.png'
     MAPS_SHOP_VEHICLES_180X135_G54_E_50 = '../maps/shop/vehicles/180x135/G54_E-50.png'
+    MAPS_SHOP_VEHICLES_180X135_G54_E_50_FL = '../maps/shop/vehicles/180x135/G54_E-50_FL.png'
     MAPS_SHOP_VEHICLES_180X135_G55_E_75 = '../maps/shop/vehicles/180x135/G55_E-75.png'
     MAPS_SHOP_VEHICLES_180X135_G56_E_100 = '../maps/shop/vehicles/180x135/G56_E-100.png'
     MAPS_SHOP_VEHICLES_180X135_G57_PZVI_TIGER_P = '../maps/shop/vehicles/180x135/G57_PzVI_Tiger_P.png'
@@ -681,6 +695,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_G89_LEOPARD1 = '../maps/shop/vehicles/180x135/G89_Leopard1.png'
     MAPS_SHOP_VEHICLES_180X135_G89_LEOPARD1_BOB = '../maps/shop/vehicles/180x135/G89_Leopard1_bob.png'
     MAPS_SHOP_VEHICLES_180X135_G90_DW_II = '../maps/shop/vehicles/180x135/G90_DW_II.png'
+    MAPS_SHOP_VEHICLES_180X135_G90_DW_II_MAPSTRAINING_DUMMY_HT_1 = '../maps/shop/vehicles/180x135/G90_DW_II_MapsTraining_Dummy_HT_1.png'
     MAPS_SHOP_VEHICLES_180X135_G91_PRO_AG_A = '../maps/shop/vehicles/180x135/G91_Pro_Ag_A.png'
     MAPS_SHOP_VEHICLES_180X135_G92_VK7201 = '../maps/shop/vehicles/180x135/G92_VK7201.png'
     MAPS_SHOP_VEHICLES_180X135_G93_GW_MK_VIE = '../maps/shop/vehicles/180x135/G93_GW_Mk_VIe.png'
@@ -713,11 +728,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_GB10_BLACK_PRINCE = '../maps/shop/vehicles/180x135/GB10_Black_Prince.png'
     MAPS_SHOP_VEHICLES_180X135_GB11_CAERNARVON = '../maps/shop/vehicles/180x135/GB11_Caernarvon.png'
     MAPS_SHOP_VEHICLES_180X135_GB12_CONQUEROR = '../maps/shop/vehicles/180x135/GB12_Conqueror.png'
+    MAPS_SHOP_VEHICLES_180X135_GB12_CONQUEROR_FL = '../maps/shop/vehicles/180x135/GB12_Conqueror_FL.png'
     MAPS_SHOP_VEHICLES_180X135_GB13_FV215B = '../maps/shop/vehicles/180x135/GB13_FV215b.png'
     MAPS_SHOP_VEHICLES_180X135_GB14_M2 = '../maps/shop/vehicles/180x135/GB14_M2.png'
     MAPS_SHOP_VEHICLES_180X135_GB15_STUART_I = '../maps/shop/vehicles/180x135/GB15_Stuart_I.png'
     MAPS_SHOP_VEHICLES_180X135_GB17_GRANT_I = '../maps/shop/vehicles/180x135/GB17_Grant_I.png'
     MAPS_SHOP_VEHICLES_180X135_GB19_SHERMAN_FIREFLY = '../maps/shop/vehicles/180x135/GB19_Sherman_Firefly.png'
+    MAPS_SHOP_VEHICLES_180X135_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2 = '../maps/shop/vehicles/180x135/GB19_Sherman_Firefly_MapsTraining_Dummy_MT_2.png'
     MAPS_SHOP_VEHICLES_180X135_GB20_CRUSADER = '../maps/shop/vehicles/180x135/GB20_Crusader.png'
     MAPS_SHOP_VEHICLES_180X135_GB21_CROMWELL = '../maps/shop/vehicles/180x135/GB21_Cromwell.png'
     MAPS_SHOP_VEHICLES_180X135_GB22_COMET = '../maps/shop/vehicles/180x135/GB22_Comet.png'
@@ -813,6 +830,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_J12_CHI_NU_KAI = '../maps/shop/vehicles/180x135/J12_Chi_Nu_Kai.png'
     MAPS_SHOP_VEHICLES_180X135_J13_STA_1 = '../maps/shop/vehicles/180x135/J13_STA_1.png'
     MAPS_SHOP_VEHICLES_180X135_J14_TYPE_61 = '../maps/shop/vehicles/180x135/J14_Type_61.png'
+    MAPS_SHOP_VEHICLES_180X135_J14_TYPE_61_FL = '../maps/shop/vehicles/180x135/J14_Type_61_FL.png'
     MAPS_SHOP_VEHICLES_180X135_J15_CHI_NI = '../maps/shop/vehicles/180x135/J15_Chi_Ni.png'
     MAPS_SHOP_VEHICLES_180X135_J16_ST_B1 = '../maps/shop/vehicles/180x135/J16_ST_B1.png'
     MAPS_SHOP_VEHICLES_180X135_J18_STA_2_3 = '../maps/shop/vehicles/180x135/J18_STA_2_3.png'
@@ -831,6 +849,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_PL01_TKS_20MM = '../maps/shop/vehicles/180x135/Pl01_TKS_20mm.png'
     MAPS_SHOP_VEHICLES_180X135_PL03_PZV_POLAND = '../maps/shop/vehicles/180x135/Pl03_PzV_Poland.png'
     MAPS_SHOP_VEHICLES_180X135_PL05_50TP_TYSZKIEWICZA = '../maps/shop/vehicles/180x135/Pl05_50TP_Tyszkiewicza.png'
+    MAPS_SHOP_VEHICLES_180X135_PL05_50TP_TYSZKIEWICZA_FL = '../maps/shop/vehicles/180x135/Pl05_50TP_Tyszkiewicza_FL.png'
     MAPS_SHOP_VEHICLES_180X135_PL06_10TP = '../maps/shop/vehicles/180x135/Pl06_10TP.png'
     MAPS_SHOP_VEHICLES_180X135_PL07_14TP = '../maps/shop/vehicles/180x135/Pl07_14TP.png'
     MAPS_SHOP_VEHICLES_180X135_PL08_50TP_PROTOTYP = '../maps/shop/vehicles/180x135/Pl08_50TP_prototyp.png'
@@ -853,6 +872,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R02_SU_85 = '../maps/shop/vehicles/180x135/R02_SU-85.png'
     MAPS_SHOP_VEHICLES_180X135_R03_BT_7 = '../maps/shop/vehicles/180x135/R03_BT-7.png'
     MAPS_SHOP_VEHICLES_180X135_R04_T_34 = '../maps/shop/vehicles/180x135/R04_T-34.png'
+    MAPS_SHOP_VEHICLES_180X135_R04_T_34_MAPSTRAINING_PLAYER_MT_1 = '../maps/shop/vehicles/180x135/R04_T-34_MapsTraining_Player_MT_1.png'
     MAPS_SHOP_VEHICLES_180X135_R06_T_28 = '../maps/shop/vehicles/180x135/R06_T-28.png'
     MAPS_SHOP_VEHICLES_180X135_R07_T_34_85 = '../maps/shop/vehicles/180x135/R07_T-34-85.png'
     MAPS_SHOP_VEHICLES_180X135_R08_BT_2 = '../maps/shop/vehicles/180x135/R08_BT-2.png'
@@ -865,6 +885,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R107_LTB = '../maps/shop/vehicles/180x135/R107_LTB.png'
     MAPS_SHOP_VEHICLES_180X135_R108_T34_85M = '../maps/shop/vehicles/180x135/R108_T34_85M.png'
     MAPS_SHOP_VEHICLES_180X135_R109_T54S = '../maps/shop/vehicles/180x135/R109_T54S.png'
+    MAPS_SHOP_VEHICLES_180X135_R109_T54S_FL = '../maps/shop/vehicles/180x135/R109_T54S_FL.png'
     MAPS_SHOP_VEHICLES_180X135_R10_AT_1 = '../maps/shop/vehicles/180x135/R10_AT-1.png'
     MAPS_SHOP_VEHICLES_180X135_R110_OBJECT_260 = '../maps/shop/vehicles/180x135/R110_Object_260.png'
     MAPS_SHOP_VEHICLES_180X135_R111_ISU130 = '../maps/shop/vehicles/180x135/R111_ISU130.png'
@@ -911,6 +932,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R148_OBJECT_430_U = '../maps/shop/vehicles/180x135/R148_Object_430_U.png'
     MAPS_SHOP_VEHICLES_180X135_R149_OBJECT_268_4 = '../maps/shop/vehicles/180x135/R149_Object_268_4.png'
     MAPS_SHOP_VEHICLES_180X135_R14_SU_5 = '../maps/shop/vehicles/180x135/R14_SU-5.png'
+    MAPS_SHOP_VEHICLES_180X135_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1 = '../maps/shop/vehicles/180x135/R14_SU-5_MapsTraining_Dummy_SPG_1.png'
     MAPS_SHOP_VEHICLES_180X135_R151_OBJECT_257_2 = '../maps/shop/vehicles/180x135/R151_Object_257_2.png'
     MAPS_SHOP_VEHICLES_180X135_R152_KV2_W = '../maps/shop/vehicles/180x135/R152_KV2_W.png'
     MAPS_SHOP_VEHICLES_180X135_R153_OBJECT_705 = '../maps/shop/vehicles/180x135/R153_Object_705.png'
@@ -939,12 +961,14 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R17_SU_100 = '../maps/shop/vehicles/180x135/R17_SU-100.png'
     MAPS_SHOP_VEHICLES_180X135_R180_OBJECT_274_A = '../maps/shop/vehicles/180x135/R180_Object_274_A.png'
     MAPS_SHOP_VEHICLES_180X135_R183_K_91_PT = '../maps/shop/vehicles/180x135/R183_K_91_PT.png'
+    MAPS_SHOP_VEHICLES_180X135_R185_T_34_L_11_1941 = '../maps/shop/vehicles/180x135/R185_T_34_L_11_1941.png'
     MAPS_SHOP_VEHICLES_180X135_R18_SU_152 = '../maps/shop/vehicles/180x135/R18_SU-152.png'
     MAPS_SHOP_VEHICLES_180X135_R19_IS_3 = '../maps/shop/vehicles/180x135/R19_IS-3.png'
     MAPS_SHOP_VEHICLES_180X135_R20_T_44 = '../maps/shop/vehicles/180x135/R20_T-44.png'
     MAPS_SHOP_VEHICLES_180X135_R20_T_44_FL = '../maps/shop/vehicles/180x135/R20_T-44_FL.png'
     MAPS_SHOP_VEHICLES_180X135_R22_T_46 = '../maps/shop/vehicles/180x135/R22_T-46.png'
     MAPS_SHOP_VEHICLES_180X135_R23_T_43 = '../maps/shop/vehicles/180x135/R23_T-43.png'
+    MAPS_SHOP_VEHICLES_180X135_R23_T_43_MAPSTRAINING_PLAYER_MT_2 = '../maps/shop/vehicles/180x135/R23_T-43_MapsTraining_Player_MT_2.png'
     MAPS_SHOP_VEHICLES_180X135_R24_SU_76 = '../maps/shop/vehicles/180x135/R24_SU-76.png'
     MAPS_SHOP_VEHICLES_180X135_R25_GAZ_74B = '../maps/shop/vehicles/180x135/R25_GAZ-74b.png'
     MAPS_SHOP_VEHICLES_180X135_R26_SU_8 = '../maps/shop/vehicles/180x135/R26_SU-8.png'
@@ -957,10 +981,12 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R38_KV_220_BETA = '../maps/shop/vehicles/180x135/R38_KV-220_beta.png'
     MAPS_SHOP_VEHICLES_180X135_R39_KV_3 = '../maps/shop/vehicles/180x135/R39_KV-3.png'
     MAPS_SHOP_VEHICLES_180X135_R40_T_54 = '../maps/shop/vehicles/180x135/R40_T-54.png'
+    MAPS_SHOP_VEHICLES_180X135_R40_T_54_FL = '../maps/shop/vehicles/180x135/R40_T-54_FL.png'
     MAPS_SHOP_VEHICLES_180X135_R41_T_50 = '../maps/shop/vehicles/180x135/R41_T-50.png'
     MAPS_SHOP_VEHICLES_180X135_R42_T_60 = '../maps/shop/vehicles/180x135/R42_T-60.png'
     MAPS_SHOP_VEHICLES_180X135_R43_T_70 = '../maps/shop/vehicles/180x135/R43_T-70.png'
     MAPS_SHOP_VEHICLES_180X135_R44_T80 = '../maps/shop/vehicles/180x135/R44_T80.png'
+    MAPS_SHOP_VEHICLES_180X135_R44_T80_MAPSTRAINING_DUMMY_LT_1 = '../maps/shop/vehicles/180x135/R44_T80_MapsTraining_Dummy_LT_1.png'
     MAPS_SHOP_VEHICLES_180X135_R45_IS_7 = '../maps/shop/vehicles/180x135/R45_IS-7.png'
     MAPS_SHOP_VEHICLES_180X135_R46_KV_13 = '../maps/shop/vehicles/180x135/R46_KV-13.png'
     MAPS_SHOP_VEHICLES_180X135_R46_KV_13_SH = '../maps/shop/vehicles/180x135/R46_KV-13_SH.png'
@@ -985,6 +1011,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_R68_A_32 = '../maps/shop/vehicles/180x135/R68_A-32.png'
     MAPS_SHOP_VEHICLES_180X135_R71_IS_2B = '../maps/shop/vehicles/180x135/R71_IS_2B.png'
     MAPS_SHOP_VEHICLES_180X135_R72_T150 = '../maps/shop/vehicles/180x135/R72_T150.png'
+    MAPS_SHOP_VEHICLES_180X135_R72_T150_MAPSTRAINING_DUMMY_HT_2 = '../maps/shop/vehicles/180x135/R72_T150_MapsTraining_Dummy_HT_2.png'
     MAPS_SHOP_VEHICLES_180X135_R73_KV4 = '../maps/shop/vehicles/180x135/R73_KV4.png'
     MAPS_SHOP_VEHICLES_180X135_R74_SU100M1 = '../maps/shop/vehicles/180x135/R74_SU100M1.png'
     MAPS_SHOP_VEHICLES_180X135_R75_SU122_54 = '../maps/shop/vehicles/180x135/R75_SU122_54.png'
@@ -1019,6 +1046,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_180X135_S08_IKV_65_ALT_2 = '../maps/shop/vehicles/180x135/S08_Ikv_65_Alt_2.png'
     MAPS_SHOP_VEHICLES_180X135_S09_L_120_TD = '../maps/shop/vehicles/180x135/S09_L_120_TD.png'
     MAPS_SHOP_VEHICLES_180X135_S10_STRV_103_0_SERIES = '../maps/shop/vehicles/180x135/S10_Strv_103_0_Series.png'
+    MAPS_SHOP_VEHICLES_180X135_S10_STRV_103_0_SERIES_FL = '../maps/shop/vehicles/180x135/S10_Strv_103_0_Series_FL.png'
     MAPS_SHOP_VEHICLES_180X135_S11_STRV_103B = '../maps/shop/vehicles/180x135/S11_Strv_103B.png'
     MAPS_SHOP_VEHICLES_180X135_S12_STRV_M40 = '../maps/shop/vehicles/180x135/S12_Strv_M40.png'
     MAPS_SHOP_VEHICLES_180X135_S13_LEO = '../maps/shop/vehicles/180x135/S13_Leo.png'
@@ -1081,6 +1109,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_A127_TL_1_LPC = '../maps/shop/vehicles/360x270/A127_TL_1_LPC.png'
     MAPS_SHOP_VEHICLES_360X270_A128_CONCEPT_1B = '../maps/shop/vehicles/360x270/A128_concept_1b.png'
     MAPS_SHOP_VEHICLES_360X270_A129_T6_MEDIUM = '../maps/shop/vehicles/360x270/A129_T6_medium.png'
+    MAPS_SHOP_VEHICLES_360X270_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1 = '../maps/shop/vehicles/360x270/A129_T6_medium_MapsTraining_Dummy_MT_1.png'
     MAPS_SHOP_VEHICLES_360X270_A12_T32 = '../maps/shop/vehicles/360x270/A12_T32.png'
     MAPS_SHOP_VEHICLES_360X270_A12_T32_FL = '../maps/shop/vehicles/360x270/A12_T32_FL.png'
     MAPS_SHOP_VEHICLES_360X270_A130_SUPER_HELLCAT = '../maps/shop/vehicles/360x270/A130_Super_Hellcat.png'
@@ -1090,12 +1119,15 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY = '../maps/shop/vehicles/360x270/A13_T34_hvy.png'
     MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY_BF = '../maps/shop/vehicles/360x270/A13_T34_hvy_BF.png'
     MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY_FL = '../maps/shop/vehicles/360x270/A13_T34_hvy_FL.png'
+    MAPS_SHOP_VEHICLES_360X270_A140_ASTRON_REX_105MM = '../maps/shop/vehicles/360x270/A140_ASTRON_REX_105mm.png'
     MAPS_SHOP_VEHICLES_360X270_A14_T30 = '../maps/shop/vehicles/360x270/A14_T30.png'
+    MAPS_SHOP_VEHICLES_360X270_A14_T30_FL = '../maps/shop/vehicles/360x270/A14_T30_FL.png'
     MAPS_SHOP_VEHICLES_360X270_A16_M7_PRIEST = '../maps/shop/vehicles/360x270/A16_M7_Priest.png'
     MAPS_SHOP_VEHICLES_360X270_A17_M37 = '../maps/shop/vehicles/360x270/A17_M37.png'
     MAPS_SHOP_VEHICLES_360X270_A18_M41 = '../maps/shop/vehicles/360x270/A18_M41.png'
     MAPS_SHOP_VEHICLES_360X270_A19_T2_LT = '../maps/shop/vehicles/360x270/A19_T2_lt.png'
     MAPS_SHOP_VEHICLES_360X270_A21_T14 = '../maps/shop/vehicles/360x270/A21_T14.png'
+    MAPS_SHOP_VEHICLES_360X270_A21_T14_MAPSTRAINING_PLAYER_HT_1 = '../maps/shop/vehicles/360x270/A21_T14_MapsTraining_Player_HT_1.png'
     MAPS_SHOP_VEHICLES_360X270_A22_M5_STUART = '../maps/shop/vehicles/360x270/A22_M5_Stuart.png'
     MAPS_SHOP_VEHICLES_360X270_A23_M7_MED = '../maps/shop/vehicles/360x270/A23_M7_med.png'
     MAPS_SHOP_VEHICLES_360X270_A24_T2_MED = '../maps/shop/vehicles/360x270/A24_T2_med.png'
@@ -1122,6 +1154,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_A58_T67 = '../maps/shop/vehicles/360x270/A58_T67.png'
     MAPS_SHOP_VEHICLES_360X270_A62_RAM_II = '../maps/shop/vehicles/360x270/A62_Ram-II.png'
     MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON = '../maps/shop/vehicles/360x270/A63_M46_Patton.png'
+    MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON_FL = '../maps/shop/vehicles/360x270/A63_M46_Patton_FL.png'
     MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON_KR = '../maps/shop/vehicles/360x270/A63_M46_Patton_KR.png'
     MAPS_SHOP_VEHICLES_360X270_A64_T25_AT = '../maps/shop/vehicles/360x270/A64_T25_AT.png'
     MAPS_SHOP_VEHICLES_360X270_A66_M103 = '../maps/shop/vehicles/360x270/A66_M103.png'
@@ -1130,6 +1163,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_A69_T110E5 = '../maps/shop/vehicles/360x270/A69_T110E5.png'
     MAPS_SHOP_VEHICLES_360X270_A69_T110E5_BOB = '../maps/shop/vehicles/360x270/A69_T110E5_bob.png'
     MAPS_SHOP_VEHICLES_360X270_A71_T21 = '../maps/shop/vehicles/360x270/A71_T21.png'
+    MAPS_SHOP_VEHICLES_360X270_A71_T21_MAPSTRAINING_DUMMY_LT_2 = '../maps/shop/vehicles/360x270/A71_T21_MapsTraining_Dummy_LT_2.png'
     MAPS_SHOP_VEHICLES_360X270_A72_T25_2 = '../maps/shop/vehicles/360x270/A72_T25_2.png'
     MAPS_SHOP_VEHICLES_360X270_A72_T25_2_SH = '../maps/shop/vehicles/360x270/A72_T25_2_SH.png'
     MAPS_SHOP_VEHICLES_360X270_A74_T1_E6 = '../maps/shop/vehicles/360x270/A74_T1_E6.png'
@@ -1164,6 +1198,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_CH10_IS2 = '../maps/shop/vehicles/360x270/Ch10_IS2.png'
     MAPS_SHOP_VEHICLES_360X270_CH11_110 = '../maps/shop/vehicles/360x270/Ch11_110.png'
     MAPS_SHOP_VEHICLES_360X270_CH12_111_1_2_3 = '../maps/shop/vehicles/360x270/Ch12_111_1_2_3.png'
+    MAPS_SHOP_VEHICLES_360X270_CH12_111_1_2_3_FL = '../maps/shop/vehicles/360x270/Ch12_111_1_2_3_FL.png'
     MAPS_SHOP_VEHICLES_360X270_CH14_T34_3 = '../maps/shop/vehicles/360x270/Ch14_T34_3.png'
     MAPS_SHOP_VEHICLES_360X270_CH15_59_16 = '../maps/shop/vehicles/360x270/Ch15_59_16.png'
     MAPS_SHOP_VEHICLES_360X270_CH16_WZ_131 = '../maps/shop/vehicles/360x270/Ch16_WZ_131.png'
@@ -1215,6 +1250,10 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_CZ13_T_27 = '../maps/shop/vehicles/360x270/Cz13_T_27.png'
     MAPS_SHOP_VEHICLES_360X270_CZ14_SKODA_T_56 = '../maps/shop/vehicles/360x270/Cz14_Skoda_T-56.png'
     MAPS_SHOP_VEHICLES_360X270_CZ15_SKODA_T_45_PREM = '../maps/shop/vehicles/360x270/Cz15_Skoda_T-45_Prem.png'
+    MAPS_SHOP_VEHICLES_360X270_CZ16_TNH_T_VZ51 = '../maps/shop/vehicles/360x270/Cz16_TNH_T_vz51.png'
+    MAPS_SHOP_VEHICLES_360X270_CZ17_VZ_55 = '../maps/shop/vehicles/360x270/Cz17_Vz_55.png'
+    MAPS_SHOP_VEHICLES_360X270_CZ18_TNH_105_1000 = '../maps/shop/vehicles/360x270/Cz18_TNH_105_1000.png'
+    MAPS_SHOP_VEHICLES_360X270_CZ19_VZ_44_1 = '../maps/shop/vehicles/360x270/Cz19_Vz_44_1.png'
     MAPS_SHOP_VEHICLES_360X270_EMPTY_TANK = '../maps/shop/vehicles/360x270/empty_tank.png'
     MAPS_SHOP_VEHICLES_360X270_F01_RENAULTFT = '../maps/shop/vehicles/360x270/F01_RenaultFT.png'
     MAPS_SHOP_VEHICLES_360X270_F02_D1 = '../maps/shop/vehicles/360x270/F02_D1.png'
@@ -1252,6 +1291,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_F21_LORRAINE39_L_AM = '../maps/shop/vehicles/360x270/F21_Lorraine39_L_AM.png'
     MAPS_SHOP_VEHICLES_360X270_F22_AMX_105AM = '../maps/shop/vehicles/360x270/F22_AMX_105AM.png'
     MAPS_SHOP_VEHICLES_360X270_F23_AMX_13F3AM = '../maps/shop/vehicles/360x270/F23_AMX_13F3AM.png'
+    MAPS_SHOP_VEHICLES_360X270_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2 = '../maps/shop/vehicles/360x270/F23_AMX_13F3AM_MapsTraining_Dummy_SPG_2.png'
     MAPS_SHOP_VEHICLES_360X270_F24_LORRAINE155_50 = '../maps/shop/vehicles/360x270/F24_Lorraine155_50.png'
     MAPS_SHOP_VEHICLES_360X270_F25_LORRAINE155_51 = '../maps/shop/vehicles/360x270/F25_Lorraine155_51.png'
     MAPS_SHOP_VEHICLES_360X270_F27_FCM_36PAK40 = '../maps/shop/vehicles/360x270/F27_FCM_36Pak40.png'
@@ -1291,6 +1331,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_F81_CHAR_DE_65T = '../maps/shop/vehicles/360x270/F81_Char_de_65t.png'
     MAPS_SHOP_VEHICLES_360X270_F82_AMX_M4_MLE1949_TER = '../maps/shop/vehicles/360x270/F82_AMX_M4_Mle1949_Ter.png'
     MAPS_SHOP_VEHICLES_360X270_F83_AMX_M4_MLE1949_BIS = '../maps/shop/vehicles/360x270/F83_AMX_M4_Mle1949_Bis.png'
+    MAPS_SHOP_VEHICLES_360X270_F83_AMX_M4_MLE1949_BIS_FL = '../maps/shop/vehicles/360x270/F83_AMX_M4_Mle1949_Bis_FL.png'
     MAPS_SHOP_VEHICLES_360X270_F84_SOMUA_SM = '../maps/shop/vehicles/360x270/F84_Somua_SM.png'
     MAPS_SHOP_VEHICLES_360X270_F85_M4A1_FL10 = '../maps/shop/vehicles/360x270/F85_M4A1_FL10.png'
     MAPS_SHOP_VEHICLES_360X270_F87_BATIGNOLLES_CHATILLON_12T = '../maps/shop/vehicles/360x270/F87_Batignolles-Chatillon_12t.png'
@@ -1302,11 +1343,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_G03_PZV_PANTHER = '../maps/shop/vehicles/360x270/G03_PzV_Panther.png'
     MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_I = '../maps/shop/vehicles/360x270/G04_PzVI_Tiger_I.png'
     MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_IA = '../maps/shop/vehicles/360x270/G04_PzVI_Tiger_IA.png'
+    MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2 = '../maps/shop/vehicles/360x270/G04_PzVI_Tiger_I_MapsTraining_Player_HT_2.png'
     MAPS_SHOP_VEHICLES_360X270_G05_STUG_40_AUSFG = '../maps/shop/vehicles/360x270/G05_StuG_40_AusfG.png'
     MAPS_SHOP_VEHICLES_360X270_G06_PZII = '../maps/shop/vehicles/360x270/G06_PzII.png'
     MAPS_SHOP_VEHICLES_360X270_G07_PZ35T = '../maps/shop/vehicles/360x270/G07_Pz35t.png'
     MAPS_SHOP_VEHICLES_360X270_G08_PZ38T = '../maps/shop/vehicles/360x270/G08_Pz38t.png'
     MAPS_SHOP_VEHICLES_360X270_G09_HETZER = '../maps/shop/vehicles/360x270/G09_Hetzer.png'
+    MAPS_SHOP_VEHICLES_360X270_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1 = '../maps/shop/vehicles/360x270/G09_Hetzer_MapsTraining_Dummy_ATSPG_1.png'
     MAPS_SHOP_VEHICLES_360X270_G100_GTRAKTOR_KRUPP = '../maps/shop/vehicles/360x270/G100_Gtraktor_Krupp.png'
     MAPS_SHOP_VEHICLES_360X270_G101_STUG_III = '../maps/shop/vehicles/360x270/G101_StuG_III.png'
     MAPS_SHOP_VEHICLES_360X270_G102_PZ_III = '../maps/shop/vehicles/360x270/G102_Pz_III.png'
@@ -1356,6 +1399,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_G147_KUNZE_PANZER = '../maps/shop/vehicles/360x270/G147_Kunze_Panzer.png'
     MAPS_SHOP_VEHICLES_360X270_G151_PZ_SFL_IC = '../maps/shop/vehicles/360x270/G151_Pz_Sfl_IC.png'
     MAPS_SHOP_VEHICLES_360X270_G154_KPZ_07_RH = '../maps/shop/vehicles/360x270/G154_Kpz_07_RH.png'
+    MAPS_SHOP_VEHICLES_360X270_G158_VK2801_105_SPXXI = '../maps/shop/vehicles/360x270/G158_VK2801_105_SPXXI.png'
     MAPS_SHOP_VEHICLES_360X270_G15_VK3601H = '../maps/shop/vehicles/360x270/G15_VK3601H.png'
     MAPS_SHOP_VEHICLES_360X270_G16_PZVIB_TIGER_II = '../maps/shop/vehicles/360x270/G16_PzVIB_Tiger_II.png'
     MAPS_SHOP_VEHICLES_360X270_G16_PZVIB_TIGER_II_F = '../maps/shop/vehicles/360x270/G16_PzVIB_Tiger_II_F.png'
@@ -1381,13 +1425,16 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_G35_B_1BIS_CAPTURED = '../maps/shop/vehicles/360x270/G35_B-1bis_captured.png'
     MAPS_SHOP_VEHICLES_360X270_G36_PZII_J = '../maps/shop/vehicles/360x270/G36_PzII_J.png'
     MAPS_SHOP_VEHICLES_360X270_G37_FERDINAND = '../maps/shop/vehicles/360x270/G37_Ferdinand.png'
+    MAPS_SHOP_VEHICLES_360X270_G37_FERDINAND_FL = '../maps/shop/vehicles/360x270/G37_Ferdinand_FL.png'
     MAPS_SHOP_VEHICLES_360X270_G39_MARDER_III = '../maps/shop/vehicles/360x270/G39_Marder_III.png'
     MAPS_SHOP_VEHICLES_360X270_G40_NASHORN = '../maps/shop/vehicles/360x270/G40_Nashorn.png'
+    MAPS_SHOP_VEHICLES_360X270_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2 = '../maps/shop/vehicles/360x270/G40_Nashorn_MapsTraining_Dummy_ATSPG_2.png'
     MAPS_SHOP_VEHICLES_360X270_G41_DICKERMAX = '../maps/shop/vehicles/360x270/G41_DickerMax.png'
     MAPS_SHOP_VEHICLES_360X270_G42_MAUS = '../maps/shop/vehicles/360x270/G42_Maus.png'
     MAPS_SHOP_VEHICLES_360X270_G43_STURER_EMIL = '../maps/shop/vehicles/360x270/G43_Sturer_Emil.png'
     MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGER = '../maps/shop/vehicles/360x270/G44_JagdTiger.png'
     MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGERH = '../maps/shop/vehicles/360x270/G44_JagdTigerH.png'
+    MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGER_FL = '../maps/shop/vehicles/360x270/G44_JagdTiger_FL.png'
     MAPS_SHOP_VEHICLES_360X270_G45_G_TIGER = '../maps/shop/vehicles/360x270/G45_G_Tiger.png'
     MAPS_SHOP_VEHICLES_360X270_G46_T_25 = '../maps/shop/vehicles/360x270/G46_T-25.png'
     MAPS_SHOP_VEHICLES_360X270_G48_E_25 = '../maps/shop/vehicles/360x270/G48_E-25.png'
@@ -1398,6 +1445,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_G52_PZ38_NA = '../maps/shop/vehicles/360x270/G52_Pz38_NA.png'
     MAPS_SHOP_VEHICLES_360X270_G53_PZI = '../maps/shop/vehicles/360x270/G53_PzI.png'
     MAPS_SHOP_VEHICLES_360X270_G54_E_50 = '../maps/shop/vehicles/360x270/G54_E-50.png'
+    MAPS_SHOP_VEHICLES_360X270_G54_E_50_FL = '../maps/shop/vehicles/360x270/G54_E-50_FL.png'
     MAPS_SHOP_VEHICLES_360X270_G55_E_75 = '../maps/shop/vehicles/360x270/G55_E-75.png'
     MAPS_SHOP_VEHICLES_360X270_G56_E_100 = '../maps/shop/vehicles/360x270/G56_E-100.png'
     MAPS_SHOP_VEHICLES_360X270_G57_PZVI_TIGER_P = '../maps/shop/vehicles/360x270/G57_PzVI_Tiger_P.png'
@@ -1429,6 +1477,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_G89_LEOPARD1 = '../maps/shop/vehicles/360x270/G89_Leopard1.png'
     MAPS_SHOP_VEHICLES_360X270_G89_LEOPARD1_BOB = '../maps/shop/vehicles/360x270/G89_Leopard1_bob.png'
     MAPS_SHOP_VEHICLES_360X270_G90_DW_II = '../maps/shop/vehicles/360x270/G90_DW_II.png'
+    MAPS_SHOP_VEHICLES_360X270_G90_DW_II_MAPSTRAINING_DUMMY_HT_1 = '../maps/shop/vehicles/360x270/G90_DW_II_MapsTraining_Dummy_HT_1.png'
     MAPS_SHOP_VEHICLES_360X270_G91_PRO_AG_A = '../maps/shop/vehicles/360x270/G91_Pro_Ag_A.png'
     MAPS_SHOP_VEHICLES_360X270_G92_VK7201 = '../maps/shop/vehicles/360x270/G92_VK7201.png'
     MAPS_SHOP_VEHICLES_360X270_G93_GW_MK_VIE = '../maps/shop/vehicles/360x270/G93_GW_Mk_VIe.png'
@@ -1462,11 +1511,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_GB111_CHARLEMAGNE = '../maps/shop/vehicles/360x270/GB111_Charlemagne.png'
     MAPS_SHOP_VEHICLES_360X270_GB11_CAERNARVON = '../maps/shop/vehicles/360x270/GB11_Caernarvon.png'
     MAPS_SHOP_VEHICLES_360X270_GB12_CONQUEROR = '../maps/shop/vehicles/360x270/GB12_Conqueror.png'
+    MAPS_SHOP_VEHICLES_360X270_GB12_CONQUEROR_FL = '../maps/shop/vehicles/360x270/GB12_Conqueror_FL.png'
     MAPS_SHOP_VEHICLES_360X270_GB13_FV215B = '../maps/shop/vehicles/360x270/GB13_FV215b.png'
     MAPS_SHOP_VEHICLES_360X270_GB14_M2 = '../maps/shop/vehicles/360x270/GB14_M2.png'
     MAPS_SHOP_VEHICLES_360X270_GB15_STUART_I = '../maps/shop/vehicles/360x270/GB15_Stuart_I.png'
     MAPS_SHOP_VEHICLES_360X270_GB17_GRANT_I = '../maps/shop/vehicles/360x270/GB17_Grant_I.png'
     MAPS_SHOP_VEHICLES_360X270_GB19_SHERMAN_FIREFLY = '../maps/shop/vehicles/360x270/GB19_Sherman_Firefly.png'
+    MAPS_SHOP_VEHICLES_360X270_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2 = '../maps/shop/vehicles/360x270/GB19_Sherman_Firefly_MapsTraining_Dummy_MT_2.png'
     MAPS_SHOP_VEHICLES_360X270_GB20_CRUSADER = '../maps/shop/vehicles/360x270/GB20_Crusader.png'
     MAPS_SHOP_VEHICLES_360X270_GB21_CROMWELL = '../maps/shop/vehicles/360x270/GB21_Cromwell.png'
     MAPS_SHOP_VEHICLES_360X270_GB22_COMET = '../maps/shop/vehicles/360x270/GB22_Comet.png'
@@ -1562,6 +1613,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_J12_CHI_NU_KAI = '../maps/shop/vehicles/360x270/J12_Chi_Nu_Kai.png'
     MAPS_SHOP_VEHICLES_360X270_J13_STA_1 = '../maps/shop/vehicles/360x270/J13_STA_1.png'
     MAPS_SHOP_VEHICLES_360X270_J14_TYPE_61 = '../maps/shop/vehicles/360x270/J14_Type_61.png'
+    MAPS_SHOP_VEHICLES_360X270_J14_TYPE_61_FL = '../maps/shop/vehicles/360x270/J14_Type_61_FL.png'
     MAPS_SHOP_VEHICLES_360X270_J15_CHI_NI = '../maps/shop/vehicles/360x270/J15_Chi_Ni.png'
     MAPS_SHOP_VEHICLES_360X270_J16_ST_B1 = '../maps/shop/vehicles/360x270/J16_ST_B1.png'
     MAPS_SHOP_VEHICLES_360X270_J18_STA_2_3 = '../maps/shop/vehicles/360x270/J18_STA_2_3.png'
@@ -1580,6 +1632,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_PL01_TKS_20MM = '../maps/shop/vehicles/360x270/Pl01_TKS_20mm.png'
     MAPS_SHOP_VEHICLES_360X270_PL03_PZV_POLAND = '../maps/shop/vehicles/360x270/Pl03_PzV_Poland.png'
     MAPS_SHOP_VEHICLES_360X270_PL05_50TP_TYSZKIEWICZA = '../maps/shop/vehicles/360x270/Pl05_50TP_Tyszkiewicza.png'
+    MAPS_SHOP_VEHICLES_360X270_PL05_50TP_TYSZKIEWICZA_FL = '../maps/shop/vehicles/360x270/Pl05_50TP_Tyszkiewicza_FL.png'
     MAPS_SHOP_VEHICLES_360X270_PL06_10TP = '../maps/shop/vehicles/360x270/Pl06_10TP.png'
     MAPS_SHOP_VEHICLES_360X270_PL07_14TP = '../maps/shop/vehicles/360x270/Pl07_14TP.png'
     MAPS_SHOP_VEHICLES_360X270_PL08_50TP_PROTOTYP = '../maps/shop/vehicles/360x270/Pl08_50TP_prototyp.png'
@@ -1602,6 +1655,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R02_SU_85 = '../maps/shop/vehicles/360x270/R02_SU-85.png'
     MAPS_SHOP_VEHICLES_360X270_R03_BT_7 = '../maps/shop/vehicles/360x270/R03_BT-7.png'
     MAPS_SHOP_VEHICLES_360X270_R04_T_34 = '../maps/shop/vehicles/360x270/R04_T-34.png'
+    MAPS_SHOP_VEHICLES_360X270_R04_T_34_MAPSTRAINING_PLAYER_MT_1 = '../maps/shop/vehicles/360x270/R04_T-34_MapsTraining_Player_MT_1.png'
     MAPS_SHOP_VEHICLES_360X270_R06_T_28 = '../maps/shop/vehicles/360x270/R06_T-28.png'
     MAPS_SHOP_VEHICLES_360X270_R07_T_34_85 = '../maps/shop/vehicles/360x270/R07_T-34-85.png'
     MAPS_SHOP_VEHICLES_360X270_R08_BT_2 = '../maps/shop/vehicles/360x270/R08_BT-2.png'
@@ -1614,6 +1668,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R107_LTB = '../maps/shop/vehicles/360x270/R107_LTB.png'
     MAPS_SHOP_VEHICLES_360X270_R108_T34_85M = '../maps/shop/vehicles/360x270/R108_T34_85M.png'
     MAPS_SHOP_VEHICLES_360X270_R109_T54S = '../maps/shop/vehicles/360x270/R109_T54S.png'
+    MAPS_SHOP_VEHICLES_360X270_R109_T54S_FL = '../maps/shop/vehicles/360x270/R109_T54S_FL.png'
     MAPS_SHOP_VEHICLES_360X270_R10_AT_1 = '../maps/shop/vehicles/360x270/R10_AT-1.png'
     MAPS_SHOP_VEHICLES_360X270_R110_OBJECT_260 = '../maps/shop/vehicles/360x270/R110_Object_260.png'
     MAPS_SHOP_VEHICLES_360X270_R111_ISU130 = '../maps/shop/vehicles/360x270/R111_ISU130.png'
@@ -1660,6 +1715,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R148_OBJECT_430_U = '../maps/shop/vehicles/360x270/R148_Object_430_U.png'
     MAPS_SHOP_VEHICLES_360X270_R149_OBJECT_268_4 = '../maps/shop/vehicles/360x270/R149_Object_268_4.png'
     MAPS_SHOP_VEHICLES_360X270_R14_SU_5 = '../maps/shop/vehicles/360x270/R14_SU-5.png'
+    MAPS_SHOP_VEHICLES_360X270_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1 = '../maps/shop/vehicles/360x270/R14_SU-5_MapsTraining_Dummy_SPG_1.png'
     MAPS_SHOP_VEHICLES_360X270_R151_OBJECT_257_2 = '../maps/shop/vehicles/360x270/R151_Object_257_2.png'
     MAPS_SHOP_VEHICLES_360X270_R152_KV2_W = '../maps/shop/vehicles/360x270/R152_KV2_W.png'
     MAPS_SHOP_VEHICLES_360X270_R153_OBJECT_705 = '../maps/shop/vehicles/360x270/R153_Object_705.png'
@@ -1688,12 +1744,14 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R17_SU_100 = '../maps/shop/vehicles/360x270/R17_SU-100.png'
     MAPS_SHOP_VEHICLES_360X270_R180_OBJECT_274_A = '../maps/shop/vehicles/360x270/R180_Object_274_A.png'
     MAPS_SHOP_VEHICLES_360X270_R183_K_91_PT = '../maps/shop/vehicles/360x270/R183_K_91_PT.png'
+    MAPS_SHOP_VEHICLES_360X270_R185_T_34_L_11_1941 = '../maps/shop/vehicles/360x270/R185_T_34_L_11_1941.png'
     MAPS_SHOP_VEHICLES_360X270_R18_SU_152 = '../maps/shop/vehicles/360x270/R18_SU-152.png'
     MAPS_SHOP_VEHICLES_360X270_R19_IS_3 = '../maps/shop/vehicles/360x270/R19_IS-3.png'
     MAPS_SHOP_VEHICLES_360X270_R20_T_44 = '../maps/shop/vehicles/360x270/R20_T-44.png'
     MAPS_SHOP_VEHICLES_360X270_R20_T_44_FL = '../maps/shop/vehicles/360x270/R20_T-44_FL.png'
     MAPS_SHOP_VEHICLES_360X270_R22_T_46 = '../maps/shop/vehicles/360x270/R22_T-46.png'
     MAPS_SHOP_VEHICLES_360X270_R23_T_43 = '../maps/shop/vehicles/360x270/R23_T-43.png'
+    MAPS_SHOP_VEHICLES_360X270_R23_T_43_MAPSTRAINING_PLAYER_MT_2 = '../maps/shop/vehicles/360x270/R23_T-43_MapsTraining_Player_MT_2.png'
     MAPS_SHOP_VEHICLES_360X270_R24_SU_76 = '../maps/shop/vehicles/360x270/R24_SU-76.png'
     MAPS_SHOP_VEHICLES_360X270_R25_GAZ_74B = '../maps/shop/vehicles/360x270/R25_GAZ-74b.png'
     MAPS_SHOP_VEHICLES_360X270_R26_SU_8 = '../maps/shop/vehicles/360x270/R26_SU-8.png'
@@ -1706,10 +1764,12 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R38_KV_220_BETA = '../maps/shop/vehicles/360x270/R38_KV-220_beta.png'
     MAPS_SHOP_VEHICLES_360X270_R39_KV_3 = '../maps/shop/vehicles/360x270/R39_KV-3.png'
     MAPS_SHOP_VEHICLES_360X270_R40_T_54 = '../maps/shop/vehicles/360x270/R40_T-54.png'
+    MAPS_SHOP_VEHICLES_360X270_R40_T_54_FL = '../maps/shop/vehicles/360x270/R40_T-54_FL.png'
     MAPS_SHOP_VEHICLES_360X270_R41_T_50 = '../maps/shop/vehicles/360x270/R41_T-50.png'
     MAPS_SHOP_VEHICLES_360X270_R42_T_60 = '../maps/shop/vehicles/360x270/R42_T-60.png'
     MAPS_SHOP_VEHICLES_360X270_R43_T_70 = '../maps/shop/vehicles/360x270/R43_T-70.png'
     MAPS_SHOP_VEHICLES_360X270_R44_T80 = '../maps/shop/vehicles/360x270/R44_T80.png'
+    MAPS_SHOP_VEHICLES_360X270_R44_T80_MAPSTRAINING_DUMMY_LT_1 = '../maps/shop/vehicles/360x270/R44_T80_MapsTraining_Dummy_LT_1.png'
     MAPS_SHOP_VEHICLES_360X270_R45_IS_7 = '../maps/shop/vehicles/360x270/R45_IS-7.png'
     MAPS_SHOP_VEHICLES_360X270_R46_KV_13 = '../maps/shop/vehicles/360x270/R46_KV-13.png'
     MAPS_SHOP_VEHICLES_360X270_R46_KV_13_SH = '../maps/shop/vehicles/360x270/R46_KV-13_SH.png'
@@ -1734,6 +1794,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_R68_A_32 = '../maps/shop/vehicles/360x270/R68_A-32.png'
     MAPS_SHOP_VEHICLES_360X270_R71_IS_2B = '../maps/shop/vehicles/360x270/R71_IS_2B.png'
     MAPS_SHOP_VEHICLES_360X270_R72_T150 = '../maps/shop/vehicles/360x270/R72_T150.png'
+    MAPS_SHOP_VEHICLES_360X270_R72_T150_MAPSTRAINING_DUMMY_HT_2 = '../maps/shop/vehicles/360x270/R72_T150_MapsTraining_Dummy_HT_2.png'
     MAPS_SHOP_VEHICLES_360X270_R73_KV4 = '../maps/shop/vehicles/360x270/R73_KV4.png'
     MAPS_SHOP_VEHICLES_360X270_R74_SU100M1 = '../maps/shop/vehicles/360x270/R74_SU100M1.png'
     MAPS_SHOP_VEHICLES_360X270_R75_SU122_54 = '../maps/shop/vehicles/360x270/R75_SU122_54.png'
@@ -1768,6 +1829,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_360X270_S08_IKV_65_ALT_2 = '../maps/shop/vehicles/360x270/S08_Ikv_65_Alt_2.png'
     MAPS_SHOP_VEHICLES_360X270_S09_L_120_TD = '../maps/shop/vehicles/360x270/S09_L_120_TD.png'
     MAPS_SHOP_VEHICLES_360X270_S10_STRV_103_0_SERIES = '../maps/shop/vehicles/360x270/S10_Strv_103_0_Series.png'
+    MAPS_SHOP_VEHICLES_360X270_S10_STRV_103_0_SERIES_FL = '../maps/shop/vehicles/360x270/S10_Strv_103_0_Series_FL.png'
     MAPS_SHOP_VEHICLES_360X270_S11_STRV_103B = '../maps/shop/vehicles/360x270/S11_Strv_103B.png'
     MAPS_SHOP_VEHICLES_360X270_S12_STRV_M40 = '../maps/shop/vehicles/360x270/S12_Strv_M40.png'
     MAPS_SHOP_VEHICLES_360X270_S13_LEO = '../maps/shop/vehicles/360x270/S13_Leo.png'
@@ -1830,6 +1892,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_A127_TL_1_LPC = '../maps/shop/vehicles/600x450/A127_TL_1_LPC.png'
     MAPS_SHOP_VEHICLES_600X450_A128_CONCEPT_1B = '../maps/shop/vehicles/600x450/A128_concept_1b.png'
     MAPS_SHOP_VEHICLES_600X450_A129_T6_MEDIUM = '../maps/shop/vehicles/600x450/A129_T6_medium.png'
+    MAPS_SHOP_VEHICLES_600X450_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1 = '../maps/shop/vehicles/600x450/A129_T6_medium_MapsTraining_Dummy_MT_1.png'
     MAPS_SHOP_VEHICLES_600X450_A12_T32 = '../maps/shop/vehicles/600x450/A12_T32.png'
     MAPS_SHOP_VEHICLES_600X450_A12_T32_FL = '../maps/shop/vehicles/600x450/A12_T32_FL.png'
     MAPS_SHOP_VEHICLES_600X450_A130_SUPER_HELLCAT = '../maps/shop/vehicles/600x450/A130_Super_Hellcat.png'
@@ -1839,12 +1902,15 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY = '../maps/shop/vehicles/600x450/A13_T34_hvy.png'
     MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY_BF = '../maps/shop/vehicles/600x450/A13_T34_hvy_BF.png'
     MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY_FL = '../maps/shop/vehicles/600x450/A13_T34_hvy_FL.png'
+    MAPS_SHOP_VEHICLES_600X450_A140_ASTRON_REX_105MM = '../maps/shop/vehicles/600x450/A140_ASTRON_REX_105mm.png'
     MAPS_SHOP_VEHICLES_600X450_A14_T30 = '../maps/shop/vehicles/600x450/A14_T30.png'
+    MAPS_SHOP_VEHICLES_600X450_A14_T30_FL = '../maps/shop/vehicles/600x450/A14_T30_FL.png'
     MAPS_SHOP_VEHICLES_600X450_A16_M7_PRIEST = '../maps/shop/vehicles/600x450/A16_M7_Priest.png'
     MAPS_SHOP_VEHICLES_600X450_A17_M37 = '../maps/shop/vehicles/600x450/A17_M37.png'
     MAPS_SHOP_VEHICLES_600X450_A18_M41 = '../maps/shop/vehicles/600x450/A18_M41.png'
     MAPS_SHOP_VEHICLES_600X450_A19_T2_LT = '../maps/shop/vehicles/600x450/A19_T2_lt.png'
     MAPS_SHOP_VEHICLES_600X450_A21_T14 = '../maps/shop/vehicles/600x450/A21_T14.png'
+    MAPS_SHOP_VEHICLES_600X450_A21_T14_MAPSTRAINING_PLAYER_HT_1 = '../maps/shop/vehicles/600x450/A21_T14_MapsTraining_Player_HT_1.png'
     MAPS_SHOP_VEHICLES_600X450_A22_M5_STUART = '../maps/shop/vehicles/600x450/A22_M5_Stuart.png'
     MAPS_SHOP_VEHICLES_600X450_A23_M7_MED = '../maps/shop/vehicles/600x450/A23_M7_med.png'
     MAPS_SHOP_VEHICLES_600X450_A24_T2_MED = '../maps/shop/vehicles/600x450/A24_T2_med.png'
@@ -1871,6 +1937,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_A58_T67 = '../maps/shop/vehicles/600x450/A58_T67.png'
     MAPS_SHOP_VEHICLES_600X450_A62_RAM_II = '../maps/shop/vehicles/600x450/A62_Ram-II.png'
     MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON = '../maps/shop/vehicles/600x450/A63_M46_Patton.png'
+    MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON_FL = '../maps/shop/vehicles/600x450/A63_M46_Patton_FL.png'
     MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON_KR = '../maps/shop/vehicles/600x450/A63_M46_Patton_KR.png'
     MAPS_SHOP_VEHICLES_600X450_A64_T25_AT = '../maps/shop/vehicles/600x450/A64_T25_AT.png'
     MAPS_SHOP_VEHICLES_600X450_A66_M103 = '../maps/shop/vehicles/600x450/A66_M103.png'
@@ -1879,6 +1946,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_A69_T110E5 = '../maps/shop/vehicles/600x450/A69_T110E5.png'
     MAPS_SHOP_VEHICLES_600X450_A69_T110E5_BOB = '../maps/shop/vehicles/600x450/A69_T110E5_bob.png'
     MAPS_SHOP_VEHICLES_600X450_A71_T21 = '../maps/shop/vehicles/600x450/A71_T21.png'
+    MAPS_SHOP_VEHICLES_600X450_A71_T21_MAPSTRAINING_DUMMY_LT_2 = '../maps/shop/vehicles/600x450/A71_T21_MapsTraining_Dummy_LT_2.png'
     MAPS_SHOP_VEHICLES_600X450_A72_T25_2 = '../maps/shop/vehicles/600x450/A72_T25_2.png'
     MAPS_SHOP_VEHICLES_600X450_A72_T25_2_SH = '../maps/shop/vehicles/600x450/A72_T25_2_SH.png'
     MAPS_SHOP_VEHICLES_600X450_A74_T1_E6 = '../maps/shop/vehicles/600x450/A74_T1_E6.png'
@@ -1913,6 +1981,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_CH10_IS2 = '../maps/shop/vehicles/600x450/Ch10_IS2.png'
     MAPS_SHOP_VEHICLES_600X450_CH11_110 = '../maps/shop/vehicles/600x450/Ch11_110.png'
     MAPS_SHOP_VEHICLES_600X450_CH12_111_1_2_3 = '../maps/shop/vehicles/600x450/Ch12_111_1_2_3.png'
+    MAPS_SHOP_VEHICLES_600X450_CH12_111_1_2_3_FL = '../maps/shop/vehicles/600x450/Ch12_111_1_2_3_FL.png'
     MAPS_SHOP_VEHICLES_600X450_CH14_T34_3 = '../maps/shop/vehicles/600x450/Ch14_T34_3.png'
     MAPS_SHOP_VEHICLES_600X450_CH15_59_16 = '../maps/shop/vehicles/600x450/Ch15_59_16.png'
     MAPS_SHOP_VEHICLES_600X450_CH16_WZ_131 = '../maps/shop/vehicles/600x450/Ch16_WZ_131.png'
@@ -1964,6 +2033,10 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_CZ13_T_27 = '../maps/shop/vehicles/600x450/Cz13_T_27.png'
     MAPS_SHOP_VEHICLES_600X450_CZ14_SKODA_T_56 = '../maps/shop/vehicles/600x450/Cz14_Skoda_T-56.png'
     MAPS_SHOP_VEHICLES_600X450_CZ15_SKODA_T_45_PREM = '../maps/shop/vehicles/600x450/Cz15_Skoda_T-45_Prem.png'
+    MAPS_SHOP_VEHICLES_600X450_CZ16_TNH_T_VZ51 = '../maps/shop/vehicles/600x450/Cz16_TNH_T_vz51.png'
+    MAPS_SHOP_VEHICLES_600X450_CZ17_VZ_55 = '../maps/shop/vehicles/600x450/Cz17_Vz_55.png'
+    MAPS_SHOP_VEHICLES_600X450_CZ18_TNH_105_1000 = '../maps/shop/vehicles/600x450/Cz18_TNH_105_1000.png'
+    MAPS_SHOP_VEHICLES_600X450_CZ19_VZ_44_1 = '../maps/shop/vehicles/600x450/Cz19_Vz_44_1.png'
     MAPS_SHOP_VEHICLES_600X450_EMPTY_TANK = '../maps/shop/vehicles/600x450/empty_tank.png'
     MAPS_SHOP_VEHICLES_600X450_F01_RENAULTFT = '../maps/shop/vehicles/600x450/F01_RenaultFT.png'
     MAPS_SHOP_VEHICLES_600X450_F02_D1 = '../maps/shop/vehicles/600x450/F02_D1.png'
@@ -2001,6 +2074,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_F21_LORRAINE39_L_AM = '../maps/shop/vehicles/600x450/F21_Lorraine39_L_AM.png'
     MAPS_SHOP_VEHICLES_600X450_F22_AMX_105AM = '../maps/shop/vehicles/600x450/F22_AMX_105AM.png'
     MAPS_SHOP_VEHICLES_600X450_F23_AMX_13F3AM = '../maps/shop/vehicles/600x450/F23_AMX_13F3AM.png'
+    MAPS_SHOP_VEHICLES_600X450_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2 = '../maps/shop/vehicles/600x450/F23_AMX_13F3AM_MapsTraining_Dummy_SPG_2.png'
     MAPS_SHOP_VEHICLES_600X450_F24_LORRAINE155_50 = '../maps/shop/vehicles/600x450/F24_Lorraine155_50.png'
     MAPS_SHOP_VEHICLES_600X450_F25_LORRAINE155_51 = '../maps/shop/vehicles/600x450/F25_Lorraine155_51.png'
     MAPS_SHOP_VEHICLES_600X450_F27_FCM_36PAK40 = '../maps/shop/vehicles/600x450/F27_FCM_36Pak40.png'
@@ -2040,6 +2114,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_F81_CHAR_DE_65T = '../maps/shop/vehicles/600x450/F81_Char_de_65t.png'
     MAPS_SHOP_VEHICLES_600X450_F82_AMX_M4_MLE1949_TER = '../maps/shop/vehicles/600x450/F82_AMX_M4_Mle1949_Ter.png'
     MAPS_SHOP_VEHICLES_600X450_F83_AMX_M4_MLE1949_BIS = '../maps/shop/vehicles/600x450/F83_AMX_M4_Mle1949_Bis.png'
+    MAPS_SHOP_VEHICLES_600X450_F83_AMX_M4_MLE1949_BIS_FL = '../maps/shop/vehicles/600x450/F83_AMX_M4_Mle1949_Bis_FL.png'
     MAPS_SHOP_VEHICLES_600X450_F84_SOMUA_SM = '../maps/shop/vehicles/600x450/F84_Somua_SM.png'
     MAPS_SHOP_VEHICLES_600X450_F85_M4A1_FL10 = '../maps/shop/vehicles/600x450/F85_M4A1_FL10.png'
     MAPS_SHOP_VEHICLES_600X450_F87_BATIGNOLLES_CHATILLON_12T = '../maps/shop/vehicles/600x450/F87_Batignolles-Chatillon_12t.png'
@@ -2051,11 +2126,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_G03_PZV_PANTHER = '../maps/shop/vehicles/600x450/G03_PzV_Panther.png'
     MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_I = '../maps/shop/vehicles/600x450/G04_PzVI_Tiger_I.png'
     MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_IA = '../maps/shop/vehicles/600x450/G04_PzVI_Tiger_IA.png'
+    MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2 = '../maps/shop/vehicles/600x450/G04_PzVI_Tiger_I_MapsTraining_Player_HT_2.png'
     MAPS_SHOP_VEHICLES_600X450_G05_STUG_40_AUSFG = '../maps/shop/vehicles/600x450/G05_StuG_40_AusfG.png'
     MAPS_SHOP_VEHICLES_600X450_G06_PZII = '../maps/shop/vehicles/600x450/G06_PzII.png'
     MAPS_SHOP_VEHICLES_600X450_G07_PZ35T = '../maps/shop/vehicles/600x450/G07_Pz35t.png'
     MAPS_SHOP_VEHICLES_600X450_G08_PZ38T = '../maps/shop/vehicles/600x450/G08_Pz38t.png'
     MAPS_SHOP_VEHICLES_600X450_G09_HETZER = '../maps/shop/vehicles/600x450/G09_Hetzer.png'
+    MAPS_SHOP_VEHICLES_600X450_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1 = '../maps/shop/vehicles/600x450/G09_Hetzer_MapsTraining_Dummy_ATSPG_1.png'
     MAPS_SHOP_VEHICLES_600X450_G100_GTRAKTOR_KRUPP = '../maps/shop/vehicles/600x450/G100_Gtraktor_Krupp.png'
     MAPS_SHOP_VEHICLES_600X450_G101_STUG_III = '../maps/shop/vehicles/600x450/G101_StuG_III.png'
     MAPS_SHOP_VEHICLES_600X450_G102_PZ_III = '../maps/shop/vehicles/600x450/G102_Pz_III.png'
@@ -2105,6 +2182,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_G147_KUNZE_PANZER = '../maps/shop/vehicles/600x450/G147_Kunze_Panzer.png'
     MAPS_SHOP_VEHICLES_600X450_G151_PZ_SFL_IC = '../maps/shop/vehicles/600x450/G151_Pz_Sfl_IC.png'
     MAPS_SHOP_VEHICLES_600X450_G154_KPZ_07_RH = '../maps/shop/vehicles/600x450/G154_Kpz_07_RH.png'
+    MAPS_SHOP_VEHICLES_600X450_G158_VK2801_105_SPXXI = '../maps/shop/vehicles/600x450/G158_VK2801_105_SPXXI.png'
     MAPS_SHOP_VEHICLES_600X450_G15_VK3601H = '../maps/shop/vehicles/600x450/G15_VK3601H.png'
     MAPS_SHOP_VEHICLES_600X450_G16_PZVIB_TIGER_II = '../maps/shop/vehicles/600x450/G16_PzVIB_Tiger_II.png'
     MAPS_SHOP_VEHICLES_600X450_G16_PZVIB_TIGER_II_F = '../maps/shop/vehicles/600x450/G16_PzVIB_Tiger_II_F.png'
@@ -2130,13 +2208,16 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_G35_B_1BIS_CAPTURED = '../maps/shop/vehicles/600x450/G35_B-1bis_captured.png'
     MAPS_SHOP_VEHICLES_600X450_G36_PZII_J = '../maps/shop/vehicles/600x450/G36_PzII_J.png'
     MAPS_SHOP_VEHICLES_600X450_G37_FERDINAND = '../maps/shop/vehicles/600x450/G37_Ferdinand.png'
+    MAPS_SHOP_VEHICLES_600X450_G37_FERDINAND_FL = '../maps/shop/vehicles/600x450/G37_Ferdinand_FL.png'
     MAPS_SHOP_VEHICLES_600X450_G39_MARDER_III = '../maps/shop/vehicles/600x450/G39_Marder_III.png'
     MAPS_SHOP_VEHICLES_600X450_G40_NASHORN = '../maps/shop/vehicles/600x450/G40_Nashorn.png'
+    MAPS_SHOP_VEHICLES_600X450_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2 = '../maps/shop/vehicles/600x450/G40_Nashorn_MapsTraining_Dummy_ATSPG_2.png'
     MAPS_SHOP_VEHICLES_600X450_G41_DICKERMAX = '../maps/shop/vehicles/600x450/G41_DickerMax.png'
     MAPS_SHOP_VEHICLES_600X450_G42_MAUS = '../maps/shop/vehicles/600x450/G42_Maus.png'
     MAPS_SHOP_VEHICLES_600X450_G43_STURER_EMIL = '../maps/shop/vehicles/600x450/G43_Sturer_Emil.png'
     MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGER = '../maps/shop/vehicles/600x450/G44_JagdTiger.png'
     MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGERH = '../maps/shop/vehicles/600x450/G44_JagdTigerH.png'
+    MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGER_FL = '../maps/shop/vehicles/600x450/G44_JagdTiger_FL.png'
     MAPS_SHOP_VEHICLES_600X450_G45_G_TIGER = '../maps/shop/vehicles/600x450/G45_G_Tiger.png'
     MAPS_SHOP_VEHICLES_600X450_G46_T_25 = '../maps/shop/vehicles/600x450/G46_T-25.png'
     MAPS_SHOP_VEHICLES_600X450_G48_E_25 = '../maps/shop/vehicles/600x450/G48_E-25.png'
@@ -2147,6 +2228,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_G52_PZ38_NA = '../maps/shop/vehicles/600x450/G52_Pz38_NA.png'
     MAPS_SHOP_VEHICLES_600X450_G53_PZI = '../maps/shop/vehicles/600x450/G53_PzI.png'
     MAPS_SHOP_VEHICLES_600X450_G54_E_50 = '../maps/shop/vehicles/600x450/G54_E-50.png'
+    MAPS_SHOP_VEHICLES_600X450_G54_E_50_FL = '../maps/shop/vehicles/600x450/G54_E-50_FL.png'
     MAPS_SHOP_VEHICLES_600X450_G55_E_75 = '../maps/shop/vehicles/600x450/G55_E-75.png'
     MAPS_SHOP_VEHICLES_600X450_G56_E_100 = '../maps/shop/vehicles/600x450/G56_E-100.png'
     MAPS_SHOP_VEHICLES_600X450_G57_PZVI_TIGER_P = '../maps/shop/vehicles/600x450/G57_PzVI_Tiger_P.png'
@@ -2178,6 +2260,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_G89_LEOPARD1 = '../maps/shop/vehicles/600x450/G89_Leopard1.png'
     MAPS_SHOP_VEHICLES_600X450_G89_LEOPARD1_BOB = '../maps/shop/vehicles/600x450/G89_Leopard1_bob.png'
     MAPS_SHOP_VEHICLES_600X450_G90_DW_II = '../maps/shop/vehicles/600x450/G90_DW_II.png'
+    MAPS_SHOP_VEHICLES_600X450_G90_DW_II_MAPSTRAINING_DUMMY_HT_1 = '../maps/shop/vehicles/600x450/G90_DW_II_MapsTraining_Dummy_HT_1.png'
     MAPS_SHOP_VEHICLES_600X450_G91_PRO_AG_A = '../maps/shop/vehicles/600x450/G91_Pro_Ag_A.png'
     MAPS_SHOP_VEHICLES_600X450_G92_VK7201 = '../maps/shop/vehicles/600x450/G92_VK7201.png'
     MAPS_SHOP_VEHICLES_600X450_G93_GW_MK_VIE = '../maps/shop/vehicles/600x450/G93_GW_Mk_VIe.png'
@@ -2211,11 +2294,13 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_GB111_CHARLEMAGNE = '../maps/shop/vehicles/600x450/GB111_Charlemagne.png'
     MAPS_SHOP_VEHICLES_600X450_GB11_CAERNARVON = '../maps/shop/vehicles/600x450/GB11_Caernarvon.png'
     MAPS_SHOP_VEHICLES_600X450_GB12_CONQUEROR = '../maps/shop/vehicles/600x450/GB12_Conqueror.png'
+    MAPS_SHOP_VEHICLES_600X450_GB12_CONQUEROR_FL = '../maps/shop/vehicles/600x450/GB12_Conqueror_FL.png'
     MAPS_SHOP_VEHICLES_600X450_GB13_FV215B = '../maps/shop/vehicles/600x450/GB13_FV215b.png'
     MAPS_SHOP_VEHICLES_600X450_GB14_M2 = '../maps/shop/vehicles/600x450/GB14_M2.png'
     MAPS_SHOP_VEHICLES_600X450_GB15_STUART_I = '../maps/shop/vehicles/600x450/GB15_Stuart_I.png'
     MAPS_SHOP_VEHICLES_600X450_GB17_GRANT_I = '../maps/shop/vehicles/600x450/GB17_Grant_I.png'
     MAPS_SHOP_VEHICLES_600X450_GB19_SHERMAN_FIREFLY = '../maps/shop/vehicles/600x450/GB19_Sherman_Firefly.png'
+    MAPS_SHOP_VEHICLES_600X450_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2 = '../maps/shop/vehicles/600x450/GB19_Sherman_Firefly_MapsTraining_Dummy_MT_2.png'
     MAPS_SHOP_VEHICLES_600X450_GB20_CRUSADER = '../maps/shop/vehicles/600x450/GB20_Crusader.png'
     MAPS_SHOP_VEHICLES_600X450_GB21_CROMWELL = '../maps/shop/vehicles/600x450/GB21_Cromwell.png'
     MAPS_SHOP_VEHICLES_600X450_GB22_COMET = '../maps/shop/vehicles/600x450/GB22_Comet.png'
@@ -2311,6 +2396,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_J12_CHI_NU_KAI = '../maps/shop/vehicles/600x450/J12_Chi_Nu_Kai.png'
     MAPS_SHOP_VEHICLES_600X450_J13_STA_1 = '../maps/shop/vehicles/600x450/J13_STA_1.png'
     MAPS_SHOP_VEHICLES_600X450_J14_TYPE_61 = '../maps/shop/vehicles/600x450/J14_Type_61.png'
+    MAPS_SHOP_VEHICLES_600X450_J14_TYPE_61_FL = '../maps/shop/vehicles/600x450/J14_Type_61_FL.png'
     MAPS_SHOP_VEHICLES_600X450_J15_CHI_NI = '../maps/shop/vehicles/600x450/J15_Chi_Ni.png'
     MAPS_SHOP_VEHICLES_600X450_J16_ST_B1 = '../maps/shop/vehicles/600x450/J16_ST_B1.png'
     MAPS_SHOP_VEHICLES_600X450_J18_STA_2_3 = '../maps/shop/vehicles/600x450/J18_STA_2_3.png'
@@ -2329,6 +2415,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_PL01_TKS_20MM = '../maps/shop/vehicles/600x450/Pl01_TKS_20mm.png'
     MAPS_SHOP_VEHICLES_600X450_PL03_PZV_POLAND = '../maps/shop/vehicles/600x450/Pl03_PzV_Poland.png'
     MAPS_SHOP_VEHICLES_600X450_PL05_50TP_TYSZKIEWICZA = '../maps/shop/vehicles/600x450/Pl05_50TP_Tyszkiewicza.png'
+    MAPS_SHOP_VEHICLES_600X450_PL05_50TP_TYSZKIEWICZA_FL = '../maps/shop/vehicles/600x450/Pl05_50TP_Tyszkiewicza_FL.png'
     MAPS_SHOP_VEHICLES_600X450_PL06_10TP = '../maps/shop/vehicles/600x450/Pl06_10TP.png'
     MAPS_SHOP_VEHICLES_600X450_PL07_14TP = '../maps/shop/vehicles/600x450/Pl07_14TP.png'
     MAPS_SHOP_VEHICLES_600X450_PL08_50TP_PROTOTYP = '../maps/shop/vehicles/600x450/Pl08_50TP_prototyp.png'
@@ -2351,6 +2438,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R02_SU_85 = '../maps/shop/vehicles/600x450/R02_SU-85.png'
     MAPS_SHOP_VEHICLES_600X450_R03_BT_7 = '../maps/shop/vehicles/600x450/R03_BT-7.png'
     MAPS_SHOP_VEHICLES_600X450_R04_T_34 = '../maps/shop/vehicles/600x450/R04_T-34.png'
+    MAPS_SHOP_VEHICLES_600X450_R04_T_34_MAPSTRAINING_PLAYER_MT_1 = '../maps/shop/vehicles/600x450/R04_T-34_MapsTraining_Player_MT_1.png'
     MAPS_SHOP_VEHICLES_600X450_R06_T_28 = '../maps/shop/vehicles/600x450/R06_T-28.png'
     MAPS_SHOP_VEHICLES_600X450_R07_T_34_85 = '../maps/shop/vehicles/600x450/R07_T-34-85.png'
     MAPS_SHOP_VEHICLES_600X450_R08_BT_2 = '../maps/shop/vehicles/600x450/R08_BT-2.png'
@@ -2363,6 +2451,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R107_LTB = '../maps/shop/vehicles/600x450/R107_LTB.png'
     MAPS_SHOP_VEHICLES_600X450_R108_T34_85M = '../maps/shop/vehicles/600x450/R108_T34_85M.png'
     MAPS_SHOP_VEHICLES_600X450_R109_T54S = '../maps/shop/vehicles/600x450/R109_T54S.png'
+    MAPS_SHOP_VEHICLES_600X450_R109_T54S_FL = '../maps/shop/vehicles/600x450/R109_T54S_FL.png'
     MAPS_SHOP_VEHICLES_600X450_R10_AT_1 = '../maps/shop/vehicles/600x450/R10_AT-1.png'
     MAPS_SHOP_VEHICLES_600X450_R110_OBJECT_260 = '../maps/shop/vehicles/600x450/R110_Object_260.png'
     MAPS_SHOP_VEHICLES_600X450_R111_ISU130 = '../maps/shop/vehicles/600x450/R111_ISU130.png'
@@ -2409,6 +2498,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R148_OBJECT_430_U = '../maps/shop/vehicles/600x450/R148_Object_430_U.png'
     MAPS_SHOP_VEHICLES_600X450_R149_OBJECT_268_4 = '../maps/shop/vehicles/600x450/R149_Object_268_4.png'
     MAPS_SHOP_VEHICLES_600X450_R14_SU_5 = '../maps/shop/vehicles/600x450/R14_SU-5.png'
+    MAPS_SHOP_VEHICLES_600X450_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1 = '../maps/shop/vehicles/600x450/R14_SU-5_MapsTraining_Dummy_SPG_1.png'
     MAPS_SHOP_VEHICLES_600X450_R151_OBJECT_257_2 = '../maps/shop/vehicles/600x450/R151_Object_257_2.png'
     MAPS_SHOP_VEHICLES_600X450_R152_KV2_W = '../maps/shop/vehicles/600x450/R152_KV2_W.png'
     MAPS_SHOP_VEHICLES_600X450_R153_OBJECT_705 = '../maps/shop/vehicles/600x450/R153_Object_705.png'
@@ -2437,12 +2527,14 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R17_SU_100 = '../maps/shop/vehicles/600x450/R17_SU-100.png'
     MAPS_SHOP_VEHICLES_600X450_R180_OBJECT_274_A = '../maps/shop/vehicles/600x450/R180_Object_274_A.png'
     MAPS_SHOP_VEHICLES_600X450_R183_K_91_PT = '../maps/shop/vehicles/600x450/R183_K_91_PT.png'
+    MAPS_SHOP_VEHICLES_600X450_R185_T_34_L_11_1941 = '../maps/shop/vehicles/600x450/R185_T_34_L_11_1941.png'
     MAPS_SHOP_VEHICLES_600X450_R18_SU_152 = '../maps/shop/vehicles/600x450/R18_SU-152.png'
     MAPS_SHOP_VEHICLES_600X450_R19_IS_3 = '../maps/shop/vehicles/600x450/R19_IS-3.png'
     MAPS_SHOP_VEHICLES_600X450_R20_T_44 = '../maps/shop/vehicles/600x450/R20_T-44.png'
     MAPS_SHOP_VEHICLES_600X450_R20_T_44_FL = '../maps/shop/vehicles/600x450/R20_T-44_FL.png'
     MAPS_SHOP_VEHICLES_600X450_R22_T_46 = '../maps/shop/vehicles/600x450/R22_T-46.png'
     MAPS_SHOP_VEHICLES_600X450_R23_T_43 = '../maps/shop/vehicles/600x450/R23_T-43.png'
+    MAPS_SHOP_VEHICLES_600X450_R23_T_43_MAPSTRAINING_PLAYER_MT_2 = '../maps/shop/vehicles/600x450/R23_T-43_MapsTraining_Player_MT_2.png'
     MAPS_SHOP_VEHICLES_600X450_R24_SU_76 = '../maps/shop/vehicles/600x450/R24_SU-76.png'
     MAPS_SHOP_VEHICLES_600X450_R25_GAZ_74B = '../maps/shop/vehicles/600x450/R25_GAZ-74b.png'
     MAPS_SHOP_VEHICLES_600X450_R26_SU_8 = '../maps/shop/vehicles/600x450/R26_SU-8.png'
@@ -2455,10 +2547,12 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R38_KV_220_BETA = '../maps/shop/vehicles/600x450/R38_KV-220_beta.png'
     MAPS_SHOP_VEHICLES_600X450_R39_KV_3 = '../maps/shop/vehicles/600x450/R39_KV-3.png'
     MAPS_SHOP_VEHICLES_600X450_R40_T_54 = '../maps/shop/vehicles/600x450/R40_T-54.png'
+    MAPS_SHOP_VEHICLES_600X450_R40_T_54_FL = '../maps/shop/vehicles/600x450/R40_T-54_FL.png'
     MAPS_SHOP_VEHICLES_600X450_R41_T_50 = '../maps/shop/vehicles/600x450/R41_T-50.png'
     MAPS_SHOP_VEHICLES_600X450_R42_T_60 = '../maps/shop/vehicles/600x450/R42_T-60.png'
     MAPS_SHOP_VEHICLES_600X450_R43_T_70 = '../maps/shop/vehicles/600x450/R43_T-70.png'
     MAPS_SHOP_VEHICLES_600X450_R44_T80 = '../maps/shop/vehicles/600x450/R44_T80.png'
+    MAPS_SHOP_VEHICLES_600X450_R44_T80_MAPSTRAINING_DUMMY_LT_1 = '../maps/shop/vehicles/600x450/R44_T80_MapsTraining_Dummy_LT_1.png'
     MAPS_SHOP_VEHICLES_600X450_R45_IS_7 = '../maps/shop/vehicles/600x450/R45_IS-7.png'
     MAPS_SHOP_VEHICLES_600X450_R46_KV_13 = '../maps/shop/vehicles/600x450/R46_KV-13.png'
     MAPS_SHOP_VEHICLES_600X450_R46_KV_13_SH = '../maps/shop/vehicles/600x450/R46_KV-13_SH.png'
@@ -2483,6 +2577,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_R68_A_32 = '../maps/shop/vehicles/600x450/R68_A-32.png'
     MAPS_SHOP_VEHICLES_600X450_R71_IS_2B = '../maps/shop/vehicles/600x450/R71_IS_2B.png'
     MAPS_SHOP_VEHICLES_600X450_R72_T150 = '../maps/shop/vehicles/600x450/R72_T150.png'
+    MAPS_SHOP_VEHICLES_600X450_R72_T150_MAPSTRAINING_DUMMY_HT_2 = '../maps/shop/vehicles/600x450/R72_T150_MapsTraining_Dummy_HT_2.png'
     MAPS_SHOP_VEHICLES_600X450_R73_KV4 = '../maps/shop/vehicles/600x450/R73_KV4.png'
     MAPS_SHOP_VEHICLES_600X450_R74_SU100M1 = '../maps/shop/vehicles/600x450/R74_SU100M1.png'
     MAPS_SHOP_VEHICLES_600X450_R75_SU122_54 = '../maps/shop/vehicles/600x450/R75_SU122_54.png'
@@ -2517,6 +2612,7 @@ class RES_SHOP(object):
     MAPS_SHOP_VEHICLES_600X450_S08_IKV_65_ALT_2 = '../maps/shop/vehicles/600x450/S08_Ikv_65_Alt_2.png'
     MAPS_SHOP_VEHICLES_600X450_S09_L_120_TD = '../maps/shop/vehicles/600x450/S09_L_120_TD.png'
     MAPS_SHOP_VEHICLES_600X450_S10_STRV_103_0_SERIES = '../maps/shop/vehicles/600x450/S10_Strv_103_0_Series.png'
+    MAPS_SHOP_VEHICLES_600X450_S10_STRV_103_0_SERIES_FL = '../maps/shop/vehicles/600x450/S10_Strv_103_0_Series_FL.png'
     MAPS_SHOP_VEHICLES_600X450_S11_STRV_103B = '../maps/shop/vehicles/600x450/S11_Strv_103B.png'
     MAPS_SHOP_VEHICLES_600X450_S12_STRV_M40 = '../maps/shop/vehicles/600x450/S12_Strv_M40.png'
     MAPS_SHOP_VEHICLES_600X450_S13_LEO = '../maps/shop/vehicles/600x450/S13_Leo.png'
@@ -2585,6 +2681,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_A127_TL_1_LPC,
      MAPS_SHOP_VEHICLES_180X135_A128_CONCEPT_1B,
      MAPS_SHOP_VEHICLES_180X135_A129_T6_MEDIUM,
+     MAPS_SHOP_VEHICLES_180X135_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1,
      MAPS_SHOP_VEHICLES_180X135_A12_T32,
      MAPS_SHOP_VEHICLES_180X135_A12_T32_FL,
      MAPS_SHOP_VEHICLES_180X135_A130_SUPER_HELLCAT,
@@ -2594,12 +2691,15 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY,
      MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY_BF,
      MAPS_SHOP_VEHICLES_180X135_A13_T34_HVY_FL,
+     MAPS_SHOP_VEHICLES_180X135_A140_ASTRON_REX_105MM,
      MAPS_SHOP_VEHICLES_180X135_A14_T30,
+     MAPS_SHOP_VEHICLES_180X135_A14_T30_FL,
      MAPS_SHOP_VEHICLES_180X135_A16_M7_PRIEST,
      MAPS_SHOP_VEHICLES_180X135_A17_M37,
      MAPS_SHOP_VEHICLES_180X135_A18_M41,
      MAPS_SHOP_VEHICLES_180X135_A19_T2_LT,
      MAPS_SHOP_VEHICLES_180X135_A21_T14,
+     MAPS_SHOP_VEHICLES_180X135_A21_T14_MAPSTRAINING_PLAYER_HT_1,
      MAPS_SHOP_VEHICLES_180X135_A22_M5_STUART,
      MAPS_SHOP_VEHICLES_180X135_A23_M7_MED,
      MAPS_SHOP_VEHICLES_180X135_A24_T2_MED,
@@ -2626,6 +2726,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_A58_T67,
      MAPS_SHOP_VEHICLES_180X135_A62_RAM_II,
      MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON,
+     MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON_FL,
      MAPS_SHOP_VEHICLES_180X135_A63_M46_PATTON_KR,
      MAPS_SHOP_VEHICLES_180X135_A64_T25_AT,
      MAPS_SHOP_VEHICLES_180X135_A66_M103,
@@ -2634,6 +2735,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_A69_T110E5,
      MAPS_SHOP_VEHICLES_180X135_A69_T110E5_BOB,
      MAPS_SHOP_VEHICLES_180X135_A71_T21,
+     MAPS_SHOP_VEHICLES_180X135_A71_T21_MAPSTRAINING_DUMMY_LT_2,
      MAPS_SHOP_VEHICLES_180X135_A72_T25_2,
      MAPS_SHOP_VEHICLES_180X135_A72_T25_2_SH,
      MAPS_SHOP_VEHICLES_180X135_A74_T1_E6,
@@ -2668,6 +2770,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_CH10_IS2,
      MAPS_SHOP_VEHICLES_180X135_CH11_110,
      MAPS_SHOP_VEHICLES_180X135_CH12_111_1_2_3,
+     MAPS_SHOP_VEHICLES_180X135_CH12_111_1_2_3_FL,
      MAPS_SHOP_VEHICLES_180X135_CH14_T34_3,
      MAPS_SHOP_VEHICLES_180X135_CH15_59_16,
      MAPS_SHOP_VEHICLES_180X135_CH16_WZ_131,
@@ -2719,6 +2822,10 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_CZ13_T_27,
      MAPS_SHOP_VEHICLES_180X135_CZ14_SKODA_T_56,
      MAPS_SHOP_VEHICLES_180X135_CZ15_SKODA_T_45_PREM,
+     MAPS_SHOP_VEHICLES_180X135_CZ16_TNH_T_VZ51,
+     MAPS_SHOP_VEHICLES_180X135_CZ17_VZ_55,
+     MAPS_SHOP_VEHICLES_180X135_CZ18_TNH_105_1000,
+     MAPS_SHOP_VEHICLES_180X135_CZ19_VZ_44_1,
      MAPS_SHOP_VEHICLES_180X135_EMPTY_TANK,
      MAPS_SHOP_VEHICLES_180X135_F01_RENAULTFT,
      MAPS_SHOP_VEHICLES_180X135_F02_D1,
@@ -2756,6 +2863,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_F21_LORRAINE39_L_AM,
      MAPS_SHOP_VEHICLES_180X135_F22_AMX_105AM,
      MAPS_SHOP_VEHICLES_180X135_F23_AMX_13F3AM,
+     MAPS_SHOP_VEHICLES_180X135_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2,
      MAPS_SHOP_VEHICLES_180X135_F24_LORRAINE155_50,
      MAPS_SHOP_VEHICLES_180X135_F25_LORRAINE155_51,
      MAPS_SHOP_VEHICLES_180X135_F27_FCM_36PAK40,
@@ -2795,6 +2903,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_F81_CHAR_DE_65T,
      MAPS_SHOP_VEHICLES_180X135_F82_AMX_M4_MLE1949_TER,
      MAPS_SHOP_VEHICLES_180X135_F83_AMX_M4_MLE1949_BIS,
+     MAPS_SHOP_VEHICLES_180X135_F83_AMX_M4_MLE1949_BIS_FL,
      MAPS_SHOP_VEHICLES_180X135_F84_SOMUA_SM,
      MAPS_SHOP_VEHICLES_180X135_F85_M4A1_FL10,
      MAPS_SHOP_VEHICLES_180X135_F87_BATIGNOLLES_CHATILLON_12T,
@@ -2806,11 +2915,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_G03_PZV_PANTHER,
      MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_I,
      MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_IA,
+     MAPS_SHOP_VEHICLES_180X135_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2,
      MAPS_SHOP_VEHICLES_180X135_G05_STUG_40_AUSFG,
      MAPS_SHOP_VEHICLES_180X135_G06_PZII,
      MAPS_SHOP_VEHICLES_180X135_G07_PZ35T,
      MAPS_SHOP_VEHICLES_180X135_G08_PZ38T,
      MAPS_SHOP_VEHICLES_180X135_G09_HETZER,
+     MAPS_SHOP_VEHICLES_180X135_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1,
      MAPS_SHOP_VEHICLES_180X135_G100_GTRAKTOR_KRUPP,
      MAPS_SHOP_VEHICLES_180X135_G101_STUG_III,
      MAPS_SHOP_VEHICLES_180X135_G102_PZ_III,
@@ -2860,6 +2971,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_G147_KUNZE_PANZER,
      MAPS_SHOP_VEHICLES_180X135_G151_PZ_SFL_IC,
      MAPS_SHOP_VEHICLES_180X135_G154_KPZ_07_RH,
+     MAPS_SHOP_VEHICLES_180X135_G158_VK2801_105_SPXXI,
      MAPS_SHOP_VEHICLES_180X135_G15_VK3601H,
      MAPS_SHOP_VEHICLES_180X135_G16_PZVIB_TIGER_II,
      MAPS_SHOP_VEHICLES_180X135_G16_PZVIB_TIGER_II_F,
@@ -2885,13 +2997,16 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_G35_B_1BIS_CAPTURED,
      MAPS_SHOP_VEHICLES_180X135_G36_PZII_J,
      MAPS_SHOP_VEHICLES_180X135_G37_FERDINAND,
+     MAPS_SHOP_VEHICLES_180X135_G37_FERDINAND_FL,
      MAPS_SHOP_VEHICLES_180X135_G39_MARDER_III,
      MAPS_SHOP_VEHICLES_180X135_G40_NASHORN,
+     MAPS_SHOP_VEHICLES_180X135_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2,
      MAPS_SHOP_VEHICLES_180X135_G41_DICKERMAX,
      MAPS_SHOP_VEHICLES_180X135_G42_MAUS,
      MAPS_SHOP_VEHICLES_180X135_G43_STURER_EMIL,
      MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGER,
      MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGERH,
+     MAPS_SHOP_VEHICLES_180X135_G44_JAGDTIGER_FL,
      MAPS_SHOP_VEHICLES_180X135_G45_G_TIGER,
      MAPS_SHOP_VEHICLES_180X135_G46_T_25,
      MAPS_SHOP_VEHICLES_180X135_G48_E_25,
@@ -2902,6 +3017,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_G52_PZ38_NA,
      MAPS_SHOP_VEHICLES_180X135_G53_PZI,
      MAPS_SHOP_VEHICLES_180X135_G54_E_50,
+     MAPS_SHOP_VEHICLES_180X135_G54_E_50_FL,
      MAPS_SHOP_VEHICLES_180X135_G55_E_75,
      MAPS_SHOP_VEHICLES_180X135_G56_E_100,
      MAPS_SHOP_VEHICLES_180X135_G57_PZVI_TIGER_P,
@@ -2933,6 +3049,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_G89_LEOPARD1,
      MAPS_SHOP_VEHICLES_180X135_G89_LEOPARD1_BOB,
      MAPS_SHOP_VEHICLES_180X135_G90_DW_II,
+     MAPS_SHOP_VEHICLES_180X135_G90_DW_II_MAPSTRAINING_DUMMY_HT_1,
      MAPS_SHOP_VEHICLES_180X135_G91_PRO_AG_A,
      MAPS_SHOP_VEHICLES_180X135_G92_VK7201,
      MAPS_SHOP_VEHICLES_180X135_G93_GW_MK_VIE,
@@ -2965,11 +3082,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_GB10_BLACK_PRINCE,
      MAPS_SHOP_VEHICLES_180X135_GB11_CAERNARVON,
      MAPS_SHOP_VEHICLES_180X135_GB12_CONQUEROR,
+     MAPS_SHOP_VEHICLES_180X135_GB12_CONQUEROR_FL,
      MAPS_SHOP_VEHICLES_180X135_GB13_FV215B,
      MAPS_SHOP_VEHICLES_180X135_GB14_M2,
      MAPS_SHOP_VEHICLES_180X135_GB15_STUART_I,
      MAPS_SHOP_VEHICLES_180X135_GB17_GRANT_I,
      MAPS_SHOP_VEHICLES_180X135_GB19_SHERMAN_FIREFLY,
+     MAPS_SHOP_VEHICLES_180X135_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2,
      MAPS_SHOP_VEHICLES_180X135_GB20_CRUSADER,
      MAPS_SHOP_VEHICLES_180X135_GB21_CROMWELL,
      MAPS_SHOP_VEHICLES_180X135_GB22_COMET,
@@ -3065,6 +3184,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_J12_CHI_NU_KAI,
      MAPS_SHOP_VEHICLES_180X135_J13_STA_1,
      MAPS_SHOP_VEHICLES_180X135_J14_TYPE_61,
+     MAPS_SHOP_VEHICLES_180X135_J14_TYPE_61_FL,
      MAPS_SHOP_VEHICLES_180X135_J15_CHI_NI,
      MAPS_SHOP_VEHICLES_180X135_J16_ST_B1,
      MAPS_SHOP_VEHICLES_180X135_J18_STA_2_3,
@@ -3083,6 +3203,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_PL01_TKS_20MM,
      MAPS_SHOP_VEHICLES_180X135_PL03_PZV_POLAND,
      MAPS_SHOP_VEHICLES_180X135_PL05_50TP_TYSZKIEWICZA,
+     MAPS_SHOP_VEHICLES_180X135_PL05_50TP_TYSZKIEWICZA_FL,
      MAPS_SHOP_VEHICLES_180X135_PL06_10TP,
      MAPS_SHOP_VEHICLES_180X135_PL07_14TP,
      MAPS_SHOP_VEHICLES_180X135_PL08_50TP_PROTOTYP,
@@ -3105,6 +3226,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R02_SU_85,
      MAPS_SHOP_VEHICLES_180X135_R03_BT_7,
      MAPS_SHOP_VEHICLES_180X135_R04_T_34,
+     MAPS_SHOP_VEHICLES_180X135_R04_T_34_MAPSTRAINING_PLAYER_MT_1,
      MAPS_SHOP_VEHICLES_180X135_R06_T_28,
      MAPS_SHOP_VEHICLES_180X135_R07_T_34_85,
      MAPS_SHOP_VEHICLES_180X135_R08_BT_2,
@@ -3117,6 +3239,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R107_LTB,
      MAPS_SHOP_VEHICLES_180X135_R108_T34_85M,
      MAPS_SHOP_VEHICLES_180X135_R109_T54S,
+     MAPS_SHOP_VEHICLES_180X135_R109_T54S_FL,
      MAPS_SHOP_VEHICLES_180X135_R10_AT_1,
      MAPS_SHOP_VEHICLES_180X135_R110_OBJECT_260,
      MAPS_SHOP_VEHICLES_180X135_R111_ISU130,
@@ -3163,6 +3286,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R148_OBJECT_430_U,
      MAPS_SHOP_VEHICLES_180X135_R149_OBJECT_268_4,
      MAPS_SHOP_VEHICLES_180X135_R14_SU_5,
+     MAPS_SHOP_VEHICLES_180X135_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1,
      MAPS_SHOP_VEHICLES_180X135_R151_OBJECT_257_2,
      MAPS_SHOP_VEHICLES_180X135_R152_KV2_W,
      MAPS_SHOP_VEHICLES_180X135_R153_OBJECT_705,
@@ -3191,12 +3315,14 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R17_SU_100,
      MAPS_SHOP_VEHICLES_180X135_R180_OBJECT_274_A,
      MAPS_SHOP_VEHICLES_180X135_R183_K_91_PT,
+     MAPS_SHOP_VEHICLES_180X135_R185_T_34_L_11_1941,
      MAPS_SHOP_VEHICLES_180X135_R18_SU_152,
      MAPS_SHOP_VEHICLES_180X135_R19_IS_3,
      MAPS_SHOP_VEHICLES_180X135_R20_T_44,
      MAPS_SHOP_VEHICLES_180X135_R20_T_44_FL,
      MAPS_SHOP_VEHICLES_180X135_R22_T_46,
      MAPS_SHOP_VEHICLES_180X135_R23_T_43,
+     MAPS_SHOP_VEHICLES_180X135_R23_T_43_MAPSTRAINING_PLAYER_MT_2,
      MAPS_SHOP_VEHICLES_180X135_R24_SU_76,
      MAPS_SHOP_VEHICLES_180X135_R25_GAZ_74B,
      MAPS_SHOP_VEHICLES_180X135_R26_SU_8,
@@ -3209,10 +3335,12 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R38_KV_220_BETA,
      MAPS_SHOP_VEHICLES_180X135_R39_KV_3,
      MAPS_SHOP_VEHICLES_180X135_R40_T_54,
+     MAPS_SHOP_VEHICLES_180X135_R40_T_54_FL,
      MAPS_SHOP_VEHICLES_180X135_R41_T_50,
      MAPS_SHOP_VEHICLES_180X135_R42_T_60,
      MAPS_SHOP_VEHICLES_180X135_R43_T_70,
      MAPS_SHOP_VEHICLES_180X135_R44_T80,
+     MAPS_SHOP_VEHICLES_180X135_R44_T80_MAPSTRAINING_DUMMY_LT_1,
      MAPS_SHOP_VEHICLES_180X135_R45_IS_7,
      MAPS_SHOP_VEHICLES_180X135_R46_KV_13,
      MAPS_SHOP_VEHICLES_180X135_R46_KV_13_SH,
@@ -3237,6 +3365,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_R68_A_32,
      MAPS_SHOP_VEHICLES_180X135_R71_IS_2B,
      MAPS_SHOP_VEHICLES_180X135_R72_T150,
+     MAPS_SHOP_VEHICLES_180X135_R72_T150_MAPSTRAINING_DUMMY_HT_2,
      MAPS_SHOP_VEHICLES_180X135_R73_KV4,
      MAPS_SHOP_VEHICLES_180X135_R74_SU100M1,
      MAPS_SHOP_VEHICLES_180X135_R75_SU122_54,
@@ -3271,6 +3400,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_180X135_S08_IKV_65_ALT_2,
      MAPS_SHOP_VEHICLES_180X135_S09_L_120_TD,
      MAPS_SHOP_VEHICLES_180X135_S10_STRV_103_0_SERIES,
+     MAPS_SHOP_VEHICLES_180X135_S10_STRV_103_0_SERIES_FL,
      MAPS_SHOP_VEHICLES_180X135_S11_STRV_103B,
      MAPS_SHOP_VEHICLES_180X135_S12_STRV_M40,
      MAPS_SHOP_VEHICLES_180X135_S13_LEO,
@@ -3333,6 +3463,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_A127_TL_1_LPC,
      MAPS_SHOP_VEHICLES_360X270_A128_CONCEPT_1B,
      MAPS_SHOP_VEHICLES_360X270_A129_T6_MEDIUM,
+     MAPS_SHOP_VEHICLES_360X270_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1,
      MAPS_SHOP_VEHICLES_360X270_A12_T32,
      MAPS_SHOP_VEHICLES_360X270_A12_T32_FL,
      MAPS_SHOP_VEHICLES_360X270_A130_SUPER_HELLCAT,
@@ -3342,12 +3473,15 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY,
      MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY_BF,
      MAPS_SHOP_VEHICLES_360X270_A13_T34_HVY_FL,
+     MAPS_SHOP_VEHICLES_360X270_A140_ASTRON_REX_105MM,
      MAPS_SHOP_VEHICLES_360X270_A14_T30,
+     MAPS_SHOP_VEHICLES_360X270_A14_T30_FL,
      MAPS_SHOP_VEHICLES_360X270_A16_M7_PRIEST,
      MAPS_SHOP_VEHICLES_360X270_A17_M37,
      MAPS_SHOP_VEHICLES_360X270_A18_M41,
      MAPS_SHOP_VEHICLES_360X270_A19_T2_LT,
      MAPS_SHOP_VEHICLES_360X270_A21_T14,
+     MAPS_SHOP_VEHICLES_360X270_A21_T14_MAPSTRAINING_PLAYER_HT_1,
      MAPS_SHOP_VEHICLES_360X270_A22_M5_STUART,
      MAPS_SHOP_VEHICLES_360X270_A23_M7_MED,
      MAPS_SHOP_VEHICLES_360X270_A24_T2_MED,
@@ -3374,6 +3508,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_A58_T67,
      MAPS_SHOP_VEHICLES_360X270_A62_RAM_II,
      MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON,
+     MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON_FL,
      MAPS_SHOP_VEHICLES_360X270_A63_M46_PATTON_KR,
      MAPS_SHOP_VEHICLES_360X270_A64_T25_AT,
      MAPS_SHOP_VEHICLES_360X270_A66_M103,
@@ -3382,6 +3517,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_A69_T110E5,
      MAPS_SHOP_VEHICLES_360X270_A69_T110E5_BOB,
      MAPS_SHOP_VEHICLES_360X270_A71_T21,
+     MAPS_SHOP_VEHICLES_360X270_A71_T21_MAPSTRAINING_DUMMY_LT_2,
      MAPS_SHOP_VEHICLES_360X270_A72_T25_2,
      MAPS_SHOP_VEHICLES_360X270_A72_T25_2_SH,
      MAPS_SHOP_VEHICLES_360X270_A74_T1_E6,
@@ -3416,6 +3552,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_CH10_IS2,
      MAPS_SHOP_VEHICLES_360X270_CH11_110,
      MAPS_SHOP_VEHICLES_360X270_CH12_111_1_2_3,
+     MAPS_SHOP_VEHICLES_360X270_CH12_111_1_2_3_FL,
      MAPS_SHOP_VEHICLES_360X270_CH14_T34_3,
      MAPS_SHOP_VEHICLES_360X270_CH15_59_16,
      MAPS_SHOP_VEHICLES_360X270_CH16_WZ_131,
@@ -3467,6 +3604,10 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_CZ13_T_27,
      MAPS_SHOP_VEHICLES_360X270_CZ14_SKODA_T_56,
      MAPS_SHOP_VEHICLES_360X270_CZ15_SKODA_T_45_PREM,
+     MAPS_SHOP_VEHICLES_360X270_CZ16_TNH_T_VZ51,
+     MAPS_SHOP_VEHICLES_360X270_CZ17_VZ_55,
+     MAPS_SHOP_VEHICLES_360X270_CZ18_TNH_105_1000,
+     MAPS_SHOP_VEHICLES_360X270_CZ19_VZ_44_1,
      MAPS_SHOP_VEHICLES_360X270_EMPTY_TANK,
      MAPS_SHOP_VEHICLES_360X270_F01_RENAULTFT,
      MAPS_SHOP_VEHICLES_360X270_F02_D1,
@@ -3504,6 +3645,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_F21_LORRAINE39_L_AM,
      MAPS_SHOP_VEHICLES_360X270_F22_AMX_105AM,
      MAPS_SHOP_VEHICLES_360X270_F23_AMX_13F3AM,
+     MAPS_SHOP_VEHICLES_360X270_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2,
      MAPS_SHOP_VEHICLES_360X270_F24_LORRAINE155_50,
      MAPS_SHOP_VEHICLES_360X270_F25_LORRAINE155_51,
      MAPS_SHOP_VEHICLES_360X270_F27_FCM_36PAK40,
@@ -3543,6 +3685,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_F81_CHAR_DE_65T,
      MAPS_SHOP_VEHICLES_360X270_F82_AMX_M4_MLE1949_TER,
      MAPS_SHOP_VEHICLES_360X270_F83_AMX_M4_MLE1949_BIS,
+     MAPS_SHOP_VEHICLES_360X270_F83_AMX_M4_MLE1949_BIS_FL,
      MAPS_SHOP_VEHICLES_360X270_F84_SOMUA_SM,
      MAPS_SHOP_VEHICLES_360X270_F85_M4A1_FL10,
      MAPS_SHOP_VEHICLES_360X270_F87_BATIGNOLLES_CHATILLON_12T,
@@ -3554,11 +3697,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_G03_PZV_PANTHER,
      MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_I,
      MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_IA,
+     MAPS_SHOP_VEHICLES_360X270_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2,
      MAPS_SHOP_VEHICLES_360X270_G05_STUG_40_AUSFG,
      MAPS_SHOP_VEHICLES_360X270_G06_PZII,
      MAPS_SHOP_VEHICLES_360X270_G07_PZ35T,
      MAPS_SHOP_VEHICLES_360X270_G08_PZ38T,
      MAPS_SHOP_VEHICLES_360X270_G09_HETZER,
+     MAPS_SHOP_VEHICLES_360X270_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1,
      MAPS_SHOP_VEHICLES_360X270_G100_GTRAKTOR_KRUPP,
      MAPS_SHOP_VEHICLES_360X270_G101_STUG_III,
      MAPS_SHOP_VEHICLES_360X270_G102_PZ_III,
@@ -3608,6 +3753,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_G147_KUNZE_PANZER,
      MAPS_SHOP_VEHICLES_360X270_G151_PZ_SFL_IC,
      MAPS_SHOP_VEHICLES_360X270_G154_KPZ_07_RH,
+     MAPS_SHOP_VEHICLES_360X270_G158_VK2801_105_SPXXI,
      MAPS_SHOP_VEHICLES_360X270_G15_VK3601H,
      MAPS_SHOP_VEHICLES_360X270_G16_PZVIB_TIGER_II,
      MAPS_SHOP_VEHICLES_360X270_G16_PZVIB_TIGER_II_F,
@@ -3633,13 +3779,16 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_G35_B_1BIS_CAPTURED,
      MAPS_SHOP_VEHICLES_360X270_G36_PZII_J,
      MAPS_SHOP_VEHICLES_360X270_G37_FERDINAND,
+     MAPS_SHOP_VEHICLES_360X270_G37_FERDINAND_FL,
      MAPS_SHOP_VEHICLES_360X270_G39_MARDER_III,
      MAPS_SHOP_VEHICLES_360X270_G40_NASHORN,
+     MAPS_SHOP_VEHICLES_360X270_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2,
      MAPS_SHOP_VEHICLES_360X270_G41_DICKERMAX,
      MAPS_SHOP_VEHICLES_360X270_G42_MAUS,
      MAPS_SHOP_VEHICLES_360X270_G43_STURER_EMIL,
      MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGER,
      MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGERH,
+     MAPS_SHOP_VEHICLES_360X270_G44_JAGDTIGER_FL,
      MAPS_SHOP_VEHICLES_360X270_G45_G_TIGER,
      MAPS_SHOP_VEHICLES_360X270_G46_T_25,
      MAPS_SHOP_VEHICLES_360X270_G48_E_25,
@@ -3650,6 +3799,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_G52_PZ38_NA,
      MAPS_SHOP_VEHICLES_360X270_G53_PZI,
      MAPS_SHOP_VEHICLES_360X270_G54_E_50,
+     MAPS_SHOP_VEHICLES_360X270_G54_E_50_FL,
      MAPS_SHOP_VEHICLES_360X270_G55_E_75,
      MAPS_SHOP_VEHICLES_360X270_G56_E_100,
      MAPS_SHOP_VEHICLES_360X270_G57_PZVI_TIGER_P,
@@ -3681,6 +3831,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_G89_LEOPARD1,
      MAPS_SHOP_VEHICLES_360X270_G89_LEOPARD1_BOB,
      MAPS_SHOP_VEHICLES_360X270_G90_DW_II,
+     MAPS_SHOP_VEHICLES_360X270_G90_DW_II_MAPSTRAINING_DUMMY_HT_1,
      MAPS_SHOP_VEHICLES_360X270_G91_PRO_AG_A,
      MAPS_SHOP_VEHICLES_360X270_G92_VK7201,
      MAPS_SHOP_VEHICLES_360X270_G93_GW_MK_VIE,
@@ -3714,11 +3865,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_GB111_CHARLEMAGNE,
      MAPS_SHOP_VEHICLES_360X270_GB11_CAERNARVON,
      MAPS_SHOP_VEHICLES_360X270_GB12_CONQUEROR,
+     MAPS_SHOP_VEHICLES_360X270_GB12_CONQUEROR_FL,
      MAPS_SHOP_VEHICLES_360X270_GB13_FV215B,
      MAPS_SHOP_VEHICLES_360X270_GB14_M2,
      MAPS_SHOP_VEHICLES_360X270_GB15_STUART_I,
      MAPS_SHOP_VEHICLES_360X270_GB17_GRANT_I,
      MAPS_SHOP_VEHICLES_360X270_GB19_SHERMAN_FIREFLY,
+     MAPS_SHOP_VEHICLES_360X270_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2,
      MAPS_SHOP_VEHICLES_360X270_GB20_CRUSADER,
      MAPS_SHOP_VEHICLES_360X270_GB21_CROMWELL,
      MAPS_SHOP_VEHICLES_360X270_GB22_COMET,
@@ -3814,6 +3967,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_J12_CHI_NU_KAI,
      MAPS_SHOP_VEHICLES_360X270_J13_STA_1,
      MAPS_SHOP_VEHICLES_360X270_J14_TYPE_61,
+     MAPS_SHOP_VEHICLES_360X270_J14_TYPE_61_FL,
      MAPS_SHOP_VEHICLES_360X270_J15_CHI_NI,
      MAPS_SHOP_VEHICLES_360X270_J16_ST_B1,
      MAPS_SHOP_VEHICLES_360X270_J18_STA_2_3,
@@ -3832,6 +3986,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_PL01_TKS_20MM,
      MAPS_SHOP_VEHICLES_360X270_PL03_PZV_POLAND,
      MAPS_SHOP_VEHICLES_360X270_PL05_50TP_TYSZKIEWICZA,
+     MAPS_SHOP_VEHICLES_360X270_PL05_50TP_TYSZKIEWICZA_FL,
      MAPS_SHOP_VEHICLES_360X270_PL06_10TP,
      MAPS_SHOP_VEHICLES_360X270_PL07_14TP,
      MAPS_SHOP_VEHICLES_360X270_PL08_50TP_PROTOTYP,
@@ -3854,6 +4009,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R02_SU_85,
      MAPS_SHOP_VEHICLES_360X270_R03_BT_7,
      MAPS_SHOP_VEHICLES_360X270_R04_T_34,
+     MAPS_SHOP_VEHICLES_360X270_R04_T_34_MAPSTRAINING_PLAYER_MT_1,
      MAPS_SHOP_VEHICLES_360X270_R06_T_28,
      MAPS_SHOP_VEHICLES_360X270_R07_T_34_85,
      MAPS_SHOP_VEHICLES_360X270_R08_BT_2,
@@ -3866,6 +4022,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R107_LTB,
      MAPS_SHOP_VEHICLES_360X270_R108_T34_85M,
      MAPS_SHOP_VEHICLES_360X270_R109_T54S,
+     MAPS_SHOP_VEHICLES_360X270_R109_T54S_FL,
      MAPS_SHOP_VEHICLES_360X270_R10_AT_1,
      MAPS_SHOP_VEHICLES_360X270_R110_OBJECT_260,
      MAPS_SHOP_VEHICLES_360X270_R111_ISU130,
@@ -3912,6 +4069,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R148_OBJECT_430_U,
      MAPS_SHOP_VEHICLES_360X270_R149_OBJECT_268_4,
      MAPS_SHOP_VEHICLES_360X270_R14_SU_5,
+     MAPS_SHOP_VEHICLES_360X270_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1,
      MAPS_SHOP_VEHICLES_360X270_R151_OBJECT_257_2,
      MAPS_SHOP_VEHICLES_360X270_R152_KV2_W,
      MAPS_SHOP_VEHICLES_360X270_R153_OBJECT_705,
@@ -3940,12 +4098,14 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R17_SU_100,
      MAPS_SHOP_VEHICLES_360X270_R180_OBJECT_274_A,
      MAPS_SHOP_VEHICLES_360X270_R183_K_91_PT,
+     MAPS_SHOP_VEHICLES_360X270_R185_T_34_L_11_1941,
      MAPS_SHOP_VEHICLES_360X270_R18_SU_152,
      MAPS_SHOP_VEHICLES_360X270_R19_IS_3,
      MAPS_SHOP_VEHICLES_360X270_R20_T_44,
      MAPS_SHOP_VEHICLES_360X270_R20_T_44_FL,
      MAPS_SHOP_VEHICLES_360X270_R22_T_46,
      MAPS_SHOP_VEHICLES_360X270_R23_T_43,
+     MAPS_SHOP_VEHICLES_360X270_R23_T_43_MAPSTRAINING_PLAYER_MT_2,
      MAPS_SHOP_VEHICLES_360X270_R24_SU_76,
      MAPS_SHOP_VEHICLES_360X270_R25_GAZ_74B,
      MAPS_SHOP_VEHICLES_360X270_R26_SU_8,
@@ -3958,10 +4118,12 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R38_KV_220_BETA,
      MAPS_SHOP_VEHICLES_360X270_R39_KV_3,
      MAPS_SHOP_VEHICLES_360X270_R40_T_54,
+     MAPS_SHOP_VEHICLES_360X270_R40_T_54_FL,
      MAPS_SHOP_VEHICLES_360X270_R41_T_50,
      MAPS_SHOP_VEHICLES_360X270_R42_T_60,
      MAPS_SHOP_VEHICLES_360X270_R43_T_70,
      MAPS_SHOP_VEHICLES_360X270_R44_T80,
+     MAPS_SHOP_VEHICLES_360X270_R44_T80_MAPSTRAINING_DUMMY_LT_1,
      MAPS_SHOP_VEHICLES_360X270_R45_IS_7,
      MAPS_SHOP_VEHICLES_360X270_R46_KV_13,
      MAPS_SHOP_VEHICLES_360X270_R46_KV_13_SH,
@@ -3986,6 +4148,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_R68_A_32,
      MAPS_SHOP_VEHICLES_360X270_R71_IS_2B,
      MAPS_SHOP_VEHICLES_360X270_R72_T150,
+     MAPS_SHOP_VEHICLES_360X270_R72_T150_MAPSTRAINING_DUMMY_HT_2,
      MAPS_SHOP_VEHICLES_360X270_R73_KV4,
      MAPS_SHOP_VEHICLES_360X270_R74_SU100M1,
      MAPS_SHOP_VEHICLES_360X270_R75_SU122_54,
@@ -4020,6 +4183,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_360X270_S08_IKV_65_ALT_2,
      MAPS_SHOP_VEHICLES_360X270_S09_L_120_TD,
      MAPS_SHOP_VEHICLES_360X270_S10_STRV_103_0_SERIES,
+     MAPS_SHOP_VEHICLES_360X270_S10_STRV_103_0_SERIES_FL,
      MAPS_SHOP_VEHICLES_360X270_S11_STRV_103B,
      MAPS_SHOP_VEHICLES_360X270_S12_STRV_M40,
      MAPS_SHOP_VEHICLES_360X270_S13_LEO,
@@ -4082,6 +4246,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_A127_TL_1_LPC,
      MAPS_SHOP_VEHICLES_600X450_A128_CONCEPT_1B,
      MAPS_SHOP_VEHICLES_600X450_A129_T6_MEDIUM,
+     MAPS_SHOP_VEHICLES_600X450_A129_T6_MEDIUM_MAPSTRAINING_DUMMY_MT_1,
      MAPS_SHOP_VEHICLES_600X450_A12_T32,
      MAPS_SHOP_VEHICLES_600X450_A12_T32_FL,
      MAPS_SHOP_VEHICLES_600X450_A130_SUPER_HELLCAT,
@@ -4091,12 +4256,15 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY,
      MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY_BF,
      MAPS_SHOP_VEHICLES_600X450_A13_T34_HVY_FL,
+     MAPS_SHOP_VEHICLES_600X450_A140_ASTRON_REX_105MM,
      MAPS_SHOP_VEHICLES_600X450_A14_T30,
+     MAPS_SHOP_VEHICLES_600X450_A14_T30_FL,
      MAPS_SHOP_VEHICLES_600X450_A16_M7_PRIEST,
      MAPS_SHOP_VEHICLES_600X450_A17_M37,
      MAPS_SHOP_VEHICLES_600X450_A18_M41,
      MAPS_SHOP_VEHICLES_600X450_A19_T2_LT,
      MAPS_SHOP_VEHICLES_600X450_A21_T14,
+     MAPS_SHOP_VEHICLES_600X450_A21_T14_MAPSTRAINING_PLAYER_HT_1,
      MAPS_SHOP_VEHICLES_600X450_A22_M5_STUART,
      MAPS_SHOP_VEHICLES_600X450_A23_M7_MED,
      MAPS_SHOP_VEHICLES_600X450_A24_T2_MED,
@@ -4123,6 +4291,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_A58_T67,
      MAPS_SHOP_VEHICLES_600X450_A62_RAM_II,
      MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON,
+     MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON_FL,
      MAPS_SHOP_VEHICLES_600X450_A63_M46_PATTON_KR,
      MAPS_SHOP_VEHICLES_600X450_A64_T25_AT,
      MAPS_SHOP_VEHICLES_600X450_A66_M103,
@@ -4131,6 +4300,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_A69_T110E5,
      MAPS_SHOP_VEHICLES_600X450_A69_T110E5_BOB,
      MAPS_SHOP_VEHICLES_600X450_A71_T21,
+     MAPS_SHOP_VEHICLES_600X450_A71_T21_MAPSTRAINING_DUMMY_LT_2,
      MAPS_SHOP_VEHICLES_600X450_A72_T25_2,
      MAPS_SHOP_VEHICLES_600X450_A72_T25_2_SH,
      MAPS_SHOP_VEHICLES_600X450_A74_T1_E6,
@@ -4165,6 +4335,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_CH10_IS2,
      MAPS_SHOP_VEHICLES_600X450_CH11_110,
      MAPS_SHOP_VEHICLES_600X450_CH12_111_1_2_3,
+     MAPS_SHOP_VEHICLES_600X450_CH12_111_1_2_3_FL,
      MAPS_SHOP_VEHICLES_600X450_CH14_T34_3,
      MAPS_SHOP_VEHICLES_600X450_CH15_59_16,
      MAPS_SHOP_VEHICLES_600X450_CH16_WZ_131,
@@ -4216,6 +4387,10 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_CZ13_T_27,
      MAPS_SHOP_VEHICLES_600X450_CZ14_SKODA_T_56,
      MAPS_SHOP_VEHICLES_600X450_CZ15_SKODA_T_45_PREM,
+     MAPS_SHOP_VEHICLES_600X450_CZ16_TNH_T_VZ51,
+     MAPS_SHOP_VEHICLES_600X450_CZ17_VZ_55,
+     MAPS_SHOP_VEHICLES_600X450_CZ18_TNH_105_1000,
+     MAPS_SHOP_VEHICLES_600X450_CZ19_VZ_44_1,
      MAPS_SHOP_VEHICLES_600X450_EMPTY_TANK,
      MAPS_SHOP_VEHICLES_600X450_F01_RENAULTFT,
      MAPS_SHOP_VEHICLES_600X450_F02_D1,
@@ -4253,6 +4428,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_F21_LORRAINE39_L_AM,
      MAPS_SHOP_VEHICLES_600X450_F22_AMX_105AM,
      MAPS_SHOP_VEHICLES_600X450_F23_AMX_13F3AM,
+     MAPS_SHOP_VEHICLES_600X450_F23_AMX_13F3AM_MAPSTRAINING_DUMMY_SPG_2,
      MAPS_SHOP_VEHICLES_600X450_F24_LORRAINE155_50,
      MAPS_SHOP_VEHICLES_600X450_F25_LORRAINE155_51,
      MAPS_SHOP_VEHICLES_600X450_F27_FCM_36PAK40,
@@ -4292,6 +4468,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_F81_CHAR_DE_65T,
      MAPS_SHOP_VEHICLES_600X450_F82_AMX_M4_MLE1949_TER,
      MAPS_SHOP_VEHICLES_600X450_F83_AMX_M4_MLE1949_BIS,
+     MAPS_SHOP_VEHICLES_600X450_F83_AMX_M4_MLE1949_BIS_FL,
      MAPS_SHOP_VEHICLES_600X450_F84_SOMUA_SM,
      MAPS_SHOP_VEHICLES_600X450_F85_M4A1_FL10,
      MAPS_SHOP_VEHICLES_600X450_F87_BATIGNOLLES_CHATILLON_12T,
@@ -4303,11 +4480,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_G03_PZV_PANTHER,
      MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_I,
      MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_IA,
+     MAPS_SHOP_VEHICLES_600X450_G04_PZVI_TIGER_I_MAPSTRAINING_PLAYER_HT_2,
      MAPS_SHOP_VEHICLES_600X450_G05_STUG_40_AUSFG,
      MAPS_SHOP_VEHICLES_600X450_G06_PZII,
      MAPS_SHOP_VEHICLES_600X450_G07_PZ35T,
      MAPS_SHOP_VEHICLES_600X450_G08_PZ38T,
      MAPS_SHOP_VEHICLES_600X450_G09_HETZER,
+     MAPS_SHOP_VEHICLES_600X450_G09_HETZER_MAPSTRAINING_DUMMY_ATSPG_1,
      MAPS_SHOP_VEHICLES_600X450_G100_GTRAKTOR_KRUPP,
      MAPS_SHOP_VEHICLES_600X450_G101_STUG_III,
      MAPS_SHOP_VEHICLES_600X450_G102_PZ_III,
@@ -4357,6 +4536,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_G147_KUNZE_PANZER,
      MAPS_SHOP_VEHICLES_600X450_G151_PZ_SFL_IC,
      MAPS_SHOP_VEHICLES_600X450_G154_KPZ_07_RH,
+     MAPS_SHOP_VEHICLES_600X450_G158_VK2801_105_SPXXI,
      MAPS_SHOP_VEHICLES_600X450_G15_VK3601H,
      MAPS_SHOP_VEHICLES_600X450_G16_PZVIB_TIGER_II,
      MAPS_SHOP_VEHICLES_600X450_G16_PZVIB_TIGER_II_F,
@@ -4382,13 +4562,16 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_G35_B_1BIS_CAPTURED,
      MAPS_SHOP_VEHICLES_600X450_G36_PZII_J,
      MAPS_SHOP_VEHICLES_600X450_G37_FERDINAND,
+     MAPS_SHOP_VEHICLES_600X450_G37_FERDINAND_FL,
      MAPS_SHOP_VEHICLES_600X450_G39_MARDER_III,
      MAPS_SHOP_VEHICLES_600X450_G40_NASHORN,
+     MAPS_SHOP_VEHICLES_600X450_G40_NASHORN_MAPSTRAINING_DUMMY_ATSPG_2,
      MAPS_SHOP_VEHICLES_600X450_G41_DICKERMAX,
      MAPS_SHOP_VEHICLES_600X450_G42_MAUS,
      MAPS_SHOP_VEHICLES_600X450_G43_STURER_EMIL,
      MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGER,
      MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGERH,
+     MAPS_SHOP_VEHICLES_600X450_G44_JAGDTIGER_FL,
      MAPS_SHOP_VEHICLES_600X450_G45_G_TIGER,
      MAPS_SHOP_VEHICLES_600X450_G46_T_25,
      MAPS_SHOP_VEHICLES_600X450_G48_E_25,
@@ -4399,6 +4582,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_G52_PZ38_NA,
      MAPS_SHOP_VEHICLES_600X450_G53_PZI,
      MAPS_SHOP_VEHICLES_600X450_G54_E_50,
+     MAPS_SHOP_VEHICLES_600X450_G54_E_50_FL,
      MAPS_SHOP_VEHICLES_600X450_G55_E_75,
      MAPS_SHOP_VEHICLES_600X450_G56_E_100,
      MAPS_SHOP_VEHICLES_600X450_G57_PZVI_TIGER_P,
@@ -4430,6 +4614,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_G89_LEOPARD1,
      MAPS_SHOP_VEHICLES_600X450_G89_LEOPARD1_BOB,
      MAPS_SHOP_VEHICLES_600X450_G90_DW_II,
+     MAPS_SHOP_VEHICLES_600X450_G90_DW_II_MAPSTRAINING_DUMMY_HT_1,
      MAPS_SHOP_VEHICLES_600X450_G91_PRO_AG_A,
      MAPS_SHOP_VEHICLES_600X450_G92_VK7201,
      MAPS_SHOP_VEHICLES_600X450_G93_GW_MK_VIE,
@@ -4463,11 +4648,13 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_GB111_CHARLEMAGNE,
      MAPS_SHOP_VEHICLES_600X450_GB11_CAERNARVON,
      MAPS_SHOP_VEHICLES_600X450_GB12_CONQUEROR,
+     MAPS_SHOP_VEHICLES_600X450_GB12_CONQUEROR_FL,
      MAPS_SHOP_VEHICLES_600X450_GB13_FV215B,
      MAPS_SHOP_VEHICLES_600X450_GB14_M2,
      MAPS_SHOP_VEHICLES_600X450_GB15_STUART_I,
      MAPS_SHOP_VEHICLES_600X450_GB17_GRANT_I,
      MAPS_SHOP_VEHICLES_600X450_GB19_SHERMAN_FIREFLY,
+     MAPS_SHOP_VEHICLES_600X450_GB19_SHERMAN_FIREFLY_MAPSTRAINING_DUMMY_MT_2,
      MAPS_SHOP_VEHICLES_600X450_GB20_CRUSADER,
      MAPS_SHOP_VEHICLES_600X450_GB21_CROMWELL,
      MAPS_SHOP_VEHICLES_600X450_GB22_COMET,
@@ -4563,6 +4750,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_J12_CHI_NU_KAI,
      MAPS_SHOP_VEHICLES_600X450_J13_STA_1,
      MAPS_SHOP_VEHICLES_600X450_J14_TYPE_61,
+     MAPS_SHOP_VEHICLES_600X450_J14_TYPE_61_FL,
      MAPS_SHOP_VEHICLES_600X450_J15_CHI_NI,
      MAPS_SHOP_VEHICLES_600X450_J16_ST_B1,
      MAPS_SHOP_VEHICLES_600X450_J18_STA_2_3,
@@ -4581,6 +4769,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_PL01_TKS_20MM,
      MAPS_SHOP_VEHICLES_600X450_PL03_PZV_POLAND,
      MAPS_SHOP_VEHICLES_600X450_PL05_50TP_TYSZKIEWICZA,
+     MAPS_SHOP_VEHICLES_600X450_PL05_50TP_TYSZKIEWICZA_FL,
      MAPS_SHOP_VEHICLES_600X450_PL06_10TP,
      MAPS_SHOP_VEHICLES_600X450_PL07_14TP,
      MAPS_SHOP_VEHICLES_600X450_PL08_50TP_PROTOTYP,
@@ -4603,6 +4792,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R02_SU_85,
      MAPS_SHOP_VEHICLES_600X450_R03_BT_7,
      MAPS_SHOP_VEHICLES_600X450_R04_T_34,
+     MAPS_SHOP_VEHICLES_600X450_R04_T_34_MAPSTRAINING_PLAYER_MT_1,
      MAPS_SHOP_VEHICLES_600X450_R06_T_28,
      MAPS_SHOP_VEHICLES_600X450_R07_T_34_85,
      MAPS_SHOP_VEHICLES_600X450_R08_BT_2,
@@ -4615,6 +4805,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R107_LTB,
      MAPS_SHOP_VEHICLES_600X450_R108_T34_85M,
      MAPS_SHOP_VEHICLES_600X450_R109_T54S,
+     MAPS_SHOP_VEHICLES_600X450_R109_T54S_FL,
      MAPS_SHOP_VEHICLES_600X450_R10_AT_1,
      MAPS_SHOP_VEHICLES_600X450_R110_OBJECT_260,
      MAPS_SHOP_VEHICLES_600X450_R111_ISU130,
@@ -4661,6 +4852,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R148_OBJECT_430_U,
      MAPS_SHOP_VEHICLES_600X450_R149_OBJECT_268_4,
      MAPS_SHOP_VEHICLES_600X450_R14_SU_5,
+     MAPS_SHOP_VEHICLES_600X450_R14_SU_5_MAPSTRAINING_DUMMY_SPG_1,
      MAPS_SHOP_VEHICLES_600X450_R151_OBJECT_257_2,
      MAPS_SHOP_VEHICLES_600X450_R152_KV2_W,
      MAPS_SHOP_VEHICLES_600X450_R153_OBJECT_705,
@@ -4689,12 +4881,14 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R17_SU_100,
      MAPS_SHOP_VEHICLES_600X450_R180_OBJECT_274_A,
      MAPS_SHOP_VEHICLES_600X450_R183_K_91_PT,
+     MAPS_SHOP_VEHICLES_600X450_R185_T_34_L_11_1941,
      MAPS_SHOP_VEHICLES_600X450_R18_SU_152,
      MAPS_SHOP_VEHICLES_600X450_R19_IS_3,
      MAPS_SHOP_VEHICLES_600X450_R20_T_44,
      MAPS_SHOP_VEHICLES_600X450_R20_T_44_FL,
      MAPS_SHOP_VEHICLES_600X450_R22_T_46,
      MAPS_SHOP_VEHICLES_600X450_R23_T_43,
+     MAPS_SHOP_VEHICLES_600X450_R23_T_43_MAPSTRAINING_PLAYER_MT_2,
      MAPS_SHOP_VEHICLES_600X450_R24_SU_76,
      MAPS_SHOP_VEHICLES_600X450_R25_GAZ_74B,
      MAPS_SHOP_VEHICLES_600X450_R26_SU_8,
@@ -4707,10 +4901,12 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R38_KV_220_BETA,
      MAPS_SHOP_VEHICLES_600X450_R39_KV_3,
      MAPS_SHOP_VEHICLES_600X450_R40_T_54,
+     MAPS_SHOP_VEHICLES_600X450_R40_T_54_FL,
      MAPS_SHOP_VEHICLES_600X450_R41_T_50,
      MAPS_SHOP_VEHICLES_600X450_R42_T_60,
      MAPS_SHOP_VEHICLES_600X450_R43_T_70,
      MAPS_SHOP_VEHICLES_600X450_R44_T80,
+     MAPS_SHOP_VEHICLES_600X450_R44_T80_MAPSTRAINING_DUMMY_LT_1,
      MAPS_SHOP_VEHICLES_600X450_R45_IS_7,
      MAPS_SHOP_VEHICLES_600X450_R46_KV_13,
      MAPS_SHOP_VEHICLES_600X450_R46_KV_13_SH,
@@ -4735,6 +4931,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_R68_A_32,
      MAPS_SHOP_VEHICLES_600X450_R71_IS_2B,
      MAPS_SHOP_VEHICLES_600X450_R72_T150,
+     MAPS_SHOP_VEHICLES_600X450_R72_T150_MAPSTRAINING_DUMMY_HT_2,
      MAPS_SHOP_VEHICLES_600X450_R73_KV4,
      MAPS_SHOP_VEHICLES_600X450_R74_SU100M1,
      MAPS_SHOP_VEHICLES_600X450_R75_SU122_54,
@@ -4769,6 +4966,7 @@ class RES_SHOP(object):
      MAPS_SHOP_VEHICLES_600X450_S08_IKV_65_ALT_2,
      MAPS_SHOP_VEHICLES_600X450_S09_L_120_TD,
      MAPS_SHOP_VEHICLES_600X450_S10_STRV_103_0_SERIES,
+     MAPS_SHOP_VEHICLES_600X450_S10_STRV_103_0_SERIES_FL,
      MAPS_SHOP_VEHICLES_600X450_S11_STRV_103B,
      MAPS_SHOP_VEHICLES_600X450_S12_STRV_M40,
      MAPS_SHOP_VEHICLES_600X450_S13_LEO,

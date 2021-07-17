@@ -1,17 +1,17 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/impl/lobby/dialogs/full_screen_dialog_view.py
 import logging
-import typing
 from abc import abstractproperty
+import typing
 from PlayerEvents import g_playerEvents
 from async import AsyncScope, AsyncEvent, await, async, BrokenPromiseError, AsyncReturn
 from gui.impl.gen.view_models.common.format_resource_string_arg_model import FormatResourceStringArgModel
-from gui.shared.view_helpers.blur_manager import CachedBlur
 from gui.impl.gen.view_models.windows.full_screen_dialog_window_model import FullScreenDialogWindowModel
 from gui.impl.pub import ViewImpl
 from gui.impl.pub.dialog_window import DialogResult, DialogButtons, DialogFlags
 from gui.impl.pub.lobby_window import LobbyWindow
 from gui.shared.money import Currency
+from gui.shared.view_helpers.blur_manager import CachedBlur
 from helpers import dependency
 from skeletons.gui.impl import IGuiLoader
 from skeletons.gui.shared import IItemsCache
@@ -19,31 +19,15 @@ if typing.TYPE_CHECKING:
     from frameworks import wulf
 _logger = logging.getLogger(__name__)
 
-class DIALOG_TYPES(object):
-    INFO = 'info'
-    WARNING = 'warning'
-    ERROR = 'error'
-    SIMPLE = 'simple'
+class FullScreenDialogBaseView(ViewImpl):
+    __slots__ = ('__scope', '__event', '__result')
     BLUEPRINTS_CONVERSION = 'blueprintsConversion'
 
-
-class FullScreenDialogView(ViewImpl):
-    __slots__ = ('__scope', '__event', '__result', '_stats')
-    _itemsCache = dependency.descriptor(IItemsCache)
-
-    def __init__(self, settings):
-        super(FullScreenDialogView, self).__init__(settings)
+    def __init__(self, *args, **kwargs):
+        super(FullScreenDialogBaseView, self).__init__(*args, **kwargs)
         self.__scope = AsyncScope()
         self.__event = AsyncEvent(scope=self.__scope)
         self.__result = DialogButtons.CANCEL
-        self._stats = self._itemsCache.items.stats
-
-    @abstractproperty
-    def viewModel(self):
-        pass
-
-    def _getAdditionalData(self):
-        return None
 
     @async
     def wait(self):
@@ -53,6 +37,30 @@ class FullScreenDialogView(ViewImpl):
             _logger.debug('%s has been destroyed without user decision', self)
 
         raise AsyncReturn(DialogResult(self.__result, self._getAdditionalData()))
+
+    def _getAdditionalData(self):
+        return None
+
+    def _finalize(self):
+        super(FullScreenDialogBaseView, self)._finalize()
+        self.__scope.destroy()
+
+    def _setResult(self, result):
+        self.__result = result
+        self.__event.set()
+
+
+class FullScreenDialogView(FullScreenDialogBaseView):
+    __slots__ = ('_stats',)
+    _itemsCache = dependency.descriptor(IItemsCache)
+
+    def __init__(self, settings):
+        super(FullScreenDialogView, self).__init__(settings)
+        self._stats = self._itemsCache.items.stats
+
+    @abstractproperty
+    def viewModel(self):
+        pass
 
     def _initialize(self):
         super(FullScreenDialogView, self)._initialize()
@@ -70,13 +78,9 @@ class FullScreenDialogView(ViewImpl):
         with self.viewModel.transaction() as model:
             self._setBaseParams(model)
 
-    def _onLoaded(self, *args, **kwargs):
-        super(FullScreenDialogView, self)._onLoaded()
-
     def _finalize(self):
         super(FullScreenDialogView, self)._finalize()
         self._removeListeners()
-        self.__scope.destroy()
 
     def _addListeners(self):
         self.viewModel.onAcceptClicked += self._onAcceptClicked
@@ -96,15 +100,13 @@ class FullScreenDialogView(ViewImpl):
         self._onAccept()
 
     def _onAccept(self):
-        self.__result = DialogButtons.SUBMIT
-        self.__event.set()
+        self._setResult(DialogButtons.SUBMIT)
 
     def _onCancelClicked(self):
         self._onCancel()
 
     def _onCancel(self):
-        self.__result = DialogButtons.CANCEL
-        self.__event.set()
+        self._setResult(DialogButtons.CANCEL)
 
     def _onExitClicked(self):
         self._onCancel()
@@ -126,21 +128,23 @@ class FullScreenDialogView(ViewImpl):
 
 
 class FullScreenDialogWindowWrapper(LobbyWindow):
-    __slots__ = ('__wrappedView', '__blur')
+    __slots__ = ('_wrappedView', '_blur', '_doBlur')
     __gui = dependency.descriptor(IGuiLoader)
 
-    def __init__(self, wrappedView, parent=None):
-        super(FullScreenDialogWindowWrapper, self).__init__(DialogFlags.TOP_FULLSCREEN_WINDOW, None, content=wrappedView, parent=parent)
-        self.__wrappedView = wrappedView
-        self.__blur = None
+    def __init__(self, wrappedView, parent=None, doBlur=True):
+        super(FullScreenDialogWindowWrapper, self).__init__(DialogFlags.TOP_FULLSCREEN_WINDOW, content=wrappedView, parent=parent)
+        self._wrappedView = wrappedView
+        self._blur = None
+        self._doBlur = doBlur
         return
 
     def _initialize(self):
         super(FullScreenDialogWindowWrapper, self)._initialize()
-        self.__blur = CachedBlur(enabled=True, ownLayer=self.layer - 1)
+        if self._doBlur:
+            self._blur = CachedBlur(enabled=True, ownLayer=self.layer - 1)
 
     def wait(self):
-        return self.__wrappedView.wait()
+        return self._wrappedView.wait()
 
     @classmethod
     def createIfNotExist(cls, layoutID, wrappedViewClass, parent=None, *args, **kwargs):
@@ -148,5 +152,6 @@ class FullScreenDialogWindowWrapper(LobbyWindow):
         return FullScreenDialogWindowWrapper(wrappedViewClass(*args, **kwargs), parent) if currentView is None else None
 
     def _finalize(self):
-        self.__blur.fini()
+        if self._blur:
+            self._blur.fini()
         super(FullScreenDialogWindowWrapper, self)._finalize()

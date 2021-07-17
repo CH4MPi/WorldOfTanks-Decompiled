@@ -42,7 +42,6 @@ def makeCrewSkinCompensationMessage(comp):
 
 class Processor(object):
     itemsCache = dependency.descriptor(IItemsCache)
-    IS_GAMEFACE_SUPPORTED = False
     PLUGIN_RES_CODE = -33
 
     def __init__(self, plugins=None):

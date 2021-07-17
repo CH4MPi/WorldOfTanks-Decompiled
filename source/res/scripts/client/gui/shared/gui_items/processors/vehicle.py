@@ -862,11 +862,11 @@ class InstallBattleAbilitiesProcessor(Processor):
         return BattleAbilitiesApplyProcessorMessage().makeErrorMsg(errStr)
 
     def __getCurrentSkills(self):
-        skillToAbilitiesIds = {skillID:[ sl.eqID for sl in skillLevels ] for skillID, skillLevels in self.__epicMetaGameCtrl.getAllUnlockedSkillLevelsBySkillId().iteritems()}
+        skillToAbilitiesIds = {skillID:skillInfo.eqID for skillID, skillInfo in self.__epicMetaGameCtrl.getAllUnlockedSkillInfoBySkillId().iteritems()}
         currentSkills = [-1] * self.__epicMetaGameCtrl.getNumAbilitySlots(self.__vehicle.descriptor.type)
         for slotIdx, item in enumerate(self.__vehicle.battleAbilities.layout):
-            for skillID, battleAbilitiesIDs in skillToAbilitiesIds.iteritems():
-                if item != EMPTY_ITEM and item.innationID in battleAbilitiesIDs:
+            for skillID, battleAbilitiesID in skillToAbilitiesIds.iteritems():
+                if item != EMPTY_ITEM and item.innationID == battleAbilitiesID:
                     currentSkills[slotIdx] = skillID
 
         return currentSkills

@@ -3,6 +3,7 @@
 import BigWorld
 import Math
 import AnimationSequence
+from gui.battle_control import avatar_getter
 from helpers import dependency
 from battleground.component_loading import loadComponentSystem, Loader, CompositeLoaderMixin
 from battleground.components import TerrainAreaGameObject, EffectPlayerObject, SequenceObject, SmartSequenceObject
@@ -20,20 +21,21 @@ def _getEffectResourceMapping(name):
 
 @dependency.replace_none_kwargs(dynamicObjectsCache=IBattleDynamicObjectsCache, battleSession=IBattleSessionProvider)
 def loadMines(ownerVehicleID, callback, dynamicObjectsCache=None, battleSession=None):
-    gameObject = MinesObject()
     loaders = {}
     effDescr = dynamicObjectsCache.getConfig(battleSession.arenaVisitor.getArenaGuiType()).getMinesEffect()
     isAlly = False
+    playerTeam = avatar_getter.getPlayerTeam()
     ownerVehicleInfo = battleSession.getArenaDP().getVehicleInfo(ownerVehicleID)
     if ownerVehicleInfo is not None:
-        isAlly = battleSession.getArenaDP().isAllyTeam(ownerVehicleInfo.team)
+        isAlly = playerTeam == ownerVehicleInfo.team
     idleEff = effDescr.idleEffect.ally if isAlly else effDescr.idleEffect.enemy
+    gameObject = MinesObject(isAlly)
     gameObject.prepareCompositeLoader(callback)
     spaceId = BigWorld.player().spaceID
     loadComponentSystem(gameObject.startEffectPlayer, gameObject.appendPiece, _getSequenceResourceMapping(effDescr.plantEffect.effectDescr.path, spaceId))
     loadComponentSystem(gameObject.destroyEffectPlayer, gameObject.appendPiece, _getSequenceResourceMapping(effDescr.destroyEffect.effectDescr.path, spaceId))
     loadComponentSystem(gameObject.idleEffectPlayer, gameObject.appendPiece, _getSequenceResourceMapping(idleEff.path, spaceId))
-    loadComponentSystem(gameObject.blowUpEffectPlayer, gameObject.appendPiece, _getEffectResourceMapping('minesBlowUpEffect'))
+    loadComponentSystem(gameObject.blowUpEffectPlayer, gameObject.appendPiece, _getEffectResourceMapping(effDescr.blowUpEffectName))
     loadComponentSystem(gameObject.decalEffectPlayer, gameObject.appendPiece, _getEffectResourceMapping('minesDecalEffect'))
     loadComponentSystem(gameObject, gameObject.appendPiece, loaders)
     return gameObject
@@ -41,9 +43,11 @@ def loadMines(ownerVehicleID, callback, dynamicObjectsCache=None, battleSession=
 
 class MinesObject(TerrainAreaGameObject, CompositeLoaderMixin):
 
-    def __init__(self):
+    def __init__(self, isAllyMine):
         super(MinesObject, self).__init__(BigWorld.player().spaceID)
         self.__position = Math.Vector3()
+        self.__isAllyMine = isAllyMine
+        self.__isEnemyMarkerEnabled = False
         self.startEffectPlayer = SmartSequenceObject()
         self.idleEffectPlayer = SequenceObject()
         self.destroyEffectPlayer = SmartSequenceObject()
@@ -59,13 +63,17 @@ class MinesObject(TerrainAreaGameObject, CompositeLoaderMixin):
         super(MinesObject, self).setPosition(position)
         self.__position = position
 
+    def setIsEnemyMarkerEnabled(self, value):
+        self.__isEnemyMarkerEnabled = value
+
     def activate(self):
         super(MinesObject, self).activate()
         for child in self.__children:
             child.activate()
 
         self.startEffectPlayer.bindAndStart(self.__position, self._nativeSystem.spaceID)
-        self.idleEffectPlayer.bindAndStart(self.__position)
+        if self.__isAllyMine or self.__isEnemyMarkerEnabled:
+            self.idleEffectPlayer.bindAndStart(self.__position)
         self.decalEffectPlayer.start(self.__position)
 
     def deactivate(self):
@@ -79,6 +87,16 @@ class MinesObject(TerrainAreaGameObject, CompositeLoaderMixin):
 
     def detonate(self):
         self.blowUpEffectPlayer.start(self.__position)
+
+    def enableEnemyIdleEffect(self, isEnabled):
+        if self.__isAllyMine:
+            return
+        if isEnabled == self.__isEnemyMarkerEnabled:
+            return
+        if isEnabled:
+            self.idleEffectPlayer.bindAndStart(self.__position)
+        else:
+            self.idleEffectPlayer.stop()
 
     def _piecesNum(self):
         return len(self.__children) + 1

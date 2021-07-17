@@ -957,9 +957,6 @@
         <camouflage>	HULL	</camouflage>
       </customizableVehicleAreas>
     </customization>
-    <turretPitches>
-      <turret>	0.000000	</turret>
-    </turretPitches>
     <camouflage>
       <density>	99.6323 100.878	</density>
       <aoTextureSize>	1024 1024	</aoTextureSize>

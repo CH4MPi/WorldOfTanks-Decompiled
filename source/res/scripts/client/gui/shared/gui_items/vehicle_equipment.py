@@ -135,7 +135,7 @@ class _EquipmentCollector(object):
     def __init__(self, vehDescr, proxy, invData=None):
         super(_EquipmentCollector, self).__init__()
         self._proxy = proxy
-        supplySlots = self.__getSupplySlots(vehDescr)
+        supplySlots = self._getSupplySlots(vehDescr)
         self.__slots = self._readSlots(supplySlots)
         capacity = self._getCapacity(vehDescr)
         items, itemsLayout = self._parse(vehDescr, capacity, invData)
@@ -191,7 +191,7 @@ class _EquipmentCollector(object):
         return [ slot for slot in supplySlots if slot.itemType == self._itemType() ]
 
     @staticmethod
-    def __getSupplySlots(vehDescr):
+    def _getSupplySlots(vehDescr):
         slotIDs = vehDescr.type.supplySlots.slotIDs
         slotDescrs = vehicles.g_cache.supplySlots().slotDescrs
         return [ slotDescrs[slotID] for slotID in slotIDs ]
@@ -293,6 +293,10 @@ class _BattleAbilitiesCollector(_ExpendableCollector):
     def _parse(self, vehDescr, capacity, invData):
         empty = capacity * [EMPTY_ITEM]
         return (empty, empty)
+
+    @staticmethod
+    def _getSupplySlots(vehDescr):
+        return vehicles.g_cache.supplySlots().slotDescrs.values()
 
 
 class _ShellsEquipment(_Equipment):

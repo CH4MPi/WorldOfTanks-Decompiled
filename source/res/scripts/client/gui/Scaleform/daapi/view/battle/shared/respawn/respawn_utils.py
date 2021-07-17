@@ -1,10 +1,11 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/battle/shared/respawn/respawn_utils.py
-from gui.shared.gui_items.Vehicle import VEHICLE_TAGS
 import BigWorld
-from helpers import i18n
-from helpers import time_utils
 from gui import makeHtmlString
+from gui.impl import backport
+from gui.impl.gen import R
+from gui.shared.gui_items.Vehicle import VEHICLE_TAGS
+from helpers import time_utils
 FLAG_ICON_TEMPLATE = '../maps/icons/battle/respawn/optimize_flags_160x100/%s.png'
 VEHICLE_TYPE_TEMPLATE = '../maps/icons/vehicleTypes/%s.png'
 VEHICLE_FORMAT = makeHtmlString('html_templates:igr/premium-vehicle', 'name', {})
@@ -30,11 +31,11 @@ def getSlotsStatesData(vehsList, cooldowns, disabled, limits={}):
         if not enabled:
             if cooldown > 0:
                 if disabled:
-                    cooldownStr = i18n.makeString('#ingame_gui:respawnView/disabledLbl')
+                    cooldownStr = backport.text(R.strings.ingame_gui.respawnView.disabledLbl())
                 else:
-                    cooldownStr = i18n.makeString('#ingame_gui:respawnView/cooldownLbl', time=time_utils.getTimeLeftFormat(cooldown))
+                    cooldownStr = backport.text(R.strings.ingame_gui.respawnView.cooldownLbl(), time=time_utils.getTimeLeftFormat(cooldown))
             else:
-                cooldownStr = i18n.makeString('#ingame_gui:respawnView/classNotAvailable')
+                cooldownStr = backport.text(R.strings.ingame_gui.respawnView.classNotAvailable())
         result.append({'vehicleID': compactDescr,
          'enabled': enabled,
          'cooldown': cooldownStr,

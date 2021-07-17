@@ -149,6 +149,6 @@ class AmmunitionPanel(AmmunitionPanelMeta, IGlobalListener):
         msg = ''
         hasRole = g_currentVehicle.item.role != ROLE_TYPE.NOT_DEFINED
         if hasRole:
-            actionsGroupLabel = g_currentVehicle.item.actionsGroupLabel
-            msg = text_styles.concatStylesToSingleLine(getRoleIcon(actionsGroupLabel), ' ', backport.text(R.strings.menu.roleExp.roleName.dyn(actionsGroupLabel)(), groupName=backport.text(R.strings.menu.roleExp.roleGroupName.dyn(actionsGroupLabel)())))
+            roleLabel = g_currentVehicle.item.roleLabel
+            msg = text_styles.concatStylesToSingleLine(getRoleIcon(roleLabel), ' ', backport.text(R.strings.menu.roleExp.roleName.dyn(roleLabel)(), groupName=backport.text(R.strings.menu.roleExp.roleGroupName.dyn(roleLabel)())))
         return makeHtmlString('html_templates:vehicleStatus', Vehicle.VEHICLE_STATE_LEVEL.ROLE, {'message': msg}) if hasRole else ''

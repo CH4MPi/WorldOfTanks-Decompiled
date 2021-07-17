@@ -636,7 +636,7 @@ class ActionTooltipData(ToolTipBaseData):
     def __init__(self, context):
         super(ActionTooltipData, self).__init__(context, TOOLTIP_TYPE.CONTROL)
 
-    def getDisplayableData(self, itemType, key, newPrice, oldPrice, isBuying, forCredits=False, rentPackage=None):
+    def getDisplayableData(self, itemType, key, newPrice, oldPrice, isBuying, forCredits=False, rentPackage=None, checkAllCurrencies=False):
         descr = ''
         hasRentCompensation = False
         hasPersonalDiscount = False
@@ -683,7 +683,7 @@ class ActionTooltipData(ToolTipBaseData):
         elif itemType == ACTION_TOOLTIPS_TYPE.ECONOMICS:
             itemName = key
         template = 'html_templates:lobby/quests/actions'
-        formatedOldPrice, formatedNewPrice = formatActionPrices(oldPrice, newPrice, isBuying)
+        formatedOldPrice, formatedNewPrice = formatActionPrices(oldPrice, newPrice, isBuying, checkAllCurrencies)
         body = i18n.makeString(TOOLTIPS.ACTIONPRICE_BODY, oldPrice=formatedOldPrice, newPrice=formatedNewPrice)
         actionUserName = ''
         if itemName:
@@ -1216,7 +1216,7 @@ class HeaderMoneyAndXpTooltipData(BlocksTooltipData):
         self._btnType = None
         return
 
-    def _packBlocks(self, btnType=None, *args, **kwargs):
+    def _packBlocks(self, btnType=None, hideActionBlock=False, *args, **kwargs):
         tooltipBlocks = super(HeaderMoneyAndXpTooltipData, self)._packBlocks(*args, **kwargs)
         self._btnType = btnType
         if self._btnType is None:
@@ -1224,7 +1224,7 @@ class HeaderMoneyAndXpTooltipData(BlocksTooltipData):
             return tooltipBlocks
         else:
             valueBlock = formatters.packMoneyAndXpValueBlock(value=self._getValue(), icon=self._getIcon(), iconYoffset=self._getIconYOffset())
-            return formatters.packMoneyAndXpBlocks(tooltipBlocks, btnType=self._btnType, valueBlocks=[valueBlock])
+            return formatters.packMoneyAndXpBlocks(tooltipBlocks, btnType=self._btnType, valueBlocks=[valueBlock], hideActionBlock=hideActionBlock)
 
     def _getValue(self):
         valueStr = '0'

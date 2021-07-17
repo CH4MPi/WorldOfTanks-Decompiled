@@ -260,7 +260,7 @@ class TurretParams(WeightedParam):
 
     @property
     def armor(self):
-        return self._itemDescr.primaryArmor
+        return tuple((round(armor) for armor in self._itemDescr.primaryArmor))
 
     @property
     def rotationSpeed(self):

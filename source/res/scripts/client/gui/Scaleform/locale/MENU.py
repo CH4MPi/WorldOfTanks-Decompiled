@@ -162,6 +162,8 @@ class MENU(object):
     LOADING_BATTLETYPES_DESC_23 = '#menu:loading/battleTypes/desc/23'
     LOADING_BATTLETYPES_24 = '#menu:loading/battleTypes/24'
     LOADING_BATTLETYPES_DESC_24 = '#menu:loading/battleTypes/desc/24'
+    LOADING_BATTLETYPES_25 = '#menu:loading/battleTypes/25'
+    LOADING_BATTLETYPES_DESC_25 = '#menu:loading/battleTypes/desc/25'
     LOADING_TEAM1 = '#menu:loading/team1'
     LOADING_TEAM2 = '#menu:loading/team2'
     LOADING_TEAMS_ALLIES = '#menu:loading/teams/allies'
@@ -269,6 +271,7 @@ class MENU(object):
     TANKCAROUSEL_VEHICLESTATES_EXPLODED = '#menu:tankCarousel/vehicleStates/exploded'
     TANKCAROUSEL_VEHICLESTATES_NOTPRESENT = '#menu:tankCarousel/vehicleStates/notpresent'
     TANKCAROUSEL_VEHICLESTATES_UNDAMAGED = '#menu:tankCarousel/vehicleStates/undamaged'
+    TANKCAROUSEL_VEHICLESTATES_WILLBEUNLOCKEDINBATTLE = '#menu:tankCarousel/vehicleStates/willBeUnlockedInBattle'
     TANKCAROUSEL_VEHICLESTATES_SERVERRESTRICTION = '#menu:tankCarousel/vehicleStates/serverRestriction'
     TANKCAROUSEL_VEHICLESTATES_CREWNOTFULL = '#menu:tankCarousel/vehicleStates/crewNotFull'
     TANKCAROUSEL_VEHICLESTATES_GROUP_IS_NOT_READY = '#menu:tankCarousel/vehicleStates/group_is_not_ready'
@@ -313,6 +316,7 @@ class MENU(object):
     STORE_VEHICLESTATES_RENTED_EPIC = '#menu:store/vehicleStates/rented/epic'
     STORE_VEHICLESTATES_RENTABLE = '#menu:store/vehicleStates/rentable'
     STORE_VEHICLESTATES_DISABLED = '#menu:store/vehicleStates/disabled'
+    STORE_VEHICLESTATES_WILLBEUNLOCKEDINBATTLE = '#menu:store/vehicleStates/willBeUnlockedInBattle'
     STORE_VEHICLESTATES_RENTABLE_EPIC = '#menu:store/vehicleStates/rentable/epic'
     STORE_VEHICLESTATES_RENTABLE_RANKED = '#menu:store/vehicleStates/rentable/ranked'
     STORE_VEHICLESTATES_RENTABLEAGAIN = '#menu:store/vehicleStates/rentableAgain'
@@ -372,6 +376,7 @@ class MENU(object):
     CURRENTVEHICLESTATUS_UNSUITABLETOUNIT = '#menu:currentVehicleStatus/unsuitableToUnit'
     CURRENTVEHICLESTATUS_ROTATIONGROUPUNLOCKED = '#menu:currentVehicleStatus/rotationGroupUnlocked'
     CURRENTVEHICLESTATUS_ROTATIONGROUPLOCKED = '#menu:currentVehicleStatus/rotationGroupLocked'
+    CURRENTVEHICLESTATUS_WILLBEUNLOCKEDINBATTLE = '#menu:currentVehicleStatus/willBeUnlockedInBattle'
     REPAIR_REPAIRSTATUS = '#menu:repair/repairstatus'
     REPAIR_CURIENCY = '#menu:repair/curiency'
     REPAIR_BUTTON = '#menu:repair/button'
@@ -678,6 +683,7 @@ class MENU(object):
     HEADERBUTTONS_BATTLE_TYPES_TRAININGLEAVEOWNER = '#menu:headerButtons/battle/types/trainingLeaveOwner'
     HEADERBUTTONS_BATTLE_TYPES_TRAININGLEAVE = '#menu:headerButtons/battle/types/trainingLeave'
     HEADERBUTTONS_BATTLE_TYPES_BATTLETEACHING = '#menu:headerButtons/battle/types/battleTeaching'
+    HEADERBUTTONS_BATTLE_TYPES_MAPSTRAINING = '#menu:headerButtons/battle/types/mapsTraining'
     HEADERBUTTONS_BATTLE_TYPES_SPEC = '#menu:headerButtons/battle/types/spec'
     HEADERBUTTONS_BATTLE_TYPES_SPEC_DESCR = '#menu:headerButtons/battle/types/spec/descr'
     HEADERBUTTONS_BATTLE_TYPES_LEAVESPEC_DESCR = '#menu:headerButtons/battle/types/leaveSpec/descr'
@@ -745,11 +751,15 @@ class MENU(object):
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDVEHLEVEL_HEADER = '#menu:headerButtons/fightBtn/tooltip/rankedVehLevel/header'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDVEHLEVEL_BODY = '#menu:headerButtons/fightBtn/tooltip/rankedVehLevel/body'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDVEHLEVEL_LEVELSUBSTR = '#menu:headerButtons/fightBtn/tooltip/rankedVehLevel/levelSubStr'
-    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICLEVELREQUIRED_HEADER = '#menu:headerButtons/fightBtn/tooltip/epicLevelRequired/header'
-    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICLEVELREQUIRED_BODYSTART = '#menu:headerButtons/fightBtn/tooltip/epicLevelRequired/bodyStart'
-    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICLEVELREQUIRED_BODYEND = '#menu:headerButtons/fightBtn/tooltip/epicLevelRequired/bodyEnd'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLEVEHLEVEL_HEADER = '#menu:headerButtons/fightBtn/tooltip/epicBattleVehLevel/header'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLEVEHLEVEL_BODY = '#menu:headerButtons/fightBtn/tooltip/epicBattleVehLevel/body'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLEVEHLEVEL_REQUIREMENTS = '#menu:headerButtons/fightBtn/tooltip/epicBattleVehLevel/requirements'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLEONLY_HEADER = '#menu:headerButtons/fightBtn/tooltip/epicBattleOnly/header'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLEONLY_BODY = '#menu:headerButtons/fightBtn/tooltip/epicBattleOnly/body'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLESITUATIONALVEHICLE_HEADER = '#menu:headerButtons/fightBtn/tooltip/epicBattleSituationalVehicle/header'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLESITUATIONALVEHICLE_BODY = '#menu:headerButtons/fightBtn/tooltip/epicBattleSituationalVehicle/body'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLESITUATIONALVEHICLE_LEVELS_FORSTARTBATTLE = '#menu:headerButtons/fightBtn/tooltip/epicBattleSituationalVehicle/levels/forStartBattle'
+    HEADERBUTTONS_FIGHTBTN_TOOLTIP_EPICBATTLESITUATIONALVEHICLE_LEVELS_WILLBEUNLOCKED = '#menu:headerButtons/fightBtn/tooltip/epicBattleSituationalVehicle/levels/willBeUnlocked'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDDISABLED_HEADER = '#menu:headerButtons/fightBtn/tooltip/rankedDisabled/header'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDDISABLED_BODY = '#menu:headerButtons/fightBtn/tooltip/rankedDisabled/body'
     HEADERBUTTONS_FIGHTBTN_TOOLTIP_RANKEDNOTSET_HEADER = '#menu:headerButtons/fightBtn/tooltip/rankedNotSet/header'
@@ -1656,6 +1666,7 @@ class MENU(object):
     BONUSTYPE_27 = '#menu:bonusType/27'
     BONUSTYPE_29 = '#menu:bonusType/29'
     BONUSTYPE_37 = '#menu:bonusType/37'
+    BONUSTYPE_38 = '#menu:bonusType/38'
     FORTIFICATIONCTX_ASSIGNEDPLAYERS = '#menu:fortificationCtx/assignedPlayers'
     FORTIFICATIONCTX_PREPAREORDER = '#menu:fortificationCtx/prepareOrder'
     FORTIFICATIONCTX_CLANDESCRIPTION_OPENCLANCARD = '#menu:fortificationCtx/clanDescription/openClanCard'
@@ -1935,8 +1946,6 @@ class MENU(object):
     CONTEXTMENU_VIEWCLANPROFILE = '#menu:contextMenu/viewClanProfile'
     CONTEXTMENU_COPYCLANNAME = '#menu:contextMenu/copyClanName'
     INFINITYSYMBOL = '#menu:infinitySymbol'
-    HEADERBUTTONS_BATTLE_TYPES_EVENTPROGRESSION = '#menu:headerButtons/battle/types/eventProgression'
-    HEADERBUTTONS_BATTLE_TYPES_EVENTPROGRESSION_ABOUT = '#menu:headerButtons/battle/types/eventProgression/about'
     HEADERBUTTONS_BATTLE_TYPES_EPICBATTLE = '#menu:headerButtons/battle/types/epicBattle'
     HEADERBUTTONS_BATTLE_TYPES_EPICBATTLE_DESCR = '#menu:headerButtons/battle/types/epicBattle/descr'
     HEADERBUTTONS_BATTLE_TYPES_EPIC = '#menu:headerButtons/battle/types/epic'
@@ -2101,49 +2110,49 @@ class MENU(object):
     CRYSTALS_INFO_TAB_EARN_EVENTS_TITLE = '#menu:crystals/info/tab/earn/events/title'
     CRYSTALS_INFO_TAB_EARN_EVENTS_DESCRIPTION = '#menu:crystals/info/tab/earn/events/description'
     CRYSTALS_INFO_TAB_EARN_EVENTS_DESCRIPTIONCONTENT = '#menu:crystals/info/tab/earn/events/descriptionContent'
-    ROLEEXP_ROLENAME_ROLE_HT_TANK = '#menu:roleExp/roleName/role_HT_tank'
-    ROLEEXP_ROLEGROUPNAME_ROLE_HT_TANK = '#menu:roleExp/roleGroupName/role_HT_tank'
     ROLEEXP_ROLENAME_ROLE_HT_ASSAULT = '#menu:roleExp/roleName/role_HT_assault'
     ROLEEXP_ROLEGROUPNAME_ROLE_HT_ASSAULT = '#menu:roleExp/roleGroupName/role_HT_assault'
+    ROLEEXP_ROLENAME_ROLE_HT_BREAK = '#menu:roleExp/roleName/role_HT_break'
+    ROLEEXP_ROLEGROUPNAME_ROLE_HT_BREAK = '#menu:roleExp/roleGroupName/role_HT_break'
     ROLEEXP_ROLENAME_ROLE_HT_UNIVERSAL = '#menu:roleExp/roleName/role_HT_universal'
     ROLEEXP_ROLEGROUPNAME_ROLE_HT_UNIVERSAL = '#menu:roleExp/roleGroupName/role_HT_universal'
-    ROLEEXP_ROLENAME_ROLE_HT_FIRESUPPORT = '#menu:roleExp/roleName/role_HT_fireSupport'
-    ROLEEXP_ROLEGROUPNAME_ROLE_HT_FIRESUPPORT = '#menu:roleExp/roleGroupName/role_HT_fireSupport'
-    ROLEEXP_ROLENAME_ROLE_MT_TANK = '#menu:roleExp/roleName/role_MT_tank'
-    ROLEEXP_ROLEGROUPNAME_ROLE_MT_TANK = '#menu:roleExp/roleGroupName/role_MT_tank'
+    ROLEEXP_ROLENAME_ROLE_HT_SUPPORT = '#menu:roleExp/roleName/role_HT_support'
+    ROLEEXP_ROLEGROUPNAME_ROLE_HT_SUPPORT = '#menu:roleExp/roleGroupName/role_HT_support'
+    ROLEEXP_ROLENAME_ROLE_MT_ASSAULT = '#menu:roleExp/roleName/role_MT_assault'
+    ROLEEXP_ROLEGROUPNAME_ROLE_MT_ASSAULT = '#menu:roleExp/roleGroupName/role_MT_assault'
     ROLEEXP_ROLENAME_ROLE_MT_UNIVERSAL = '#menu:roleExp/roleName/role_MT_universal'
     ROLEEXP_ROLEGROUPNAME_ROLE_MT_UNIVERSAL = '#menu:roleExp/roleGroupName/role_MT_universal'
-    ROLEEXP_ROLENAME_ROLE_MT_FIRESUPPORT = '#menu:roleExp/roleName/role_MT_fireSupport'
-    ROLEEXP_ROLEGROUPNAME_ROLE_MT_FIRESUPPORT = '#menu:roleExp/roleGroupName/role_MT_fireSupport'
-    ROLEEXP_ROLENAME_ROLE_MT_ASSASSIN = '#menu:roleExp/roleName/role_MT_assassin'
-    ROLEEXP_ROLEGROUPNAME_ROLE_MT_ASSASSIN = '#menu:roleExp/roleGroupName/role_MT_assassin'
-    ROLEEXP_ROLENAME_ROLE_ATSPG_TANK = '#menu:roleExp/roleName/role_ATSPG_tank'
-    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_TANK = '#menu:roleExp/roleGroupName/role_ATSPG_tank'
+    ROLEEXP_ROLENAME_ROLE_MT_SNIPER = '#menu:roleExp/roleName/role_MT_sniper'
+    ROLEEXP_ROLEGROUPNAME_ROLE_MT_SNIPER = '#menu:roleExp/roleGroupName/role_MT_sniper'
+    ROLEEXP_ROLENAME_ROLE_MT_SUPPORT = '#menu:roleExp/roleName/role_MT_support'
+    ROLEEXP_ROLEGROUPNAME_ROLE_MT_SUPPORT = '#menu:roleExp/roleGroupName/role_MT_support'
+    ROLEEXP_ROLENAME_ROLE_ATSPG_ASSAULT = '#menu:roleExp/roleName/role_ATSPG_assault'
+    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_ASSAULT = '#menu:roleExp/roleGroupName/role_ATSPG_assault'
     ROLEEXP_ROLENAME_ROLE_ATSPG_UNIVERSAL = '#menu:roleExp/roleName/role_ATSPG_universal'
     ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_UNIVERSAL = '#menu:roleExp/roleGroupName/role_ATSPG_universal'
-    ROLEEXP_ROLENAME_ROLE_ATSPG_FIRESUPPORT = '#menu:roleExp/roleName/role_ATSPG_fireSupport'
-    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_FIRESUPPORT = '#menu:roleExp/roleGroupName/role_ATSPG_fireSupport'
-    ROLEEXP_ROLENAME_ROLE_ATSPG_BURSTDAMAGE = '#menu:roleExp/roleName/role_ATSPG_burstDamage'
-    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_BURSTDAMAGE = '#menu:roleExp/roleGroupName/role_ATSPG_burstDamage'
-    ROLEEXP_ROLENAME_ROLE_LT_TRACKED = '#menu:roleExp/roleName/role_LT_tracked'
-    ROLEEXP_ROLEGROUPNAME_ROLE_LT_TRACKED = '#menu:roleExp/roleGroupName/role_LT_tracked'
+    ROLEEXP_ROLENAME_ROLE_ATSPG_SNIPER = '#menu:roleExp/roleName/role_ATSPG_sniper'
+    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_SNIPER = '#menu:roleExp/roleGroupName/role_ATSPG_sniper'
+    ROLEEXP_ROLENAME_ROLE_ATSPG_SUPPORT = '#menu:roleExp/roleName/role_ATSPG_support'
+    ROLEEXP_ROLEGROUPNAME_ROLE_ATSPG_SUPPORT = '#menu:roleExp/roleGroupName/role_ATSPG_support'
+    ROLEEXP_ROLENAME_ROLE_LT_UNIVERSAL = '#menu:roleExp/roleName/role_LT_universal'
+    ROLEEXP_ROLEGROUPNAME_ROLE_LT_UNIVERSAL = '#menu:roleExp/roleGroupName/role_LT_universal'
     ROLEEXP_ROLENAME_ROLE_LT_WHEELED = '#menu:roleExp/roleName/role_LT_wheeled'
     ROLEEXP_ROLEGROUPNAME_ROLE_LT_WHEELED = '#menu:roleExp/roleGroupName/role_LT_wheeled'
     ROLEEXP_ROLENAME_ROLE_SPG = '#menu:roleExp/roleName/role_SPG'
     ROLEEXP_ROLEGROUPNAME_ROLE_SPG = '#menu:roleExp/roleGroupName/role_SPG'
-    ROLEEXP_ROLEDESCR_ROLE_HT_TANK = '#menu:roleExp/roleDescr/role_HT_tank'
     ROLEEXP_ROLEDESCR_ROLE_HT_ASSAULT = '#menu:roleExp/roleDescr/role_HT_assault'
+    ROLEEXP_ROLEDESCR_ROLE_HT_BREAK = '#menu:roleExp/roleDescr/role_HT_break'
     ROLEEXP_ROLEDESCR_ROLE_HT_UNIVERSAL = '#menu:roleExp/roleDescr/role_HT_universal'
-    ROLEEXP_ROLEDESCR_ROLE_HT_FIRESUPPORT = '#menu:roleExp/roleDescr/role_HT_fireSupport'
-    ROLEEXP_ROLEDESCR_ROLE_MT_TANK = '#menu:roleExp/roleDescr/role_MT_tank'
+    ROLEEXP_ROLEDESCR_ROLE_HT_SUPPORT = '#menu:roleExp/roleDescr/role_HT_support'
+    ROLEEXP_ROLEDESCR_ROLE_MT_ASSAULT = '#menu:roleExp/roleDescr/role_MT_assault'
     ROLEEXP_ROLEDESCR_ROLE_MT_UNIVERSAL = '#menu:roleExp/roleDescr/role_MT_universal'
-    ROLEEXP_ROLEDESCR_ROLE_MT_FIRESUPPORT = '#menu:roleExp/roleDescr/role_MT_fireSupport'
-    ROLEEXP_ROLEDESCR_ROLE_MT_ASSASSIN = '#menu:roleExp/roleDescr/role_MT_assassin'
-    ROLEEXP_ROLEDESCR_ROLE_ATSPG_TANK = '#menu:roleExp/roleDescr/role_ATSPG_tank'
+    ROLEEXP_ROLEDESCR_ROLE_MT_SNIPER = '#menu:roleExp/roleDescr/role_MT_sniper'
+    ROLEEXP_ROLEDESCR_ROLE_MT_SUPPORT = '#menu:roleExp/roleDescr/role_MT_support'
+    ROLEEXP_ROLEDESCR_ROLE_ATSPG_ASSAULT = '#menu:roleExp/roleDescr/role_ATSPG_assault'
     ROLEEXP_ROLEDESCR_ROLE_ATSPG_UNIVERSAL = '#menu:roleExp/roleDescr/role_ATSPG_universal'
-    ROLEEXP_ROLEDESCR_ROLE_ATSPG_FIRESUPPORT = '#menu:roleExp/roleDescr/role_ATSPG_fireSupport'
-    ROLEEXP_ROLEDESCR_ROLE_ATSPG_BURSTDAMAGE = '#menu:roleExp/roleDescr/role_ATSPG_burstDamage'
-    ROLEEXP_ROLEDESCR_ROLE_LT_TRACKED = '#menu:roleExp/roleDescr/role_LT_tracked'
+    ROLEEXP_ROLEDESCR_ROLE_ATSPG_SNIPER = '#menu:roleExp/roleDescr/role_ATSPG_sniper'
+    ROLEEXP_ROLEDESCR_ROLE_ATSPG_SUPPORT = '#menu:roleExp/roleDescr/role_ATSPG_support'
+    ROLEEXP_ROLEDESCR_ROLE_LT_UNIVERSAL = '#menu:roleExp/roleDescr/role_LT_universal'
     ROLEEXP_ROLEDESCR_ROLE_LT_WHEELED = '#menu:roleExp/roleDescr/role_LT_wheeled'
     ROLEEXP_ROLEDESCR_ROLE_SPG = '#menu:roleExp/roleDescr/role_SPG'
     ROLEEXP_ROLELABEL = '#menu:roleExp/roleLabel'
@@ -2306,6 +2315,7 @@ class MENU(object):
      TANKCAROUSEL_VEHICLESTATES_EXPLODED,
      TANKCAROUSEL_VEHICLESTATES_NOTPRESENT,
      TANKCAROUSEL_VEHICLESTATES_UNDAMAGED,
+     TANKCAROUSEL_VEHICLESTATES_WILLBEUNLOCKEDINBATTLE,
      TANKCAROUSEL_VEHICLESTATES_SERVERRESTRICTION,
      TANKCAROUSEL_VEHICLESTATES_CREWNOTFULL,
      TANKCAROUSEL_VEHICLESTATES_GROUP_IS_NOT_READY,
@@ -2412,17 +2422,6 @@ class MENU(object):
      DATETIME_MONTHS_SHORT_10,
      DATETIME_MONTHS_SHORT_11,
      DATETIME_MONTHS_SHORT_12)
-    MODULEINFO_COMPATIBLE_ENUM = (MODULEINFO_COMPATIBLE_TURRETS,
-     MODULEINFO_COMPATIBLE_SHELLS,
-     MODULEINFO_COMPATIBLE_GUNS,
-     MODULEINFO_COMPATIBLE_SHELLGUNS,
-     MODULEINFO_COMPATIBLE_VEHICLES,
-     MODULEINFO_COMPATIBLE_UNICHARGEDVEHICLES,
-     MODULEINFO_COMPATIBLE_CLIPVEHICLES)
-    DENUNCIATION_ENUM = (DENUNCIATION_1,
-     DENUNCIATION_2,
-     DENUNCIATION_3,
-     DENUNCIATION_7)
     LEVELS_ENUM = (LEVELS_1,
      LEVELS_2,
      LEVELS_3,
@@ -2454,6 +2453,17 @@ class MENU(object):
      LEVELS_ROMAN_8,
      LEVELS_ROMAN_9,
      LEVELS_ROMAN_10)
+    MODULEINFO_COMPATIBLE_ENUM = (MODULEINFO_COMPATIBLE_TURRETS,
+     MODULEINFO_COMPATIBLE_SHELLS,
+     MODULEINFO_COMPATIBLE_GUNS,
+     MODULEINFO_COMPATIBLE_SHELLGUNS,
+     MODULEINFO_COMPATIBLE_VEHICLES,
+     MODULEINFO_COMPATIBLE_UNICHARGEDVEHICLES,
+     MODULEINFO_COMPATIBLE_CLIPVEHICLES)
+    DENUNCIATION_ENUM = (DENUNCIATION_1,
+     DENUNCIATION_2,
+     DENUNCIATION_3,
+     DENUNCIATION_7)
     HEADER_LEVEL_ENUM = (HEADER_LEVEL_1,
      HEADER_LEVEL_2,
      HEADER_LEVEL_3,
@@ -2620,7 +2630,8 @@ class MENU(object):
      LOADING_BATTLETYPES_DESC_21,
      LOADING_BATTLETYPES_DESC_22,
      LOADING_BATTLETYPES_DESC_23,
-     LOADING_BATTLETYPES_DESC_24)
+     LOADING_BATTLETYPES_DESC_24,
+     LOADING_BATTLETYPES_DESC_25)
     LOADING_BATTLETYPES_ENUM = (LOADING_BATTLETYPES_0,
      LOADING_BATTLETYPES_DESC_0,
      LOADING_BATTLETYPES_1,
@@ -2666,7 +2677,9 @@ class MENU(object):
      LOADING_BATTLETYPES_23,
      LOADING_BATTLETYPES_DESC_23,
      LOADING_BATTLETYPES_24,
-     LOADING_BATTLETYPES_DESC_24)
+     LOADING_BATTLETYPES_DESC_24,
+     LOADING_BATTLETYPES_25,
+     LOADING_BATTLETYPES_DESC_25)
     CST_ITEM_CTX_MENU_ENUM = (CST_ITEM_CTX_MENU_BUY,
      CST_ITEM_CTX_MENU_EXCHANGE,
      CST_ITEM_CTX_MENU_PERSONALTRADEEXCHANGE,
@@ -2874,24 +2887,6 @@ class MENU(object):
             return outcome
 
     @classmethod
-    def moduleinfo_compatible(cls, key0):
-        outcome = '#menu:moduleInfo/compatible/{}'.format(key0)
-        if outcome not in cls.MODULEINFO_COMPATIBLE_ENUM:
-            LOG_WARNING('Localization key "{}" not found'.format(outcome))
-            return None
-        else:
-            return outcome
-
-    @classmethod
-    def denunciation(cls, key0):
-        outcome = '#menu:denunciation/{}'.format(key0)
-        if outcome not in cls.DENUNCIATION_ENUM:
-            LOG_WARNING('Localization key "{}" not found'.format(outcome))
-            return None
-        else:
-            return outcome
-
-    @classmethod
     def levels(cls, key0):
         outcome = '#menu:levels/{}'.format(key0)
         if outcome not in cls.LEVELS_ENUM:
@@ -2904,6 +2899,24 @@ class MENU(object):
     def levels_roman(cls, key0):
         outcome = '#menu:levels/roman/{}'.format(key0)
         if outcome not in cls.LEVELS_ROMAN_ENUM:
+            LOG_WARNING('Localization key "{}" not found'.format(outcome))
+            return None
+        else:
+            return outcome
+
+    @classmethod
+    def moduleinfo_compatible(cls, key0):
+        outcome = '#menu:moduleInfo/compatible/{}'.format(key0)
+        if outcome not in cls.MODULEINFO_COMPATIBLE_ENUM:
+            LOG_WARNING('Localization key "{}" not found'.format(outcome))
+            return None
+        else:
+            return outcome
+
+    @classmethod
+    def denunciation(cls, key0):
+        outcome = '#menu:denunciation/{}'.format(key0)
+        if outcome not in cls.DENUNCIATION_ENUM:
             LOG_WARNING('Localization key "{}" not found'.format(outcome))
             return None
         else:

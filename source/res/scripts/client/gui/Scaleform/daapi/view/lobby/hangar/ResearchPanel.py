@@ -1,6 +1,7 @@
 # Python bytecode 2.7 (decompiled from Python 2.7)
 # Embedded file name: scripts/client/gui/Scaleform/daapi/view/lobby/hangar/ResearchPanel.py
 from CurrentVehicle import g_currentVehicle
+from items.battle_royale import isBattleRoyale
 from constants import IGR_TYPE
 from debug_utils import LOG_ERROR
 from gui import makeHtmlString
@@ -52,7 +53,7 @@ class ResearchPanel(ResearchPanelMeta):
             LOG_ERROR('Current vehicle is not preset or navigation is disabled')
 
     def addVehToCompare(self):
-        if g_currentVehicle.isPresent():
+        if g_currentVehicle.isPresent() and not isBattleRoyale(g_currentVehicle.item.tags):
             vehCD = g_currentVehicle.item.intCD
             self.comparisonBasket.addVehicle(vehCD)
 
